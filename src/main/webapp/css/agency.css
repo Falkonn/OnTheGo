@@ -7,6 +7,7 @@
 body {
     overflow-x: hidden;
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: yellow
 }
 
 .text-muted {
@@ -197,6 +198,11 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #fff;
+}
+
+.navbar-toggle.navbar-left {
+  float: left;
+  margin-left: 10px;
 }
 
 .navbar-default .navbar-toggle:hover,
