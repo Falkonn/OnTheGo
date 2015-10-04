@@ -92,8 +92,18 @@
             <div class="row">
                 <div class="col-lg-12 text-center" ng-app="onTheGoApp" ng-controller="mailCtrl">
                   <h3 class="section-subheading text-muted">Fill in your e-mail to register.</h3>
-                  <input type="text" ng-model="email" name="mail" > </input>
-                </div>c
+                  <form name="mailForm" ng-submit="sendPost()">
+                  <input type="email" ng-model="email" name="email" required>
+                  <span style="color:red" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">
+                  <span ng-show="mailForm.email.$error.required">Email is required.</span>
+                  <span ng-show="mailForm.email.$error.email">Invalid email address.</span>
+                  </span>
+                  <p class="col-lg-12 text-center">
+                  <input type="submit"
+                  ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
+                  </p>
+                  </form>
+                </div>
             </div>
         </div>
     </section>
