@@ -22,7 +22,6 @@ public class UserCont {
     public static void main(String args[]) {
         UserInfo us = new UserInfo();
         System.out.println("Here we find all the users....." + us.findUserByEmail("sara.nilsson@alten.com"));
-        
     }
 
     @RequestMapping(
@@ -50,17 +49,17 @@ public class UserCont {
         UserInfo allusers = new UserInfo();
         return (Collection<User>) allusers.findAllUsers();
     }
-    
-      @RequestMapping(
+
+    @RequestMapping(
             value = "/userbyemail/{email}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<User> findUserByEmail(@PathVariable("email") String email) {
         UserInfo userbyemail = new UserInfo();
-        return (Collection<User>)userbyemail.findUserByEmail(email);
+        return (Collection<User>) userbyemail.findUserByEmail(email);
     }
-    
-     @RequestMapping(
+
+    @RequestMapping(
             value = "/userbyid/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,6 +68,3 @@ public class UserCont {
         return userbyid.findUserById(id);
     }
 }
-
-
-

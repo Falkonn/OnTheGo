@@ -11,7 +11,7 @@ productCatalogueService.factory('ProductCatalogueProxy', ['$http',
 
         return {
             getUsersList: function(userInfo) {
-                return $http.post(url, userInfo);
+                return $http.get(url, userInfo);
             }
         };
     }]);
