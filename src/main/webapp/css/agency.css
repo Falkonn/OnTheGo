@@ -6,11 +6,12 @@
 
 body {
     overflow-x: hidden;
-    font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #ffea00;
 }
 
 .text-muted {
-    color: #777;
+    color: #00abe8;
 }
 
 .text-primary {
@@ -54,6 +55,7 @@ h6 {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
+    color: #0093d0;
 }
 
 .img-centered {
@@ -175,7 +177,7 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default .navbar-brand {
-    font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
+    font-family: "brandon_grotesque_regularRg","Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
     color: #fed136;
 }
 
@@ -183,7 +185,7 @@ fieldset[disabled] .btn-xl.active {
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:active,
 .navbar-default .navbar-brand.active {
-    color: #fec503;
+    color: #0093d0;
 }
 
 .navbar-default .navbar-collapse {
@@ -199,6 +201,11 @@ fieldset[disabled] .btn-xl.active {
     background-color: #fff;
 }
 
+.navbar-toggle.navbar-left {
+  float: left;
+  margin-left: 10px;
+}
+
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
     background-color: #fed136;
@@ -206,7 +213,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default .nav li a {
     text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "brandon_grotesque_regularRg",Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 400;
     letter-spacing: 1px;
     color: #fff;
@@ -215,19 +222,19 @@ fieldset[disabled] .btn-xl.active {
 .navbar-default .nav li a:hover,
 .navbar-default .nav li a:focus {
     outline: 0;
-    color: #fed136;
+    color: #0093d0;
 }
 
 .navbar-default .navbar-nav>.active>a {
     border-radius: 0;
     color: #fff;
-    background-color: #fed136;
+    background-color: #0093d0;
 }
 
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>.active>a:focus {
     color: #fff;
-    background-color: #fec503;
+    background-color: #0093d0;
 }
 
 @media(min-width:768px) {
