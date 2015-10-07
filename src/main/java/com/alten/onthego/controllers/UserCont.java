@@ -7,9 +7,9 @@ package com.alten.onthego.controllers;
 
 import com.alten.onthego.model.UserInfo;
 import com.alten.onthego.entity.User;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.eclipse.persistence.sessions.serializers.JSONSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserCont {
-
-    public static void main(String args[]) {
-        UserInfo us = new UserInfo();
-        System.out.println("Here we find all the users....." + us.findUserByEmail("sara.nilsson@alten.com"));
-    }
 
     @RequestMapping(
             value = "/test",
@@ -66,5 +61,13 @@ public class UserCont {
     public User findUserById(@PathVariable("id") long id) {
         UserInfo userbyid = new UserInfo();
         return userbyid.findUserById(id);
+    }
+    
+    @RequestMapping(
+            value = "/emailpath",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getEmailAddress(){
+        return "{\"email\" : \"test@email.com\"}";
     }
 }
