@@ -20,7 +20,7 @@ import javax.persistence.Query;
  * @author ka3146
  */
 public class UserInfo {
-   
+
     private static List<User> userinfo = new ArrayList<User>();
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
     EntityManager em = emf.createEntityManager();
@@ -49,8 +49,12 @@ public class UserInfo {
     }
 
     public Collection<User> findUserByEmail(String email) {
-        Query query = em.createQuery("select e from User e where e.email =" + "\""+email+"\"");
-        return(Collection<User>) query.getResultList();
+        Query query = em.createQuery("select e from User e where e.email =" + "\"" + email + "\"");
+        return (Collection<User>) query.getResultList();
+    }
+
+    public boolean verfyEmail(boolean flage) {
+        return flage;
     }
 
     public User findUserById(long id) {
