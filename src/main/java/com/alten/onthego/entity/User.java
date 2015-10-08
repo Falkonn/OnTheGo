@@ -9,7 +9,6 @@ package com.alten.onthego.entity;
  *
  * @author ka3146
  */
-
 import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
@@ -55,7 +54,7 @@ public class User implements Serializable {
     @Column(name = "JOBTITLE")
     private String job_title;
 
-    public User(){
+    public User() {
     }
 
     public User(String firstName, String lastName, String email,
@@ -152,6 +151,3 @@ public class User implements Serializable {
     }
 
 }
-
-
-
