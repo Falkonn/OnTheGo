@@ -9,11 +9,10 @@ import com.alten.onthego.common.EmailSending;
 import com.alten.onthego.model.UserInfo;
 import com.alten.onthego.entity.User;
 import com.google.gson.Gson;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.mail.MessagingException;
-import org.eclipse.persistence.annotations.Convert;
+import javax.servlet.http.HttpServletResponse;
 import org.eclipse.persistence.sessions.serializers.JSONSerializer;
 
 import org.springframework.http.MediaType;
@@ -77,7 +76,7 @@ public class UserCont {
             value = "/emailpath",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getEmailAddress(@RequestBody String emailAddress) throws MessagingException {
+    public String getEmailAddress(@RequestBody String emailAddress, HttpServletResponse res) throws MessagingException {
         UserInfo user = new UserInfo();
         Collection<User> foundUsers = user.findUserByEmail(emailAddress);
         JSONSerializer serializer = new JSONSerializer();
@@ -87,10 +86,14 @@ public class UserCont {
             user.verfyEmail(true);
             EmailSending es = new EmailSending();
             System.out.println("There is an email");
-            es.sendEmail(emailstring, emailstring, emailstring, emailstring, emailAddress, emailstring, emailstring, null);
+               res.setStatus(HttpServletResponse.SC_OK);
+            //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
+            System.out.println("The email is sent!");
         } else {
             user.verfyEmail(false);
             System.out.println("There is no email");
+            
+               res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         emailstring = "{\"email\" : \"" + emailAddress + "\"}";
         System.out.println("the found users are " + serializedUsers);
