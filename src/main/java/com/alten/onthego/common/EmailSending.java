@@ -82,7 +82,6 @@ public class EmailSending {
                 multipart.addBodyPart(attachPart);
             }
         }
-
         // sets the multi-part as e-mail's content
         sessionmessage.setContent(multipart);
 
