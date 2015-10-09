@@ -1,0 +1,44 @@
+<!-- Main Section -->
+<section id="services">
+    <div class="container" ng-controller="mailController as mailCtrl">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Destination Lindholmen</h2>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="section-subheading text-muted">Steg 1 - Skriv in din e-postadress för att starta dagen.</h3>
+            <form class="form-group" name="mailForm" ng-submit="mailCtrl.sendEmail()">
+                <input class="center-block form" type="email" ng-model="userEmail" name="email" required>
+                <span style="color:red" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">
+                  <span ng-show="mailForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+                  <span ng-show="mailForm.email.$error.email">Ogiltig e-postadress.</span>
+                </span>
+                <p class="col-lg-12 text-center">
+                <input class="btn btn-primary" type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
+                </p>
+            </form>
+        </div>
+
+        <div class="row">
+            <h3 class="section-subheading text-muted">Steg 2 - Pin-kod i din email.</h3>
+            <p>Efter registreringen ska ett email ha skickats din emailadress med din pin-kod. 
+                Ta fram pin-koden och fortsätt till steg 3.
+            </p>
+        </div>
+
+        <div class="row">
+            <h3 class="section-subheading text-muted">Steg 3 - Skriv in din e-postadress för att starta dagen.</h3>
+            <form class="form-group" name="pinForm" ng-submit="mailCtrl.sendPin()">
+                <input class="center-block form" type="password" ng-model="userPin" ng-pattern="/^[1-9]{1}[0-9]{3}$/" name="pin" required>
+                <span style="color:red" ng-show="pinForm.email.$dirty && mailForm.email.$invalid">
+                  <span ng-show="mailForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+                  <span ng-show="mailForm.email.$error.email">Ogiltig e-postadress.</span>
+                </span>
+                <p class="col-lg-12 text-center">
+                <input class="btn btn-primary" type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
