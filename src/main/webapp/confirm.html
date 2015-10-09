@@ -1,112 +1,42 @@
-
-<!DOCTYPE html>
-<html ng-app="OnTheGo" lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Agency - Start Bootstrap Theme</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/agency.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-        <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-  
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/agency.js"></script>
-    
-    <!-- AngularJS -->
-    <script src="js/angular.js"></script>
-    <script src="js/angular-route.js"></script>
-    
-    <!-- jQuery JavaScript -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-    <!-- Angular modules -->
-    <script src="app.js"></script>
-    <script src="mailController.js"></script>
-    <script src="confirmController.js"></script>
-</head>
-
-<body id="page-top" class="index">
-
-    <!-- Main Section -->
-    <section id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Is This Correct?</h2>
-                </div>
+<!-- Confirm Section -->
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Is This Correct?</h2>
             </div>
-            <!-- Confirmation Form -->
-            <form class="form-inline" name="confirmForm" ng-controller="confirmController as confirmCtrl" ng-submit="confirmCtrl.sendConfirmData()">
-                <!-- Name -->
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" ng-model="userName" name="name" required>
-                    <span style="color:red" ng-show="confirmForm.name.$dirty">
-                  <span ng-show="confirmForm.name.$error.required">Du måste skriva in en Namn.</span>
-                </div>
-                <!-- Phone -->
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="text" class="form-control" ng-model="userPhone" name="phone" required>
-                    <span style="color:red" ng-show="confirmForm.phone.$dirty">
-                    <span ng-show="confirmForm.phone.$error.required">Du måste skriva in en Telefon nummer.</span>
-                </div>
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" ng-model="userEmail" name="email" required>
-                    <span style="color:red" ng-show="confirmForm.email.$dirty && confirmForm.email.$invalid">
-                  <span ng-show="confirmForm.email.$error.required">Du måste skriva in en e-postadress.</span>
-                  <span ng-show="confirmForm.email.$error.email">Ogiltig e-postadress.</span>
-                </div>
-            <!-- Button Form -->
-            <p class="col-lg-12 text-center">
-                    <input type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
-                           confirmForm.name.$dirty && confirmForm.phone.$dirty">
-             </p>
-            </form>
         </div>
-    </section>
-    
-</body>
+        <!-- Confirmation Form -->
+        <form class="form-inline text-center" name="confirmForm" ng-controller="confirmController as confirmCtrl" ng-submit="confirmCtrl.sendConfirmData()">
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" ng-model="userName" name="name" required>
+                <span style="color:red" ng-show="confirmForm.name.$dirty">
+              <span ng-show="confirmForm.name.$error.required">Du måste skriva in en Namn.</span>
+            </div>
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" class="form-control" ng-model="userPhone" name="phone" required>
+                <span style="color:red" ng-show="confirmForm.phone.$dirty">
+                <span ng-show="confirmForm.phone.$error.required">Du måste skriva in en Telefon nummer.</span>
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" ng-model="userEmail" name="email" required>
+                <span style="color:red" ng-show="confirmForm.email.$dirty && confirmForm.email.$invalid">
+              <span ng-show="confirmForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+              <span ng-show="confirmForm.email.$error.email">Ogiltig e-postadress.</span>
+            </div>
+        <!-- Button Form -->
+        <p class="col-lg-12 text-center">
+                <input type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
+                       confirmForm.name.$dirty && confirmForm.phone.$dirty">
+        </p>
+        </form>
+    </div>
+</section>
 
-</html>
 
