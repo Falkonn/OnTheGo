@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute','mailModule'
+    'ngRoute','mailModule', 'confirmModule'
 ]);
 
 OnTheGo.config(['$routeProvider',

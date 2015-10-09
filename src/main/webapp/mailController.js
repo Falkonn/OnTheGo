@@ -1,5 +1,6 @@
 
-var mailModule = angular.module('mailModule',[])
+var mailModule = angular.module('mailModule', [])
+
 
 .controller('mailController',['$scope','$http', function ($scope, $http) {
     
