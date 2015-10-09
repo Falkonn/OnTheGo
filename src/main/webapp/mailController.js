@@ -17,6 +17,7 @@ var mailModule = angular.module('mailModule', [])
         $http.post("/emailpath", JSON.stringify($scope.userEmail))
         .then(function(result) {
             console.log("email post done");
+            console.log(result);
     
             /* Confirmation of the email in the backend and if confirmed 
              * an email is sent to the user with the pin code to be able to
