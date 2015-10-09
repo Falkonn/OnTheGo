@@ -59,7 +59,7 @@ public class EmailSending {
         sessionmessage.setRecipients(Message.RecipientType.TO, toAddresses);
         sessionmessage.setSubject(subject);
         sessionmessage.setSentDate(new Date());
-
+        
         // creates message part
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setContent(message, "text/html");

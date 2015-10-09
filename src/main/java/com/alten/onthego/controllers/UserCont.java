@@ -5,19 +5,29 @@
  */
 package com.alten.onthego.controllers;
 
+import com.alten.onthego.common.EmailSending;
 import com.alten.onthego.model.UserInfo;
 import com.alten.onthego.entity.User;
+import com.google.gson.Gson;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.mail.MessagingException;
+import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.sessions.serializers.JSONSerializer;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserCont {
+
+    public static String emailstring;
+    public static ArrayList<String> emaillists = new ArrayList<String>();
 
     @RequestMapping(
             value = "/test",
@@ -62,12 +72,30 @@ public class UserCont {
         UserInfo userbyid = new UserInfo();
         return userbyid.findUserById(id);
     }
-    
+
     @RequestMapping(
             value = "/emailpath",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getEmailAddress(){
-        return "{\"email\" : \"test@email.com\"}";
+    public String getEmailAddress(@RequestBody String emailAddress) throws MessagingException {
+        UserInfo user = new UserInfo();
+        Collection<User> foundUsers = user.findUserByEmail(emailAddress);
+        JSONSerializer serializer = new JSONSerializer();
+        Gson gson = new Gson();
+        String serializedUsers = gson.toJson(foundUsers);
+        if (foundUsers != null && !foundUsers.isEmpty()) {
+            user.verfyEmail(true);
+            EmailSending es = new EmailSending();
+            System.out.println("There is an email");
+            es.sendEmail(emailstring, emailstring, emailstring, emailstring, emailAddress, emailstring, emailstring, null);
+        } else {
+            user.verfyEmail(false);
+            System.out.println("There is no email");
+        }
+        emailstring = "{\"email\" : \"" + emailAddress + "\"}";
+        System.out.println("the found users are " + serializedUsers);
+        emaillists.add(emailstring);
+        return serializedUsers.toString();
     }
+
 }
