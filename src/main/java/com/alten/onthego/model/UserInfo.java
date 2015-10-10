@@ -28,7 +28,7 @@ public class UserInfo {
     public List<User> getUsers() {
 
         try {
-            User user = em.find(User.class, 1L);;
+            User user = em.find(User.class, 1L);
             if (user != null) {
                 System.out.println(user);
                 userinfo.add(user);
@@ -50,6 +50,7 @@ public class UserInfo {
 
     public Collection<User> findUserByEmail(String email) {
         Query query = em.createQuery("select e from User e where e.email =" + "\"" + email + "\"");
+        System.out.print(query);
         return (Collection<User>) query.getResultList();
     }
 

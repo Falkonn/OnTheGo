@@ -1,0 +1,42 @@
+<!-- Confirm Section -->
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Is This Correct?</h2>
+            </div>
+        </div>
+        <!-- Confirmation Form -->
+        <form class="form-inline text-center" name="confirmForm" ng-controller="confirmController as confirmCtrl" ng-submit="confirmCtrl.sendConfirmData()">
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" ng-model="userName" name="name" required>
+                <span style="color:red" ng-show="confirmForm.name.$dirty">
+              <span ng-show="confirmForm.name.$error.required">Du måste skriva in en Namn.</span>
+            </div>
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" class="form-control" ng-model="userPhone" name="phone" required>
+                <span style="color:red" ng-show="confirmForm.phone.$dirty">
+                <span ng-show="confirmForm.phone.$error.required">Du måste skriva in en Telefon nummer.</span>
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" ng-model="userEmail" name="email" required>
+                <span style="color:red" ng-show="confirmForm.email.$dirty && confirmForm.email.$invalid">
+              <span ng-show="confirmForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+              <span ng-show="confirmForm.email.$error.email">Ogiltig e-postadress.</span>
+            </div>
+        <!-- Button Form -->
+        <p class="col-lg-12 text-center">
+                <input type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
+                       confirmForm.name.$dirty && confirmForm.phone.$dirty">
+        </p>
+        </form>
+    </div>
+</section>
+
+

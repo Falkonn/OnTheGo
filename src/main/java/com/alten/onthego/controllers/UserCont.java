@@ -55,11 +55,12 @@ public class UserCont {
     }
 
     @RequestMapping(
-            value = "/userbyemail/{email}",
+            value = "/userbyemail/{email.+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<User> findUserByEmail(@PathVariable("email") String email) {
+    public Collection<User> findUserByEmail(@PathVariable("email.+") String email) {
         UserInfo userbyemail = new UserInfo();
+        System.out.print("from GET" + email + "\n");
         return (Collection<User>) userbyemail.findUserByEmail(email);
     }
 

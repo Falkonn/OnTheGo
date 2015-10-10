@@ -1,35 +1,41 @@
 
-var mailModule = angular.module('mailModule', [])
+var mailModule = angular.module('mailModule', ['UserService', 'ngStorage']);
 
 
-.controller('mailController',['$scope','$http', function ($scope, $http) {
+mailModule.controller('mailController',['$scope','UserDataService', '$localStorage', 
+    function ($scope, UserDataService, $localStorage) {
     
     $scope.loggedIn = false;
-                
-    $scope.userEmail = "";
+    $scope.result = "";
     $scope.userPin = "";
-    
-    $scope.hello = {mail: "test@alten.se"};
-    $scope.newMail = "";
+    $scope.userEmail = $localStorage.userEmail;
     
     this.sendEmail = function() {
-        //var data = JSON.stringify(this.userEmail);
-        $http.post("/emailpath", $scope.userEmail)
+     
+        UserDataService.postUserMail($scope.userEmail)
         .then(function(result) {
             console.log("email post done");
-            console.log(result);
+            // Confirmation of successful hit of mail in the database
+            $scope.result = "Hello ";
+            getUserInfo();
+            // Getting User Name and Last name and saving them to local storage
+            function getUserInfo(){
+                UserDataService.getUserByMail($scope.userEmail).success(function(response){
+                    $scope.names = response;
+                }).error(function(response){});
+            }
+            // Save user's mail to local Storage
+            $localStorage.userEmail = $scope.userEmail;
+            // Confirmation that the mail was sent successfully from the backend
     
-            /* Confirmation of the email in the backend and if confirmed 
-             * an email is sent to the user with the pin code to be able to
-             * login.
-             * 
-             * Front End - Stay at this page, with information for the user 
-             * if the email was invalid (try again) or valid, information for 
-             * user that he/she has got an email with the pin code.
-             */
-    
-        }, function (error) {
-            console.error(error);
+        }, function (response) {
+            console.error(response.status);
+            // Not Found in the Database
+            if(response.status === 404)
+                $scope.result = "This mail does not exist in our database";
+            // Unknown server error
+            else
+                $scope.result = "Server Error";
         });
     };
     

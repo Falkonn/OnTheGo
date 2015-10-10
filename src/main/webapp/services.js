@@ -2,17 +2,35 @@
 
 /* Services */
 
-var productCatalogueService = angular.module('ProductCatalogueService', []);
+var userService = angular.module('UserService', []);
 
-// Representing the remote RESTful ProductCatalogue
-productCatalogueService.factory('ProductCatalogueProxy', ['$http',
+// User Data Service
+userService.factory('UserDataService', ['$http',
     function($http) {
-        var url = 'http://localhost:8080/allusers';
-
+        var urlBase = 'http://localhost:8080';
+       
         return {
-            getUsersList: function(userInfo) {
-                return $http.get(url, userInfo);
-            }
+                
+                getUsers: function() {
+                    return $http.get(urlBase + '/users');
+                },
+                
+                getAllUsers: function() {
+                    return $http.get(urlBase + '/allusers');
+                },
+                
+                getUserByMail: function(userEmail) {
+                    return $http.get(urlBase + '/userbyemail/' + userEmail, userEmail);
+                },
+                             
+                getUserById: function(userId) {
+                    return $http.get(urlBase + '/userbyid/' + userId, userId);
+                },
+                
+                postUserMail: function(userEmail) {
+                    return $http.post(urlBase + '/emailpath',userEmail );
+                }            
         };
+     
     }]);
 

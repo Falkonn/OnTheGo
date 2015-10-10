@@ -147,7 +147,7 @@ public class User implements Serializable {
     public String toString() {
         return "User data are [ id= " + id + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
-                + " " + "telefon" + telefon + " " + "job_title" + job_title + " " + "]";
+                + " " + "telefon= " + telefon + " " + "job_title= " + job_title + " " + "]";
     }
 
 }
