@@ -14,7 +14,7 @@ var mailModule = angular.module('mailModule', [])
     
     this.sendEmail = function() {
         //var data = JSON.stringify(this.userEmail);
-        $http.post("/emailpath", JSON.stringify($scope.userEmail))
+        $http.post("/emailpath", $scope.userEmail)
         .then(function(result) {
             console.log("email post done");
             console.log(result);

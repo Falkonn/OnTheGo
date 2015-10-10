@@ -31,7 +31,7 @@ private static String jobTitle;
         EntityManager em = emf.createEntityManager();
 
         try {
-            User user = new User(firstName , lastName ,email , department , telefon , jobTitle);
+            User user = new User("vasilis" , "golematis" , "vg@vg.se", "es" , "080" , "consultant");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(user);
