@@ -8,11 +8,7 @@
         </div>
         <div class="row">
             <h3 class="section-subheading text-muted">Steg 1 - Skriv in din e-postadress för att starta dagen.</h3>
-            <div class="col-lg-12 text-center" ng-model="result">
-                <ul class="list-unstyled">
-                    <li ng-repeat="x in names">{{ result + x.firstName + ' ' + x.lastName + '!' }}</li>
-                </ul>
-            </div>
+            <div class="col-lg-12 text-center" ng-model="result">{{ result }}</div>
             <form class="form-group" name="mailForm" ng-submit="mailCtrl.sendEmail()">
                 <input class="center-block form" type="email" ng-model="userEmail" name="email" required>
                 <span style="color:red" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">

@@ -669,57 +669,58 @@ section#contact .section-heading {
     color: #fff;
 }
 
-section#contact .form-group {
+section#confirm .form-group {
     margin-bottom: 25px;
+    margin-right:  5px;
+}
+    
+section#confirm .form-group input,
+section#confirm .form-group textarea {
+    padding: 15px;
 }
 
-section#contact .form-group input,
-section#contact .form-group textarea {
-    padding: 20px;
-}
-
-section#contact .form-group input.form-control {
+section#confirm .form-group input.form-control {
     height: auto;
 }
 
-section#contact .form-group textarea.form-control {
+section#confirm .form-group textarea.form-control {
     height: 236px;
 }
 
-section#contact .form-control:focus {
+section#confirm .form-control:focus {
     border-color: #fed136;
     box-shadow: none;
 }
 
-section#contact::-webkit-input-placeholder {
+section#confirm::-webkit-input-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact:-moz-placeholder {
+section#confirm:-moz-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact::-moz-placeholder {
+section#confirm::-moz-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact:-ms-input-placeholder {
+section#confirm:-ms-input-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact .text-danger {
+section#confirm .text-danger {
     color: #e74c3c;
 }
 

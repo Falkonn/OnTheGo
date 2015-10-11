@@ -89,14 +89,14 @@ public class UserCont {
             user.verfyEmail(true);
             EmailSending es = new EmailSending();
             System.out.println("There is an email");
-               res.setStatus(HttpServletResponse.SC_OK);
+            res.setStatus(HttpServletResponse.SC_OK);
             //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
             System.out.println("The email is sent!");
         } else {
             user.verfyEmail(false);
             System.out.println("There is no email");
             
-               res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         emailstring = "{\"email\" : \"" + emailAddress + "\"}";
         System.out.println("the found users are " + serializedUsers);

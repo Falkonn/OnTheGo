@@ -5,36 +5,42 @@ var registerModule = angular.module('registerModule', ['UserService', 'ngStorage
 registerModule.controller('registerController',['$scope','UserDataService', '$localStorage', '$location', 
     function ($scope, UserDataService, $localStorage, $location) {
     
-    $scope.loggedIn = false;
+    // Check if user is logged in and go directly to main screen in this case
+    $scope.init = function() {
+        // For debugging
+        //$localStorage.$reset(); 
+        $scope.loggedIn = $localStorage.loggedIn;
+        if($scope.loggedIn)
+            $location.path('/main');
+    };
+ 
     $scope.result = "";
     // Set values from localStorage
-    $scope.userEmail = $localStorage.user.email;
-    $scope.userName =  $localStorage.user.firstName; 
-    $scope.userPhone = $localStorage.user.telefon;
-   
+    if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null ){
+        $scope.userEmail = $localStorage.user.email;
+        $scope.userName =  $localStorage.user.firstName; 
+        $scope.userPhone = $localStorage.user.telefon;
+    }
+
     this.sendEmail = function() {
         UserDataService.postUserMail($scope.userEmail)
         .then(function() {
-            console.log("email post done");
-            // Confirmation of successful hit of mail in the database
-            $scope.result = "Hello ";
-            getUserInfo();
             // Getting User Info to show to the user
-            function getUserInfo(){
-                UserDataService.getUserByMail($scope.userEmail).success(function(response){
+            UserDataService.getUserByMail($scope.userEmail).success(function(response){
                     $scope.names = response;
                     // Saving User info to localStorage
                     $localStorage.user = $scope.names[0];
+                    // Showing User Info
+                    $scope.result = "Hello " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                 }).error(function(){});
-            }
-       
             // Confirmation that the mail was sent successfully from the backend
+            $scope.result += ". A pin code is sent to your mail!"
     
         }, function (response) {
             console.error(response.status);
             // Not Found in the Database
             if(response.status === 404)
-                $scope.result = "This mail does not exist in our database";
+                $scope.result = "This mail does not exist in our database.";
             // Unknown server error
             else
                 $scope.result = "Server Error";
@@ -76,6 +82,8 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
             $localStorage.userEmail = $scope.userEmail;
             $localStorage.userName =  $scope.userName; 
             $localStorage.userPhone = $scope.userPhone;
+            // Mark loggedIn to localStorage so that the user does not need to register again
+            $localStorage.loggedIn = true;
             // Redirect to main page
             $location.path('/main');
         }, function (response) {
