@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute', 'mailModule', 'confirmModule'
+    'ngRoute', 'registerModule'
 ]);
 
 OnTheGo.config(['$routeProvider',
@@ -12,18 +12,18 @@ OnTheGo.config(['$routeProvider',
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/welcome.html',
-                controller: 'mailController'
+                controller: 'registerController'
             }).
             when('/register', {
                 templateUrl: 'partials/register.html',
-                controller: 'mailController'
+                controller: 'registerController'
             }).
             when('/confirmation', {
                 templateUrl: 'partials/confirm.html',
-                controller: 'confirmController'
+                controller: 'registerController'
             }).
             when('/main', {
-                templateUrl: 'partias/main.html',
+                templateUrl: 'partials/main.html',
                 controller: 'mainController'
             }).
             when('/main/team', {

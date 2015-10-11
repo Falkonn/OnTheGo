@@ -68,4 +68,16 @@ public class UserInfo {
             em.remove(removeuser);
         }
     }
+    
+    public User updateUser(User confUser) {
+        User updateUser = findUserById(confUser.getId());      
+        if (updateUser != null) {
+            em.getTransaction().begin();
+            updateUser.setFirstName(confUser.getFirstName());
+            updateUser.setTelefon(confUser.getTelefon());
+            updateUser.setEmail(confUser.getEmail());
+            em.getTransaction().commit();
+        }
+        return updateUser;
+    }
 }

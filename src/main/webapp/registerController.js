@@ -1,14 +1,17 @@
 
-var mailModule = angular.module('mailModule', ['UserService', 'ngStorage']);
+var registerModule = angular.module('registerModule', ['UserService', 'ngStorage']);
 
 
-mailModule.controller('mailController',['$scope','UserDataService', '$localStorage', 
-    function ($scope, UserDataService, $localStorage) {
+registerModule.controller('registerController',['$scope','UserDataService', '$localStorage', '$location', 
+    function ($scope, UserDataService, $localStorage, $location) {
     
     $scope.loggedIn = false;
     $scope.result = "";
-    $scope.userEmail = $localStorage.userEmail;
-    
+    // Set values from localStorage
+    $scope.userEmail = $localStorage.user.email;
+    $scope.userName =  $localStorage.user.firstName; 
+    $scope.userPhone = $localStorage.user.telefon;
+   
     this.sendEmail = function() {
         UserDataService.postUserMail($scope.userEmail)
         .then(function() {
@@ -20,10 +23,11 @@ mailModule.controller('mailController',['$scope','UserDataService', '$localStora
             function getUserInfo(){
                 UserDataService.getUserByMail($scope.userEmail).success(function(response){
                     $scope.names = response;
+                    // Saving User info to localStorage
+                    $localStorage.user = $scope.names[0];
                 }).error(function(){});
             }
-            // Save user's mail to local Storage
-            $localStorage.userEmail = $scope.userEmail;
+       
             // Confirmation that the mail was sent successfully from the backend
     
         }, function (response) {
@@ -41,10 +45,12 @@ mailModule.controller('mailController',['$scope','UserDataService', '$localStora
         UserDataService.postUserPin($scope.userPin)
         .then(function()  {
             console.log("pin post done");
-            $scope.resultPin = "Correct Pin!";
             /* Confirmation in back end and when verified, should be able to
              * procede to next page (Name, Phone and Email confirmation page).
              */
+            $scope.resultPin = "Correct Pin!";
+            $localStorage.userPin = $scope.userPin;
+            $location.path('/confirmation');
             
         }, function (response) {
             console.error($scope.userPin);
@@ -57,6 +63,25 @@ mailModule.controller('mailController',['$scope','UserDataService', '$localStora
         });
             
     };
+    
+    // Send Confirmation Data and update Db from the backend
+    this.sendConfirmData = function() {     
+        // Update local values
+        $localStorage.user.firstName = $scope.userName, 
+        $localStorage.user.email = $scope.userEmail,
+        $localStorage.user.telefon = $scope.userPhone,
+
+        UserDataService.postUserConfirmData(JSON.stringify($localStorage.user)).then(function(response) {          
+            // Save new values to localStorage
+            $localStorage.userEmail = $scope.userEmail;
+            $localStorage.userName =  $scope.userName; 
+            $localStorage.userPhone = $scope.userPhone;
+            // Redirect to main page
+            $location.path('/main');
+        }, function (response) {
+            console.error(JSON.stringify(user));
+        });
+    }; 
 }]);
 
 

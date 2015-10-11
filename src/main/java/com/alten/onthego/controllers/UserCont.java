@@ -127,5 +127,28 @@ public class UserCont {
         idlists.add(idstring);
         return serializedUser.toString();
     }
+    
+    @RequestMapping(
+            value = "/confirmpath",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getUserConfirmData(@RequestBody User confirmedUser, HttpServletResponse res) throws MessagingException {
+        UserInfo user = new UserInfo();   
+        User updatedUser = user.updateUser(confirmedUser);
+        JSONSerializer serializer = new JSONSerializer();
+        Gson gson = new Gson();
+        String serializedUser = gson.toJson(updatedUser);
+        if (updatedUser != null) {
+            System.out.println("Found User with this id");
+            res.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            System.out.println("Not found User with this id");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        
+        System.out.println("The confirmed user is " + serializedUser);
+
+        return serializedUser.toString();
+    }
 
 }

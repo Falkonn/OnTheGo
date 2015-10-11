@@ -31,9 +31,13 @@ userService.factory('UserDataService', ['$http',
                     return $http.post(urlBase + '/emailpath',userEmail );
                 },
                 
-                 postUserPin: function(userPin) {
+                postUserPin: function(userPin) {
                     return $http.post(urlBase + '/pinpath',userPin );
-                }  
+                },
+             
+                postUserConfirmData: function(user) {
+                    return $http.post(urlBase + '/confirmpath', user);
+                }
         };
      
     }]);

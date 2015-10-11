@@ -7,33 +7,36 @@
             </div>
         </div>
         <!-- Confirmation Form -->
-        <form class="form-inline text-center" name="confirmForm" ng-controller="confirmController as confirmCtrl" ng-submit="confirmCtrl.sendConfirmData()">
+        <form class="form-inline text-center" name="confirmForm" ng-controller="registerController as confirmCtrl" ng-submit="confirmCtrl.sendConfirmData()">
             <!-- Name -->
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" ng-model="userName" name="name" required>
                 <span style="color:red" ng-show="confirmForm.name.$dirty">
-              <span ng-show="confirmForm.name.$error.required">Du måste skriva in en Namn.</span>
+                    <span ng-show="confirmForm.name.$error.required">Du måste skriva in en Namn.</span>
+                </span>
             </div>
             <!-- Phone -->
             <div class="form-group">
                 <label for="phone">Phone:</label>
                 <input type="text" class="form-control" ng-model="userPhone" name="phone" required>
                 <span style="color:red" ng-show="confirmForm.phone.$dirty">
-                <span ng-show="confirmForm.phone.$error.required">Du måste skriva in en Telefon nummer.</span>
+                    <span ng-show="confirmForm.phone.$error.required">Du måste skriva in en Telefon nummer.</span>
+                </span>
             </div>
             <!-- Email -->
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" ng-model="userEmail" name="email" required>
                 <span style="color:red" ng-show="confirmForm.email.$dirty && confirmForm.email.$invalid">
-              <span ng-show="confirmForm.email.$error.required">Du måste skriva in en e-postadress.</span>
-              <span ng-show="confirmForm.email.$error.email">Ogiltig e-postadress.</span>
+                    <span ng-show="confirmForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+                    <span ng-show="confirmForm.email.$error.email">Ogiltig e-postadress.</span>
+                </span>
             </div>
         <!-- Button Form -->
         <p class="col-lg-12 text-center">
-                <input type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
-                       confirmForm.name.$dirty && confirmForm.phone.$dirty">
+                <input class="btn btn-primary" type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
+                       confirmForm.name.$dirty && confirmForm.name.$invalid && confirmForm.phone.$dirty && confirmForm.phone.$invalid">
         </p>
         </form>
     </div>
