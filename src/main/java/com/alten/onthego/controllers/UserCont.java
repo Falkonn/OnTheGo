@@ -27,6 +27,8 @@ public class UserCont {
 
     public static String emailstring;
     public static ArrayList<String> emaillists = new ArrayList<String>();
+    public static String idstring;
+    public static ArrayList<String> idlists = new ArrayList<String>();
 
     @RequestMapping(
             value = "/test",
@@ -100,6 +102,30 @@ public class UserCont {
         System.out.println("the found users are " + serializedUsers);
         emaillists.add(emailstring);
         return serializedUsers.toString();
+    }
+    
+    @RequestMapping(
+            value = "/pinpath",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getUserId(@RequestBody String userId, HttpServletResponse res) throws MessagingException {
+        UserInfo user = new UserInfo();
+        User foundUser = user.findUserById(Long.parseLong(userId,10));
+        JSONSerializer serializer = new JSONSerializer();
+        Gson gson = new Gson();
+        String serializedUser = gson.toJson(foundUser);
+        System.out.println(userId);
+        if (foundUser != null) {
+            System.out.println("Found User with this id");
+            res.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            System.out.println("Not found User with this id");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        idstring = "{\"id\" : \"" + userId + "\"}";
+        System.out.println("the found user is " + serializedUser);
+        idlists.add(idstring);
+        return serializedUser.toString();
     }
 
 }

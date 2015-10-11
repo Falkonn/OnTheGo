@@ -29,7 +29,11 @@ userService.factory('UserDataService', ['$http',
                 
                 postUserMail: function(userEmail) {
                     return $http.post(urlBase + '/emailpath',userEmail );
-                }            
+                },
+                
+                 postUserPin: function(userPin) {
+                    return $http.post(urlBase + '/pinpath',userPin );
+                }  
         };
      
     }]);

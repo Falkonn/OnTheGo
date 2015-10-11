@@ -7,22 +7,20 @@ mailModule.controller('mailController',['$scope','UserDataService', '$localStora
     
     $scope.loggedIn = false;
     $scope.result = "";
-    $scope.userPin = "";
     $scope.userEmail = $localStorage.userEmail;
     
     this.sendEmail = function() {
-     
         UserDataService.postUserMail($scope.userEmail)
-        .then(function(result) {
+        .then(function() {
             console.log("email post done");
             // Confirmation of successful hit of mail in the database
             $scope.result = "Hello ";
             getUserInfo();
-            // Getting User Name and Last name and saving them to local storage
+            // Getting User Info to show to the user
             function getUserInfo(){
                 UserDataService.getUserByMail($scope.userEmail).success(function(response){
                     $scope.names = response;
-                }).error(function(response){});
+                }).error(function(){});
             }
             // Save user's mail to local Storage
             $localStorage.userEmail = $scope.userEmail;
@@ -40,16 +38,22 @@ mailModule.controller('mailController',['$scope','UserDataService', '$localStora
     };
     
     this.sendPin = function() {
-        $http.post("/pinpath", JSON.stringify($scope.userPin))
-        .then(function(result) {
+        UserDataService.postUserPin($scope.userPin)
+        .then(function()  {
             console.log("pin post done");
-            
+            $scope.resultPin = "Correct Pin!";
             /* Confirmation in back end and when verified, should be able to
              * procede to next page (Name, Phone and Email confirmation page).
              */
             
-        }, function (error) {
-            console.error(error);
+        }, function (response) {
+            console.error($scope.userPin);
+            // Not Found in the Database
+            if(response.status === 404)
+                $scope.resultPin = "This pin does not match your mail";
+            // Unknown server error
+            else
+                $scope.resultPin = "Server Error";
         });
             
     };
