@@ -27,14 +27,16 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
         .then(function() {
             // Getting User Info to show to the user
             UserDataService.getUserByMail($scope.userEmail).success(function(response){
+                    console.log(response);
                     $scope.names = response;
                     // Saving User info to localStorage
                     $localStorage.user = $scope.names[0];
                     // Showing User Info
                     $scope.result = "Hello " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
-                }).error(function(){});
-            // Confirmation that the mail was sent successfully from the backend
-            $scope.result += ". A pin code is sent to your mail!"
+                     // Confirmation that the mail was sent successfully from the backend
+                    $scope.result += ". A pin code is sent to your mail!"
+                }).error(function(){console.log(response.status);});
+           
     
         }, function (response) {
             console.error(response.status);
@@ -49,11 +51,7 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
    
     // Sends mail and Pin to the backend
     this.sendPin = function() {
-        var mailAndPin = {
-                            email: $scope.userEmail,
-                            pin:   $scope.userPin
-                          }
-        UserDataService.postUserPin(JSON.stringify(mailAndPin))
+        UserDataService.postUserPin($scope.userEmail + ' ' + $scope.userPin)
         .then(function()  {
             console.log("pin post done");
             /* Confirmation in back end and when verified, should be able to
