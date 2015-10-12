@@ -47,24 +47,27 @@ public class User implements Serializable {
     private String lastName;
     @Column(name = "EMAIL")
     private String email;
-    @Column(name = "DEPARTMENT")
-    private String department;
     @Column(name = "TELEFON")
     private String telefon;
-    @Column(name = "JOBTITLE")
-    private String job_title;
+    @Column(name = "CITY")
+    private String city;
+    @Column(name = "DEPARTMENT")
+    private String department;
+    @Column(name = "PINCODE")
+    private String pin_code;
 
     public User() {
     }
 
     public User(String firstName, String lastName, String email,
-            String department, String telefon, String job_title) {
+            String telefon, String city, String department, String pin_code) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.department = department;
         this.telefon = telefon;
-        this.job_title = job_title;
+        this.city = city;
+        this.department = department;
+        this.pin_code = pin_code;
     }
 
     public Long getId() {
@@ -95,8 +98,12 @@ public class User implements Serializable {
         return telefon;
     }
 
-    public String getJobTitle() {
-        return job_title;
+    public String getCity() {
+        return city;
+    }
+
+    public String getPinCode() {
+        return pin_code;
     }
 
     public void setFirstName(String firstName) {
@@ -119,8 +126,12 @@ public class User implements Serializable {
         this.telefon = telefon;
     }
 
-    public void setJobTitle(String job_title) {
-        this.job_title = job_title;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setPinCode(String pin_code) {
+        this.pin_code = pin_code;
     }
 
     @Override
@@ -147,7 +158,7 @@ public class User implements Serializable {
     public String toString() {
         return "User data are [ id= " + id + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
-                + " " + "telefon" + telefon + " " + "job_title" + job_title + " " + "]";
+                + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "]";
     }
 
 }
