@@ -3,6 +3,7 @@
 .project
 .settings/
 .class
+.lst
 
 # Mac
 .DS_Store
