@@ -31,26 +31,31 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "FIRST_NAME")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "LAST_NAME")
+    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
-    @Column(name = "TELEFON")
+    @Column(name = "phone")
     private String telefon;
-    @Column(name = "CITY")
+    @Column(name = "city")
     private String city;
-    @Column(name = "DEPARTMENT")
+    @Column(name = "department")
     private String department;
-    @Column(name = "PINCODE")
+    @Column(name = "pincode")
     private String pin_code;
+    @Column(name = "team_id")
+    private Integer teamId;
+    @Column(name ="pic_id")
+    private Integer picId;
 
     public User() {
     }
 
     public User(String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code) {
+            String telefon, String city, String department, String pin_code, int teamId) {
+    	super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -58,6 +63,7 @@ public class User implements Serializable {
         this.city = city;
         this.department = department;
         this.pin_code = pin_code;
+        this.teamId = teamId;
     }
 
     public Long getId() {
@@ -95,6 +101,10 @@ public class User implements Serializable {
     public String getPinCode() {
         return pin_code;
     }
+    
+    public int getTeamId(){
+    	return teamId;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -124,7 +134,15 @@ public class User implements Serializable {
         this.pin_code = pin_code;
     }
 
-    @Override
+    public Integer getPicId() {
+		return picId;
+	}
+
+	public void setPicId(Integer picId) {
+		this.picId = picId;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
