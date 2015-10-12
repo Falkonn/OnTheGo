@@ -88,8 +88,4 @@ public class EmailSending {
         // sends the e-mail
         Transport.send(sessionmessage);
     }
-    
-       public static void main(String [] args) throws AddressException, MessagingException{
-        sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
-    }
 }

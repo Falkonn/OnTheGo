@@ -5,11 +5,14 @@
  */
 package com.alten.onthego.model;
 
+import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -44,21 +47,50 @@ public class UserInfo {
     }
 
     public Collection<User> findAllUsers() {
-        Query query = em.createQuery("SELECT e FROM User e");
-        return (Collection<User>) query.getResultList();
+        Query allusersquery = em.createQuery("SELECT e FROM User e");
+        return (Collection<User>) allusersquery.getResultList();
     }
 
     public Collection<User> findUserByEmail(String email) {
-        Query query = em.createQuery("select e from User e where e.email =" + "\"" + email + "\"");
-        return (Collection<User>) query.getResultList();
+        Query finduserbyemailquery = em.createQuery("select e from User e where e.email =" + "\"" + email + "\"");
+        return (Collection<User>) finduserbyemailquery.getResultList();
     }
 
     public boolean verfyEmail(boolean flage) {
         return flage;
     }
 
+    public Collection<User> findPinCodebyEmail(String email) {
+        Query findpincodebyemailquery = em.createQuery("select e.pin_code from User e where e.email =" + "\"" + email + "\"");
+        return (Collection<User>) findpincodebyemailquery.getResultList();
+    }
+
+    public Collection<User> findUserFirstNamebyEmail(String email) {
+        Query findUserFirstNamebyEmailQ = em.createQuery("select e.firstName from User e where e.email =" + "\"" + email + "\"");
+        return (Collection<User>) findUserFirstNamebyEmailQ.getResultList();
+    }
+
+    public Collection<User> findUserLastNamebyEmail(String email) {
+        Query findUserLastNamebyEmailQ = em.createQuery("select e.lastName from User e where e.email =" + "\"" + email + "\"");
+        return (Collection<User>) findUserLastNamebyEmailQ.getResultList();
+    }
+
     public User findUserById(long id) {
         return em.find(User.class, id);
+    }
+
+    public boolean validUser(String email, String pinCode) throws IllegalBlockSizeException, BadPaddingException {
+        boolean valid = false;
+        if ((email != null) && (email.length() > 0)) {
+            Collection<User> pass = findPinCodebyEmail(email);
+            Iterator ite = pass.iterator();
+            Object userpincode = ite.next();
+            // pinCode = pinCode.replaceAll("\\D+","");
+            PassEncryption pe = new PassEncryption();
+            String pincodedec = pe.EncryptText(pinCode);
+            valid = userpincode.equals(pincodedec);
+        }
+        return valid;
     }
 
     public void removeUser(long id) {

@@ -11,6 +11,7 @@ package com.alten.onthego.entity;
  *
  * @author Khaled
  */
+import com.alten.onthego.common.PassEncryption;
 import java.math.BigDecimal;
 import java.util.*;
 import javax.persistence.*;
@@ -20,21 +21,17 @@ import javax.persistence.*;
  * @author ka3146
  */
 public class addrow {
-private static String firstName;
-private static String lastName;
-private static String email;
-private static String department;
-private static String telefon;
-private static String jobTitle;
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
         EntityManager em = emf.createEntityManager();
 
         try {
-            User user = new User(firstName , lastName ,email , department , telefon , jobTitle);
+            PassEncryption pe = new PassEncryption();
+   
+            User us = new User("department" ,"khaled.nawasreh@gmail.com" , "Khaled" , "consultent" , "Alnawasreh", "232","12");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
-            em.persist(user);
+            em.persist(us);
             entityTx.commit();
             System.out.println("The row has be successfully added");
         } catch (Exception e) {

@@ -14,7 +14,7 @@ var mailModule = angular.module('mailModule', [])
     
     this.sendEmail = function() {
         //var data = JSON.stringify(this.userEmail);
-        $http.post("/emailpath", JSON.stringify($scope.userEmail))
+        $http.post("/emailpath", $scope.userEmail)
         .then(function(result) {
             console.log("email post done");
             console.log(result);
@@ -34,7 +34,7 @@ var mailModule = angular.module('mailModule', [])
     };
     
     this.sendPin = function() {
-        $http.post("/pinpath", JSON.stringify($scope.userPin))
+        $http.post("/pinpath", $scope.userPin)
         .then(function(result) {
             console.log("pin post done");
             
