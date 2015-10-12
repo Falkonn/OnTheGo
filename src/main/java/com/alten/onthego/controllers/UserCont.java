@@ -24,6 +24,8 @@ import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 @RestController
 public class UserCont {
@@ -152,8 +154,9 @@ public class UserCont {
         String[] splited = userCredentials.split(" ");
         String email = splited[0];
         String pinCode = splited[1];
+        System.out.println("email  " + email+ "pincode   " + pinCode);
         boolean verifyuser = validateuser.validUser(email, pinCode);
-        if (!verifyuser) {
+        if (verifyuser) {
             System.out.println("User is verfied");
             ress.setStatus(HttpServletResponse.SC_OK);
         } else {
@@ -162,15 +165,4 @@ public class UserCont {
         }
         return verifyuser;
     }
-
-    /*//This code is just for testing
-     public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchProviderException, IllegalBlockSizeException, BadPaddingException {
-     UserInfo userinfo = new UserInfo();
-     PassEncryption pe = new PassEncryption();;
-     Collection<User> pinCode = userinfo.findPinCodebyEmail("khaled.nawasreh@gmail.com");
-     Iterator ite = pinCode.iterator();
-     Object userpincode = ite.next();
-     userpincode = pe.DecryptText((String) userpincode);
-     System.out.println("result" + userpincode);
-     }*/
 }

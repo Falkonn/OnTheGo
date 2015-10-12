@@ -88,8 +88,8 @@ public class UserInfo {
             Object userpincode = ite.next();
             // pinCode = pinCode.replaceAll("\\D+","");
             PassEncryption pe = new PassEncryption();
-            String pincodedec = pe.EncryptText(pinCode);
-            valid = userpincode.equals(pincodedec);
+            String userpincodedec = pe.DecryptText(userpincode.toString());
+            valid = userpincodedec.contains(pinCode);
         }
         return valid;
     }
@@ -100,9 +100,9 @@ public class UserInfo {
             em.remove(removeuser);
         }
     }
-    
+
     public User updateUser(User confUser) {
-        User updateUser = findUserById(confUser.getId());      
+        User updateUser = findUserById(confUser.getId());
         if (updateUser != null) {
             em.getTransaction().begin();
             updateUser.setFirstName(confUser.getFirstName());
