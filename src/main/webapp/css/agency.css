@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
     font-family: "brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: #ffea00;
+    background-image: url("/BackgroundDestinationLindholmen.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 
 .text-muted {
@@ -210,7 +214,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #fed136;
+    background-color: #ffea00;
 }
 
 .navbar-default .nav li a {
