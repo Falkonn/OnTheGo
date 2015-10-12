@@ -16,38 +16,51 @@ OnTheGo.config(['$routeProvider',
             }).
             when('/register', {
                 templateUrl: 'partials/register.html',
-                controller: 'registerController'
+                controller: 'registerController',
+                controllerAs: 'mailCtrl'
             }).
-            when('/confirmation', {
+            when('/confirm', {
                 templateUrl: 'partials/confirm.html',
-                controller: 'registerController'
+                controller: 'registerController',
+                controllerAs: 'confCtrl'
             }).
-            when('/main', {
-                templateUrl: 'partials/main.html',
-                controller: 'mainController'
+            when('/appinfo', {
+                templateUrl: 'partials/appinfo.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/team', {
+            when('/team', {
                 templateUrl: 'partials/team.html',
-                controller: 'mainController'
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/assignments', {
+            when('/assignments', {
                 templateUrl: 'partials/assignments.html',
-                controller: 'mainController'
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/scoreboard', {
+            when('/scoreboard', {
                 templateUrl: 'partials/scoreboard.html',
-                controller: 'mainController'
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/schedule', {
+            when('/schedule', {
                 templateUrl: 'partials/schedule.html',
-                controller: 'mainController'
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/map', {
+            when('/map', {
                 templateUrl: 'partials/map.html',
-                controller: 'mainController'
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
+            }).
+            when('/about', {
+                templateUrl: 'partials/about.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
             otherwise({
                 redirectTo: 'index.html'
-            });       
+            });      
     }]);
 

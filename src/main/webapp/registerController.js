@@ -8,10 +8,10 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
     // Check if user is logged in and redirect to main screen in this case
     $scope.init = function() {
         // For debugging
-        $localStorage.$reset(); 
+        // $localStorage.$reset(); 
         $scope.loggedIn = $localStorage.loggedIn;
         if($scope.loggedIn)
-            $location.path('/main');
+            $location.path('/appinfo');
     };
  
     $scope.result = "";
@@ -59,7 +59,7 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
              */
             $scope.resultPin = "Correct Pin!";
             $localStorage.userPin = $scope.userPin;
-            $location.path('/confirmation');
+            $location.path('/confirm');
             
         }, function (response) {
             console.error($scope.userPin);
