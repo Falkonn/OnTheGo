@@ -32,7 +32,7 @@ userService.factory('UserDataService', ['$http',
                 },
                 
                 postUserMailandPin: function(userMailandPin) {
-                    return $http.post(urlBase + '/pinpath',userMailAndPin );
+                    return $http.post(urlBase + '/emailpath',userMailAndPin );
                 },
                 
                 postUserPin: function(userPin) {
