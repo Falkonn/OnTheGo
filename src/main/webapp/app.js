@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute','mailModule', 'confirmModule'
+    'ngRoute', 'registerModule', 'mainModule'
 ]);
 
 OnTheGo.config(['$routeProvider',
@@ -12,38 +12,38 @@ OnTheGo.config(['$routeProvider',
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/welcome.html',
-                controller: 'mailController'
+                controller: 'registerController'
             }).
             when('/register', {
                 templateUrl: 'partials/register.html',
-                controller: 'mailController'
+                controller: 'registerController'
             }).
             when('/confirmation', {
-                templateUrl: 'confirmation.html',
-                controller: 'confirmController'
+                templateUrl: 'partials/confirm.html',
+                controller: 'registerController'
             }).
             when('/main', {
-                templateUrl: 'main.html',
+                templateUrl: 'partials/main.html',
                 controller: 'mainController'
             }).
             when('/main/team', {
-                templateUrl: 'team.html',
+                templateUrl: 'partials/team.html',
                 controller: 'mainController'
             }).
             when('/main/assignments', {
-                templateUrl: 'assignments.html',
+                templateUrl: 'partials/assignments.html',
                 controller: 'mainController'
             }).
             when('/main/scoreboard', {
-                templateUrl: 'scoreboard.html',
+                templateUrl: 'partials/scoreboard.html',
                 controller: 'mainController'
             }).
             when('/main/schedule', {
-                templateUrl: 'schedule.html',
+                templateUrl: 'partials/schedule.html',
                 controller: 'mainController'
             }).
             when('/main/map', {
-                templateUrl: 'map.html',
+                templateUrl: 'partials/map.html',
                 controller: 'mainController'
             }).
             otherwise({

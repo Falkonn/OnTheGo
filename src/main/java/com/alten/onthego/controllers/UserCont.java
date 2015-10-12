@@ -31,6 +31,8 @@ public class UserCont {
 
     public static String emailstring;
     public static ArrayList<String> emaillists = new ArrayList<String>();
+    public static String idstring;
+    public static ArrayList<String> idlists = new ArrayList<String>();
 
     @RequestMapping(
             value = "/test",
@@ -59,11 +61,12 @@ public class UserCont {
     }
 
     @RequestMapping(
-            value = "/userbyemail/{email}",
+            value = "/userbyemail/{email.+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<User> findUserByEmail(@PathVariable("email") String email) {
+    public Collection<User> findUserByEmail(@PathVariable("email.+") String email) {
         UserInfo userbyemail = new UserInfo();
+        System.out.print("from GET" + email + "\n");
         return (Collection<User>) userbyemail.findUserByEmail(email);
     }
 
@@ -115,17 +118,64 @@ public class UserCont {
                     + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
                     + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
                     + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
+            //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
             System.out.println("The email is sent!");
         } else {
             user.verfyEmail(false);
             System.out.println("There is no email");
-
             res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         emailstring = "{\"email\" : \"" + emailAddress + "\"}";
         System.out.println("the found users are " + serializedUsers);
         emaillists.add(emailstring);
         return serializedUsers.toString();
+    }
+    
+    @RequestMapping(
+            value = "/pinpath",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getUserId(@RequestBody String userId, HttpServletResponse res) throws MessagingException {
+        UserInfo user = new UserInfo();
+        User foundUser = user.findUserById(Long.parseLong(userId,10));
+        JSONSerializer serializer = new JSONSerializer();
+        Gson gson = new Gson();
+        String serializedUser = gson.toJson(foundUser);
+        System.out.println(userId);
+        if (foundUser != null) {
+            System.out.println("Found User with this id");
+            res.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            System.out.println("Not found User with this id");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        idstring = "{\"id\" : \"" + userId + "\"}";
+        System.out.println("the found user is " + serializedUser);
+        idlists.add(idstring);
+        return serializedUser.toString();
+    }
+    
+    @RequestMapping(
+            value = "/confirmpath",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getUserConfirmData(@RequestBody User confirmedUser, HttpServletResponse res) throws MessagingException {
+        UserInfo user = new UserInfo();   
+        User updatedUser = user.updateUser(confirmedUser);
+        JSONSerializer serializer = new JSONSerializer();
+        Gson gson = new Gson();
+        String serializedUser = gson.toJson(updatedUser);
+        if (updatedUser != null) {
+            System.out.println("Found User with this id");
+            res.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            System.out.println("Not found User with this id");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        
+        System.out.println("The confirmed user is " + serializedUser);
+
+        return serializedUser.toString();
     }
 
     @RequestMapping(

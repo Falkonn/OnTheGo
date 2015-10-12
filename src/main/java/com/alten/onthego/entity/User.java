@@ -33,7 +33,7 @@ import javax.persistence.TemporalType;
  * @author ka3146
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "\"USER\"")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -159,6 +159,7 @@ public class User implements Serializable {
         return "User data are [ id= " + id + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
                 + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "]";
+
     }
 
 }

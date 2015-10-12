@@ -31,7 +31,7 @@ public class UserInfo {
     public List<User> getUsers() {
 
         try {
-            User user = em.find(User.class, 1L);;
+            User user = em.find(User.class, 1L);
             if (user != null) {
                 System.out.println(user);
                 userinfo.add(user);
@@ -54,6 +54,7 @@ public class UserInfo {
     public Collection<User> findUserByEmail(String email) {
         Query finduserbyemailquery = em.createQuery("select e from User e where e.email =" + "\"" + email + "\"");
         return (Collection<User>) finduserbyemailquery.getResultList();
+
     }
 
     public boolean verfyEmail(boolean flage) {
@@ -98,5 +99,17 @@ public class UserInfo {
         if (removeuser != null) {
             em.remove(removeuser);
         }
+    }
+    
+    public User updateUser(User confUser) {
+        User updateUser = findUserById(confUser.getId());      
+        if (updateUser != null) {
+            em.getTransaction().begin();
+            updateUser.setFirstName(confUser.getFirstName());
+            updateUser.setTelefon(confUser.getTelefon());
+            updateUser.setEmail(confUser.getEmail());
+            em.getTransaction().commit();
+        }
+        return updateUser;
     }
 }

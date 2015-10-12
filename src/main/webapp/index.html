@@ -53,6 +53,7 @@
     <!-- AngularJS -->
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
+    <script src="js/ngStorage.min.js"></script>
     
     <!-- Angular UI Bootstrap -->
     <script src="js/ui-bootstrap-tpls-0.13.4.js"></script>
@@ -62,18 +63,18 @@
 
     <!-- Angular modules -->
     <script src="app.js"></script>
-    <script src="mailController.js"></script>
-    <script src="confirmController.js"></script>
-    
+    <script src="registerController.js"></script>
+    <script src="mainController.js"></script>
+    <script src="services.js"></script> 
     
 </head>
 
-<body id="page-top" class="index"> 
+<body id="page-top" class="index" ng-init="init()" ng-controller="registerController as loggedCtrl"> 
     
     <div ng-if="!loggedIn"></div>
     <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
 
-    <div ng-view></div>
+    <div ng-view ng-model="loggedIn"></div>
 
     <div ng-if="!loggedIn" ng-include="'partials/footer.html'"></div>
     <div ng-if="loggedIn" ng-include="'partials/footer_team.html'"></div>
