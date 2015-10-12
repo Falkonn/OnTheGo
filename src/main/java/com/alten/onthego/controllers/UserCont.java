@@ -9,6 +9,7 @@ import com.alten.onthego.common.EmailSending;
 import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.model.UserInfo;
 import com.alten.onthego.entity.User;
+import com.alten.onthego.entity.UserCredentials;
 import com.google.gson.Gson;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -131,37 +132,13 @@ public class UserCont {
         emaillists.add(emailstring);
         return serializedUsers.toString();
     }
-    
-    @RequestMapping(
-            value = "/pinpath",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getUserId(@RequestBody String userId, HttpServletResponse res) throws MessagingException {
-        UserInfo user = new UserInfo();
-        User foundUser = user.findUserById(Long.parseLong(userId,10));
-        JSONSerializer serializer = new JSONSerializer();
-        Gson gson = new Gson();
-        String serializedUser = gson.toJson(foundUser);
-        System.out.println(userId);
-        if (foundUser != null) {
-            System.out.println("Found User with this id");
-            res.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            System.out.println("Not found User with this id");
-            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-        idstring = "{\"id\" : \"" + userId + "\"}";
-        System.out.println("the found user is " + serializedUser);
-        idlists.add(idstring);
-        return serializedUser.toString();
-    }
-    
+
     @RequestMapping(
             value = "/confirmpath",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String getUserConfirmData(@RequestBody User confirmedUser, HttpServletResponse res) throws MessagingException {
-        UserInfo user = new UserInfo();   
+        UserInfo user = new UserInfo();
         User updatedUser = user.updateUser(confirmedUser);
         JSONSerializer serializer = new JSONSerializer();
         Gson gson = new Gson();
@@ -173,7 +150,7 @@ public class UserCont {
             System.out.println("Not found User with this id");
             res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-        
+
         System.out.println("The confirmed user is " + serializedUser);
 
         return serializedUser.toString();
@@ -183,9 +160,15 @@ public class UserCont {
             value = "/pinpath",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean CheckPinCode(@RequestBody String email, String pinCode, HttpServletResponse ress) throws IllegalBlockSizeException, BadPaddingException {
+    public boolean CheckPinCode(@RequestBody String userCredentials, HttpServletResponse ress) throws IllegalBlockSizeException, BadPaddingException {
         UserInfo validateuser = new UserInfo();
-        boolean verifyuser = validateuser.validUser(email, pinCode);
+        Gson gson = new Gson();
+        Object userCredentialsserlize = gson.fromJson(userCredentials, UserCredentials.class);
+        System.out.println("The strings are: " + userCredentialsserlize);
+        UserCredentials uc = new UserCredentials();
+        uc.setEmailAddress(emailstring);
+        uc.setPinCode(idstring);
+        boolean verifyuser = validateuser.validUser(uc.getEmailAddress(), uc.getPinCode());
         if (verifyuser) {
             System.out.println("User is verfied");
             ress.setStatus(HttpServletResponse.SC_OK);
