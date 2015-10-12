@@ -27,10 +27,10 @@ public class addrow {
 
         try {
             PassEncryption pe = new PassEncryption();
-            User user = new User("vasilis" , "golematis" , "vg@vg.se", "is" , "081" , "machine");
+            User user = new User("vasilis" , "golematis" , "vg@vg.se", "is" , "081" , "machine", "1234");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
-            em.persist(us);
+            em.persist(user);
             entityTx.commit();
             System.out.println("The row has be successfully added");
         } catch (Exception e) {

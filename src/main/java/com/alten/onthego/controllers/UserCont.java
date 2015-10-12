@@ -19,6 +19,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.persistence.sessions.serializers.JSONSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
