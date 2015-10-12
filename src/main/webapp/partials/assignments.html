@@ -1,0 +1,37 @@
+<!-- Main Section -->
+<section id="services">
+    <div class="container" ng-controller="mainController as mainCtrl">
+        <div class="row" ng-repeat="t in assignments.tasks">
+            <div class="img-rounded" style="background-color: silver">
+                <div class="col-lg-12 text-center">
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 text-left h4">{{t.name}}</div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right h5">
+                    <form name="{{ form + t.id }}"> <!--<form ng-submit="mainCtrl.checkTask(user, '{{t.id}}')"> -->
+                        <input class="checkbox" type="checkbox" /> <!-- ng-model="{{t.checked}}" -->
+                    </form>
+                    </div>
+                </div>
+                
+                
+                <div class="col-lg-12 text-center">
+                <table class="">
+                    <tr>
+                        <td class="col-xs-3 top">Detaljer:</td>
+                        <td class="col-xs-9 text-justify">{{t.details}}</td></tr>
+                    <tr>
+                        <td class="col-xs-3 top">Typ:</td>
+                        <td class="col-xs-9 text-left">{{t.type}}</td></tr>
+                    <tr>
+                        <td class="col-xs-3 top">Estimerad tid:</td>
+                        <td class="col-xs-9 text-left">{{t.estimation}}</td></tr>
+                    <tr>
+                        <td class="col-xs-3 top">Poäng:</td>
+                        <td class="col-xs-9 text-left">{{t.points}}</td></tr>
+                </table>
+                <hr>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

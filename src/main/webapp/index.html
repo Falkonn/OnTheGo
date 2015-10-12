@@ -64,31 +64,20 @@
     <script src="app.js"></script>
     <script src="mailController.js"></script>
     <script src="confirmController.js"></script>
+    <script src="mainController.js"></script>
     
+    <script src="services.js"></script>
     
 </head>
 
 <body id="page-top" class="index"> 
     
-    <div ng-if="!loggedIn"></div>
-    <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
+    <div ng-show="loggedIn" ng-include="'partials/navigation.html'"></div>
 
     <div ng-view></div>
 
     <div ng-if="!loggedIn" ng-include="'partials/footer.html'"></div>
     <div ng-if="loggedIn" ng-include="'partials/footer_team.html'"></div>
-    
-    <!--
-    <span ng-switch on="loggedIn">
-        <div ng-switch-when="false"></div>
-        <div ng-switch-when="true" ng-include="'partials/navigation.html'"></div>
-        
-        <div ng-view></div>
-    
-        <div ng-switch-when=false src="'partials/footer.html'"></div>
-        <div ng-switch-when=true ng-include="'partials/footer_team.html'"></div>
-    </span>
-    -->
 
 </body>
 </html>

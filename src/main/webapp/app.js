@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute','mailModule', 'confirmModule'
+    'ngRoute','mailModule', 'confirmModule', 'mainModule'
 ]);
 
 OnTheGo.config(['$routeProvider',
@@ -12,39 +12,53 @@ OnTheGo.config(['$routeProvider',
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/welcome.html',
-                controller: 'mailController'
+                controller: 'mailController',
+                controllerAs: 'mailCtrl'
             }).
             when('/register', {
                 templateUrl: 'partials/register.html',
-                controller: 'mailController'
+                controller: 'mailController',
+                controllerAs: 'mailCtrl'
             }).
-            when('/confirmation', {
-                templateUrl: 'confirmation.html',
-                controller: 'confirmController'
+            when('/confirm', {
+                templateUrl: 'partials/confirm.html',
+                controller: 'confirmController',
+                controllerAs: 'confirmCtrl'
             }).
-            when('/main', {
-                templateUrl: 'main.html',
-                controller: 'mainController'
+            when('/info', {
+                templateUrl: 'partials/appinfo.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/team', {
-                templateUrl: 'team.html',
-                controller: 'mainController'
+            when('/team', {
+                templateUrl: 'partials/team.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/assignments', {
-                templateUrl: 'assignments.html',
-                controller: 'mainController'
+            when('/assignments', {
+                templateUrl: 'partials/assignments.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/scoreboard', {
-                templateUrl: 'scoreboard.html',
-                controller: 'mainController'
+            when('/scoreboard', {
+                templateUrl: 'partials/scoreboard.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/schedule', {
-                templateUrl: 'schedule.html',
-                controller: 'mainController'
+            when('/schedule', {
+                templateUrl: 'partials/schedule.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
-            when('/main/map', {
-                templateUrl: 'map.html',
-                controller: 'mainController'
+            when('/map', {
+                templateUrl: 'partials/map.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
+            }).
+            when('/about', {
+                templateUrl: 'partials/about.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
             }).
             otherwise({
                 redirectTo: 'index.html'
