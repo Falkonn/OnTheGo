@@ -46,37 +46,11 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
                 $scope.result = "Server Error";
         });
     };
-    
-    this.sendPin = function() {
-        UserDataService.postUserPin($scope.userPin)
-        .then(function()  {
-            console.log("pin post done");
-            /* Confirmation in back end and when verified, should be able to
-             * procede to next page (Name, Phone and Email confirmation page).
-             */
-            $scope.resultPin = "Correct Pin!";
-            $localStorage.userPin = $scope.userPin;
-            $location.path('/confirmation');
-            
-        }, function (response) {
-            console.error($scope.userPin);
-            // Not Found in the Database
-            if(response.status === 404)
-                $scope.resultPin = "This pin does not match your mail";
-            // Unknown server error
-            else
-                $scope.resultPin = "Server Error";
-        });
-            
-    };
-    
+   
     // Sends mail and Pin to the backend
-    this.sendMailandPin = function() {
-        var mailAndPin = {
-                            email: $scope.userEmail,
-                            pin:   $scope.userPin
-                          }
-        UserDataService.postUserPin($JSON.stringify(mailAndPin))
+    this.sendPin = function() {
+      
+        UserDataService.postUserPin($scope.userEmail + ' ' + $scope.userPin)
         .then(function()  {
             console.log("pin post done");
             /* Confirmation in back end and when verified, should be able to

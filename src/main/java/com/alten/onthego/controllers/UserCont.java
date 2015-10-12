@@ -5,14 +5,6 @@
  */
 package com.alten.onthego.controllers;
 
-import com.alten.onthego.common.EmailSending;
-import com.alten.onthego.common.PassEncryption;
-import com.alten.onthego.model.UserInfo;
-import com.alten.onthego.entity.User;
-import com.alten.onthego.entity.UserCredentials;
-import com.google.gson.Gson;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -27,6 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.alten.onthego.common.EmailSending;
+import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.entity.User;
+import com.alten.onthego.model.UserInfo;
+import com.google.gson.Gson;
 
 @RestController
 public class UserCont {
@@ -35,14 +32,6 @@ public class UserCont {
     public static ArrayList<String> emaillists = new ArrayList<String>();
     public static String idstring;
     public static ArrayList<String> idlists = new ArrayList<String>();
-
-    @RequestMapping(
-            value = "/test",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public String greeting() {
-        return "test";
-    }
 
     @RequestMapping(
             value = "/users",
@@ -82,7 +71,7 @@ public class UserCont {
     }
 
     @RequestMapping(
-            value = "/userbypin/{email}",
+            value = "/userbypin/{email.+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<User> findPinByEmail(@PathVariable("email") String email) {
@@ -150,9 +139,7 @@ public class UserCont {
             System.out.println("Not found User with this id");
             res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-
         System.out.println("The confirmed user is " + serializedUser);
-
         return serializedUser.toString();
     }
 
@@ -162,14 +149,11 @@ public class UserCont {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean CheckPinCode(@RequestBody String userCredentials, HttpServletResponse ress) throws IllegalBlockSizeException, BadPaddingException {
         UserInfo validateuser = new UserInfo();
-        Gson gson = new Gson();
-        Object userCredentialsserlize = gson.fromJson(userCredentials, UserCredentials.class);
-        System.out.println("The strings are: " + userCredentialsserlize);
-        UserCredentials uc = new UserCredentials();
-        uc.setEmailAddress(emailstring);
-        uc.setPinCode(idstring);
-        boolean verifyuser = validateuser.validUser(uc.getEmailAddress(), uc.getPinCode());
-        if (verifyuser) {
+        String[] splited = userCredentials.split(" ");
+        String email = splited[0];
+        String pinCode = splited[1];
+        boolean verifyuser = validateuser.validUser(email, pinCode);
+        if (!verifyuser) {
             System.out.println("User is verfied");
             ress.setStatus(HttpServletResponse.SC_OK);
         } else {
