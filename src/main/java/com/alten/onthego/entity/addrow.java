@@ -31,7 +31,7 @@ private static String jobTitle;
         EntityManager em = emf.createEntityManager();
 
         try {
-            User user = new User("robot" , "c3p0" , "cc@pp.se", "is" , "081" , "machine");
+            User user = new User("vasilis" , "golematis" , "vg@vg.se", "is" , "081" , "machine");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(user);

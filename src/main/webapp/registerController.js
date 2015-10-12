@@ -8,7 +8,7 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
     // Check if user is logged in and redirect to main screen in this case
     $scope.init = function() {
         // For debugging
-        //$localStorage.$reset(); 
+        $localStorage.$reset(); 
         $scope.loggedIn = $localStorage.loggedIn;
         if($scope.loggedIn)
             $location.path('/main');
@@ -70,6 +70,34 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
             
     };
     
+    // Sends mail and Pin to the backend
+    this.sendMailandPin = function() {
+        var mailAndPin = {
+                            email: $scope.userEmail,
+                            pin:   $scope.userPin
+                          }
+        UserDataService.postUserPin($JSON.stringify(mailAndPin))
+        .then(function()  {
+            console.log("pin post done");
+            /* Confirmation in back end and when verified, should be able to
+             * procede to next page (Name, Phone and Email confirmation page).
+             */
+            $scope.resultPin = "Correct Pin!";
+            $localStorage.userPin = $scope.userPin;
+            $location.path('/confirmation');
+            
+        }, function (response) {
+            console.error($scope.userPin);
+            // Not Found in the Database
+            if(response.status === 404)
+                $scope.resultPin = "This pin does not match your mail";
+            // Unknown server error
+            else
+                $scope.resultPin = "Server Error";
+        });
+            
+    };
+  
     // Send Confirmation Data and update Db from the backend
     this.sendConfirmData = function() {     
         // Update local values
