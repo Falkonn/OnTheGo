@@ -27,7 +27,7 @@ public class addrow {
 
         try {
             PassEncryption pe = new PassEncryption();
-            User user = new User("vasilis" , "golematis" , "vg@vg.se", "is" , "081" , "machine", "1234");
+            User user = new User("vasilis" , "golematis" , "vg@vg.se", "081" , "gothenburg" , "es", "1234");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(user);

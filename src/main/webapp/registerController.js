@@ -8,10 +8,10 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
     // Check if user is logged in and redirect to main screen in this case
     $scope.init = function() {
         // For debugging
-        $localStorage.$reset(); 
+        // $localStorage.$reset(); 
         $scope.loggedIn = $localStorage.loggedIn;
         if($scope.loggedIn)
-            $location.path('/main');
+            $location.path('/appinfo');
     };
  
     $scope.result = "";
@@ -27,14 +27,16 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
         .then(function() {
             // Getting User Info to show to the user
             UserDataService.getUserByMail($scope.userEmail).success(function(response){
+                    console.log(response);
                     $scope.names = response;
                     // Saving User info to localStorage
                     $localStorage.user = $scope.names[0];
                     // Showing User Info
                     $scope.result = "Hello " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
-                }).error(function(){});
-            // Confirmation that the mail was sent successfully from the backend
-            $scope.result += ". A pin code is sent to your mail!"
+                     // Confirmation that the mail was sent successfully from the backend
+                    $scope.result += ". A pin code is sent to your mail!"
+                }).error(function(){console.log(response.status);});
+           
     
         }, function (response) {
             console.error(response.status);
@@ -49,7 +51,6 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
    
     // Sends mail and Pin to the backend
     this.sendPin = function() {
-      
         UserDataService.postUserPin($scope.userEmail + ' ' + $scope.userPin)
         .then(function()  {
             console.log("pin post done");
@@ -58,7 +59,7 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
              */
             $scope.resultPin = "Correct Pin!";
             $localStorage.userPin = $scope.userPin;
-            $location.path('/confirmation');
+            $location.path('/confirm');
             
         }, function (response) {
             console.error($scope.userPin);
