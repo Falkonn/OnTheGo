@@ -22,6 +22,7 @@ import javax.persistence.*;
  * @author ka3146
  */
 public class addTask {
+    //the main class here just for testing purpose
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
         EntityManager em = emf.createEntityManager();
