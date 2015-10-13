@@ -47,7 +47,7 @@ public class User implements Serializable {
     private String pin_code;
     @Column(name = "team_id")
     private Integer teamId;
-    @Column(name ="pic_id")
+    @Column(name = "pic_id")
     private Integer picId;
 
     public User() {
@@ -55,7 +55,7 @@ public class User implements Serializable {
 
     public User(String firstName, String lastName, String email,
             String telefon, String city, String department, String pin_code, int teamId) {
-    	super();
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -101,9 +101,9 @@ public class User implements Serializable {
     public String getPinCode() {
         return pin_code;
     }
-    
-    public int getTeamId(){
-    	return teamId;
+
+    public int getTeamId() {
+        return teamId;
     }
 
     public void setFirstName(String firstName) {
@@ -135,14 +135,14 @@ public class User implements Serializable {
     }
 
     public Integer getPicId() {
-		return picId;
-	}
+        return picId;
+    }
 
-	public void setPicId(Integer picId) {
-		this.picId = picId;
-	}
+    public void setPicId(Integer picId) {
+        this.picId = picId;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

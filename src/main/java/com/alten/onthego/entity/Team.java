@@ -16,47 +16,45 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Team")
+@Table(name = "Team")
 public class Team implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	 	@OneToMany
-	 	@JoinColumn(name="team_id")
-	    private Long id;
-	    @Column(name = "team_id")
-	    private Integer teamId;
-	    @Column(name = "team_name")
-	    private String teamName;
- 
-	public Team() {
-		super();
-	}
-	
-	public Team(int teamId, String teamName)
-	{
-    	super();
-		this.teamId = teamId;
-		this.teamName = teamName;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public Integer getTeamId() {
-		return teamId;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @OneToMany
+    @JoinColumn(name = "team_id")
+    private Long id;
+    @Column(name = "team_id")
+    private Integer teamId;
+    @Column(name = "team_name")
+    private String teamName;
 
-	public void setTeamId(Integer teamId) {
-		this.teamId = teamId;
-	}
+    public Team() {
+        super();
+    }
 
-	public String getTeamName() {
-		return teamName;
-	}
+    public Team(int teamId, String teamName) {
+        super();
+        this.teamId = teamId;
+        this.teamName = teamName;
+    }
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
-	}
-	
-   
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
 }
