@@ -18,13 +18,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Team")
 public class Team implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@OneToMany
-	@JoinColumn(name="team_id")
-	private User user;
+
 	@Column(name = "team_id")
 	private Integer teamId;
 	@Column(name = "team_name")
