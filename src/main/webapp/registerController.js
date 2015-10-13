@@ -7,12 +7,12 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
     
     // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
-        // For debugging
+        // Clean localstorage (for debugging)
         //$localStorage.$reset();
         $scope.loggedIn = $localStorage.loggedIn;
         console.log("loggedIn" + $scope.loggedIn);
         if($scope.loggedIn)
-            $location.path('/appinfo');
+            $location.path('/info');
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
         else if($location.url()!='/register' && $location.url()!='/confirm')
             $location.path('/');
@@ -94,7 +94,7 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
             $localStorage.loggedIn = true;
             console.log("registered complete");
             // Redirect to main page
-            $location.path('/appinfo');
+            $location.path('/info');
         }, function (response) {
             console.error(response.status);
         });
