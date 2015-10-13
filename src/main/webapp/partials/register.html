@@ -29,16 +29,16 @@
         </div>
 
         <div class="row">
-            <h3 class="section-subheading text-muted">Steg 3 - Skriv in din pin-kod.</h3>
+            <h3 class="section-subheading text-muted">Steg 3 - Skriv in din 4-siffror pin-kod.</h3>
             <div class="col-lg-12 text-center" ng-model="resultPin">{{resultPin}}</div>
             <form class="form-group" name="pinForm" ng-submit="mailCtrl.sendPin()">
-                <input class="center-block form" type="password" ng-model="userPin" name="pin" ng-pattern="/^[0-9]{2,4}$/" required>
+                <input class="center-block form" type="password" ng-model="userPin" name="pin" ng-pattern="/^[0-9]{4,4}$/" required>
                 <span style="color:red" ng-show="pinForm.pin.$dirty">
                   <span ng-show="pinForm.pin.$error.required">Du måste skriva in din Pin.</span>
                   <span ng-show="pinForm.pin.$error.pattern">Ogiltig Pin.</span>
                 </span>
                 <p class="col-lg-12 text-center">
-                <input class="btn btn-primary" type="submit" ng-disabled="pinForm.pin.$dirty && pinForm.pin.$invalid">
+                <input class="btn btn-primary" type="submit" ng-disabled="pinForm.pin.$dirty && pinForm.pin.$invalid || (mailForm.email.$dirty && mailForm.email.$invalid) ">
                 </p>
             </form>
         </div>

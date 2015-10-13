@@ -5,14 +5,20 @@ var registerModule = angular.module('registerModule', ['UserService', 'ngStorage
 registerModule.controller('registerController',['$scope','UserDataService', '$localStorage', '$location', 
     function ($scope, UserDataService, $localStorage, $location) {
     
-    // Checks if user is logged in and redirect to  screen in this case
+    // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
         // For debugging
-        //$localStorage.$reset(); 
+        //$localStorage.$reset();
         $scope.loggedIn = $localStorage.loggedIn;
         console.log("loggedIn" + $scope.loggedIn);
         if($scope.loggedIn)
             $location.path('/appinfo');
+        // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
+        else if($location.url()!='/register' && $location.url()!='/confirm')
+            $location.path('/');
+        //If pin is undefined redirect to register screen
+        else if($location.url()=='/confirm' && !$localStorage.userPin)
+            $location.path('/register');
     };
     // Run Init 
     $scope.init();
@@ -54,31 +60,37 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
    
     // Sends mail and Pin to the backend
     this.sendPin = function() {
+        
         UserDataService.postUserPin($scope.userEmail + ' ' + $scope.userPin)
-        .then(function()  {
-            console.log("pin post done");
-            /* Confirmation in back end and when verified, should be able to
-             * procede to next page (Name, Phone and Email confirmation page).
-             */
-            $scope.resultPin = "Correct Pin!";
-            $localStorage.userPin = $scope.userPin;
-            $location.path('/confirm');
-            
-        }, function (response) {
-            console.error($scope.userPin);
-            // Not Found in the Database
-            if(response.status === 404)
-                $scope.resultPin = "This pin does not match your mail";
-            // Unknown server error
-            else
-                $scope.resultPin = "Server Error";
-        });
+            .then(function(response)  {
+                console.log(response);
+                /* Confirmation in back end and when verified, should be able to
+                 * procede to next page (Name, Phone and Email confirmation page).
+                 */
+                $scope.names = response;
+                // Saving User info to localStorage again in case the user has already got the pin
+                //$localStorage.user = $scope.names;
+                $scope.resultPin = "Correct Pin!";
+                $localStorage.userPin = $scope.userPin;
+                console.log($localStorage);
+                $location.path('/confirm');
+
+            }, function (response) {
+                console.error($scope.userPin);
+                // Not Found in the Database
+                if(response.status === 404)
+                    $scope.resultPin = "This pin does not match your mail";
+                // Unknown server error
+                else
+                    $scope.resultPin = "Server Error";
+            });
             
     };
   
     // Send Confirmation Data and update Db from the backend
     this.sendConfirmData = function() {     
         // Update local values
+        console.log($localStorage.user);
         $localStorage.user.firstName = $scope.userName, 
         $localStorage.user.email = $scope.userEmail,
         $localStorage.user.telefon = $scope.userPhone,
