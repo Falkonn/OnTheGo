@@ -5,15 +5,18 @@ var registerModule = angular.module('registerModule', ['UserService', 'ngStorage
 registerModule.controller('registerController',['$scope','UserDataService', '$localStorage', '$location', 
     function ($scope, UserDataService, $localStorage, $location) {
     
-    // Check if user is logged in and redirect to main screen in this case
+    // Checks if user is logged in and redirect to  screen in this case
     $scope.init = function() {
         // For debugging
-        // $localStorage.$reset(); 
+        //$localStorage.$reset(); 
         $scope.loggedIn = $localStorage.loggedIn;
+        console.log("loggedIn" + $scope.loggedIn);
         if($scope.loggedIn)
             $location.path('/appinfo');
     };
- 
+    // Run Init 
+    $scope.init();
+    
     $scope.result = "";
     // Set values from localStorage
     if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null ){
@@ -83,8 +86,9 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
         UserDataService.postUserConfirmData(JSON.stringify($localStorage.user)).then(function(response) {          
             // Mark loggedIn to localStorage so that the user does not need to register again
             $localStorage.loggedIn = true;
+            console.log("registered complete");
             // Redirect to main page
-            $location.path('/main');
+            $location.path('/appinfo');
         }, function (response) {
             console.error(response.status);
         });

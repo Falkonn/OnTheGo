@@ -8,7 +8,6 @@ var OnTheGo = angular.module('OnTheGo', [
 
 OnTheGo.config(['$routeProvider',
     function ($routeProvider) {  // Injected object $routeProvider
-        //console.log("In the routeProvider");
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/welcome.html',

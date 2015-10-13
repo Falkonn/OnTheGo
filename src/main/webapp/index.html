@@ -69,7 +69,7 @@
     
 </head>
 
-<body id="page-top" class="index" ng-init="init()"> 
+<body id="page-top" class="index" ng-controller="registerController" > 
     
     <div ng-if="!loggedIn"></div>
     <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
