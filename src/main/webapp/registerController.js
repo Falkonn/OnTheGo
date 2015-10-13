@@ -63,16 +63,10 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
         
         UserDataService.postUserPin($scope.userEmail + ' ' + $scope.userPin)
             .then(function(response)  {
-                console.log(response);
-                /* Confirmation in back end and when verified, should be able to
-                 * procede to next page (Name, Phone and Email confirmation page).
-                 */
-                $scope.names = response;
-                // Saving User info to localStorage again in case the user has already got the pin
-                //$localStorage.user = $scope.names;
+                // Pin Verified
                 $scope.resultPin = "Correct Pin!";
                 $localStorage.userPin = $scope.userPin;
-                console.log($localStorage);
+                // Redirecting to confirm screen
                 $location.path('/confirm');
 
             }, function (response) {
