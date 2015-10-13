@@ -1,7 +1,19 @@
+
 <!-- Main Section -->
 <section id="services">
     <div class="container">
-        <div class="row"><h2>Team {{team.teamNumber}}</h2> <h5>- {{team.numberOfMembers}} </h5></div>
+        <div class="row">
+            <table>
+                <tr>
+                    <td>
+                        <h2>Team {{team.teamNumber}}</h2>
+                    </td>
+                    <td class="bottom">
+                        <h5> - {{team.numberOfMembers}} members</h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="row" ng-repeat="member in team.members">
             <div>
                 
@@ -48,7 +60,6 @@
                 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0; ">
                 </div>
             </div>
-            
         </div>
     </div>
 </section>

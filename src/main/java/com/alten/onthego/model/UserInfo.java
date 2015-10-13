@@ -36,7 +36,7 @@ public class UserInfo {
                 System.out.println(user);
                 userinfo.add(user);
             } else {
-                System.out.println("Employee table is empty!");
+                System.out.println("User table is empty!");
             }
         } catch (Exception e) {
             System.err.println(e.toString());

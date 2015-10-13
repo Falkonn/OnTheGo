@@ -6,8 +6,9 @@ var OnTheGo = angular.module('OnTheGo', [
     'ngRoute', 'registerModule', 'mainModule'
 ]);
 
-OnTheGo.config(['$routeProvider',
-    function ($routeProvider) {  // Injected object $routeProvider
+OnTheGo.config(['$routeProvider', '$locationProvider',
+    function ($routeProvider, $locationProvider) {  // Injected object $routeProvider
+        //console.log("In the routeProvider");
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/welcome.html',
@@ -18,12 +19,21 @@ OnTheGo.config(['$routeProvider',
                 controller: 'registerController',
                 controllerAs: 'mailCtrl'
             }).
+            when('/register', {
+                templateUrl: 'partials/register.html',
+                controller: 'mailController',
+                controllerAs: 'mailCtrl'
+            }).
             when('/confirm', {
                 templateUrl: 'partials/confirm.html',
                 controller: 'registerController',
                 controllerAs: 'confCtrl'
             }).
             when('/appinfo', {
+                controller: 'confirmController',
+                controllerAs: 'confirmCtrl'
+            }).
+            when('/info', {
                 templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
@@ -60,6 +70,8 @@ OnTheGo.config(['$routeProvider',
             }).
             otherwise({
                 redirectTo: 'index.html'
-            });      
+            });
+        
+        //$locationProvider.html5Mode(true);
     }]);
 

@@ -1,20 +1,25 @@
 
-var mainModule = angular.module('mainModule', [])
 
+var mainModule = angular.module('mainModule', ['ui.bootstrap'])
 
 .controller('mainController',['$scope','$http', function ($scope, $http) {
     var mc = $scope;
     mc.loggedIn = true;
     
-    $scope.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
+    mc.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
         du/gruppen har utfört uppdraget.";
     
     /////////////////////// UPPGIFTER
-    $scope.assignments = {
+    mc.assignments = {
+
+    /////////////////////// UPPGIFTER
+
         "numberOfAssignments": 10,
         "tasks": [
             {
                 "id": 1,
+                "name": "Forum att kommunicera via",
+                "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
                 "name": "Bestäm ett forum att kommunicera via",
                 "details": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
                 "type": "grupp",
@@ -25,6 +30,7 @@ var mainModule = angular.module('mainModule', [])
             {
                 "id": 2,
                 "name": "Gilla Alten Sweden på LinkedIn",
+                "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
                 "details": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
                 "type": "personlig",
                 "estimation": "1 minut",
@@ -34,6 +40,7 @@ var mainModule = angular.module('mainModule', [])
             {
                 "id": 3,
                 "name": "Skicka en selfie",
+                "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
                 "details": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
                 "type": "personlig",
                 "estimation": "1-5 minuter",
@@ -43,6 +50,7 @@ var mainModule = angular.module('mainModule', [])
             {
                 "id": 4,
                 "name": "Bli vänner på LindedIn",
+                "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
                 "details": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
                 "type": "personlig",
                 "estimation": "1-10 minuter",
@@ -52,6 +60,7 @@ var mainModule = angular.module('mainModule', [])
             {
                 "id": 5,
                 "name": "Designa en Alten-drink",
+                "description": "Vad tycker du vore en god och passande drink för Alten?",
                 "details": "Vad tycker du vore en god och passande drink för Alten?",
                 "type": "personlig",
                 "estimation": "1-10 minuter",
@@ -118,7 +127,6 @@ var mainModule = angular.module('mainModule', [])
             }
         ]
     };
-    
 }]);
 
 

@@ -51,12 +51,15 @@ tmp/**/*
 *~.nib
 local.properties
 .classpath
+*.class
+*.jar
+*.lst
 .settings/
 .loadpath
 /src/main/resources/rebel.xml
 # External tool builders
 .externalToolBuilders/
- 
+target/
 # Locally stored "Eclipse launch configurations"
 *.launch
  
