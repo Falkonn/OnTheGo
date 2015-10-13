@@ -52,6 +52,7 @@ tmp/**/*
 local.properties
 .classpath
 *.class
+*.jar
 .settings/
 .loadpath
 /src/main/resources/rebel.xml
