@@ -56,7 +56,7 @@
     <script src="js/ngStorage.min.js"></script>
     
     <!-- Angular UI Bootstrap -->
-    <script src="js/ui-bootstrap-tpls-0.13.4.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.14.1.js"></script>
     
     <!-- jQuery JavaScript -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -67,10 +67,10 @@
     <script src="mainController.js"></script>
     <script src="services.js"></script> 
     
+    <base href="/">
 </head>
 
-<body id="page-top" class="index" ng-controller="registerController" > 
-    
+<body id="page-top" class="index" ng-init="init()"> 
     <div ng-if="!loggedIn"></div>
     <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
 
