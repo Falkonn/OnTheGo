@@ -6,8 +6,9 @@ var OnTheGo = angular.module('OnTheGo', [
     'ngRoute', 'registerModule', 'mainModule'
 ]);
 
-OnTheGo.config(['$routeProvider',
-    function ($routeProvider) {  // Injected object $routeProvider
+OnTheGo.config(['$routeProvider', '$locationProvider',
+    function ($routeProvider, $locationProvider) {  // Injected object $routeProvider
+        //console.log("In the routeProvider");
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/welcome.html',
@@ -60,6 +61,8 @@ OnTheGo.config(['$routeProvider',
             }).
             otherwise({
                 redirectTo: 'index.html'
-            });      
+            });
+        
+        //$locationProvider.html5Mode(true);
     }]);
 
