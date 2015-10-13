@@ -6,6 +6,17 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
     var mc = $scope;
     mc.loggedIn = true;
     
+    $scope.checkboxClicked = function(t){
+        
+        var data= {"taskId": t.id, "taskName": t.name, "isChecked": t.checked};
+        
+        console.log("data: " + data.taskName);
+         $http.post('/tasks', data).success(function (response) {
+                        console.log("server responded: " + response);
+                    });
+        
+    };
+    
     mc.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
         du/gruppen har utfört uppdraget.";
     
