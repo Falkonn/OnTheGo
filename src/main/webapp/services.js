@@ -56,7 +56,7 @@ httpService.factory('httpServ', ['$http',
                 
                 //////// Add Score http get services here ///////
                 getScore: function() {
-                    return $http.get(urlBase + '/Tasks');
+                    return $http.get(urlBase + '/Scores');
                 }
                 
                 //////// Add Score http post services here ///////
