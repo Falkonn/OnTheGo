@@ -27,7 +27,7 @@ public class addTask {
         EntityManager em = emf.createEntityManager();
 
         try {
-            PassEncryption pe = new PassEncryption();
+      
             Task task = new Task("taskname" , "taskinfo" , 4 , true);
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();

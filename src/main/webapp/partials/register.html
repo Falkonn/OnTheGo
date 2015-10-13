@@ -8,6 +8,7 @@
         </div>
         <div class="row">
             <h3 class="section-subheading text-muted">Steg 1 - Skriv in din e-postadress för att starta dagen.</h3>
+<<<<<<< HEAD
             <div class="col-lg-12 text-center" ng-model="result">{{ result }}</div>
             <form class="form-group" name="mailForm" ng-submit="mailCtrl.sendEmail()">
                 <input class="center-block form" type="email" ng-model="userEmail" name="email" required>
@@ -18,6 +19,19 @@
                 <p class="col-lg-12 text-center">
                 <input class="btn btn-primary" type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
                 </p>
+=======
+            <form class="form-inline text-center" name="mailForm" ng-submit="mailCtrl.sendEmail()">
+                <div class="form-group">
+                    <input class="form-control" type="email" ng-model="userEmail" name="email" required>
+                    <span style="color:red" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">
+                      <span ng-show="mailForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+                      <span ng-show="mailForm.email.$error.email">Ogiltig e-postadress.</span>
+                    </span>
+                    <p class="col-lg-12 text-center">
+                    <input class="btn btn-primary" type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
+                    </p>
+                </div>
+>>>>>>> origin
             </form>
         </div>
 
@@ -29,6 +43,7 @@
         </div>
 
         <div class="row">
+<<<<<<< HEAD
             <h3 class="section-subheading text-muted">Steg 3 - Skriv in din pin-kod.</h3>
             <div class="col-lg-12 text-center" ng-model="resultPin">{{resultPin}}</div>
             <form class="form-group" name="pinForm" ng-submit="mailCtrl.sendPin()">
@@ -40,6 +55,20 @@
                 <p class="col-lg-12 text-center">
                 <input class="btn btn-primary" type="submit" ng-disabled="pinForm.pin.$dirty && pinForm.pin.$invalid">
                 </p>
+=======
+            <h3 class="section-subheading text-muted">Steg 3 - Skriv in din e-postadress för att starta dagen.</h3>
+            <form class="form-inline text-center" name="pinForm" ng-submit="mailCtrl.sendPin()">
+                <div class="form-group">
+                    <input class="form-control" type="password" ng-model="userPin" ng-pattern="/^[1-9]{1}[0-9]{3}$/" name="pin" required>
+                    <span style="color:red" ng-show="pinForm.email.$dirty && mailForm.email.$invalid">
+                      <span ng-show="mailForm.email.$error.required">Du måste skriva in en e-postadress.</span>
+                      <span ng-show="mailForm.email.$error.email">Ogiltig e-postadress.</span>
+                    </span>
+                    <p class="col-lg-12 text-center">
+                    <input class="btn btn-primary" type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
+                    </p>
+                </div>
+>>>>>>> origin
             </form>
         </div>
     </div>

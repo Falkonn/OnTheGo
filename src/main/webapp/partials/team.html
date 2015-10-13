@@ -1,5 +1,6 @@
 <!-- Main Section -->
 <section id="services">
+<<<<<<< HEAD
     <div class="container">
         <div class="row">
             <table>
@@ -13,6 +14,10 @@
                 </tr>
             </table>
         </div>
+=======
+    <div class="container" ng-controller="mainController as mainCtrl">
+        <div class="row"><h2>Team {{team.teamNumber}}</h2> <h5>- {{team.numberOfMembers}} </h5></div>
+>>>>>>> origin
         <div class="row" ng-repeat="member in team.members">
             <div>
                 
@@ -25,7 +30,10 @@
                             </div>
                             <div ng-if="member.selfie.length !== 0">
                                 <a href="img/team/{{member.selfie}}"><img src="img/team/{{member.selfie}}" class="col img-responsive img-circle" /></a>
+<<<<<<< HEAD
                                 <a href=""
+=======
+>>>>>>> origin
                             </div>
                         </td>
                         <td class="col-xs-8">
@@ -60,6 +68,10 @@
                 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0; ">
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+            
+>>>>>>> origin
         </div>
     </div>
 </section>
