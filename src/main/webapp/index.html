@@ -63,30 +63,16 @@
 
     <!-- Angular modules -->
     <script src="app.js"></script>
-<<<<<<< HEAD
     <script src="registerController.js"></script>
     <script src="mainController.js"></script>
     <script src="services.js"></script> 
-=======
-    <script src="mailController.js"></script>
-    <script src="confirmController.js"></script>
-    <script src="mainController.js"></script>
-    
-    <script src="services.js"></script>
->>>>>>> origin
-    
     <base href="/">
 </head>
 
-<<<<<<< HEAD
+
 <body id="page-top" class="index" ng-init="init()"> 
     <div ng-if="!loggedIn"></div>
     <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
-=======
-<body id="page-top" class="index"> 
-    
-    <div ng-show="loggedIn" ng-include="'partials/navigation.html'"></div>
->>>>>>> origin
 
     <div ng-view ng-model="loggedIn"></div>
 

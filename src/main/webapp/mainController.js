@@ -2,7 +2,6 @@
 
 var mainModule = angular.module('mainModule', ['ui.bootstrap'])
 
-
 .controller('mainController',['$scope','$http', function ($scope, $http) {
     var mc = $scope;
     mc.loggedIn = true;
@@ -12,7 +11,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
     
     /////////////////////// UPPGIFTER
     mc.assignments = {
+
     /////////////////////// UPPGIFTER
+
         "numberOfAssignments": 10,
         "tasks": [
             {
