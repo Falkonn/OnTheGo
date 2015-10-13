@@ -24,9 +24,6 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controller: 'registerController',
                 controllerAs: 'confCtrl'
             }).
-            when('/appinfo', {
-                controller: 'registerController'
-            }).
             when('/info', {
                 templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
