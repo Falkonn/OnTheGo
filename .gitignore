@@ -51,6 +51,7 @@ tmp/**/*
 *~.nib
 local.properties
 .classpath
+*.class
 .settings/
 .loadpath
 /src/main/resources/rebel.xml
