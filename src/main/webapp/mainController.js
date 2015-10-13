@@ -1,39 +1,26 @@
 
-<<<<<<< HEAD
-var mainModule = angular.module('mainModule', ['ui.bootstrap'])
-=======
-var mailModule = angular.module('mainModule', [])
 
->>>>>>> origin
+var mainModule = angular.module('mainModule', ['ui.bootstrap'])
+
 
 .controller('mainController',['$scope','$http', function ($scope, $http) {
     var mc = $scope;
     mc.loggedIn = true;
     
-<<<<<<< HEAD
     mc.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
         du/gruppen har utfört uppdraget.";
     
     /////////////////////// UPPGIFTER
     mc.assignments = {
-=======
-    $scope.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
-        du/gruppen har utfört uppdraget.";
-    
     /////////////////////// UPPGIFTER
-    $scope.assignments = {
->>>>>>> origin
         "numberOfAssignments": 10,
         "tasks": [
             {
                 "id": 1,
-<<<<<<< HEAD
                 "name": "Forum att kommunicera via",
                 "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
-=======
                 "name": "Bestäm ett forum att kommunicera via",
                 "details": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
->>>>>>> origin
                 "type": "grupp",
                 "estimation": "2 minuter",
                 "points": 10,
@@ -42,11 +29,8 @@ var mailModule = angular.module('mainModule', [])
             {
                 "id": 2,
                 "name": "Gilla Alten Sweden på LinkedIn",
-<<<<<<< HEAD
                 "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
-=======
                 "details": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
->>>>>>> origin
                 "type": "personlig",
                 "estimation": "1 minut",
                 "points": 10,
@@ -55,11 +39,8 @@ var mailModule = angular.module('mainModule', [])
             {
                 "id": 3,
                 "name": "Skicka en selfie",
-<<<<<<< HEAD
                 "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
-=======
                 "details": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
->>>>>>> origin
                 "type": "personlig",
                 "estimation": "1-5 minuter",
                 "points": 10,
@@ -68,11 +49,8 @@ var mailModule = angular.module('mainModule', [])
             {
                 "id": 4,
                 "name": "Bli vänner på LindedIn",
-<<<<<<< HEAD
                 "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
-=======
                 "details": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
->>>>>>> origin
                 "type": "personlig",
                 "estimation": "1-10 minuter",
                 "points": 10,
@@ -81,11 +59,8 @@ var mailModule = angular.module('mainModule', [])
             {
                 "id": 5,
                 "name": "Designa en Alten-drink",
-<<<<<<< HEAD
                 "description": "Vad tycker du vore en god och passande drink för Alten?",
-=======
                 "details": "Vad tycker du vore en god och passande drink för Alten?",
->>>>>>> origin
                 "type": "personlig",
                 "estimation": "1-10 minuter",
                 "points": 10,
@@ -151,7 +126,6 @@ var mailModule = angular.module('mainModule', [])
             }
         ]
     };
-    
 }]);
 
 
