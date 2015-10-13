@@ -3,6 +3,10 @@
   <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.alten.onthego.entity.User</class>
+    <class>com.alten.onthego.entity.Team</class>
+    <class>com.alten.onthego.entity.Task</class>
+    <class>com.alten.onthego.entity.Score</class>
+    <class>com.alten.onthego.entity.Picture</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/onthegodb?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
