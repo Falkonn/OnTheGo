@@ -10,8 +10,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
         
         var data= {"taskId": t.id, "taskName": t.name, "isChecked": t.checked};
         
-        console.log("data: " + data.taskName);
-         $http.post('/tasks', data).success(function (response) {
+        console.log("data: " + data.taskId);
+         $http.post('/Tasks', data).success(function (response) {
                         console.log("server responded: " + response);
                     });
         
