@@ -55,7 +55,7 @@ public class User implements Serializable {
 
 	public User(String firstName, String lastName, String email,
 			String telefon, String city, String department, String pin_code, int teamId) {
-		super();
+		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
