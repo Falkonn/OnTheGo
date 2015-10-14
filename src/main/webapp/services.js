@@ -1,16 +1,18 @@
 'use strict';
 
-/* Services */
+/* Http Services */
 
-var userService = angular.module('UserService', []);
+var httpService = angular.module('httpService', []);
 
 // User Data Service
-userService.factory('UserDataService', ['$http',
+httpService.factory('httpServ', ['$http',
     function($http) {
         var urlBase = 'http://localhost:8080';
        
         return {
-                
+                /********* User Services **********/
+
+                //////// Add User http get services here ///////
                 getUsers: function() {
                     return $http.get(urlBase + '/users');
                 },
@@ -27,6 +29,7 @@ userService.factory('UserDataService', ['$http',
                     return $http.get(urlBase + '/userbyid/' + userId, userId);
                 },
                 
+                //////// Add User http Post services here ///////
                 postUserMail: function(userEmail) {
                     return $http.post(urlBase + '/emailpath',userEmail );
                 },
@@ -37,7 +40,27 @@ userService.factory('UserDataService', ['$http',
              
                 postUserConfirmData: function(user) {
                     return $http.post(urlBase + '/confirmpath', user);
+                },
+                
+                /********* Task Services **********/
+                
+                //////// Add Task http get services here ///////
+                getTasks: function() {
+                    return $http.get(urlBase + '/Tasks');
+                },
+                
+                //////// Add Task http post services here ///////
+                
+                
+                /********* Score Services **********/
+                
+                //////// Add Score http get services here ///////
+                getScore: function() {
+                    return $http.get(urlBase + '/Scores');
                 }
+                
+                //////// Add Score http post services here ///////
+                
         };
      
     }]);

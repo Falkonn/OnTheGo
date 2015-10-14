@@ -1,18 +1,35 @@
 
-var registerModule = angular.module('registerModule', ['UserService', 'ngStorage']);
+var registerModule = angular.module('registerModule', ['httpService', 'ngStorage']);
 
 
-registerModule.controller('registerController',['$scope','UserDataService', '$localStorage', '$location', 
-    function ($scope, UserDataService, $localStorage, $location) {
+registerModule.controller('registerController',['$scope','httpServ', '$localStorage', '$location', 
+    function ($scope, httpServ, $localStorage, $location) {
     
-    // Checks if user is logged in and redirect to  screen in this case
+    // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
-        // For debugging
-        //$localStorage.$reset(); 
+        // Clean localstorage (for debugging)
+        //$localStorage.$reset();
+        $localStorage.user = {  id: "28",
+                                firstName: "Vasileios",
+                                lastName:  "Golematis",
+                                email:     "vasileios.golematis@alten.se",
+                                telefon:   "0767649596",
+                                city: "Gothenburg",
+                                department: "Embedded Systems",
+                                teamId:     "1",
+                                picId:      "1",
+                                pinCode: "fMLHyHjBOkI="
+        };
         $scope.loggedIn = $localStorage.loggedIn;
-        console.log("loggedIn" + $scope.loggedIn);
+        console.log("The loggedIn is " + $scope.loggedIn);
         if($scope.loggedIn)
-            $location.path('/appinfo');
+            $location.path('/info');
+        // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
+        else if($location.url()!='/register' && $location.url()!='/confirm')
+            $location.path('/');
+        //If pin is undefined redirect to register screen
+        else if($location.url()=='/confirm' && !$localStorage.userPin)
+            $location.path('/register');
     };
     // Run Init 
     $scope.init();
@@ -26,10 +43,10 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
     }
 
     this.sendEmail = function() {
-        UserDataService.postUserMail($scope.userEmail)
+        httpServ.postUserMail($scope.userEmail)
         .then(function() {
             // Getting User Info to show to the user
-            UserDataService.getUserByMail($scope.userEmail).success(function(response){
+            httpServ.getUserByMail($scope.userEmail).success(function(response){
                     console.log(response);
                     $scope.names = response;
                     // Saving User info to localStorage
@@ -54,41 +71,42 @@ registerModule.controller('registerController',['$scope','UserDataService', '$lo
    
     // Sends mail and Pin to the backend
     this.sendPin = function() {
-        UserDataService.postUserPin($scope.userEmail + ' ' + $scope.userPin)
-        .then(function()  {
-            console.log("pin post done");
-            /* Confirmation in back end and when verified, should be able to
-             * procede to next page (Name, Phone and Email confirmation page).
-             */
-            $scope.resultPin = "Correct Pin!";
-            $localStorage.userPin = $scope.userPin;
-            $location.path('/confirm');
-            
-        }, function (response) {
-            console.error($scope.userPin);
-            // Not Found in the Database
-            if(response.status === 404)
-                $scope.resultPin = "This pin does not match your mail";
-            // Unknown server error
-            else
-                $scope.resultPin = "Server Error";
-        });
+        
+        httpServ.postUserPin($scope.userEmail + ' ' + $scope.userPin)
+            .then(function(response)  {
+                // Pin Verified
+                $scope.resultPin = "Correct Pin!";
+                $localStorage.userPin = $scope.userPin;
+                // Redirecting to confirm screen
+                $location.path('/confirm');
+
+            }, function (response) {
+                console.error($scope.userPin);
+                // Not Found in the Database
+                if(response.status === 404)
+                    $scope.resultPin = "This pin does not match your mail";
+                // Unknown server error
+                else
+                    $scope.resultPin = "Server Error";
+            });
             
     };
   
     // Send Confirmation Data and update Db from the backend
     this.sendConfirmData = function() {     
         // Update local values
+        console.log($localStorage.user);
         $localStorage.user.firstName = $scope.userName, 
         $localStorage.user.email = $scope.userEmail,
         $localStorage.user.telefon = $scope.userPhone,
 
-        UserDataService.postUserConfirmData(JSON.stringify($localStorage.user)).then(function(response) {          
+        httpServ.postUserConfirmData(JSON.stringify($localStorage.user)).then(function(response) {          
             // Mark loggedIn to localStorage so that the user does not need to register again
             $localStorage.loggedIn = true;
             console.log("registered complete");
+            $scope.loggedIn = true;
             // Redirect to main page
-            $location.path('/appinfo');
+            $location.path('/');
         }, function (response) {
             console.error(response.status);
         });
