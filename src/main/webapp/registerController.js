@@ -9,7 +9,8 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     $scope.init = function() {
         // Clean localstorage (for debugging)
         //$localStorage.$reset();
-        $localStorage.user = {  id: "28",
+        // Dummy object (for debugging)
+        /*$localStorage.user = {  id: "28",
                                 firstName: "Vasileios",
                                 lastName:  "Golematis",
                                 email:     "vasileios.golematis@alten.se",
@@ -19,9 +20,9 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                                 teamId:     "1",
                                 picId:      "1",
                                 pinCode: "fMLHyHjBOkI="
-        };
+        };*/
+        // LoggedIn variable
         $scope.loggedIn = $localStorage.loggedIn;
-        console.log("The loggedIn is " + $scope.loggedIn);
         if($scope.loggedIn)
             $location.path('/info');
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
@@ -30,17 +31,18 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         //If pin is undefined redirect to register screen
         else if($location.url()=='/confirm' && !$localStorage.userPin)
             $location.path('/register');
+        
+        // In confirm Screen -> Set values from localStorage
+        if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()=='/confirm' ){
+            $scope.userEmail = $localStorage.user.email;
+            $scope.userName =  $localStorage.user.firstName; 
+            $scope.userPhone = $localStorage.user.telefon;
+        }
     };
     // Run Init 
     $scope.init();
     
     $scope.result = "";
-    // Set values from localStorage
-    if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null ){
-        $scope.userEmail = $localStorage.user.email;
-        $scope.userName =  $localStorage.user.firstName; 
-        $scope.userPhone = $localStorage.user.telefon;
-    }
 
     this.sendEmail = function() {
         httpServ.postUserMail($scope.userEmail)
