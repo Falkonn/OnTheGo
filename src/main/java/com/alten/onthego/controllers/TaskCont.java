@@ -5,11 +5,14 @@
  */
 package com.alten.onthego.controllers;
 
+import com.alten.onthego.entity.Score;
 import com.alten.onthego.entity.Task;
-import com.alten.onthego.entity.User;
+import com.alten.onthego.model.ScoreInfo;
 import com.alten.onthego.model.TaskInfo;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,4 +32,21 @@ public class TaskCont {
         TaskInfo task = new TaskInfo();
         return new ArrayList<Task>(task.findAllTasks());
     }
+
+    @RequestMapping(
+            value = "/TasksAndPoints/{taskid}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Task> getTasksAndPoints(@PathVariable("taskid") int taskid) {
+        List<Score> scoreList = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
+        TaskInfo task = new TaskInfo();
+        ScoreInfo scores = new ScoreInfo();
+        scoreList = scores.getScoresbyTaskId(taskid);
+        taskList = task.getTasksbyTaskId(taskid);
+        List<Object> finalList = new ArrayList<Object>(scoreList);
+        //finalList.add(taskList);
+        return taskList;
+    }
+
 }
