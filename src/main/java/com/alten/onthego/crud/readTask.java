@@ -10,6 +10,7 @@ package com.alten.onthego.crud;
  * @author Khaled
  */
 import com.alten.onthego.entity.Task;
+import com.alten.onthego.entity.User;
 import javax.persistence.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

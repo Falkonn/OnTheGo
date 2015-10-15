@@ -22,8 +22,7 @@ public class addUser {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
         EntityManager em = emf.createEntityManager();
         try {
-            PassEncryption pe = new PassEncryption();
-            User user = new User("Khaled", "Alnawasreh", "khaled.nawasreh@gmail.com", "088888323232", "goteborg", "IT", "dksda123", 1);
+            User user = new User(1,"Khaled", "Alnawasreh", "khaled.nawasreh@gmail.com", "088888323232", "goteborg", "IT", "WFNbUN7gIoU=", 1, 1);
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(user);
