@@ -11,18 +11,22 @@
                 </button>
             </p>
         </div>
-        
-        <uib-accordion>
-            <uib-accordion-group ng-repeat="t in assignments.tasks" is-open="t.open">
-                <uib-accordion-heading>
-                    <span ng-if="t.checked" class="pull-left glyphicon glyphicon-check"></span>
-                    {{t.name}}
-                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
+
+        <uib-accordion> <uib-accordion-group
+                ng-repeat="t in assignments.tasks" is-open="t.open">
+                <uib-accordion-heading> <span
+                        ng-show="t.checked" class="pull-left glyphicon glyphicon-check">&nbsp;</span>
+                    {{t.name}} <i class="pull-right glyphicon"
+                                  ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
                 </uib-accordion-heading>
                 <table>
                     <tr>
+                        <td class="top top-left">Beskrivning</td>
+                        <td class="top top-left">{{t.description}}</td>
+                    </tr>
+                    <tr>
                         <td class="top top-left">Personlig</td>
-                        <td class="top top-left"><span ng-if="t.personal">Ja</span><span ng-if="!t.personal">Nej</span></td>
+                        <td class="top top-left"><span ng-if="t.personal">Ja</span><span ng-if="!t.personal">Nej (Group)</span></td>
                     </tr>
                     <tr>
                         <td class="top top-left">Tidest.</td>
@@ -50,7 +54,7 @@
                         </td>
                     </tr>
                     <tr ng-show="t.done">
-                        <td class="top top-left">Du svarade:</td>
+                        <td class="top top-left">Du/Gruppen svarade:</td> <!-- Here we need to include a possible get for Group tasks. -->
                         <td class="top top-left">
                             <form action="" id="answer">
                                 <textarea rows="4" cols="50" name="comment" form="usrform">
@@ -68,28 +72,5 @@
             </uib-accordion-group>
         </uib-accordion>
         
-        <!--
-        <div class="row">
-            <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks" is-open="group.closed">
-                    <uib-accordion-heading>
-                        <form>
-                            <input type="checkbox" ng-checked="t.checked" ng-click="checkboxClick(t, $event)" />
-                            <h5>{{t.name}}</h5>
-                        </form>
-                    </uib-accordion-heading>
-                    <h6>Beskrivning</h6>
-                    {{t.details}}
-                    <h6>Typ av uppgift</h6>
-                    {{t.type}}
-                    <h6>Tidsestimering</h6>
-                    {{t.estimation}}
-                    <h6>Poäng</h6>
-                    {{t.points}}
-                </uib-accordion-group>
-            </uib-accordion>
-        </div>
-        
-        -->
     </div>
 </section>

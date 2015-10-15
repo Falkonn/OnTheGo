@@ -14,81 +14,75 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Task")
+@Table(name = "Task")
 
 public class Task implements Serializable {
 
-	
-	private static final long serialVersionUID = 1L;
-	
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    private Long id;
-	    @Column(name = "task_id")
-	    private Integer taskId;
-	    @Column(name = "task_name")
-	    private String taskName;
-	    @Column(name = "task_info")
-	    private String taskInfo;
-	    @Column(name = "task_point")
-	    private Integer taskPoint;
-	    @Column(name="is_personal")
-	    private Boolean isPersonal;
+    private static final long serialVersionUID = 1L;
 
-	public Task() {
-		super();
-	}
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Task(Integer taskId, String taskName, String taskInfo, Integer taskPoint, Boolean isPersonal) {
-		super();
-		this.taskId = taskId;
-		this.taskName = taskName;
-		this.taskInfo = taskInfo;
-		this.taskPoint = taskPoint;
-		this.isPersonal = isPersonal;
-	}
+    @Column(name = "task_name")
+    private String taskName;
+    @Column(name = "task_info")
+    private String taskInfo;
+    @Column(name = "task_point")
+    private Integer taskPoint;
+    @Column(name = "is_personal")
+    private Boolean isPersonal;
 
-	public Integer getTaskId() {
-		return taskId;
-	}
+    public Task() {
 
-	public void setTaskId(Integer taskId) {
-		this.taskId = taskId;
-	}
+    }
 
-	public String getTaskName() {
-		return taskName;
-	}
+    public Task(String taskName, String taskInfo, Integer taskPoint, Boolean isPersonal) {
 
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
+        this.taskName = taskName;
+        this.taskInfo = taskInfo;
+        this.taskPoint = taskPoint;
+        this.isPersonal = isPersonal;
+    }
 
-	public String getTaskInfo() {
-		return taskInfo;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTaskInfo(String taskInfo) {
-		this.taskInfo = taskInfo;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Integer getTaskPoint() {
-		return taskPoint;
-	}
+    public String getTaskName() {
+        return taskName;
+    }
 
-	public void setTaskPoint(Integer taskPoint) {
-		this.taskPoint = taskPoint;
-	}
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
 
-	public Boolean getIsPersonal() {
-		return isPersonal;
-	}
+    public String getTaskInfo() {
+        return taskInfo;
+    }
 
-	public void setIsPersonal(Boolean isPersonal) {
-		this.isPersonal = isPersonal;
-	}
-	
-	
-   
+    public void setTaskInfo(String taskInfo) {
+        this.taskInfo = taskInfo;
+    }
+
+    public Integer getTaskPoint() {
+        return taskPoint;
+    }
+
+    public void setTaskPoint(Integer taskPoint) {
+        this.taskPoint = taskPoint;
+    }
+
+    public Boolean getIsPersonal() {
+        return isPersonal;
+    }
+
+    public void setIsPersonal(Boolean isPersonal) {
+        this.isPersonal = isPersonal;
+    }
+
 }

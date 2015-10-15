@@ -24,8 +24,6 @@ import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 @RestController
 public class UserCont {

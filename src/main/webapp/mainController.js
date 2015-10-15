@@ -1,11 +1,23 @@
 
+
 var mainModule = angular.module('mainModule', ['ui.bootstrap'])
 
 .controller('mainController',['$scope','$http', function ($scope, $http) {
     var mc = $scope;
     mc.loggedIn = true;
-    
     mc.rules = 1;
+
+    /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
+    $scope.checkboxClicked = function(t){
+        
+        var data= {"taskId": t.id, "taskName": t.name, "isChecked": t.checked};
+        
+        console.log("data: " + data.taskId);
+         $http.post('/Tasks', data).success(function (response) {
+                        console.log("server responded: " + response);
+        });
+        
+    };
     
     mc.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
         du/gruppen har utfört uppdraget.";
@@ -135,5 +147,4 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
             }
         ]
     };
-    
 }]);

@@ -14,78 +14,76 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Score")
+@Table(name = "Score")
 
 public class Score implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    private Long id;
-	    @Column(name = "user_id")
-	    private Integer userId;
-	    @Column(name = "team_id")
-	    private Integer teamId;
-	    @Column(name = "task_id")
-	    private Integer taskId;
-	    @Column(name = "point")
-	    private Integer point;
-	    @Column(name = "task_done")
-	    private boolean taskDone;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "user_id")
+    private Integer userId;
+    @Column(name = "team_id")
+    private Integer teamId;
+    @Column(name = "task_id")
+    private Integer taskId;
+    @Column(name = "point")
+    private Integer point;
+    @Column(name = "task_done")
+    private boolean taskDone;
 
-	public Score() {
-		super();
-	}
-	
-	public Score(int userId, int teamId, int taskId, int point, boolean taskDone) {
-		super();
-		this.userId = userId;
-		this.teamId = teamId;
-		this.taskId = taskId;
-		this.point = point;
-		this.taskDone = taskDone;
-	}
+    public Score() {
+        super();
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public Score(int userId, int teamId, int taskId, int point, boolean taskDone) {
+        super();
+        this.userId = userId;
+        this.teamId = teamId;
+        this.taskId = taskId;
+        this.point = point;
+        this.taskDone = taskDone;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public Integer getTeamId() {
-		return teamId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public void setTeamId(Integer teamId) {
-		this.teamId = teamId;
-	}
+    public Integer getTeamId() {
+        return teamId;
+    }
 
-	public Integer getTaskId() {
-		return taskId;
-	}
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
+    }
 
-	public void setTaskId(Integer taskId) {
-		this.taskId = taskId;
-	}
+    public Integer getTaskId() {
+        return taskId;
+    }
 
-	public Integer getPoint() {
-		return point;
-	}
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
 
-	public void setPoint(Integer point) {
-		this.point = point;
-	}
+    public Integer getPoint() {
+        return point;
+    }
 
-	public boolean isTaskDone() {
-		return taskDone;
-	}
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
 
-	public void setTaskDone(boolean taskDone) {
-		this.taskDone = taskDone;
-	}
-	
-	
-   
+    public boolean isTaskDone() {
+        return taskDone;
+    }
+
+    public void setTaskDone(boolean taskDone) {
+        this.taskDone = taskDone;
+    }
+
 }

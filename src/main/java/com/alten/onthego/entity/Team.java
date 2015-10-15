@@ -16,28 +16,26 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Team")
+@Table(name = "Team")
 public class Team implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 	
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	 	@OneToMany
-	 	@JoinColumn(name="team_id")
-	    private Long id;
-	    @Column(name = "team_id")
-	    private Integer teamId;
-	    @Column(name = "team_name")
-	    private String teamName;
- 
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@Column(name = "team_id")
+	private Integer teamId;
+	@Column(name = "team_name")
+	private String teamName;
+
 	public Team() {
 		super();
 	}
-	
+
 	public Team(int teamId, String teamName)
 	{
-    	super();
+		super();
 		this.teamId = teamId;
 		this.teamName = teamName;
 	}
@@ -57,6 +55,5 @@ public class Team implements Serializable {
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
-	
-   
+
 }

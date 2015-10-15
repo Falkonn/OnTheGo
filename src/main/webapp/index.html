@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html ng-app="OnTheGo" lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -66,30 +64,17 @@
     <script src="registerController.js"></script>
     <script src="mainController.js"></script>
     <script src="services.js"></script> 
-    
     <base href="/">
 </head>
 
-<body id="page-top" class="index" ng-init="init()"> 
+<body id="page-top" class="index" ng-model="loggedIn" ng-controller="registerController"> 
     <div ng-if="!loggedIn"></div>
     <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
 
-    <div ng-view ng-model="loggedIn"></div>
+    <div ng-view></div>
 
     <div ng-if="!loggedIn" ng-include="'partials/footer.html'"></div>
     <div ng-if="loggedIn" ng-include="'partials/footer_team.html'"></div>
-    
-    <!--
-    <span ng-switch on="loggedIn">
-        <div ng-switch-when="false"></div>
-        <div ng-switch-when="true" ng-include="'partials/navigation.html'"></div>
-        
-        <div ng-view></div>
-    
-        <div ng-switch-when=false src="'partials/footer.html'"></div>
-        <div ng-switch-when=true ng-include="'partials/footer_team.html'"></div>
-    </span>
-    -->
 
 </body>
 </html>
