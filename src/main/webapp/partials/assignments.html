@@ -1,22 +1,14 @@
 <!-- Main Section -->
 <section id="services">
     <div class="container">
-
+        
         <div class="jumbotron" ng-show="rules">
             <h3>Regler</h3>
-            Under dagen har ni ett antal uppgifter att lösa, alla med varierande
-            svårighetsgrad och form. Vissa passar bra på resan till Göteborg,
-            andra är lättare att göra på plats. Lös så många ni vill, på vilket
-            sätt ni vill! Nyckelordet för samtliga uppgifter är ärlighet. Varje
-            avklarad uppgift ger poäng. Är det just ditt lag som ska gå ut som
-            segrare ur poängjakten krävs mer än att bara bocka för uppgifterna,
-            ni måste självklart också kunna visa att ni utfört dem. Hur ni väljer
-            att dokumentera är upp till er, men domarna kräver bevis. Inget fusk,
-            med andra ord!
+            Under dagen har ni ett antal uppgifter att lösa, alla med varierande svårighetsgrad och form. Vissa passar bra på resan till Göteborg, andra är lättare att göra på plats. Lös så många ni vill, på vilket sätt ni vill! Nyckelordet för samtliga uppgifter är ärlighet. Varje avklarad uppgift ger poäng. Är det just ditt lag som ska gå ut som segrare ur poängjakten krävs mer än att bara bocka för uppgifterna, ni måste självklart också kunna visa att ni utfört dem. Hur ni väljer att dokumentera är upp till er, men domarna kräver bevis.  Inget fusk, med andra ord!
             <p>
-                <button type="button" class="btn btn-primary" ng-model="rules"
-                        uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                    Stäng</button>
+                <button type="button" class="btn btn-primary" ng-model="rules" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                Stäng
+                </button>
             </p>
         </div>
 
@@ -33,8 +25,8 @@
                         <td class="top top-left">{{t.description}}</td>
                     </tr>
                     <tr>
-                        <td class="top top-left">Type</td>
-                        <td class="top top-left">{{t.personaltype}}</td>
+                        <td class="top top-left">Personlig</td>
+                        <td class="top top-left"><span ng-if="t.personal">Ja</span><span ng-if="!t.personal">Nej (Group)</span></td>
                     </tr>
                     <tr>
                         <td class="top top-left">Tidest.</td>
@@ -45,37 +37,40 @@
                         <td class="top top-left">{{t.points}}</td>
                     </tr>
                     <tr>
-                        <td class="top top-left">Klar</td>
-                        <td class="top top-left"><input type="checkbox" ng-model="t.checked"
-                                                        ng-checked="t.checked" ng-change="checkboxClicked(t)" /></td>
+                        <td class="top top-left">Beskrivning</td>
+                        <td class="top top-left">{{t.description}}</td>
                     </tr>
-
+                    <tr ng-show="!t.done">
+                        <td colspan="2">
+                            <div ng-if="t.taskType === 1">
+                                <div ng-include="task_quiz.html"></div>
+                            </div>
+                            <div ng-if="t.taskType === 2">
+                                <div ng-include="task_string.html">
+                            </div>
+                            <div ng-if="t.taskType === 3">
+                                <div ng-include="task_check.html">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="t.done">
+                        <td class="top top-left">Du/Gruppen svarade:</td> <!-- Here we need to include a possible get for Group tasks. -->
+                        <td class="top top-left">
+                            <form action="" id="answer">
+                                <textarea rows="4" cols="50" name="comment" form="usrform">
+                                {{t.answer}}
+                                </textarea>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr ng-show="!t.done">
+                        <td class="top top-left">Klar</td>
+                        <td class="top top-left"><input type="checkbox" ng-checked="t.checked" ng-click="checkboxClick(t, $event)" /></td>
+                    </tr>
                 </table>
 
-            </uib-accordion-group> </uib-accordion>
-
-        <!--
-<div class="row">
-    <uib-accordion>
-        <uib-accordion-group ng-repeat="t in assignments.tasks" is-open="group.closed">
-            <uib-accordion-heading>
-                <form>
-                    <input type="checkbox" ng-checked="t.checked" ng-click="checkboxClick(t, $event)" />
-                    <h5>{{t.name}}</h5>
-                </form>
-            </uib-accordion-heading>
-            <h6>Beskrivning</h6>
-            {{t.details}}
-            <h6>Typ av uppgift</h6>
-            {{t.type}}
-            <h6>Tidsestimering</h6>
-            {{t.estimation}}
-            <h6>Poäng</h6>
-            {{t.points}}
-        </uib-accordion-group>
-    </uib-accordion>
-</div>
-
-        -->
+            </uib-accordion-group>
+        </uib-accordion>
+        
     </div>
 </section>

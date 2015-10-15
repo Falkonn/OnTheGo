@@ -5,7 +5,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
 .controller('mainController',['$scope','$http', function ($scope, $http) {
     var mc = $scope;
     mc.loggedIn = true;
-    
+    mc.rules = 1;
+
+    /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
     $scope.checkboxClicked = function(t){
         
         var data= {"taskId": t.id, "taskName": t.name, "isChecked": t.checked};
@@ -13,7 +15,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
         console.log("data: " + data.taskId);
          $http.post('/Tasks', data).success(function (response) {
                         console.log("server responded: " + response);
-                    });
+        });
         
     };
     
@@ -22,61 +24,68 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
     
     /////////////////////// UPPGIFTER
     mc.assignments = {
-
-    /////////////////////// UPPGIFTER
-
-        "numberOfAssignments": 10,
+        "numberOfAssignments": 40,
+        "numberOfTasksAnswered": 7,
         "tasks": [
             {
-                "id": 1,
+                "id": 2,
                 "name": "Forum att kommunicera via",
                 "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
-                "name": "Bestäm ett forum att kommunicera via",
-                "details": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
-                "type": "grupp",
+                "personal": false,
+                "taskType": 1,
+                "location": 1,
                 "estimation": "2 minuter",
                 "points": 10,
-                "checked": false
+                "answer": "",
+                "done": false
             },
             {
-                "id": 2,
+                "id": 1,
                 "name": "Gilla Alten Sweden på LinkedIn",
                 "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
-                "details": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
-                "type": "personlig",
+                "personal": true,
+                "tasktype": 2,
+                "location": 1,
                 "estimation": "1 minut",
                 "points": 10,
-                "checked": false
+                "answer": "",
+                "done": false
             },
             {
                 "id": 3,
                 "name": "Skicka en selfie",
                 "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
-                "details": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
-                "type": "personlig",
+                "personal": true,
+                "tasktype": 3,
+                "location": 1,
                 "estimation": "1-5 minuter",
                 "points": 10,
-                "checked": false
+                "answer": "",
+                "done": false
             },
             {
                 "id": 4,
                 "name": "Bli vänner på LindedIn",
                 "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
-                "details": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
-                "type": "personlig",
+                "personal": true,
+                "tasktype": 1,
+                "location": 2,
                 "estimation": "1-10 minuter",
                 "points": 10,
-                "checked": false
+                "answer": "",
+                "done": false
             },
             {
                 "id": 5,
                 "name": "Designa en Alten-drink",
                 "description": "Vad tycker du vore en god och passande drink för Alten?",
-                "details": "Vad tycker du vore en god och passande drink för Alten?",
-                "type": "personlig",
+                "personal": true,
+                "tasktype": 1,
+                "location": 3,
                 "estimation": "1-10 minuter",
                 "points": 10,
-                "checked": false
+                "answer": "",
+                "done": false
             }
         ]
     };
@@ -139,5 +148,3 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap'])
         ]
     };
 }]);
-
-
