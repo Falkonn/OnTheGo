@@ -67,14 +67,14 @@
     <base href="/">
 </head>
 
-<body id="page-top" class="index" ng-model="loggedIn" ng-controller="registerController"> 
-    <div ng-if="!loggedIn"></div>
-    <div ng-if="loggedIn" ng-include="'partials/navigation.html'"></div>
+<body id="page-top" class="index" ng-model="loggedIn" ng-controller="registerController as regCtrl">
+    
+    <div ng-hide="!regCtrl.isRegistered()" ng-include="'partials/navigation.html'"></div>
 
     <div ng-view></div>
 
-    <div ng-if="!loggedIn" ng-include="'partials/footer.html'"></div>
-    <div ng-if="loggedIn" ng-include="'partials/footer_team.html'"></div>
+    <div ng-hide="regCtrl.isRegistered()" ng-include="'partials/footer.html'"></div>
+    <div ng-hide="!regCtrl.isRegistered()" ng-include="'partials/footer_team.html'"></div>
 
 </body>
 </html>

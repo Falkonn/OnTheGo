@@ -23,12 +23,15 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         };*/
         // LoggedIn variable
         $scope.loggedIn = $localStorage.loggedIn;
+        if(typeof $localStorage.user == 'undefined' || $localStorage.user == null)
+            $scope.hidePin = true;
+                
         if($scope.loggedIn)
             $location.path('/info');
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
         else if($location.url()!='/register' && $location.url()!='/confirm')
             $location.path('/');
-        //If pin is undefined redirect to register screen
+        // If pin is undefined redirect to register screen
         else if($location.url()=='/confirm' && !$localStorage.userPin)
             $location.path('/register');
         
@@ -42,9 +45,14 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     // Run Init 
     $scope.init();
     
+    this.isRegistered = function() {
+        return $localStorage.loggedIn;
+    };
+    
     $scope.result = "";
 
     this.sendEmail = function() {
+        $scope.result = "Verifying email adress..."
         httpServ.postUserMail($scope.userEmail)
         .then(function() {
             // Getting User Info to show to the user
@@ -57,11 +65,14 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     $scope.result = "Hello " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                      // Confirmation that the mail was sent successfully from the backend
                     $scope.result += ". A pin code is sent to your mail!"
-                }).error(function(){console.log(response.status);});
-           
+                    // Hide mail boolean variable
+                    $scope.hideMail = true;
+                    // Show next steps
+                    $scope.hidePin = false;
+                }).error(function(){console.log(response.status);});          
     
         }, function (response) {
-            console.error(response.status);
+            console.error($scope.userEmail);
             // Not Found in the Database
             if(response.status === 404)
                 $scope.result = "This mail does not exist in our database.";
@@ -89,7 +100,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     $scope.resultPin = "This pin does not match your mail";
                 // Unknown server error
                 else
-                    $scope.resultPin = "Server Error";
+                    $scope.resultPin = "Failed to send the mail. Please try again.";
             });
             
     };
@@ -105,10 +116,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         httpServ.postUserConfirmData(JSON.stringify($localStorage.user)).then(function(response) {          
             // Mark loggedIn to localStorage so that the user does not need to register again
             $localStorage.loggedIn = true;
-            console.log("registered complete");
             $scope.loggedIn = true;
             // Redirect to main page
             $location.path('/');
+            console.log("registered complete");
         }, function (response) {
             console.error(response.status);
         });
