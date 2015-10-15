@@ -13,17 +13,17 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
             when('/', {
                 templateUrl: 'partials/welcome.html',
                 controller: 'registerController',
-                controllerAs: 'regCtrl'
+                controllerAs: 'regCtrl',
             }).
             when('/register', {
                 templateUrl: 'partials/register.html',
                 controller: 'registerController',
-                controllerAs: 'mailCtrl'
+                controllerAs: 'regCtrl'
             }).
             when('/confirm', {
                 templateUrl: 'partials/confirm.html',
                 controller: 'registerController',
-                controllerAs: 'confCtrl'
+                controllerAs: 'regCtrl'
             }).
             when('/info', {
                 templateUrl: 'partials/appinfo.html',
