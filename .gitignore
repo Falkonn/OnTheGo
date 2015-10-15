@@ -1,70 +1,54 @@
-# Directories #
-/build/
-/bin/
-target/
- 
- 
-*.class
- 
-# Package Files #
-*.war
-*.ear
-*.db
- 
-######################
-# Windows
-######################
- 
-# Windows image file caches
-Thumbs.db 
- 
-# Folder config file
-Desktop.ini
- 
-######################
-# OSX
-######################
- 
-.DS_Store
- 
-# Thumbnails
-._*
- 
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
- 
- 
-######################
 # Eclipse
-######################
- 
-*.pydevproject
+.classpath
 .project
+.settings/
+.class
 .metadata
-bin/**
-tmp/**
-tmp/**/*
+.gradle
+bin/
+tmp/
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.classpath
-*.class
-*.jar
-*.lst
-.settings/
 .loadpath
-/src/main/resources/rebel.xml
-# External tool builders
-.externalToolBuilders/
+
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
+
+# Mac
+.DS_Store
+
+# Maven
+log/
 target/
-# Locally stored "Eclipse launch configurations"
-*.launch
- 
-# CDT-specific
-.cproject
- 
-# PDT-specific
-.buildpath
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+### Java ###
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
