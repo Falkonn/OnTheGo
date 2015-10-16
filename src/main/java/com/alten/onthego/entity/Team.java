@@ -1,9 +1,11 @@
 package com.alten.onthego.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,9 +26,10 @@ public class Team implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToOne
-    @JoinColumn(name="team_id")
-    private Team team;
+ 
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "team_id")
+    private User user;
 
     @Column(name = "team_name")
     private String teamName;
@@ -35,17 +38,17 @@ public class Team implements Serializable {
 
     }
 
-    public Team(Team teamId, String teamName) {
-        this.team = teamId;
+    public Team(User teamId, String teamName) {
+        this.user = teamId;
         this.teamName = teamName;
     }
 
-    public Team getTeam() {
-        return team;
+    public User getTeam() {
+        return user;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeam(User user) {
+        this.user = user;
     }
 
     public String getTeamName() {

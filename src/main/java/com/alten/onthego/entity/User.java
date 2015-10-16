@@ -27,22 +27,18 @@ import javax.persistence.Table;
  */
 @Entity
 //@Table(name = "\"USER\"")
-@Table(name =  "\"USER\"")
+@Table(name = "\"USER\"")
 public class User implements Serializable {
-   private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> users;
-    
     @Column(name = "user_id")
     private int userId;
-    
-
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -57,6 +53,8 @@ public class User implements Serializable {
     private String department;
     @Column(name = "pincode")
     private String pin_code;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Team> teams;
     @Column(name = "team_id")
     private Integer teamId;
     @Column(name = "pic_id")
