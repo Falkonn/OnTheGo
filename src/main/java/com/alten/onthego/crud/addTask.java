@@ -25,7 +25,7 @@ public class addTask {
         EntityManager em = emf.createEntityManager();
 
         try {
-            Task task = new Task(1,"taskName", "taskInfo", 21, true, "taskTime", "taskType", "answers");
+            Task task = new Task(1,"taskName", "taskInfo", 21, true, "taskTime", "taskType", "answers", "outside");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(task);

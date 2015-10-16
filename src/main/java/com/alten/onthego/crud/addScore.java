@@ -24,7 +24,7 @@ public class addScore {
         EntityManager em = emf.createEntityManager();
 
         try {
-            Task task = em.find(Task.class, 51);
+            Task task = em.find(Task.class, 1L);
             User user = em.find(User.class, 1L);
 
             Score score = new Score(1, 21, true, "dsas", task, user);
