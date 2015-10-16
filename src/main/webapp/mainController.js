@@ -1,150 +1,327 @@
 
+var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'ngStorage' ])
 
-var mainModule = angular.module('mainModule', ['ui.bootstrap'])
+.controller('mainController',['$scope','httpServ', '$localStorage', '$http', '$location',
+    function ($scope, httpServ, $localStorage, $location) {
+        var mv = $scope;
+        
+//        // Checks if user is logged in and redirect to app-info screen in this case
+//        mv.init = function() {
+//            // Clean localstorage (for debugging)
+//            //$localStorage.$reset();
+//            // Dummy object (for debugging)
+//            /*$localStorage.user = {  id: "28",
+//                                    firstName: "Vasileios",
+//                                    lastName:  "Golematis",
+//                                    email:     "vasileios.golematis@alten.se",
+//                                    telefon:   "0767649596",
+//                                    city: "Gothenburg",
+//                                    department: "Embedded Systems",
+//                                    teamId:     "1",
+//                                    picId:      "1",
+//                                    pinCode: "fMLHyHjBOkI="
+//            };*/
+//            // LoggedIn variable
+//            mv.loggedIn = $localStorage.loggedIn;
+//            if(mv.loggedIn)
+//                $location.path('/info');
+//            // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
+//            else if($location.url()!='/register' && $location.url()!='/confirm')
+//                $location.path('/');
+//            //If pin is undefined redirect to register screen
+//            else if($location.url()=='/confirm' && !$localStorage.userPin)
+//                $location.path('/register');
+//
+//            // In confirm Screen -> Set values from localStorage
+//            if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()=='/confirm' ){
+//                mv.userEmail = $localStorage.user.email;
+//                mv.userName =  $localStorage.user.firstName; 
+//                mv.userPhone = $localStorage.user.telefon;
+//            }
+//        };
+//        // Run Init 
+//        mv.init();
+        
+        
+        
+        mv.loggedIn = true;
+        mv.rules = 1;
+        
+        /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
+        mv.submitAnswer = function(t){
+            
+            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer};
+            
+            httpServ.postTaskAnswer(data).then(function(response){
+                // Success
+                t.badresult = "";
+                t.done = true;
+            },
+            function(response){
+                // Failed
+                t.done = false;
+                t.badresult = "" + response.status;
+            });
+        };
+        
 
-.controller('mainController',['$scope','$http', function ($scope, $http) {
-    var mc = $scope;
-    mc.loggedIn = true;
-    mc.rules = 1;
+        mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
+            du/gruppen har utfört uppdraget.";
 
-    /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
-    $scope.checkboxClicked = function(t){
-        
-        var data= {"taskId": t.id, "taskName": t.name, "isChecked": t.checked};
-        
-        console.log("data: " + data.taskId);
-         $http.post('/Tasks', data).success(function (response) {
-                        console.log("server responded: " + response);
-        });
-        
-    };
-    
-    mc.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
-        du/gruppen har utfört uppdraget.";
-    
-    /////////////////////// UPPGIFTER
-    mc.assignments = {
-        "numberOfAssignments": 40,
-        "numberOfTasksAnswered": 7,
-        "tasks": [
-            {
-                "id": 2,
-                "name": "Forum att kommunicera via",
-                "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
-                "personal": false,
-                "taskType": 1,
-                "location": 1,
-                "estimation": "2 minuter",
-                "points": 10,
-                "answer": "",
-                "done": false
-            },
-            {
-                "id": 1,
-                "name": "Gilla Alten Sweden på LinkedIn",
-                "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
-                "personal": true,
-                "tasktype": 2,
-                "location": 1,
-                "estimation": "1 minut",
-                "points": 10,
-                "answer": "",
-                "done": false
-            },
-            {
-                "id": 3,
-                "name": "Skicka en selfie",
-                "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
-                "personal": true,
-                "tasktype": 3,
-                "location": 1,
-                "estimation": "1-5 minuter",
-                "points": 10,
-                "answer": "",
-                "done": false
-            },
-            {
-                "id": 4,
-                "name": "Bli vänner på LindedIn",
-                "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
-                "personal": true,
-                "tasktype": 1,
-                "location": 2,
-                "estimation": "1-10 minuter",
-                "points": 10,
-                "answer": "",
-                "done": false
-            },
-            {
-                "id": 5,
-                "name": "Designa en Alten-drink",
-                "description": "Vad tycker du vore en god och passande drink för Alten?",
-                "personal": true,
-                "tasktype": 1,
-                "location": 3,
-                "estimation": "1-10 minuter",
-                "points": 10,
-                "answer": "",
-                "done": false
+//////////// HELP FUNCTIONS
+        mv.checkTaskType = function(taskType, expected){
+            if(taskType === expected){
+                return true;
             }
-        ]
-    };
-    
-    /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-    $scope.team = {
-        "teamNumber": 43,
-        "numberOfMembers": 5,
-        "members": [
-            {
-                "id": 1,
-                "firstName": "Mattias",
-                "lastName": "Isene",
-                "phone": "0723-532489",
-                "email": "mattias.isene@alten.se",
-                "department": "IT Systems",
-                "city": "Göteborg",
-                "selfie": "mattiasisene.jpg"
-            },
-            {
-                "id": 2,
-                "firstName": "Khaled",
-                "lastName": "Alnawasreh",
-                "phone": "telefon",
-                "email": "khaled.alnawasreh@alten.se",
-                "department": "IT Systems",
-                "city": "Göteborg",
-                "selfie": ""
-            },
-            {
-                "id": 3,
-                "firstName": "Lisa",
-                "lastName": "Engkvist",
-                "phone": "telefon",
-                "email": "lisa.engkvist@alten.se",
-                "department": "IT Systems",
-                "city": "Göteborg",
-                "selfie": ""
-            },
-            {
-                "id": 4,
-                "firstName": "Evelina",
-                "lastName": "Vorobyeva",
-                "phone": "telefon",
-                "email": "evelina.vorobyeva@alten.se",
-                "department": "IT Systems",
-                "city": "Göteborg",
-                "selfie": ""
-            },
-            {
-                "id": 5,
-                "firstName": "Vasileios",
-                "lastName": "Golematis",
-                "phone": "telefon",
-                "email": "vasileios.golematis@alten.se",
-                "department": "Embedded Systems",
-                "city": "Göteborg",
-                "selfie": ""
+            else{
+                return false;
             }
-        ]
-    };
-}]);
+        };
+        
+        /**
+         * jsonParse - parses a string to JSON
+         * @param {type} str
+         * @returns {Array|Object}
+         */
+        mv.jsonParse = function(str){
+            if(typeof str === "String"){
+                return JSON.parse(str);
+            }
+            else{
+                return str;
+            }
+        };
+
+//////////// JSON DUMMY CODE BELOW!
+
+        /////////////////////// UPPGIFTER
+        /**
+         * From TASK table:
+         * ----------------
+         * name = heading
+         * description = information/details regarding the task
+         * personal = Boolean - True (do it yourself) or False (do it with the team)
+         * taskType = [1|2] where 1=String, 2=Checkbox
+         * theme = [1|2|3|4] where 
+         *      1=Gör Själv, 2=Lär känna varandra, 3=Kluringar, 4=På festen
+         * estimation = time estimation for the task to be completed
+         * 
+         * From SCORE table:
+         * -----------------
+         * answer = will be empty from start and then posting answers to the database,
+         *      and mainly retrieved to be able to show other members of a group 
+         *      that a group question has already been answered.
+         * done = to see if the tasks has been done or not in order to control 
+         *      what data to show.
+         * 
+         */
+        mv.assignments = {
+            "numberOfAssignments": 40,
+            "numberOfTasksAnswered": 7,
+            "tasks": [
+                {
+                    "id": 1,
+                    "name": "Forum att kommunicera via",
+                    "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
+                    "personal": false,
+                    "taskType": 2,
+                    "theme": 1,
+                    "estimation": "2 minuter",
+                    "points": 10,
+                    "answer": "",
+                    "done": false
+                },
+                {
+                    "id": 2,
+                    "name": "Gilla Alten Sweden på LinkedIn",
+                    "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
+                    "personal": true,
+                    "taskType": 2,
+                    "theme": 1,
+                    "estimation": "1 minut",
+                    "points": 10,
+                    "answer": "",
+                    "done": false
+                },
+                {
+                    "id": 3,
+                    "name": "Skicka en selfie",
+                    "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
+                    "personal": true,
+                    "taskType": 1,
+                    "theme": 2,
+                    "estimation": "1-5 minuter",
+                    "points": 10,
+                    "answer": "",
+                    "done": false
+                },
+                {
+                    "id": 4,
+                    "name": "Bli vänner på LindedIn",
+                    "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
+                    "personal": true,
+                    "taskType": 2,
+                    "theme": 3,
+                    "estimation": "1-10 minuter",
+                    "points": 10,
+                    "answer": "",
+                    "done": false
+                },
+                {
+                    "id": 5,
+                    "name": "Designa en Alten-drink",
+                    "description": "Vad tycker du vore en god och passande drink för Alten?",
+                    "personal": true,
+                    "taskType": 2,
+                    "theme": 4,
+                    "estimation": "1-10 minuter",
+                    "points": 10,
+                    "answer": "",
+                    "done": false
+                }
+            ]
+        };
+
+        /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+        mv.team = {
+            "teamNumber": 43,
+            "numberOfMembers": 5,
+            "members": [
+                {
+                    "id": 1,
+                    "firstName": "Mattias",
+                    "lastName": "Isene",
+                    "phone": "0723-532489",
+                    "email": "mattias.isene@alten.se",
+                    "department": "IT Systems",
+                    "city": "Göteborg",
+                    "selfie": "mattiasisene.jpg"
+                },
+                {
+                    "id": 2,
+                    "firstName": "Khaled",
+                    "lastName": "Alnawasreh",
+                    "phone": "telefon",
+                    "email": "khaled.alnawasreh@alten.se",
+                    "department": "IT Systems",
+                    "city": "Göteborg",
+                    "selfie": ""
+                },
+                {
+                    "id": 3,
+                    "firstName": "Lisa",
+                    "lastName": "Engkvist",
+                    "phone": "telefon",
+                    "email": "lisa.engkvist@alten.se",
+                    "department": "IT Systems",
+                    "city": "Göteborg",
+                    "selfie": ""
+                },
+                {
+                    "id": 4,
+                    "firstName": "Evelina",
+                    "lastName": "Vorobyeva",
+                    "phone": "telefon",
+                    "email": "evelina.vorobyeva@alten.se",
+                    "department": "IT Systems",
+                    "city": "Göteborg",
+                    "selfie": ""
+                },
+                {
+                    "id": 5,
+                    "firstName": "Vasileios",
+                    "lastName": "Golematis",
+                    "phone": "telefon",
+                    "email": "vasileios.golematis@alten.se",
+                    "department": "Embedded Systems",
+                    "city": "Göteborg",
+                    "selfie": ""
+                }
+            ]
+        };
+
+
+        /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+        mv.lindholmen = {
+            "floors": [
+                {
+                    "id": 1,
+                    "floor": "Vån 6",
+                    "image": "img/logos/wordpress.jpg",
+                    "activities": [
+                        {
+                            "startTime": "19:00", 
+                            "endTime": "20:00",
+                            "heading": "Heading 6.1",
+                            "information": "info 6.1"
+                        },
+                        {
+                            "startTime": "20:00", 
+                            "endTime": "20:30",
+                            "heading": "Heading 6.2",
+                            "information": "info 6.2"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "floor": "Vån 5",
+                    "image": "img/logos/wordpress.jpg",
+                    "activities": [
+                        {
+                            "startTime": "20:00", 
+                            "endTime": "21:00",
+                            "heading": "Heading 5.1",
+                            "information": "info 5.1"
+                        },
+                        {
+                            "startTime": "21:00", 
+                            "endTime": "21:30",
+                            "heading": "Heading 5.2",
+                            "information": "info 5.2"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "floor": "Vån 4",
+                    "image": "img/logos/wordpress.jpg",
+                    "activities": [
+                        {
+                            "startTime": "20:00", 
+                            "endTime": "21:00",
+                            "heading": "Heading 5.1",
+                            "information": "info 5.1"
+                        },
+                        {
+                            "startTime": "21:00", 
+                            "endTime": "21:30",
+                            "heading": "Heading 5.2",
+                            "information": "info 5.2"
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "floor": "Vån 1",
+                    "image": "img/logos/wordpress.jpg",
+                    "activities": [
+                        {
+                            "startTime": "19:00", 
+                            "endTime": "19:30",
+                            "heading": "Heading 1.1",
+                            "information": "info 1.1"
+                        },
+                        {
+                            "startTime": "02:00", 
+                            "endTime": "03:00",
+                            "heading": "Heading 1.2",
+                            "information": "info 1.2"
+                        }
+                    ]
+                }
+            ]
+        };
+    
+    }
+]);
