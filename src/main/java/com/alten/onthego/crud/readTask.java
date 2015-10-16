@@ -23,6 +23,7 @@ public class readTask {
             Task task = em.find(Task.class, 1L);
             if (task != null) {
                 System.out.println(task);
+                System.out.println("hi");
             } else {
                 System.out.println("Task table is empty!");
             }

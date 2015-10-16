@@ -15,18 +15,17 @@ public class Picture implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     @Column(name = "pic_url")
     private String picUrl;
     @Column(name = "user_id")
     private Integer userId;
 
     public Picture() {
-        super();
+
     }
 
     public Picture(String picUrl, Integer userId) {
-        super();
         this.picUrl = picUrl;
         this.userId = userId;
     }
@@ -45,6 +44,14 @@ public class Picture implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
 }

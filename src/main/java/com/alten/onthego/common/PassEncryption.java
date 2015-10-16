@@ -6,6 +6,10 @@
  */
 package com.alten.onthego.common;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -26,8 +30,8 @@ public class PassEncryption {
     private static byte[] sharedvector = {
         0x01, 0x02, 0x03, 0x05, 0x07, 0x0B, 0x0D, 0x11
     };
-    /* public static void main(String[] args) throws FileNotFoundException, IOException {
-     BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ka3146\\Documents\\GitHub\\OnTheGo\\src\\main\\java\\com\\alten\\onthego\\common\\picode.txt"));
+     public static void main(String[] args) throws FileNotFoundException, IOException {
+     BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ka3146\\Documents\\GitHub\\OnTheGo\\src\\main\\java\\com\\alten\\onthego\\common\\pincode.txt"));
      try {
      StringBuilder sb = new StringBuilder();
      String line = br.readLine();
@@ -41,9 +45,9 @@ public class PassEncryption {
      } finally {
      br.close();
      }
-     }*/
+     }
 
-    public String EncryptText(String RawText) {
+    public static String EncryptText(String RawText) {
         String EncText = "";
         byte[] keyArray = new byte[24];
         byte[] temporaryKey;
@@ -76,7 +80,7 @@ public class PassEncryption {
         return EncText;
     }
 
-    public String DecryptText(String EncText) throws IllegalBlockSizeException, BadPaddingException {
+    public static String DecryptText(String EncText) throws IllegalBlockSizeException, BadPaddingException {
 
         String RawText = "";
         byte[] keyArray = new byte[24];

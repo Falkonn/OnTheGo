@@ -4,9 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,44 +19,54 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "Score")
+@Table(name = "SCORE")
 
 public class Score implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "score_id")
+    private long scoreId;
+    
     @Column(name = "team_id")
     private Integer teamId;
-    @Column(name = "task_id")
-    private Integer taskId;
+    
+    @ManyToOne(targetEntity=Task.class)
+    @JoinColumn(name = "task_id")
+    private Task task;
+
+    @ManyToOne(targetEntity=User.class)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(name = "point")
     private Integer point;
     @Column(name = "task_done")
     private boolean taskDone;
+    @Column(name = "user_answer")
+    private String userAnswer;
 
     public Score() {
-        super();
+
     }
 
-    public Score(int userId, int teamId, int taskId, int point, boolean taskDone) {
-        super();
-        this.userId = userId;
+    public Score(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid) {
         this.teamId = teamId;
-        this.taskId = taskId;
         this.point = point;
         this.taskDone = taskDone;
+        this.userAnswer = userAnswer;
+        this.task = taskid;
+        this.user = userid;
+
     }
 
-    public Integer getUserId() {
-        return userId;
+    public long getScoreId() {
+        return scoreId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setScoreId(long scoreId) {
+        this.scoreId = scoreId;
     }
 
     public Integer getTeamId() {
@@ -60,14 +75,6 @@ public class Score implements Serializable {
 
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
-    }
-
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
     }
 
     public Integer getPoint() {
@@ -86,4 +93,27 @@ public class Score implements Serializable {
         this.taskDone = taskDone;
     }
 
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
