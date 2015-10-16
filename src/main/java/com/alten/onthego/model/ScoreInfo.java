@@ -6,6 +6,7 @@
 package com.alten.onthego.model;
 
 import com.alten.onthego.entity.Score;
+import com.alten.onthego.entity.Task;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -38,7 +39,7 @@ public class ScoreInfo {
     }
     
        public List<Score> getScoresbyTaskId(int taskId) {
-        Query scoresquery = em.createQuery("SELECT s FROM Score s where s.task =" + taskId);
+        Query scoresquery = em.createQuery("SELECT s.userAnswer, s.taskDone FROM Score s where s.task.taskId =" + taskId);
         return (List<Score>) scoresquery.getResultList();
     }
 

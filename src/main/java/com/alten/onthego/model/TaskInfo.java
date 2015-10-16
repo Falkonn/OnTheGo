@@ -28,7 +28,7 @@ public class TaskInfo {
     }
 
     public List<Task> getTasksbyTaskId(int taskId) {
-        Query scoresquery = em.createQuery("SELECT t FROM Task t where t.id =" + "\"" + taskId + "\"");
+        Query scoresquery = em.createQuery("SELECT t FROM Task t where t.taskId =" + "\"" + taskId + "\"");
         return (List<Task>) scoresquery.getResultList();
     }
 }
