@@ -76,6 +76,11 @@ public class UserInfo {
         return (Collection<User>) findUserLastNamebyEmailQ.getResultList();
     }
 
+    public List<Integer> findUsersByTeamId(int teamid) {
+        Query findUsersByteamIdQ = em.createQuery("select e.userId from User e where e.teamId  =" + teamid);
+        return (List<Integer>) findUsersByteamIdQ.getResultList();
+    }
+
     public User findUserById(long id) {
         return em.find(User.class, id);
     }
@@ -101,8 +106,13 @@ public class UserInfo {
         }
     }
 
+    public List<Integer> getTeamIdbyUserId(int userId) {
+        Query scoresquery = em.createQuery("SELECT u.teamId FROM User u where u.userId=" + userId);
+        return (List<Integer>) scoresquery.getResultList();
+    }
+
     public User updateUser(User confUser) {
-        User updateUser = findUserById(confUser.getId());
+        User updateUser = findUserById(confUser.getUserId());
         if (updateUser != null) {
             em.getTransaction().begin();
             updateUser.setFirstName(confUser.getFirstName());
