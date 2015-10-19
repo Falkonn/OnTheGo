@@ -38,18 +38,16 @@ public class TaskCont {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Object> getTasksAndPoints(@PathVariable("taskid") int taskid) {
+        
         List<Score> scoreList = new ArrayList<>();
         List<Task> taskList = new ArrayList<>();
         TaskInfo task = new TaskInfo();
         ScoreInfo scores = new ScoreInfo();
         taskList = task.getTasksbyTaskId(taskid);
         scoreList = scores.getScoresbyTaskId(taskid);
-        /*for (int i = 0; i <= scoreList.size(); i++) {
-            scoreList.set(i, scores.getScoresbyTaskId(taskid).get(i));
-        }*/
         List<Object> finalList = new ArrayList<Object>(taskList);
         finalList.addAll(scoreList);
+        
         return finalList;
     }
-
 }
