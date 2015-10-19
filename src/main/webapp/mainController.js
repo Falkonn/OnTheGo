@@ -42,8 +42,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
 //        // Run Init 
 //        mv.init();
         
-        
-        
         mv.loggedIn = true;
         mv.rules = 1;
         
@@ -51,8 +49,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         mv.submitAnswer = function(t){
             
             var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer};
-            
-            httpServ.postTaskAnswer(data).then(function(response){
+            // Sending Answer Data 
+            httpServ.postTaskAnswer(JSON.stringify(data)).then(function(response){
                 // Success
                 t.badresult = "";
                 t.done = true;

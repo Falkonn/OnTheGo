@@ -48,11 +48,10 @@ httpService.factory('httpServ', ['$http',
                     return $http.get(urlBase + '/Tasks');
                 },
                 
-                
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
                     // TODO: Must decide how to pass 3 parameters.
-                    return $http.post(urlBase + '/TasksAnswer', data.taskId, data.userId, data.answer  );
+                    return $http.post(urlBase + '/TasksAnswer', data);
                 },
               
                 
