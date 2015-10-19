@@ -13,32 +13,32 @@
         </div>
 
         <uib-accordion>
-            <uib-accordion-group ng-repeat="t in assignments.tasks" is-open="t.open">
+            <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 2} " is-open="t.open">
                 
                 <uib-accordion-heading>
                     <span ng-show="t.done" class="glyphicon glyphicon-check">&nbsp;</span>
-                    {{t.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
+                    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
                 </uib-accordion-heading>
-                <form class="form-inline text-center" name="{{'answerform' + t.id}}" ng-submit="submitAnswer(t)">    
+                <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t)">    
                 <table>
                     <tr>
                         <td class="top top-left">Personlig</td>
                         <td class="top top-left">
-                            <span ng-if="t.personal">Ja</span>
-                            <span ng-if="!t.personal">Nej (Grupp)</span>
+                            <span ng-if="t.isPersonal">Ja</span>
+                            <span ng-if="!t.isPersonal">Nej (Grupp)</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="top top-left">Tidest.</td>
-                        <td class="top top-left">{{t.estimation}}</td>
+                        <td class="top top-left">{{t.taskTime}}</td>
                     </tr>
                     <tr>
                         <td class="top top-left">Poäng</td>
-                        <td class="top top-left">{{t.points}}</td>
+                        <td class="top top-left">{{t.taskPoint}}</td>
                     </tr>
                     <tr>
                         <td class="top top-left">Beskrivning</td>
-                        <td class="top top-left">{{t.description}}</td>
+                        <td class="top top-left">{{t.taskInfo}}</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -62,7 +62,7 @@
                             <span ng-if="checkTaskType(t.taskType,1)">
                                 <p>
                                     Du/Gruppen svarade:<br/>
-                                    {{t.answer}}
+                                    {{t.answers}}
                                 </p>
 
                             </span>
