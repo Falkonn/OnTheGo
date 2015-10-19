@@ -31,4 +31,14 @@ public class TaskInfo {
         Query scoresquery = em.createQuery("SELECT t FROM Task t where t.taskId =" + "\"" + taskId + "\"");
         return (List<Task>) scoresquery.getResultList();
     }
+
+    public List<Task> getScoresbyTaskId(long taskId) {
+        Query tasksquery = em.createQuery("SELECT t.taskPoint FROM Task t where t.taskId =" + taskId);
+        return (List<Task>) tasksquery.getResultList();
+    }
+
+    public List<Task> checkPersonalTask(long taskId) {
+        Query personalTasksQuery = em.createQuery("SELECT t FROM Task t where t.taskId =" + taskId);
+        return (List<Task>) personalTasksQuery.getResultList();
+    }
 }

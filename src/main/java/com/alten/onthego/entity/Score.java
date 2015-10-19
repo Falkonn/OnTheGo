@@ -4,14 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,18 +24,19 @@ public class Score implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "score_id")
-    private long scoreId;
-    
+    private int scoreId;
+
     @Column(name = "team_id")
     private Integer teamId;
-    
-    @ManyToOne(targetEntity=Task.class)
+
+    @ManyToOne(targetEntity = Task.class)
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @ManyToOne(targetEntity=User.class)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
     private User user;
+   
 
     @Column(name = "point")
     private Integer point;
@@ -58,14 +56,15 @@ public class Score implements Serializable {
         this.userAnswer = userAnswer;
         this.task = taskid;
         this.user = userid;
+     
 
     }
 
-    public long getScoreId() {
+    public int getScoreId() {
         return scoreId;
     }
 
-    public void setScoreId(long scoreId) {
+    public void setScoreId(int scoreId) {
         this.scoreId = scoreId;
     }
 
@@ -109,11 +108,13 @@ public class Score implements Serializable {
         this.task = task;
     }
 
-    public User getUser() {
-        return user;
-    }
+   
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String toString() {
+        return "Score data are [ id= " + scoreId + " " + "team id= " + teamId + " " + "points= " + point
+                + " " + "task done= " + taskDone + " " + " " + "user Answer= " + userAnswer
+                + " " + "taskid= " + task + " " + "]";
+
     }
 }

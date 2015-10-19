@@ -24,6 +24,11 @@ import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 
 @RestController
 public class UserCont {
@@ -152,7 +157,7 @@ public class UserCont {
         String[] splited = userCredentials.split(" ");
         String email = splited[0];
         String pinCode = splited[1];
-        System.out.println("email  " + email+ "pincode   " + pinCode);
+        System.out.println("email  " + email + "pincode   " + pinCode);
         boolean verifyuser = validateuser.validUser(email, pinCode);
         if (verifyuser) {
             System.out.println("User is verfied");
@@ -162,5 +167,24 @@ public class UserCont {
             ress.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         return verifyuser;
+    }
+
+    @RequestMapping(
+            value = "/upload",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void getImage(@RequestBody String imagedata, HttpServletResponse ress) {
+        try {
+            // remove data:image/png;base64, and then take rest sting
+            byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imagedata);
+            BufferedImage bfi = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+            //we might need to save it in the data base later on
+            File outputfile = new File("saved.png");
+            ImageIO.write(bfi, "png", outputfile);
+            System.out.println("Image saved");
+            bfi.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
