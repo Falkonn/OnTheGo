@@ -52,7 +52,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     $scope.result = "";
 
     this.sendEmail = function() {
-        $scope.result = "Verifying email adress..."
+        $scope.result = "Verifierar e-postadress..."
         httpServ.postUserMail($scope.userEmail)
         .then(function() {
             // Getting User Info to show to the user
@@ -62,9 +62,9 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     // Saving User info to localStorage
                     $localStorage.user = $scope.names[0];
                     // Showing User Info
-                    $scope.result = "Hello " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
+                    $scope.result = "Hej " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                      // Confirmation that the mail was sent successfully from the backend
-                    $scope.result += ". A pin code is sent to your mail!"
+                    $scope.result += ". En PIN-kod har skickats till din e-post!"
                     // Hide mail boolean variable
                     $scope.hideMail = true;
                     // Show next steps
@@ -75,10 +75,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             console.error($scope.userEmail);
             // Not Found in the Database
             if(response.status === 404)
-                $scope.result = "This mail does not exist in our database.";
+                $scope.result = "Denna e-post finns inte i databasen. Är du säker på att du använde den till att registrera dig på eventet?";
             // Unknown server error
             else
-                $scope.result = "Server Error";
+                $scope.result = "Servererror";
         });
     };
    
@@ -88,7 +88,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         httpServ.postUserPin($scope.userEmail + ' ' + $scope.userPin)
             .then(function(response)  {
                 // Pin Verified
-                $scope.resultPin = "Correct Pin!";
+                $scope.resultPin = "Korrekt PIN-kod!";
                 $localStorage.userPin = $scope.userPin;
                 // Redirecting to confirm screen
                 $location.path('/confirm');
@@ -97,10 +97,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                 console.error($scope.userPin);
                 // Not Found in the Database
                 if(response.status === 404)
-                    $scope.resultPin = "This pin does not match your mail";
+                    $scope.resultPin = "Denna PIN-kod matchar inte den som sändes till din e-post. Prova igen!";
                 // Unknown server error
                 else
-                    $scope.resultPin = "Failed to send the mail. Please try again.";
+                    $scope.resultPin = "Misslyckades att skicka e-post. Vänligen försök igen.";
             });
             
     };
