@@ -1,56 +1,41 @@
 
 var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'ngStorage' ])
 
-.controller('mainController',['$scope','httpServ', '$localStorage', '$http', '$location',
+.controller('mainController',['$scope','httpServ', '$localStorage', '$location',
     function ($scope, httpServ, $localStorage, $location) {
         var mv = $scope;
-        
-//        // Checks if user is logged in and redirect to app-info screen in this case
-//        mv.init = function() {
-//            // Clean localstorage (for debugging)
-//            //$localStorage.$reset();
-//            // Dummy object (for debugging)
-//            /*$localStorage.user = {  id: "28",
-//                                    firstName: "Vasileios",
-//                                    lastName:  "Golematis",
-//                                    email:     "vasileios.golematis@alten.se",
-//                                    telefon:   "0767649596",
-//                                    city: "Gothenburg",
-//                                    department: "Embedded Systems",
-//                                    teamId:     "1",
-//                                    picId:      "1",
-//                                    pinCode: "fMLHyHjBOkI="
-//            };*/
-//            // LoggedIn variable
-//            mv.loggedIn = $localStorage.loggedIn;
-//            if(mv.loggedIn)
-//                $location.path('/info');
-//            // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
-//            else if($location.url()!='/register' && $location.url()!='/confirm')
-//                $location.path('/');
-//            //If pin is undefined redirect to register screen
-//            else if($location.url()=='/confirm' && !$localStorage.userPin)
-//                $location.path('/register');
-//
-//            // In confirm Screen -> Set values from localStorage
-//            if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()=='/confirm' ){
-//                mv.userEmail = $localStorage.user.email;
-//                mv.userName =  $localStorage.user.firstName; 
-//                mv.userPhone = $localStorage.user.telefon;
-//            }
-//        };
-//        // Run Init 
-//        mv.init();
-        
+        var tasks;
+        // Check if tasks are already stored in the local storage
+        // If not load them from DB
+        mv.init = function() {
+            // If no tasks in the localStorage when loading assignments
+            //$localStorage.tasks = null
+            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()=='/assignments')
+            {        
+                // Load tasks them from DB and save them in localStorage
+                httpServ.getTasks().success(function(response){
+                    // Success - Save tasks in localStorage
+                    $localStorage.tasks = response;
+                    //t.badresult = "";
+                    //t.done = true;
+                }, function(response){
+                    // Failed
+                    //t.done = false;
+                    //t.badresult = "" + response.status;
+                });
+            }
+        };
+        // Run Init 
+        mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
-        
         /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
         mv.submitAnswer = function(t){
             
             var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer};
             // Sending Answer Data 
-            httpServ.postTaskAnswer(JSON.stringify(data)).then(function(response){
+            console.log(9 + ' ' + 19 + ' ' + t.answer)
+            httpServ.postTaskAnswer(9 + ' ' + 19 + ' ' + t.answer).then(function(response){
                 // Success
                 t.badresult = "";
                 t.done = true;
@@ -114,6 +99,10 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          * 
          */
         mv.assignments = {
+            "tasks": $localStorage.tasks
+        }
+        console.log($localStorage.tasks)
+        /*mv.assignments = {
             "numberOfAssignments": 40,
             "numberOfTasksAnswered": 7,
             "tasks": [
@@ -178,7 +167,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     "done": false
                 }
             ]
-        };
+        };*/
 
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.team = {
