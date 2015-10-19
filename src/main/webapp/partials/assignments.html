@@ -40,11 +40,6 @@
                         <td class="top top-left">Beskrivning</td>
                         <td class="top top-left">{{t.description}}</td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            {{"tasktype:" + t.taskType}}
-                        </td>
-                    </tr>
                     <tr ng-show="!t.done">
                         <td colspan="2">
                             <div ng-if="checkTaskType(t.taskType,1)" ng-include="'partials/task_string.html'"></div>
