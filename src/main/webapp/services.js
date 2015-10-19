@@ -1,7 +1,6 @@
 'use strict';
 
 /* Http Services */
-
 var httpService = angular.module('httpService', []);
 
 // User Data Service
@@ -24,7 +23,7 @@ httpService.factory('httpServ', ['$http',
                 getUserByMail: function(userEmail) {
                     return $http.get(urlBase + '/userbyemail/' + userEmail, userEmail);
                 },
-                             
+                
                 getUserById: function(userId) {
                     return $http.get(urlBase + '/userbyid/' + userId, userId);
                 },
@@ -37,19 +36,24 @@ httpService.factory('httpServ', ['$http',
                 postUserPin: function(userPin) {
                     return $http.post(urlBase + '/pinpath',userPin );
                 },
-             
+                
                 postUserConfirmData: function(user) {
                     return $http.post(urlBase + '/confirmpath', user);
                 },
                 
                 /********* Task Services **********/
                 
-                //////// Add Task http get services here ///////
+                //////// Add Task http GET services here ///////
                 getTasks: function() {
                     return $http.get(urlBase + '/Tasks');
                 },
                 
-                //////// Add Task http post services here ///////
+                //////// Add Task http POST services here ///////
+                postTaskAnswer: function(data) {
+                    // TODO: Must decide how to pass 3 parameters.
+                    return $http.post(urlBase + '/TasksAnswer', data);
+                },
+              
                 
                 
                 /********* Score Services **********/

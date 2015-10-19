@@ -49,6 +49,11 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
             }).
+            when('/party', {
+                templateUrl: 'partials/party.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
+            }).
             when('/schedule', {
                 title: 'Konferensinfo',
                 templateUrl: 'partials/schedule.html',

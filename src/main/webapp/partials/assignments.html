@@ -12,21 +12,21 @@
             </p>
         </div>
 
-        <uib-accordion> <uib-accordion-group
-                ng-repeat="t in assignments.tasks" is-open="t.open">
-                <uib-accordion-heading> <span
-                        ng-show="t.checked" class="pull-left glyphicon glyphicon-check">&nbsp;</span>
-                    {{t.name}} <i class="pull-right glyphicon"
-                                  ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
+        <uib-accordion>
+            <uib-accordion-group ng-repeat="t in assignments.tasks" is-open="t.open">
+                
+                <uib-accordion-heading>
+                    <span ng-show="t.done" class="glyphicon glyphicon-check">&nbsp;</span>
+                    {{t.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
                 </uib-accordion-heading>
+                <form class="form-inline text-center" name="{{'answerform' + t.id}}" ng-submit="submitAnswer(t)">    
                 <table>
                     <tr>
-                        <td class="top top-left">Beskrivning</td>
-                        <td class="top top-left">{{t.description}}</td>
-                    </tr>
-                    <tr>
                         <td class="top top-left">Personlig</td>
-                        <td class="top top-left"><span ng-if="t.personal">Ja</span><span ng-if="!t.personal">Nej (Group)</span></td>
+                        <td class="top top-left">
+                            <span ng-if="t.personal">Ja</span>
+                            <span ng-if="!t.personal">Nej (Grupp)</span>
+                        </td>
                     </tr>
                     <tr>
                         <td class="top top-left">Tidest.</td>
@@ -40,35 +40,38 @@
                         <td class="top top-left">Beskrivning</td>
                         <td class="top top-left">{{t.description}}</td>
                     </tr>
+                    <tr>
+                        <td colspan="2">
+                            {{"tasktype:" + t.taskType}}
+                        </td>
+                    </tr>
                     <tr ng-show="!t.done">
                         <td colspan="2">
-                            <div ng-if="t.taskType === 1">
-                                <div ng-include="task_quiz.html"></div>
-                            </div>
-                            <div ng-if="t.taskType === 2">
-                                <div ng-include="task_string.html">
-                            </div>
-                            <div ng-if="t.taskType === 3">
-                                <div ng-include="task_check.html">
-                            </div>
+                            <div ng-if="checkTaskType(t.taskType,1)" ng-include="'partials/task_string.html'"></div>
+                            <div ng-if="checkTaskType(t.taskType,2)" ng-include="'partials/task_check.html'"></div>
+                        </td>
+                    </tr>
+                    <tr ng-show="!t.done">
+                        <td colspan="2">
+                            <input class="btn btn-primary" type="submit" value="Skicka in" />
                         </td>
                     </tr>
                     <tr ng-show="t.done">
-                        <td class="top top-left">Du/Gruppen svarade:</td> <!-- Here we need to include a possible get for Group tasks. -->
-                        <td class="top top-left">
-                            <form action="" id="answer">
-                                <textarea rows="4" cols="50" name="comment" form="usrform">
-                                {{t.answer}}
-                                </textarea>
-                            </form>
+                        <td class="top top-left" colspan="2">
+                            <!-- Here we need to include a possible get for Group tasks. -->
+                            <span ng-if="checkTaskType(t.taskType,1)">
+                                <p>
+                                    Du/Gruppen svarade:<br/>
+                                    {{t.answer}}
+                                </p>
+
+                            </span>
+                            <span ng-if="checkTaskType(t.taskType,2)">Utförd</span>
                         </td>
                     </tr>
-                    <tr ng-show="!t.done">
-                        <td class="top top-left">Klar</td>
-                        <td class="top top-left"><input type="checkbox" ng-checked="t.checked" ng-click="checkboxClick(t, $event)" /></td>
-                    </tr>
                 </table>
-
+                </form>
+                
             </uib-accordion-group>
         </uib-accordion>
         
