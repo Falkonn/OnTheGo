@@ -33,12 +33,12 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int userId;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Score> users;
-    @Column(name = "user_id")
-    private int userId;
+
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -59,12 +59,14 @@ public class User implements Serializable {
     private Integer teamId;
     @Column(name = "pic_id")
     private Integer picId;
+    @Column(name = "pic_url")
+    private String picUrl;
 
     public User() {
     }
 
     public User(int userId, String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code, int teamId, int picId) {
+            String telefon, String city, String department, String pin_code, int teamId, int picId, String picUrl) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -75,14 +77,7 @@ public class User implements Serializable {
         this.pin_code = pin_code;
         this.teamId = teamId;
         this.picId = picId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.picUrl = picUrl;
     }
 
     public int getUserId() {
@@ -161,29 +156,17 @@ public class User implements Serializable {
         this.picId = picId;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
     @Override
     public String toString() {
-        return "User data are [ id= " + id + " " + "First name= " + firstName + " " + "Last name= " + lastName
+        return "User data are [ userid= " + userId + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
                 + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "]";
 
