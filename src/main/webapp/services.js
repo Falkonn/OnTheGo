@@ -40,6 +40,23 @@ httpService.factory('httpServ', ['$http',
                 postUserConfirmData: function(user) {
                     return $http.post(urlBase + '/confirmpath', user);
                 },
+                /********* TeamView Services **********/
+                
+                //////// Add TeamView http Get services here ///////
+                
+                getTeamById: function(teamId) {
+                    return $http.get(urlBase + '/teambyid');
+                },
+                
+                getUsersByTeamId: function(teamId) {
+                    return $http.get(urlBase + '/usersbyteamid');
+                },
+                
+                //////// Add TeamView http Post services here ///////
+                
+                postImage: function() {
+                    return $http.get(urlBase + '/upload');
+                },
                 
                 /********* Task Services **********/
                 
@@ -51,7 +68,7 @@ httpService.factory('httpServ', ['$http',
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
                     // TODO: Must decide how to pass 3 parameters.
-                    return $http.post(urlBase + '/TasksAnswer', data);
+                    return $http.post(urlBase + '/answers', data);
                 },
               
                 

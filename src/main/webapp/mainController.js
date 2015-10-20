@@ -9,20 +9,42 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         // If not load them from DB
         mv.init = function() {
             // If no tasks in the localStorage when loading assignments
-            //$localStorage.tasks = null
-            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()=='/assignments')
+            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
             {        
                 // Load tasks them from DB and save them in localStorage
-                httpServ.getTasks().success(function(response){
-                    // Success - Save tasks in localStorage
-                    $localStorage.tasks = response;
-                    //t.badresult = "";
-                    //t.done = true;
-                }, function(response){
-                    // Failed
-                    //t.done = false;
-                    //t.badresult = "" + response.status;
-                });
+                if($location.url()=='/assignments'){
+                    httpServ.getTasks().success(function(response){
+                        // Success - Save tasks in localStorage
+                        $localStorage.tasks = response;
+                        t.badresult = "";
+                        // Check for this team id, user id if the tasks are done or not
+                        // post(team-id, user-id)
+
+                    }, function(response){
+                        // Failed to load tasks from db
+                        t.badresult = "" + response.status;
+                    });
+                }
+                else if($location.url()=='/team'){
+                    // Load the team of this user and the other user members info of this team
+                    httpServ.getTeamById($localStorage.user.teamId).success(function(response){
+                        // Success - Save tasks in localStorage.team
+                        $localStorage.team = response;
+                        t.badresult = "";
+                        // Getting also the users by team Id
+                        httpServ.UsersByTeamId($localStorage.user.teamId).success(function(response){
+                          // Success - Save user members in localStorage.team
+                          $localStorage.team.members = response;
+                        }, function(response){
+                            // Failed to load teams from db
+                            t.badresult = "" + response.status;
+                        });
+
+                    }, function(response){
+                        // Failed to load teams from db
+                        t.badresult = "" + response.status;
+                    });        
+                }
             }
         };
         // Run Init 
@@ -101,7 +123,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         mv.assignments = {
             "tasks": $localStorage.tasks
         }
-        console.log($localStorage.tasks)
+        
         /*mv.assignments = {
             "numberOfAssignments": 40,
             "numberOfTasksAnswered": 7,
