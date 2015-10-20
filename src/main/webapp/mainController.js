@@ -1,56 +1,63 @@
 
 var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'ngStorage' ])
 
-.controller('mainController',['$scope','httpServ', '$localStorage', '$http', '$location',
+.controller('mainController',['$scope','httpServ', '$localStorage', '$location',
     function ($scope, httpServ, $localStorage, $location) {
         var mv = $scope;
-        
-//        // Checks if user is logged in and redirect to app-info screen in this case
-//        mv.init = function() {
-//            // Clean localstorage (for debugging)
-//            //$localStorage.$reset();
-//            // Dummy object (for debugging)
-//            /*$localStorage.user = {  id: "28",
-//                                    firstName: "Vasileios",
-//                                    lastName:  "Golematis",
-//                                    email:     "vasileios.golematis@alten.se",
-//                                    telefon:   "0767649596",
-//                                    city: "Gothenburg",
-//                                    department: "Embedded Systems",
-//                                    teamId:     "1",
-//                                    picId:      "1",
-//                                    pinCode: "fMLHyHjBOkI="
-//            };*/
-//            // LoggedIn variable
-//            mv.loggedIn = $localStorage.loggedIn;
-//            if(mv.loggedIn)
-//                $location.path('/info');
-//            // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
-//            else if($location.url()!='/register' && $location.url()!='/confirm')
-//                $location.path('/');
-//            //If pin is undefined redirect to register screen
-//            else if($location.url()=='/confirm' && !$localStorage.userPin)
-//                $location.path('/register');
-//
-//            // In confirm Screen -> Set values from localStorage
-//            if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()=='/confirm' ){
-//                mv.userEmail = $localStorage.user.email;
-//                mv.userName =  $localStorage.user.firstName; 
-//                mv.userPhone = $localStorage.user.telefon;
-//            }
-//        };
-//        // Run Init 
-//        mv.init();
-        
+        var tasks;
+        // Check if tasks are already stored in the local storage
+        // If not load them from DB
+        mv.init = function() {
+            // If no tasks in the localStorage when loading assignments
+            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
+            {        
+                // Load tasks them from DB and save them in localStorage
+                if($location.url()=='/assignments'){
+                    httpServ.getTasks().success(function(response){
+                        // Success - Save tasks in localStorage
+                        $localStorage.tasks = response;
+                        t.badresult = "";
+                        // Check for this team id, user id if the tasks are done or not
+                        // post(team-id, user-id)
+
+                    }, function(response){
+                        // Failed to load tasks from db
+                        t.badresult = "" + response.status;
+                    });
+                }
+                else if($location.url()=='/team'){
+                    // Load the team of this user and the other user members info of this team
+                    httpServ.getTeamById($localStorage.user.teamId).success(function(response){
+                        // Success - Save tasks in localStorage.team
+                        $localStorage.team = response;
+                        t.badresult = "";
+                        // Getting also the users by team Id
+                        httpServ.UsersByTeamId($localStorage.user.teamId).success(function(response){
+                          // Success - Save user members in localStorage.team
+                          $localStorage.team.members = response;
+                        }, function(response){
+                            // Failed to load teams from db
+                            t.badresult = "" + response.status;
+                        });
+
+                    }, function(response){
+                        // Failed to load teams from db
+                        t.badresult = "" + response.status;
+                    });        
+                }
+            }
+        };
+        // Run Init 
+        mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
-        
         /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
         mv.submitAnswer = function(t){
             
             var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer};
             // Sending Answer Data 
-            httpServ.postTaskAnswer(JSON.stringify(data)).then(function(response){
+            console.log(9 + ' ' + 19 + ' ' + t.answer)
+            httpServ.postTaskAnswer(9 + ' ' + 19 + ' ' + t.answer).then(function(response){
                 // Success
                 t.badresult = "";
                 t.done = true;
@@ -114,6 +121,10 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          * 
          */
         mv.assignments = {
+            "tasks": $localStorage.tasks
+        }
+        
+        /*mv.assignments = {
             "numberOfAssignments": 40,
             "numberOfTasksAnswered": 7,
             "tasks": [
@@ -178,7 +189,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     "done": false
                 }
             ]
-        };
+        };*/
 
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.team = {
