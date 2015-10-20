@@ -5,13 +5,6 @@
  */
 package com.alten.onthego.controllers;
 
-import com.alten.onthego.common.EmailSending;
-import com.alten.onthego.common.PassEncryption;
-import com.alten.onthego.model.UserInfo;
-import com.alten.onthego.entity.User;
-import com.google.gson.Gson;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -19,26 +12,31 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.persistence.sessions.serializers.JSONSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.alten.onthego.common.EmailSending;
+import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.entity.User;
+import com.alten.onthego.model.UserInfo;
+import com.google.gson.Gson;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 
 @RestController
 public class UserCont {
 
     public static String emailstring;
     public static ArrayList<String> emaillists = new ArrayList<String>();
-
-    @RequestMapping(
-            value = "/test",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public String greeting() {
-        return "test";
-    }
+    public static String idstring;
+    public static ArrayList<String> idlists = new ArrayList<String>();
 
     @RequestMapping(
             value = "/users",
@@ -59,11 +57,12 @@ public class UserCont {
     }
 
     @RequestMapping(
-            value = "/userbyemail/{email}",
+            value = "/userbyemail/{email.+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<User> findUserByEmail(@PathVariable("email") String email) {
+    public Collection<User> findUserByEmail(@PathVariable("email.+") String email) {
         UserInfo userbyemail = new UserInfo();
+        System.out.print("from GET" + email + "\n");
         return (Collection<User>) userbyemail.findUserByEmail(email);
     }
 
@@ -77,7 +76,7 @@ public class UserCont {
     }
 
     @RequestMapping(
-            value = "/userbypin/{email}",
+            value = "/userbypin/{email.+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<User> findPinByEmail(@PathVariable("email") String email) {
@@ -115,11 +114,11 @@ public class UserCont {
                     + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
                     + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
                     + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
+            //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
             System.out.println("The email is sent!");
         } else {
             user.verfyEmail(false);
             System.out.println("There is no email");
-
             res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         emailstring = "{\"email\" : \"" + emailAddress + "\"}";
@@ -129,11 +128,36 @@ public class UserCont {
     }
 
     @RequestMapping(
+            value = "/confirmpath",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getUserConfirmData(@RequestBody User confirmedUser, HttpServletResponse res) throws MessagingException {
+        UserInfo user = new UserInfo();
+        User updatedUser = user.updateUser(confirmedUser);
+        JSONSerializer serializer = new JSONSerializer();
+        Gson gson = new Gson();
+        String serializedUser = gson.toJson(updatedUser);
+        if (updatedUser != null) {
+            System.out.println("Found User with this id");
+            res.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            System.out.println("Not found User with this id");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        System.out.println("The confirmed user is " + serializedUser);
+        return serializedUser.toString();
+    }
+
+    @RequestMapping(
             value = "/pinpath",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean CheckPinCode(@RequestBody String email, String pinCode, HttpServletResponse ress) throws IllegalBlockSizeException, BadPaddingException {
+    public boolean CheckPinCode(@RequestBody String userCredentials, HttpServletResponse ress) throws IllegalBlockSizeException, BadPaddingException {
         UserInfo validateuser = new UserInfo();
+        String[] splited = userCredentials.split(" ");
+        String email = splited[0];
+        String pinCode = splited[1];
+        System.out.println("email  " + email + "pincode   " + pinCode);
         boolean verifyuser = validateuser.validUser(email, pinCode);
         if (verifyuser) {
             System.out.println("User is verfied");
@@ -145,14 +169,22 @@ public class UserCont {
         return verifyuser;
     }
 
-    /*//This code is just for testing
-     public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchProviderException, IllegalBlockSizeException, BadPaddingException {
-     UserInfo userinfo = new UserInfo();
-     PassEncryption pe = new PassEncryption();;
-     Collection<User> pinCode = userinfo.findPinCodebyEmail("khaled.nawasreh@gmail.com");
-     Iterator ite = pinCode.iterator();
-     Object userpincode = ite.next();
-     userpincode = pe.DecryptText((String) userpincode);
-     System.out.println("result" + userpincode);
-     }*/
+    @RequestMapping(
+            value = "/upload",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void getImage(@RequestBody String imagedata, HttpServletResponse ress) {
+        try {
+            // remove data:image/png;base64, and then take rest sting
+            byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imagedata);
+            BufferedImage bfi = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+            //we might need to save it in the data base later on
+            File outputfile = new File("saved.png");
+            ImageIO.write(bfi, "png", outputfile);
+            System.out.println("Image saved");
+            bfi.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

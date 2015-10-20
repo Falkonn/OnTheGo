@@ -1,0 +1,6 @@
+<div class="form-group">
+    <label for="name">Svar:</label>
+    <input type="text" class="form-control" ng-model="t.answer" name="{{answer + t.id}}" required>
+    <span style="color:red" ng-show="confirmForm.answer.$dirty">
+    <span ng-show="confirmForm.answer.$error.required">Du måste skriva in ett svar.</span>
+</div>

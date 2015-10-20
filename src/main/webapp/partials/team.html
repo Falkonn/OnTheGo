@@ -1,22 +1,34 @@
 <!-- Main Section -->
 <section id="services">
-    <div class="container" ng-controller="mainController as mainCtrl">
-        <div class="row"><h2>Team {{team.teamNumber}}</h2> <h5>- {{team.numberOfMembers}} </h5></div>
+    <div class="container">
+        <div class="row">
+            <table>
+                <tr>
+                    <td>
+                        <h2>Team {{team.teamNumber}}</h2>
+                    </td>
+                    <td class="bottom">
+                        <h5> - {{team.numberOfMembers}} members</h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="row" ng-repeat="member in team.members">
             <div>
                 
                 <div class="col-lg-12 text-center">
                     <table>
                     <tr>
-                        <td class="col-xs-4">
+                        <td class="col-xs-3">
                             <div ng-if="member.selfie.length === 0">
-                                <img src="img/team/default.png" class="img-responsive img-circle" />
+                                <img src="img/team/alten_clown_silhouette.png" class="img-responsive img-circle" />
                             </div>
                             <div ng-if="member.selfie.length !== 0">
                                 <a href="img/team/{{member.selfie}}"><img src="img/team/{{member.selfie}}" class="col img-responsive img-circle" /></a>
                             </div>
+                            <a href="#">Ändra bild</a>
                         </td>
-                        <td class="col-xs-8">
+                        <td class="col-xs-9">
                             <table>
                             <tr>
                                 <td class="col-xs-6 text-left">
@@ -26,8 +38,8 @@
                             </tr>
                             <tr>
                                 <td class="col-xs-6 text-left">
-                                    <span class="fa-phone fa-">{{member.phone}}</span>
-                                    
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    {{member.phone}}
                                 </td>
                             </tr>
                             <tr>
@@ -48,7 +60,6 @@
                 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0; ">
                 </div>
             </div>
-            
         </div>
     </div>
 </section>

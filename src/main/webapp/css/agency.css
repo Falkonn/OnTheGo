@@ -7,7 +7,51 @@
 body {
     overflow-x: hidden;
     font-family: "brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #ffea00;
+   background-color: #ffea00;
+   /*Trying gradient with background*/
+   /*background: -webkit-linear-gradient(left top, #ffec82 , #ffea00); /* For Safari 5.1 to 6.0 */
+   /*background: -o-linear-gradient(bottom right, #ffec82, #ffea00); /* For Opera 11.1 to 12.0 */
+  /* background: -moz-linear-gradient(bottom right, #ffec82, #ffea00); /* For Firefox 3.6 to 15 */
+  /* background: linear-gradient(to bottom right, #ffec82 , #ffea00); /* Standard syntax */
+}
+
+@media (min-width: 320px) {
+  .container {
+    width: 298px;
+  }
+}
+
+@media (min-width: 420px) {
+  .container {
+    width: 400px;
+  }
+}
+
+@media (min-width: 520px) {
+  .container {
+    width: 490px;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    width: 598px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
 }
 
 .text-muted {
@@ -71,12 +115,12 @@ h6 {
 }
 
 .btn-primary {
-    border-color: #fed136;
+    border-color: #00ABE8;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #fff;
-    background-color: #fed136;
+    background-color: #00ABE8;
 }
 
 .btn-primary:hover,
@@ -84,9 +128,9 @@ h6 {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-    border-color: #f6bf01;
+    border-color: #0093D0;
     color: #fff;
-    background-color: #fec503;
+    background-color: #0093D0;
 }
 
 .btn-primary:active,
@@ -110,25 +154,25 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-    border-color: #fed136;
-    background-color: #fed136;
+    border-color: #0093D0;
+    background-color: #0093D0;
 }
 
 .btn-primary .badge {
-    color: #fed136;
+    color: #0093D0;
     background-color: #fff;
 }
 
 .btn-xl {
     padding: 20px 40px;
-    border-color: #fed136;
+    border-color: #0093D0;
     border-radius: 3px;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: #fff;
-    background-color: #fed136;
+    background-color: #0093D0;
 }
 
 .btn-xl:hover,
@@ -136,9 +180,9 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl:active,
 .btn-xl.active,
 .open .dropdown-toggle.btn-xl {
-    border-color: #f6bf01;
+    border-color: #83CFF3;
     color: #fff;
-    background-color: #fec503;
+    background-color: #00ABE8;
 }
 
 .btn-xl:active,
@@ -162,8 +206,8 @@ fieldset[disabled] .btn-xl:active,
 .btn-xl.disabled.active,
 .btn-xl[disabled].active,
 fieldset[disabled] .btn-xl.active {
-    border-color: #fed136;
-    background-color: #fed136;
+    border-color: #0093D0;
+    background-color: #0093D0;
 }
 
 .btn-xl .badge {
@@ -178,7 +222,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default .navbar-brand {
     font-family: "brandon_grotesque_regularRg","Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
-    color: #fed136;
+    color: #83CFF3;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -193,8 +237,8 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default .navbar-toggle {
-    border-color: #fed136;
-    background-color: #fed136;
+    border-color: #83CFF3;
+    background-color: #83CFF3;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -208,7 +252,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #fed136;
+    background-color: #83CFF3;
 }
 
 .navbar-default .nav li a {
@@ -335,14 +379,16 @@ section h2.section-heading {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 40px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+
 }
 
 section h3.section-subheading {
-    margin-bottom: 75px;
+    margin-bottom: 1px;
     text-transform: none;
-    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
 }
 
@@ -352,6 +398,35 @@ section h3.section-subheading {
     }
 }
 
+#welcome {
+    background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
+}
+
+#welcome span {
+    font-size: 10em;
+    display: block; 
+    margin: 0px auto;
+    text-align: center;
+
+}
+
+#welcome .altenblue {
+    color: #0093d0;                                     
+}
+
+#welcome .altenblack {
+    color: #4c4d4f;                                     
+}
+#welcome .col-sm-4 {
+    border-color: #0093d0;
+
+    /*margin: 5em 5em 5em 5em;*/
+    /*padding: 5em;*/
+}
+
+#welcome .toppadding {
+    margin-top: 2em;
+}
 .service-heading {
     margin: 15px 0;
     text-transform: none;
@@ -669,57 +744,58 @@ section#contact .section-heading {
     color: #fff;
 }
 
-section#contact .form-group {
+section#confirm .form-group {
     margin-bottom: 25px;
+    margin-right:  5px;
+}
+    
+section#confirm .form-group input,
+section#confirm .form-group textarea {
+    padding: 15px;
 }
 
-section#contact .form-group input,
-section#contact .form-group textarea {
-    padding: 20px;
-}
-
-section#contact .form-group input.form-control {
+section#confirm .form-group input.form-control {
     height: auto;
 }
 
-section#contact .form-group textarea.form-control {
+section#confirm .form-group textarea.form-control {
     height: 236px;
 }
 
-section#contact .form-control:focus {
+section#confirm .form-control:focus {
     border-color: #fed136;
     box-shadow: none;
 }
 
-section#contact::-webkit-input-placeholder {
+section#confirm::-webkit-input-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact:-moz-placeholder {
+section#confirm:-moz-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact::-moz-placeholder {
+section#confirm::-moz-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact:-ms-input-placeholder {
+section#confirm:-ms-input-placeholder {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #bbb;
 }
 
-section#contact .text-danger {
+section#confirm .text-danger {
     color: #e74c3c;
 }
 

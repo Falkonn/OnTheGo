@@ -10,57 +10,64 @@ package com.alten.onthego.entity;
  * @author ka3146
  */
 import java.io.Serializable;
-import java.util.Date;
-import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.*;
-import javax.persistence.Column;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author ka3146
  */
 @Entity
-@Table(name = "USER")
+//@Table(name = "\"USER\"")
+@Table(name = "\"USER\"")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(name = "FIRST_NAME")
+    private int userId;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Score> users;
+
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "LAST_NAME")
+    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
-    @Column(name = "TELEFON")
+    @Column(name = "phone")
     private String telefon;
-    @Column(name = "CITY")
+    @Column(name = "city")
     private String city;
-    @Column(name = "DEPARTMENT")
+    @Column(name = "department")
     private String department;
-    @Column(name = "PINCODE")
+    @Column(name = "pincode")
     private String pin_code;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Team> teams;
+    @Column(name = "team_id")
+    private Integer teamId;
+    @Column(name = "pic_id")
+    private Integer picId;
+    @Column(name = "pic_url")
+    private String picUrl;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code) {
+    public User(int userId, String firstName, String lastName, String email,
+            String telefon, String city, String department, String pin_code, int teamId, int picId, String picUrl) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -68,14 +75,17 @@ public class User implements Serializable {
         this.city = city;
         this.department = department;
         this.pin_code = pin_code;
+        this.teamId = teamId;
+        this.picId = picId;
+        this.picUrl = picUrl;
     }
 
-    public Long getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -106,6 +116,10 @@ public class User implements Serializable {
         return pin_code;
     }
 
+    public int getTeamId() {
+        return teamId;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -134,31 +148,28 @@ public class User implements Serializable {
         this.pin_code = pin_code;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Integer getPicId() {
+        return picId;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setPicId(Integer picId) {
+        this.picId = picId;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
     @Override
     public String toString() {
-        return "User data are [ id= " + id + " " + "First name= " + firstName + " " + "Last name= " + lastName
+        return "User data are [ userid= " + userId + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
                 + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "]";
+
     }
 
 }

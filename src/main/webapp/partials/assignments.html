@@ -1,37 +1,74 @@
 <!-- Main Section -->
 <section id="services">
-    <div class="container" ng-controller="mainController as mainCtrl">
-        <div class="row" ng-repeat="t in assignments.tasks">
-            <div class="img-rounded" style="background-color: silver">
-                <div class="col-lg-12 text-center">
-                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 text-left h4">{{t.name}}</div>
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right h5">
-                    <form name="{{ form + t.id }}"> <!--<form ng-submit="mainCtrl.checkTask(user, '{{t.id}}')"> -->
-                        <input class="checkbox" type="checkbox" /> <!-- ng-model="{{t.checked}}" -->
-                    </form>
-                    </div>
-                </div>
-                
-                
-                <div class="col-lg-12 text-center">
-                <table class="">
-                    <tr>
-                        <td class="col-xs-3 top">Detaljer:</td>
-                        <td class="col-xs-9 text-justify">{{t.details}}</td></tr>
-                    <tr>
-                        <td class="col-xs-3 top">Typ:</td>
-                        <td class="col-xs-9 text-left">{{t.type}}</td></tr>
-                    <tr>
-                        <td class="col-xs-3 top">Estimerad tid:</td>
-                        <td class="col-xs-9 text-left">{{t.estimation}}</td></tr>
-                    <tr>
-                        <td class="col-xs-3 top">Poäng:</td>
-                        <td class="col-xs-9 text-left">{{t.points}}</td></tr>
-                </table>
-                <hr>
-                </div>
-            </div>
-            
+    <div class="container">
+        
+        <div class="jumbotron" ng-show="rules">
+            <h3>Regler</h3>
+            Under dagen har ni ett antal uppgifter att lösa, alla med varierande svårighetsgrad och form. Vissa passar bra på resan till Göteborg, andra är lättare att göra på plats. Lös så många ni vill, på vilket sätt ni vill! Nyckelordet för samtliga uppgifter är ärlighet. Varje avklarad uppgift ger poäng. Är det just ditt lag som ska gå ut som segrare ur poängjakten krävs mer än att bara bocka för uppgifterna, ni måste självklart också kunna visa att ni utfört dem. Hur ni väljer att dokumentera är upp till er, men domarna kräver bevis.  Inget fusk, med andra ord!
+            <p>
+                <button type="button" class="btn btn-primary" ng-model="rules" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                Stäng
+                </button>
+            </p>
         </div>
+
+        <uib-accordion>
+            <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 2} " is-open="t.open">
+                
+                <uib-accordion-heading>
+                    <span ng-show="t.done" class="glyphicon glyphicon-check">&nbsp;</span>
+                    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
+                </uib-accordion-heading>
+                <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t)">    
+                <table>
+                    <tr>
+                        <td class="top top-left">Personlig</td>
+                        <td class="top top-left">
+                            <span ng-if="t.isPersonal">Ja</span>
+                            <span ng-if="!t.isPersonal">Nej (Grupp)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="top top-left">Tidest.</td>
+                        <td class="top top-left">{{t.taskTime}}</td>
+                    </tr>
+                    <tr>
+                        <td class="top top-left">Poäng</td>
+                        <td class="top top-left">{{t.taskPoint}}</td>
+                    </tr>
+                    <tr>
+                        <td class="top top-left">Beskrivning</td>
+                        <td class="top top-left">{{t.taskInfo}}</td>
+                    </tr>
+                    <tr ng-show="!t.done">
+                        <td colspan="2">
+                            <div ng-if="checkTaskType(t.taskType,1)" ng-include="'partials/task_string.html'"></div>
+                            <div ng-if="checkTaskType(t.taskType,2)" ng-include="'partials/task_check.html'"></div>
+                        </td>
+                    </tr>
+                    <tr ng-show="!t.done">
+                        <td colspan="2">
+                            <input class="btn btn-primary" type="submit" value="Skicka in" />
+                        </td>
+                    </tr>
+                    <tr ng-show="t.done">
+                        <td class="top top-left" colspan="2">
+                            <!-- Here we need to include a possible get for Group tasks. -->
+                            <span ng-if="checkTaskType(t.taskType,1)">
+                                <p>
+                                    Du/Gruppen svarade:<br/>
+                                    {{t.answers}}
+                                </p>
+
+                            </span>
+                            <span ng-if="checkTaskType(t.taskType,2)">Utförd</span>
+                        </td>
+                    </tr>
+                </table>
+                </form>
+                
+            </uib-accordion-group>
+        </uib-accordion>
+        
     </div>
 </section>

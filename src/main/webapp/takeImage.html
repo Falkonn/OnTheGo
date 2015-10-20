@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
+
+        <script type="text/javascript">
+            window.addEventListener("DOMContentLoaded", function () {
+                // Grab elements, create settings, etc.
+                var canvas = document.getElementById("canvas"),
+                        context = canvas.getContext("2d"),
+                        video = document.getElementById("video"),
+                        videoObj = {"video": true},
+                errBack = function (error) {
+                    console.log("Video capture error: ", error.code);
+                };
+
+                // Trigger photo take
+                document.getElementById("snap").addEventListener("click", function () {
+                    context.drawImage(video, 0, 0, 640, 480);
+                });
+
+
+                // Put video listeners into place
+                if (navigator.getUserMedia) { // Standard
+                    navigator.getUserMedia(videoObj, function (stream) {
+                        video.src = stream;
+                        video.play();
+                    }, errBack);
+                } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+                    navigator.webkitGetUserMedia(videoObj, function (stream) {
+                        video.src = window.webkitURL.createObjectURL(stream);
+                        video.play();
+                    }, errBack);
+                }
+                else if (navigator.mozGetUserMedia) { // Firefox-prefixed
+                    navigator.mozGetUserMedia(videoObj, function (stream) {
+                        video.src = window.URL.createObjectURL(stream);
+                        video.play();
+                    }, errBack);
+                }
+            }, false);
+
+
+// Converts canvas to an image
+
+            function convertCanvasToImage(canvas) {
+                var image = new Image();
+                image.src = canvas.toDataURL("image/png");
+                return image;
+                alert(image);
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/upload",
+                    data: {
+                        imgBase64: image
+                    }
+                }).done(function (mag) {
+                    console.log('saved');
+                });
+            }
+
+// Converts image to canvas; returns new canvas element
+                function convertImageToCanvas(image) {
+                    var canvas = document.createElement("canvas");
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    canvas.getContext("2d").drawImage(image, 0, 0);
+
+                    return canvas;
+            }
+        </script>
+
+
+    </body>
+</html>
+
+</body>
+</html>

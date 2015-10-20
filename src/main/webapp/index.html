@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html ng-app="OnTheGo" lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -53,31 +51,30 @@
     <!-- AngularJS -->
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
+    <script src="js/ngStorage.min.js"></script>
     
     <!-- Angular UI Bootstrap -->
-    <script src="js/ui-bootstrap-tpls-0.13.4.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.14.1.js"></script>
     
     <!-- jQuery JavaScript -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Angular modules -->
     <script src="app.js"></script>
-    <script src="mailController.js"></script>
-    <script src="confirmController.js"></script>
+    <script src="registerController.js"></script>
     <script src="mainController.js"></script>
-    
-    <script src="services.js"></script>
-    
+    <script src="services.js"></script> 
+    <base href="/">
 </head>
 
-<body id="page-top" class="index"> 
+<body id="page-top" class="index" ng-model="loggedIn" ng-controller="registerController as regCtrl">
     
-    <div ng-show="loggedIn" ng-include="'partials/navigation.html'"></div>
+    <div ng-hide="!regCtrl.isRegistered()" ng-include="'partials/navigation.html'"></div>
 
     <div ng-view></div>
 
-    <div ng-if="!loggedIn" ng-include="'partials/footer.html'"></div>
-    <div ng-if="loggedIn" ng-include="'partials/footer_team.html'"></div>
+    <div ng-hide="regCtrl.isRegistered()" ng-include="'partials/footer.html'"></div>
+    <div ng-hide="!regCtrl.isRegistered()" ng-include="'partials/footer_team.html'"></div>
 
 </body>
 </html>
