@@ -10,6 +10,45 @@ body {
     background-color: #ffea00;
 }
 
+@media (min-width: 320px) {
+  .container {
+    width: 298px;
+  }
+}
+
+@media (min-width: 420px) {
+  .container {
+    width: 400px;
+  }
+}
+
+@media (min-width: 520px) {
+  .container {
+    width: 490px;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    width: 598px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
 .text-muted {
     color: #00abe8;
 }
@@ -338,11 +377,11 @@ section h2.section-heading {
 }
 
 section h3.section-subheading {
-    margin-bottom: 75px;
+    margin-bottom: 1px;
     text-transform: none;
-    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
 }
 
@@ -352,6 +391,20 @@ section h3.section-subheading {
     }
 }
 
+#welcome span {
+    font-size: 10em;
+    margin: 10px;
+}
+
+#welcome .altenblue {
+    color: #0093d0;
+}
+#welcome .col-sm-4 {
+    border-color: #0093d0;
+    height: 300px;
+    width: 300px;
+    margin: 20px;
+}
 .service-heading {
     margin: 15px 0;
     text-transform: none;
