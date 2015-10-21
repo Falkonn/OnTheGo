@@ -45,7 +45,7 @@ public class Team implements Serializable {
         this.teamName = teamName;
     }
 
-    public long getId() {
+    public int getTeamId() {
         return teamId;
     }
 }

@@ -44,12 +44,8 @@ httpService.factory('httpServ', ['$http',
                 
                 //////// Add TeamView http Get services here ///////
                 
-                getTeamById: function(teamId) {
-                    return $http.get(urlBase + '/teambyid');
-                },
-                
-                getUsersByTeamId: function(teamId) {
-                    return $http.get(urlBase + '/usersbyteamid');
+                getTeamByUserId: function(userId) {
+                    return $http.get(urlBase + '/teambyuserid/' + userId);
                 },
                 
                 //////// Add TeamView http Post services here ///////

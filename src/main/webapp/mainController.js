@@ -9,8 +9,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         // If not load them from DB
         mv.init = function() {
             // If no tasks in the localStorage when loading assignments
-            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
-            {        
+            // This ONLY FOR PERSISTENT DATA 
+            //if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
+            //{        
                 // Load tasks them from DB and save them in localStorage
                 if($location.url()=='/assignments'){
                     httpServ.getTasks().success(function(response){
@@ -19,33 +20,24 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                         t.badresult = "";
                         // Check for this team id, user id if the tasks are done or not
                         // post(team-id, user-id)
-
                     }, function(response){
                         // Failed to load tasks from db
                         t.badresult = "" + response.status;
                     });
                 }
                 else if($location.url()=='/team'){
-                    // Load the team of this user and the other user members info of this team
-                    httpServ.getTeamById($localStorage.user.teamId).success(function(response){
+                    // Load the team and members of the user's team
+                    httpServ.getTeamByUserId($localStorage.user.id).success(function(response){
                         // Success - Save tasks in localStorage.team
                         $localStorage.team = response;
+                        console.log($localStorage.team)
                         t.badresult = "";
-                        // Getting also the users by team Id
-                        httpServ.UsersByTeamId($localStorage.user.teamId).success(function(response){
-                          // Success - Save user members in localStorage.team
-                          $localStorage.team.members = response;
-                        }, function(response){
-                            // Failed to load teams from db
-                            t.badresult = "" + response.status;
-                        });
-
                     }, function(response){
                         // Failed to load teams from db
                         t.badresult = "" + response.status;
-                    });        
+                    });
                 }
-            }
+            //}
         };
         // Run Init 
         mv.init();
@@ -193,61 +185,69 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
 
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.team = {
-            "teamNumber": 43,
-            "numberOfMembers": 5,
-            "members": [
-                {
-                    "id": 1,
-                    "firstName": "Mattias",
-                    "lastName": "Isene",
-                    "phone": "0723-532489",
-                    "email": "mattias.isene@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": "mattiasisene.jpg"
-                },
-                {
-                    "id": 2,
-                    "firstName": "Khaled",
-                    "lastName": "Alnawasreh",
-                    "phone": "telefon",
-                    "email": "khaled.alnawasreh@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                },
-                {
-                    "id": 3,
-                    "firstName": "Lisa",
-                    "lastName": "Engkvist",
-                    "phone": "telefon",
-                    "email": "lisa.engkvist@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                },
-                {
-                    "id": 4,
-                    "firstName": "Evelina",
-                    "lastName": "Vorobyeva",
-                    "phone": "telefon",
-                    "email": "evelina.vorobyeva@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                },
-                {
-                    "id": 5,
-                    "firstName": "Vasileios",
-                    "lastName": "Golematis",
-                    "phone": "telefon",
-                    "email": "vasileios.golematis@alten.se",
-                    "department": "Embedded Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                }
-            ]
+                "teamNumber": $localStorage.team[0],
+                "teamName":   $localStorage.team[1],
+                "numberOfMembers": $localStorage.team[2],
+                "members": $localStorage.team[3]
         };
+        console.log(mv.team);
+        //console.log(mv.team);
+//        mv.team = {
+//            "teamNumber": 43,
+//            "numberOfMembers": 5,
+//            "members": [
+//                {
+//                    "id": 1,
+//                    "firstName": "Mattias",
+//                    "lastName": "Isene",
+//                    "phone": "0723-532489",
+//                    "email": "mattias.isene@alten.se",
+//                    "department": "IT Systems",
+//                    "city": "Göteborg",
+//                    "selfie": "mattiasisene.jpg"
+//                },
+//                {
+//                    "id": 2,
+//                    "firstName": "Khaled",
+//                    "lastName": "Alnawasreh",
+//                    "phone": "telefon",
+//                    "email": "khaled.alnawasreh@alten.se",
+//                    "department": "IT Systems",
+//                    "city": "Göteborg",
+//                    "selfie": ""
+//                },
+//                {
+//                    "id": 3,
+//                    "firstName": "Lisa",
+//                    "lastName": "Engkvist",
+//                    "phone": "telefon",
+//                    "email": "lisa.engkvist@alten.se",
+//                    "department": "IT Systems",
+//                    "city": "Göteborg",
+//                    "selfie": ""
+//                },
+//                {
+//                    "id": 4,
+//                    "firstName": "Evelina",
+//                    "lastName": "Vorobyeva",
+//                    "phone": "telefon",
+//                    "email": "evelina.vorobyeva@alten.se",
+//                    "department": "IT Systems",
+//                    "city": "Göteborg",
+//                    "selfie": ""
+//                },
+//                {
+//                    "id": 5,
+//                    "firstName": "Vasileios",
+//                    "lastName": "Golematis",
+//                    "phone": "telefon",
+//                    "email": "vasileios.golematis@alten.se",
+//                    "department": "Embedded Systems",
+//                    "city": "Göteborg",
+//                    "selfie": ""
+//                }
+//            ]
+//        };
 
 
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR

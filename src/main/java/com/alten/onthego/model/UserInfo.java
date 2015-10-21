@@ -6,6 +6,7 @@
 package com.alten.onthego.model;
 
 import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -77,8 +78,23 @@ public class UserInfo {
     }
 
     public List<Integer> findUsersByTeamId(int teamid) {
-        Query findUsersByteamIdQ = em.createQuery("select e.userId from User e where e.teamId  =" + teamid);
+        Query findUsersByteamIdQ = em.createQuery("select e.userId from User e where e.team.teamId  =" + teamid);
         return (List<Integer>) findUsersByteamIdQ.getResultList();
+    }
+    
+    public List<User> findAllMembersByTeamId(int teamid) {
+        Query findAllMembersByTeamIdQ = em.createQuery("select e from User e where e.team.teamId  =" + teamid);
+        return (List<User>) findAllMembersByTeamIdQ.getResultList();
+    }
+    
+    public List<Team> findTeamByUserId(int userId) {
+        Query findTeamByUserId = em.createQuery("select e.team from User e where e.userId  =" + userId);
+        return (List<Team>) findTeamByUserId.getResultList();
+    }
+    
+    public Collection<User> findAllUsersByTeamId(int teamid) {
+        Query findUsersByteamIdQ = em.createQuery("select e from User e where e.teamId  =" + teamid);
+        return (Collection<User>) findUsersByteamIdQ.getResultList();
     }
 
     public User findUserById(long id) {
