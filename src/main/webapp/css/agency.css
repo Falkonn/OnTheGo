@@ -398,16 +398,20 @@ section h3.section-subheading {
     }
 }
 
-#welcome {
-    background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
+.glyphicon-group:before {
+    content: "\e044";
 }
 
-#welcome span {
+#welcome {
+    background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
+
+}
+
+#welcome span, #welcome i {
     font-size: 10em;
     display: block; 
     margin: 0px auto;
     text-align: center;
-
 }
 
 #welcome .altenblue {
@@ -425,7 +429,7 @@ section h3.section-subheading {
 }
 
 #welcome .toppadding {
-    margin-top: 2em;
+    margin-top: 5em;
 }
 .service-heading {
     margin: 15px 0;
