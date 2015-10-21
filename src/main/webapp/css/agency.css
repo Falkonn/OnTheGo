@@ -397,9 +397,14 @@ section h3.section-subheading {
         padding: 150px 0;
     }
 }
+#schedule .break {
+    
+}
 
-#schedule table {
+#schedule table, .table-responsive {
     width: 100%;
+    border-color: #fff6d2;
+
 }
 
 #schedule th, td {
@@ -409,8 +414,14 @@ section h3.section-subheading {
     color: #4c4d4f;
     font-weight: bold;
     font-size: 0.8em;
-
+    border-top: 1px solid #ffd105;
+    border-bottom: 2px solid #ffd105;
 }
+#schedule th {
+        text-transform: uppercase;
+        font-size: 1em;
+    }
+
 #schedule tr:nth-of-type(odd) {
   background-color: #ffec82;
  }
