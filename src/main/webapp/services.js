@@ -61,6 +61,11 @@ httpService.factory('httpServ', ['$http',
                     return $http.get(urlBase + '/Tasks');
                 },
                 
+                getTasksAndPoints: function(data){
+                    return $http.get(urlBase + '/TasksAndPoints/' + data);
+                },
+              
+                
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
                     // TODO: Must decide how to pass 3 parameters.

@@ -14,9 +14,22 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             //{        
                 // Load tasks them from DB and save them in localStorage
                 if($location.url()=='/assignments'){
-                    httpServ.getTasks().success(function(response){
+//                    httpServ.getTasks().success(function(response){
+//                        // Success - Save tasks in localStorage
+//                        $localStorage.tasks = response;
+//                        t.badresult = "";
+//                        // Check for this team id, user id if the tasks are done or not
+//                        // post(team-id, user-id)
+//                    }, function(response){
+//                        // Failed to load tasks from db
+//                        t.badresult = "" + response.status;
+//                    });=  
+                    var data = { "userId": $localStorage.user.id, "teamId": $localStorage.user.teamId}
+                    console.log(JSON.stringify(data)); 
+                     httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
                         // Success - Save tasks in localStorage
                         $localStorage.tasks = response;
+                        console.log(response);
                         t.badresult = "";
                         // Check for this team id, user id if the tasks are done or not
                         // post(team-id, user-id)
