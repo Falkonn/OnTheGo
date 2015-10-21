@@ -22,10 +22,10 @@ public class addUser {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
         EntityManager em = emf.createEntityManager();
         try {
-            User user = new User(19,"dana", "saara", "dasdas.com", "3232", "goteborg", "IT", "WFNbUN7gIoU=", 11, 32,"picurl");
+            //User user = new User(19,"name", "firstname", "dasdas.com", "3232", "goteborg", "IT", "WFNbUN7gIoU=", 32,"picurl");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
-            em.persist(user);
+           // em.persist(user);
             entityTx.commit();
             System.out.println("The row has be successfully added");
         } catch (Exception e) {

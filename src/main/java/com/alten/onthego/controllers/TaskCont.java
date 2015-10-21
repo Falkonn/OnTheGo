@@ -9,6 +9,9 @@ import com.alten.onthego.entity.Score;
 import com.alten.onthego.entity.Task;
 import com.alten.onthego.model.ScoreInfo;
 import com.alten.onthego.model.TaskInfo;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.MediaType;
@@ -34,20 +37,48 @@ public class TaskCont {
     }
 
     @RequestMapping(
-            value = "/TasksAndPoints/{taskid}",
+            value = "/TasksAndPoints/{data}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Object> getTasksAndPoints(@PathVariable("taskid") int taskid) {
+    public List<Object> getTasksAndPoints(@PathVariable("data") String data) {
+
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(data);
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        int userId = jsonObject.get("userId").getAsInt();
+        int teamId = jsonObject.get("teamId").getAsInt();
         
-        List<Score> scoreList = new ArrayList<>();
-        List<Task> taskList = new ArrayList<>();
+        System.out.print("userId"+ userId + "teamId" + teamId);
+        
+        List<Task> taskList;
         TaskInfo task = new TaskInfo();
+        List<Object> taskAndScore = new ArrayList<Object>();
         ScoreInfo scores = new ScoreInfo();
+<<<<<<< HEAD
         taskList = task.getTasksbyTaskId(taskid);
         scoreList = scores.getScoresbyTaskId(taskid);
-        List<Object> finalList = new ArrayList<Object>(taskList);
-        finalList.addAll(scoreList);
-        
+        List finalList = new ArrayList(taskList);
+        finalList.add(scoreList);
         return finalList;
+=======
+        taskList = (List<Task>) task.findAllTasks();
+        List<Object> tasks =  new ArrayList<Object>(taskList);
+        for(int i=0; i< taskList.size(); i++)
+        {
+            taskAndScore.add(tasks.get(i));
+            if(taskList.get(i).getIsPersonal()){
+                List scoreData = scores.getScoresByTaskIdAndUserId(taskList.get(i).getTaskId(), userId);
+                taskAndScore.add(scoreData);
+            }
+            else{
+                List<Object> scoreData = scores.getScoresByTaskIdAndTeamId(taskList.get(i).getTaskId(), teamId);
+                taskAndScore.add(scoreData);
+            }
+        }
+        return taskAndScore;
+>>>>>>> 7819b9db893bf798c777cfba88838a3ee27fee2c
     }
+    
+ 
 }
