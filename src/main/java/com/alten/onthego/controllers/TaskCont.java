@@ -47,8 +47,6 @@ public class TaskCont {
         scoreList = scores.getScoresbyTaskId(taskid);
         List finalList = new ArrayList(taskList);
         finalList.add(scoreList);
-        //finalList.addAll(scoreList);
-
         return finalList;
     }
 }

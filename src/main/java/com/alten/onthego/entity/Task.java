@@ -68,11 +68,11 @@ public class Task implements Serializable {
         return taskName;
     }
 
-    public void setTaskTheam(String taskTheme) {
+    public void setTaskTheme(String taskTheme) {
         this.taskTheme = taskTheme;
     }
 
-    public String getTaskTheam() {
+    public String getTaskTheme() {
         return taskTheme;
     }
 

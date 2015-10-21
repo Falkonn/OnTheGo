@@ -24,16 +24,16 @@ import javax.persistence.Persistence;
  */
 public class ScoreFunctionality {
 
-    public static boolean scoreAdded, taskstatus1 = false;
-    public static boolean taskDone = false;
-    public static List<Task> pointList, allTasks;
-    public static List<Integer> teamList, scoreList;
-    public static List<Integer> usersList, socoreIds, possibleUser;
-    public static List<Score> teamSocreList, personSocreList, socoreIdList, taskStatus;
-    public static EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-    public static EntityManager em = emf.createEntityManager();
+    public boolean scoreAdded, taskstatus1 = false;
+    public boolean taskDone = false;
+    public List<Task> pointList, allTasks;
+    public List<Integer> teamList, scoreList;
+    public List<Integer> usersList, socoreIds, possibleUser;
+    public List<Score> teamSocreList, personSocreList, socoreIdList, taskStatus;
+    public EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    public EntityManager em = emf.createEntityManager();
 
-    public static boolean scoreFunction(long taskId, int userId, String answer, boolean add) {
+    public boolean scoreFunction(long taskId, int userId, String answer, boolean add) {
         ScoreInfo scoreCounter = new ScoreInfo();
         TaskInfo taskinfo = new TaskInfo();
         UserInfo userinfo = new UserInfo();
@@ -118,14 +118,10 @@ public class ScoreFunctionality {
         return (scoreAdded);
     }
 
-    public static int scoreSum(long teamId) {
+    public int scoreSum(long teamId) {
         int finalSum = 0;
         ScoreInfo scoreCounter = new ScoreInfo();
         finalSum = scoreCounter.getScoreSumbyTeamId(teamId);
         return finalSum;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("sum is  " + scoreSum(1));
     }
 }

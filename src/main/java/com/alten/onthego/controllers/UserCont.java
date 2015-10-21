@@ -137,7 +137,7 @@ public class UserCont {
             Object userpincode = ite.next();
             PassEncryption pe = new PassEncryption();
             String PIN_CODE = pe.DecryptText((String) userpincode);
-            es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", emailAddress,
+            es.sendEmail("smtp.gmail.com", "587", "noreply-destinationlindholmen@alten.se", emailAddress,
                     "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
                     + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
                     + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"

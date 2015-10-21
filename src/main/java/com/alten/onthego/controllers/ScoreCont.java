@@ -39,7 +39,7 @@ public class ScoreCont {
             value = "/answers",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public static boolean addScores(@RequestBody String useranswers, HttpServletResponse response) {
+    public boolean addScores(@RequestBody String useranswers, HttpServletResponse response) {
 
         JsonParser jsonParser = new JsonParser();
         JsonElement jsonElement = jsonParser.parse(useranswers);
@@ -51,7 +51,8 @@ public class ScoreCont {
         boolean isDone = jsonObject.get("taskDone").getAsBoolean();
 
         //getting the points of that task
-        boolean result = ScoreFunctionality.scoreFunction(taskId, userId, answer, isDone);
+        ScoreFunctionality sf = new ScoreFunctionality();
+        boolean result = sf.scoreFunction(taskId, userId, answer, isDone);
         if (result == true) {
             response.setStatus(HttpServletResponse.SC_OK);
             System.out.println("Score Has been added");
@@ -60,11 +61,5 @@ public class ScoreCont {
             System.out.println("Error in adding the score");
         }
         return result;
-    }
-// the main method just for testing
-
-    public static void main(String[] args) {
-        //System.out.println("test  " + addScores("1 19 ghfgf"));
-
     }
 }
