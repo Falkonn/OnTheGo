@@ -59,7 +59,7 @@ body {
 }
 
 .text-primary {
-    color: #fed136;
+    color: #0093d0;
 }
 
 p {
@@ -398,6 +398,26 @@ section h3.section-subheading {
     }
 }
 
+#schedule table {
+    width: 100%;
+}
+
+#schedule th, td {
+    height: 50px;
+    padding: 2em;
+    text-align: left;
+    color: #4c4d4f;
+    font-weight: bold;
+    font-size: 0.8em;
+
+}
+#schedule tr:nth-of-type(odd) {
+  background-color: #ffec82;
+ }
+#schedule tr:nth-of-type(even) {
+  background-color: #fff6d2;
+}
+
 #welcome {
     background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
 }
@@ -407,7 +427,6 @@ section h3.section-subheading {
     display: block; 
     margin: 0px auto;
     text-align: center;
-
 }
 
 #welcome .altenblue {
