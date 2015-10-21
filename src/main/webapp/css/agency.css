@@ -59,7 +59,7 @@ body {
 }
 
 .text-primary {
-    color: #fed136;
+    color: #0093d0;
 }
 
 p {
@@ -396,6 +396,37 @@ section h3.section-subheading {
     section {
         padding: 150px 0;
     }
+}
+#schedule .break {
+    
+}
+
+#schedule table, .table-responsive {
+    width: 100%;
+    border-color: #fff6d2;
+
+}
+
+#schedule th, td {
+    height: 50px;
+    padding: 2em;
+    text-align: left;
+    color: #4c4d4f;
+    font-weight: bold;
+    font-size: 0.8em;
+    border-top: 1px solid #ffd105;
+    border-bottom: 2px solid #ffd105;
+}
+#schedule th {
+        text-transform: uppercase;
+        font-size: 1em;
+    }
+
+#schedule tr:nth-of-type(odd) {
+  background-color: #ffec82;
+ }
+#schedule tr:nth-of-type(even) {
+  background-color: #fff6d2;
 }
 
 .glyphicon-group:before {

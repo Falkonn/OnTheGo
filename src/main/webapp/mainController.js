@@ -14,9 +14,22 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             //{        
                 // Load tasks them from DB and save them in localStorage
                 if($location.url()=='/assignments'){
-                    httpServ.getTasks().success(function(response){
+//                    httpServ.getTasks().success(function(response){
+//                        // Success - Save tasks in localStorage
+//                        $localStorage.tasks = response;
+//                        t.badresult = "";
+//                        // Check for this team id, user id if the tasks are done or not
+//                        // post(team-id, user-id)
+//                    }, function(response){
+//                        // Failed to load tasks from db
+//                        t.badresult = "" + response.status;
+//                    });=  
+                    var data = { "userId": $localStorage.user.id, "teamId": $localStorage.user.teamId}
+                    console.log(JSON.stringify(data)); 
+                     httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
                         // Success - Save tasks in localStorage
                         $localStorage.tasks = response;
+                        console.log(response);
                         t.badresult = "";
                         // Check for this team id, user id if the tasks are done or not
                         // post(team-id, user-id)
@@ -28,13 +41,12 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                 else if($location.url()=='/team'){
                     // Load the team and members of the user's team
                     httpServ.getTeamByUserId($localStorage.user.id).success(function(response){
-                        // Success - Save tasks in localStorage.team
+                        // Success - Save team and members in localStorage
                         $localStorage.team = response;
-                        console.log($localStorage.team)
-                        t.badresult = "";
+                       // t.badresult = "";
                     }, function(response){
                         // Failed to load teams from db
-                        t.badresult = "" + response.status;
+                      //  t.badresult = "" + response.status;
                     });
                 }
             //}
@@ -51,13 +63,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             console.log(9 + ' ' + 19 + ' ' + t.answer)
             httpServ.postTaskAnswer(9 + ' ' + 19 + ' ' + t.answer).then(function(response){
                 // Success
-                t.badresult = "";
-                t.done = true;
+                //t.badresult = "";
+                //t.done = true;
             },
             function(response){
                 // Failed
-                t.done = false;
-                t.badresult = "" + response.status;
+                //t.done = false;
+                //t.badresult = "" + response.status;
             });
         };
         
@@ -190,64 +202,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                 "numberOfMembers": $localStorage.team[2],
                 "members": $localStorage.team[3]
         };
-        console.log(mv.team);
-        //console.log(mv.team);
-//        mv.team = {
-//            "teamNumber": 43,
-//            "numberOfMembers": 5,
-//            "members": [
-//                {
-//                    "id": 1,
-//                    "firstName": "Mattias",
-//                    "lastName": "Isene",
-//                    "phone": "0723-532489",
-//                    "email": "mattias.isene@alten.se",
-//                    "department": "IT Systems",
-//                    "city": "Göteborg",
-//                    "selfie": "mattiasisene.jpg"
-//                },
-//                {
-//                    "id": 2,
-//                    "firstName": "Khaled",
-//                    "lastName": "Alnawasreh",
-//                    "phone": "telefon",
-//                    "email": "khaled.alnawasreh@alten.se",
-//                    "department": "IT Systems",
-//                    "city": "Göteborg",
-//                    "selfie": ""
-//                },
-//                {
-//                    "id": 3,
-//                    "firstName": "Lisa",
-//                    "lastName": "Engkvist",
-//                    "phone": "telefon",
-//                    "email": "lisa.engkvist@alten.se",
-//                    "department": "IT Systems",
-//                    "city": "Göteborg",
-//                    "selfie": ""
-//                },
-//                {
-//                    "id": 4,
-//                    "firstName": "Evelina",
-//                    "lastName": "Vorobyeva",
-//                    "phone": "telefon",
-//                    "email": "evelina.vorobyeva@alten.se",
-//                    "department": "IT Systems",
-//                    "city": "Göteborg",
-//                    "selfie": ""
-//                },
-//                {
-//                    "id": 5,
-//                    "firstName": "Vasileios",
-//                    "lastName": "Golematis",
-//                    "phone": "telefon",
-//                    "email": "vasileios.golematis@alten.se",
-//                    "department": "Embedded Systems",
-//                    "city": "Göteborg",
-//                    "selfie": ""
-//                }
-//            ]
-//        };
+      
+        mv.checkImage = function(memberId){
+            if($localStorage.user.id == memberId)
+                return true;
+            else
+                return false;           
+        };
 
 
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR

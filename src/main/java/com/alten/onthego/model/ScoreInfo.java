@@ -68,6 +68,19 @@ public class ScoreInfo {
         }
         return scores;
     }
+    
+    public List<Object> getScoresByTaskIdAndUserId(long taskId, int userId){
+        Query scoresbyTaskIdAndUserIdquery = em.createQuery("SELECT s.user.userId, s.taskDone, s.userAnswer FROM Score s where s.task.taskId=" + taskId + " AND s.user.userId=" + userId );
+        List<Object> results = scoresbyTaskIdAndUserIdquery.getResultList();
+        return results;
+    }
+    
+    public List<Object> getScoresByTaskIdAndTeamId(long taskId, int teamId){
+        Query scoresbyTaskIdAndTeamIdquery = em.createQuery("SELECT s.user.userId, s.taskDone, s.userAnswer FROM Score s where s.task.taskId=" + taskId + " AND s.teamId=" + teamId);
+        List<Object> results = scoresbyTaskIdAndTeamIdquery.getResultList();
+        return results;
+    }
+    
 
     public List<Score> getTaskByScoreId(int scoreId) {
         Query scoresbyTaskquery = em.createQuery("SELECT s.task.taskId FROM Score s where s.scoreId =" + scoreId);
