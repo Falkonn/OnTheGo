@@ -5,7 +5,6 @@
  */
 package com.alten.onthego.common;
 
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
@@ -27,17 +26,18 @@ import javax.mail.internet.MimeMultipart;
  * @author ka3146
  */
 public class EmailSending {
-    
- 
+
     public static void sendEmail(String host, String port,
             final String userName, final String password, String toAddress,
             String subject, String message, String[] attachments)
             throws AddressException, MessagingException {
+
         // sets SMTP server properties
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
         properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.user", userName);
         properties.put("mail.password", password);
@@ -59,7 +59,7 @@ public class EmailSending {
         sessionmessage.setRecipients(Message.RecipientType.TO, toAddresses);
         sessionmessage.setSubject(subject);
         sessionmessage.setSentDate(new Date());
-        
+
         // creates message part
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setContent(message, "text/html");
@@ -78,14 +78,20 @@ public class EmailSending {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-
                 multipart.addBodyPart(attachPart);
             }
         }
+
         // sets the multi-part as e-mail's content
         sessionmessage.setContent(multipart);
 
         // sends the e-mail
         Transport.send(sessionmessage);
+    }
+//("10.1.85.40"
+
+    public static void main(String[] args) throws MessagingException {
+        sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen", "Lindholmen2015", "Khaled.Alnawasreh@alten.se", "subject", "message", null);
+        System.out.println("Email send done!");
     }
 }
