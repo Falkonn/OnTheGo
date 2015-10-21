@@ -37,7 +37,6 @@ public class Score implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
    
-
     @Column(name = "point")
     private Integer point;
     @Column(name = "task_done")

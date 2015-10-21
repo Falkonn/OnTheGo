@@ -19,16 +19,16 @@
                 <div class="col-lg-12 text-center">
                     <table>
                     <tr>
-                        <td class="col-xs-4">
+                        <td class="col-xs-3">
                             <div ng-if="member.selfie.length === 0">
-                                <img src="img/team/default.png" class="img-responsive img-circle" />
+                                <img src="img/team/alten_clown_silhouette.png" class="img-responsive img-circle" />
                             </div>
                             <div ng-if="member.selfie.length !== 0">
                                 <a href="img/team/{{member.selfie}}"><img src="img/team/{{member.selfie}}" class="col img-responsive img-circle" /></a>
                             </div>
                             <a href="#">Ändra bild</a>
                         </td>
-                        <td class="col-xs-8">
+                        <td class="col-xs-9">
                             <table>
                             <tr>
                                 <td class="col-xs-6 text-left">
@@ -38,7 +38,8 @@
                             </tr>
                             <tr>
                                 <td class="col-xs-6 text-left">
-                                    <span class="fa-phone">{{member.phone}}</span>
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    {{member.phone}}
                                 </td>
                             </tr>
                             <tr>

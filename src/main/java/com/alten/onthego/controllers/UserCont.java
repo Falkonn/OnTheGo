@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alten.onthego.common.EmailSending;
 import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
@@ -82,6 +84,32 @@ public class UserCont {
     public Collection<User> findPinByEmail(@PathVariable("email") String email) {
         UserInfo userpinbyemail = new UserInfo();
         return (Collection<User>) userpinbyemail.findPinCodebyEmail(email);
+    }
+    
+    @RequestMapping(
+            value = "/teambyuserid/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> getUsersByTeamId(@PathVariable("id") int id) {
+        UserInfo teamByTeamId = new UserInfo();
+        UserInfo usersByTeamId = new UserInfo();
+        List<Team> teamList;
+        List<User> userList;
+        //ArrayList<ArrayList<Object>> teamAndMembers = new ArrayList<ArrayList<Object>>();
+        // Find the team by the User id
+        teamList = teamByTeamId.findTeamByUserId(id);
+        Team team = teamList.get(0);
+        // Find the users by the team id
+        userList = usersByTeamId.findAllMembersByTeamId(team.getTeamId());
+        
+        List<Object> teamAndMembers = new ArrayList<Object>();
+        teamAndMembers.add(team.getTeamId());
+        teamAndMembers.add(team.getTeamName());
+        teamAndMembers.add(userList.size());
+        teamAndMembers.add(userList);
+        
+
+        return teamAndMembers;
     }
 
     @RequestMapping(
@@ -168,7 +196,7 @@ public class UserCont {
         }
         return verifyuser;
     }
-
+   
     @RequestMapping(
             value = "/upload",
             method = RequestMethod.POST,
