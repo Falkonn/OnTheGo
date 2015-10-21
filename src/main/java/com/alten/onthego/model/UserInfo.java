@@ -127,6 +127,11 @@ public class UserInfo {
         return (List<Integer>) scoresquery.getResultList();
     }
 
+    public List<Integer> getUserByTeamIdAndTaskId(int teamId, long taskId) {
+        Query userbyteamandtaskidquery = em.createQuery("SELECT u.user.userId FROM Score u where u.teamId =" + teamId + " AND u.task.taskId =" + taskId);
+        return (List<Integer>) userbyteamandtaskidquery.getResultList();
+    }
+
     public User updateUser(User confUser) {
         User updateUser = findUserById(confUser.getUserId());
         if (updateUser != null) {
