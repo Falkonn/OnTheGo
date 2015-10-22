@@ -1,16 +1,17 @@
 
-var registerModule = angular.module('registerModule', ['httpService', 'ngStorage']);
+var registerModule = angular.module('registerModule', ['httpService', 'ngStorage', 'ngRoute']);
 
 
-registerModule.controller('registerController',['$scope','httpServ', '$localStorage', '$location', 
-    function ($scope, httpServ, $localStorage, $location) {
+registerModule.controller('registerController',['$scope','httpServ', '$localStorage', '$location', '$route', 
+    function ($scope, httpServ, $localStorage, $location, $route) {
     
     // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
         // Clean localstorage (for debugging)
         //$localStorage.$reset();
+  
         // Dummy object (for debugging)
-        /*$localStorage.user = {  id: "28",
+        $localStorage.user = {  id: "28",
                                 firstName: "Vasileios",
                                 lastName:  "Golematis",
                                 email:     "vasileios.golematis@alten.se",
@@ -20,23 +21,23 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                                 teamId:     "1",
                                 picId:      "1",
                                 pinCode: "fMLHyHjBOkI="
-        };*/
+        };
         // LoggedIn variable
-        $scope.loggedIn = $localStorage.loggedIn;
-        if(typeof $localStorage.user == 'undefined' || $localStorage.user == null)
+        $scope.loggedIn = $localStorage.loggedIn = true;
+        if(typeof $localStorage.user === 'undefined' || $localStorage.user === null)
             $scope.hidePin = true;
                 
         if($scope.loggedIn)
             $location.path('/info');
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
-        else if($location.url()!='/register' && $location.url()!='/confirm')
+        else if($location.url()!=='/register' && $location.url()!=='/confirm')
             $location.path('/');
         // If pin is undefined redirect to register screen
-        else if($location.url()=='/confirm' && !$localStorage.userPin)
-            $location.path('/register');
+       //  else if($location.url()=='/confirm' && !$localStorage.userPin)
+       //      $location.path('/register');
         
         // In confirm Screen -> Set values from localStorage
-        if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()=='/confirm' ){
+        if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()==='/confirm' ){
             $scope.userEmail = $localStorage.user.email;
             $scope.userName =  $localStorage.user.firstName; 
             $scope.userPhone = $localStorage.user.telefon;
@@ -52,7 +53,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     $scope.result = "";
 
     this.sendEmail = function() {
-        $scope.result = "Verifierar e-postadress..."
+        $scope.result = "Verifierar e-postadress...";
         httpServ.postUserMail($scope.userEmail)
         .then(function() {
             // Getting User Info to show to the user
@@ -64,7 +65,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     // Showing User Info
                     $scope.result = "Hej " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                      // Confirmation that the mail was sent successfully from the backend
-                    $scope.result += ". En PIN-kod har skickats till din e-post!"
+                    $scope.result += ". En PIN-kod har skickats till din e-post!";
                     // Hide mail boolean variable
                     $scope.hideMail = true;
                     // Show next steps
@@ -123,7 +124,11 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         }, function (response) {
             console.error(response.status);
         });
-    }; 
+    };
+    
+    $scope.refreshPage = function() {
+        $route.reload();
+    };
 }]);
 
 
