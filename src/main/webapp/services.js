@@ -41,24 +41,36 @@ httpService.factory('httpServ', ['$http',
                 postUserConfirmData: function(user) {
                     return $http.post(urlBase + '/confirmpath', user);
                 },
+                /********* TeamView Services **********/
+                
+                //////// Add TeamView http Get services here ///////
+                
+                getTeamByUserId: function(userId) {
+                    return $http.get(urlBase + '/teambyuserid/' + userId);
+                },
+                
+                //////// Add TeamView http Post services here ///////
+                
+                postImage: function(image) {
+                    return $http.post(urlBase + '/upload');
+                },
                 
                 /********* Task Services **********/
                 
                 //////// Add Task http GET services here ///////
-                getTasks: function() {
-                    return $http.get(urlBase + '/Tasks');
-                },
+//                getTasks: function() {
+//                    return $http.get(urlBase + '/Tasks');
+//                },
                 
-                // New Function to get all tasks with merged score information into each task object
-                getTasksAndPoints: function(data) {
-                    return $http.get(urlBase + '/TasksAndPoint/' + data);
+                getTasksAndPoints: function(data){
+                    return $http.get(urlBase + '/TasksAndPoints/' + data);
                 },
                 
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
                     return $http.post(urlBase + '/TasksAnswer', data);
                 },
-                
+                    
                 cancelTaskAnswer: function(data) {
                     /* TODO: Check with Khaled and Evelina if we should use a 
                      * POST or DELETE when removing rows in the score table.

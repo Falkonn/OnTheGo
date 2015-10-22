@@ -9,6 +9,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         // If not load them from DB
         mv.init = function() {
             // If no tasks in the localStorage when loading assignments
+
             //$localStorage.tasks = null
             if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()=='/assignments')
             {        
@@ -33,6 +34,48 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     //t.badresult = "" + response.status;
                 });
             }
+
+            // This ONLY FOR PERSISTENT DATA 
+            //if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
+            //{        
+                // Load tasks them from DB and save them in localStorage
+                if($location.url()=='/assignments'){
+//                    httpServ.getTasks().success(function(response){
+//                        // Success - Save tasks in localStorage
+//                        $localStorage.tasks = response;
+//                        t.badresult = "";
+//                        // Check for this team id, user id if the tasks are done or not
+//                        // post(team-id, user-id)
+//                    }, function(response){
+//                        // Failed to load tasks from db
+//                        t.badresult = "" + response.status;
+//                    });=  
+                    var data = { "userId": $localStorage.user.id, "teamId": $localStorage.user.teamId}
+                    console.log(JSON.stringify(data)); 
+                     httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
+                        // Success - Save tasks in localStorage
+                        $localStorage.tasks = response;
+                        console.log(response);
+                        t.badresult = "";
+                        // Check for this team id, user id if the tasks are done or not
+                        // post(team-id, user-id)
+                    }, function(response){
+                        // Failed to load tasks from db
+                        t.badresult = "" + response.status;
+                    });
+                }
+                else if($location.url()=='/team'){
+                    // Load the team and members of the user's team
+                    httpServ.getTeamByUserId($localStorage.user.id).success(function(response){
+                        // Success - Save team and members in localStorage
+                        $localStorage.team = response;
+                       // t.badresult = "";
+                    }, function(response){
+                        // Failed to load teams from db
+                      //  t.badresult = "" + response.status;
+                    });
+                }
+            //}
         };
         // Run Init 
         mv.init();
@@ -74,8 +117,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             },
             function(response){
                 // Failed
-                t.done = false;
-                t.badresult = "" + response.status;
+                //t.done = false;
+                //t.badresult = "" + response.status;
             });
         };
         
@@ -140,6 +183,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             "tasks": $localStorage.tasks
         }
         //console.log($localStorage.tasks)
+
         /*mv.assignments = {
             "numberOfAssignments": 40,
             "numberOfTasksAnswered": 7,
@@ -209,60 +253,17 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
 
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.team = {
-            "teamNumber": 43,
-            "numberOfMembers": 5,
-            "members": [
-                {
-                    "id": 1,
-                    "firstName": "Mattias",
-                    "lastName": "Isene",
-                    "phone": "0723-532489",
-                    "email": "mattias.isene@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": "mattiasisene.jpg"
-                },
-                {
-                    "id": 2,
-                    "firstName": "Khaled",
-                    "lastName": "Alnawasreh",
-                    "phone": "telefon",
-                    "email": "khaled.alnawasreh@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                },
-                {
-                    "id": 3,
-                    "firstName": "Lisa",
-                    "lastName": "Engkvist",
-                    "phone": "telefon",
-                    "email": "lisa.engkvist@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                },
-                {
-                    "id": 4,
-                    "firstName": "Evelina",
-                    "lastName": "Vorobyeva",
-                    "phone": "telefon",
-                    "email": "evelina.vorobyeva@alten.se",
-                    "department": "IT Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                },
-                {
-                    "id": 5,
-                    "firstName": "Vasileios",
-                    "lastName": "Golematis",
-                    "phone": "telefon",
-                    "email": "vasileios.golematis@alten.se",
-                    "department": "Embedded Systems",
-                    "city": "Göteborg",
-                    "selfie": ""
-                }
-            ]
+                "teamNumber": $localStorage.team[0],
+                "teamName":   $localStorage.team[1],
+                "numberOfMembers": $localStorage.team[2],
+                "members": $localStorage.team[3]
+        };
+      
+        mv.checkImage = function(memberId){
+            if($localStorage.user.id == memberId)
+                return true;
+            else
+                return false;           
         };
 
 
