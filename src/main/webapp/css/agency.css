@@ -474,19 +474,16 @@ section h3.section-subheading {
 }
 
 #scoreboard .break-padding {
-    padding-left: -8px;
-    padding-right: -8px;
+    padding: 8px 0 8px 0;
 }
 
 #scoreboard td {
-    padding: 0, 1em, 1em, 1em;
     color: #4c4d4f;
     font-size: 0.8em;
     border-top: 1px solid #ffd105;
     border-bottom: 2px solid #ffd105;
 }
 #scoreboard th {
-    text-align: left;
     text-transform: uppercase;
     font-size: 1em;
     color: #4c4d4f;
