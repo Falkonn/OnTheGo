@@ -352,9 +352,77 @@ section h3.section-subheading {
     }
 }
 
+#schedule .break {
+    
+}
+
+#schedule table, .table-responsive {
+    width: 100%;
+
+}
+
+#schedule td {
+    padding: 0, 1em, 1em, 1em;
+    color: #4c4d4f;
+    font-size: 0.8em;
+    border-top: 1px solid #ffd105;
+    border-bottom: 2px solid #ffd105;
+}
+#schedule th {
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 1em;
+    color: #4c4d4f;
+    background-color: #ffea00;
+    border: none;
+}
+
+#schedule tr:nth-of-type(odd) {
+  background-color: #ffec82;
+ }
+#schedule tr:nth-of-type(even) {
+  background-color: #fff6d2;
+}
+
+
+.glyphicon-group:before {
+    content: "\e044";
+}
+
+
 .service-heading {
     margin: 15px 0;
     text-transform: none;
+}
+
+#scoreboard table, .table-responsive {
+    width: 100%;
+    border-color: #fff6d2;
+}
+
+#scoreboard .break-padding {
+    padding: 8px 0 8px 0;
+}
+
+#scoreboard td {
+    color: #4c4d4f;
+    font-size: 0.8em;
+    border-top: 1px solid #ffd105;
+    border-bottom: 2px solid #ffd105;
+}
+#scoreboard th {
+    text-transform: uppercase;
+    font-size: 1em;
+    color: #4c4d4f;
+    background-color: #ffea00;
+    border: none;
+}
+
+#scoreboard tr:nth-of-type(odd) {
+  background-color: #ffec82;
+ }
+#scoreboard tr:nth-of-type(even) {
+  background-color: #fff6d2;
 }
 
 #portfolio .portfolio-item {
