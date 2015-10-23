@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,12 +18,9 @@ public class Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "team_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "team_id")
-    private User user;
+    private int teamId;
 
     @Column(name = "team_name")
     private String teamName;
@@ -34,19 +29,11 @@ public class Team implements Serializable {
 
     }
 
-    public Team(User teamId, String teamName) {
-        this.user = teamId;
+    public Team(String teamName) {
+
         this.teamName = teamName;
     }
-
-    public User getTeam() {
-        return user;
-    }
-
-    public void setTeam(User user) {
-        this.user = user;
-    }
-
+    
     public String getTeamName() {
         return teamName;
     }
@@ -55,11 +42,7 @@ public class Team implements Serializable {
         this.teamName = teamName;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public int getTeamId() {
+        return teamId;
     }
 }

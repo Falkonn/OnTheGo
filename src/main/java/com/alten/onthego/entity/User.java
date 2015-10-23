@@ -58,15 +58,13 @@ public class User implements Serializable {
     @Column(name = "team_id")
     private Integer teamId;
     @Column(name = "pic_id")
-    private Integer picId;
-    @Column(name = "pic_url")
-    private String picUrl;
+    private String picId;
 
     public User() {
     }
 
     public User(int userId, String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code, int teamId, int picId, String picUrl) {
+            String telefon, String city, String department, String pin_code, int teamId, String picId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,7 +75,7 @@ public class User implements Serializable {
         this.pin_code = pin_code;
         this.teamId = teamId;
         this.picId = picId;
-        this.picUrl = picUrl;
+
     }
 
     public int getUserId() {
@@ -148,27 +146,19 @@ public class User implements Serializable {
         this.pin_code = pin_code;
     }
 
-    public Integer getPicId() {
+    public String getPicId() {
         return picId;
     }
 
-    public void setPicId(Integer picId) {
+    public void setPicId(String picId) {
         this.picId = picId;
-    }
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
     }
 
     @Override
     public String toString() {
         return "User data are [ userid= " + userId + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
-                + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "]";
+                + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "pic_id" + picId + " " + "]";
 
     }
 
