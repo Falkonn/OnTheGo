@@ -18,8 +18,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -55,11 +53,10 @@ public class User implements Serializable {
     private String department;
     @Column(name = "pincode")
     private String pin_code;
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    //private List<Team> teams;
-    @JoinColumn(name = "team_id")
-    @ManyToOne(targetEntity = Team.class)
-    private Team team;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Team> teams;
+    @Column(name = "team_id")
+    private Integer teamId;
     @Column(name = "pic_id")
     private Integer picId;
     @Column(name = "pic_url")
@@ -69,7 +66,7 @@ public class User implements Serializable {
     }
 
     public User(int userId, String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code, Team team, int picId, String picUrl) {
+            String telefon, String city, String department, String pin_code, int teamId, int picId, String picUrl) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,7 +75,7 @@ public class User implements Serializable {
         this.city = city;
         this.department = department;
         this.pin_code = pin_code;
-        this.team = team;
+        this.teamId = teamId;
         this.picId = picId;
         this.picUrl = picUrl;
     }
@@ -119,12 +116,8 @@ public class User implements Serializable {
         return pin_code;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-    
-    public void setTeam(Team team) {
-         this.team = team;
+    public int getTeamId() {
+        return teamId;
     }
 
     public void setFirstName(String firstName) {
