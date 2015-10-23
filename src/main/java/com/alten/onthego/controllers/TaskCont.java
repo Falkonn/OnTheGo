@@ -9,7 +9,13 @@ import com.alten.onthego.entity.Score;
 import com.alten.onthego.entity.Task;
 import com.alten.onthego.model.ScoreInfo;
 import com.alten.onthego.model.TaskInfo;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,17 +43,47 @@ public class TaskCont {
             value = "/TasksAndPoints/{taskid}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Object> getTasksAndPoints(@PathVariable("taskid") int taskid) {
-        
-        List<Score> scoreList = new ArrayList<>();
-        List<Task> taskList = new ArrayList<>();
-        TaskInfo task = new TaskInfo();
+    public List<String> getTasksAndPoints(@PathVariable("data") String data) {
+
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(data);
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        int userId = jsonObject.get("userId").getAsInt();
+        int teamId = jsonObject.get("teamId").getAsInt();
+
+        Collection<Task> taskList;
+        TaskInfo taskInfo = new TaskInfo();
         ScoreInfo scores = new ScoreInfo();
-        taskList = task.getTasksbyTaskId(taskid);
-        scoreList = scores.getScoresbyTaskId(taskid);
-        List<Object> finalList = new ArrayList<Object>(taskList);
-        finalList.addAll(scoreList);
+        taskList = taskInfo.findAllTasks();
         
-        return finalList;
+        Iterator taskIter = taskList.iterator();
+        String taskSerialized;
+        String scoreSerialized;
+        String taskAndScoreSerialized;
+        List<Score> scoreData = new ArrayList<Score>();
+        List<String> taskAndScore = new ArrayList<String>();
+        Gson gson = new Gson();
+        while(taskIter.hasNext())
+        {   
+            Task task = (Task)taskIter.next();
+            if(task.getIsPersonal()){
+                scoreData = scores.getScoresByTaskIdAndUserId(task.getTaskId(), userId);
+            }
+            else{
+                scoreData = scores.getScoresByTaskIdAndTeamId(task.getTaskId(), teamId);
+            }
+            if(!scoreData.isEmpty())
+                scoreSerialized = gson.toJson(scoreData.get(0));
+            else
+                scoreSerialized = gson.toJson(new Score());
+  
+            taskSerialized = gson.toJson(task);
+  
+            taskAndScoreSerialized = "[" + taskSerialized + ", " + scoreSerialized + "]";
+            taskAndScore.add(taskAndScoreSerialized);
+        }
+        
+        return taskAndScore;
     }
 }

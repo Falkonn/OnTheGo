@@ -27,8 +27,8 @@ public class Task implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long taskId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-    private List<Score> Scores;
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    //private List<Score> Scores;
     @Column(name = "task_name")
     private String taskName;
     @Column(name = "task_info")
@@ -138,9 +138,9 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "User data are [ First taskid= " + taskId + " " + "task name= " + taskName
+        return "Task data are [ First taskid= " + taskId + " " + "task name= " + taskName
                 + " " + "task info= " + taskInfo + " " + " " + "taskpoint= " + taskPoint
-                + " " + "ispersonal" + isPersonal + " " + "task time" + taskTime + " " + "taskType" + taskType + " " + "answers" + answers + "]";
+                + " " + "ispersonal= " + isPersonal + " " + "task time= " + taskTime + " " + "taskType= " + taskType + " " + "answers= " + answers + "]";
 
     }
 
