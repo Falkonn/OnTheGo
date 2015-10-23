@@ -70,14 +70,14 @@ httpService.factory('httpServ', ['$http',
                 postTaskAnswer: function(data) {
                     return $http.post(urlBase + '/TasksAnswer', data);
                 },
-                    
+                
                 cancelTaskAnswer: function(data) {
                     /* TODO: Check with Khaled and Evelina if we should use a 
                      * POST or DELETE when removing rows in the score table.
                      */
                     return $http.post(urlBase + '/DeleteAnswer', data);
                 },
-              
+
                 
                 
                 /********* Score Services **********/
