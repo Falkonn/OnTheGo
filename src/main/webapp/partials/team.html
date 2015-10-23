@@ -4,8 +4,11 @@
         <div class="row">
             <table>
                 <tr>
-                    <td class="bottom text-center">
-                        <h2>{{team.teamName}} ({{team.numberOfMembers}})</h2>
+                    <td>
+                        <h2>Team {{team.teamNumber}}</h2>
+                    </td>
+                    <td class="bottom">
+                        <h5> - {{team.numberOfMembers}} members</h5>
                     </td>
                 </tr>
             </table>
@@ -23,9 +26,7 @@
                             <div ng-if="member.selfie.length !== 0">
                                 <a href="img/team/{{member.selfie}}"><img src="img/team/{{member.selfie}}" class="col img-responsive img-circle" /></a>
                             </div>
-                            <div ng-show="checkImage(member.userId)">
-                                <a href="takeImage.html">Ändra bild</a>
-                            </div>
+                            <a href="#">Ändra bild</a>
                         </td>
                         <td class="col-xs-9">
                             <table>
@@ -37,8 +38,7 @@
                             </tr>
                             <tr>
                                 <td class="col-xs-6 text-left">
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    {{member.telefon}}
+                                    <span class="fa-phone">{{member.phone}}</span>
                                 </td>
                             </tr>
                             <tr>

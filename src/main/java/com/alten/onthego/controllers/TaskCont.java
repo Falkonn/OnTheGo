@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,7 +40,7 @@ public class TaskCont {
     }
 
     @RequestMapping(
-            value = "/TasksAndPoints/{data}",
+            value = "/TasksAndPoints/{taskid}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getTasksAndPoints(@PathVariable("data") String data) {
@@ -87,6 +86,4 @@ public class TaskCont {
         
         return taskAndScore;
     }
-    
- 
 }

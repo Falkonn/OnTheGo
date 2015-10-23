@@ -6,7 +6,6 @@
 package com.alten.onthego.model;
 
 import com.alten.onthego.common.PassEncryption;
-import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -78,23 +77,8 @@ public class UserInfo {
     }
 
     public List<Integer> findUsersByTeamId(int teamid) {
-        Query findUsersByteamIdQ = em.createQuery("select e.userId from User e where e.team.teamId  =" + teamid);
+        Query findUsersByteamIdQ = em.createQuery("select e.userId from User e where e.teamId  =" + teamid);
         return (List<Integer>) findUsersByteamIdQ.getResultList();
-    }
-    
-    public List<User> findAllMembersByTeamId(int teamid) {
-        Query findAllMembersByTeamIdQ = em.createQuery("select e from User e where e.team.teamId  =" + teamid);
-        return (List<User>) findAllMembersByTeamIdQ.getResultList();
-    }
-    
-    public List<Team> findTeamByUserId(int userId) {
-        Query findTeamByUserId = em.createQuery("select e.team from User e where e.userId  =" + userId);
-        return (List<Team>) findTeamByUserId.getResultList();
-    }
-    
-    public Collection<User> findAllUsersByTeamId(int teamid) {
-        Query findUsersByteamIdQ = em.createQuery("select e from User e where e.teamId  =" + teamid);
-        return (Collection<User>) findUsersByteamIdQ.getResultList();
     }
 
     public User findUserById(long id) {
@@ -125,11 +109,6 @@ public class UserInfo {
     public List<Integer> getTeamIdbyUserId(int userId) {
         Query scoresquery = em.createQuery("SELECT u.teamId FROM User u where u.userId=" + userId);
         return (List<Integer>) scoresquery.getResultList();
-    }
-
-    public List<Integer> getUserByTeamIdAndTaskId(int teamId, long taskId) {
-        Query userbyteamandtaskidquery = em.createQuery("SELECT u.user.userId FROM Score u where u.teamId =" + teamId + " AND u.task.taskId =" + taskId);
-        return (List<Integer>) userbyteamandtaskidquery.getResultList();
     }
 
     public User updateUser(User confUser) {

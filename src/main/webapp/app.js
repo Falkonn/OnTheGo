@@ -67,7 +67,7 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'mainCtrl'
             }).
             when('/about', {
-                templateUrl: 'partials/about.html',
+                templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
             }).

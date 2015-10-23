@@ -9,6 +9,32 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         // If not load them from DB
         mv.init = function() {
             // If no tasks in the localStorage when loading assignments
+
+            //$localStorage.tasks = null
+            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()=='/assignments')
+            {        
+                // Load tasks from DB and save them in localStorage
+                httpServ.getTasks().then(function(response){
+                    // Success - Save tasks in localStorage
+                    
+//                    response.data.forEach(function(entry) {
+//                        console.log(entry);
+//                        if(entry.taskDone === null || entry.taskDone === 'undefined'){
+//                            entry.taskDone = false;
+//                        }
+//                        //console.log(entry);
+//                    });
+                    
+                    $localStorage.tasks = response.data;
+                    //t.badresult = "";
+                    //t.done = true;
+                }, function(response){
+                    // Failed
+                    //t.done = false;
+                    //t.badresult = "" + response.status;
+                });
+            }
+
             // This ONLY FOR PERSISTENT DATA 
             //if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
             //{        
@@ -55,16 +81,39 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
-        /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
+        
+        /////////////////////// TASKS
+        /**
+         * Submitting a task answer to the backend.
+         * Handles all types of answers (isPersonal: true/false and taskType: String/Checkbox) 
+         * @param {type} t
+         * @returns {undefined}
+         */
         mv.submitAnswer = function(t){
             
-            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer};
+            var data = {"taskId": t.id, "userId": mv.userId, "teamId": mv.teamId, "answer": t.answer, "submitted": true };
             // Sending Answer Data 
-            console.log(9 + ' ' + 19 + ' ' + t.answer)
-            httpServ.postTaskAnswer(9 + ' ' + 19 + ' ' + t.answer).then(function(response){
+            //console.log(data);
+            httpServ.postTaskAnswer(data).then(function(response){
                 // Success
-                //t.badresult = "";
-                //t.done = true;
+                t.badresult = "";
+                t.done = true; // Used to show/hide information in the Front End.
+            },
+            function(response){
+                // Failed
+                t.done = false;
+                t.badresult = "" + response.status;
+            });
+        };
+        
+        mv.cancelAnswer = function(t){
+            var data = {"taskId": t.id, "userId": mv.userId, "teamId": mv.teamId, "answer": t.answer, "submitted": false };
+            // Sending Answer Data 
+            //console.log(data);
+            httpServ.cancelTaskAnswer(data).then(function(response){
+                // Success
+                t.badresult = "";
+                t.done = true; // Used to show/hide information in the Front End.
             },
             function(response){
                 // Failed
@@ -73,7 +122,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             });
         };
         
-
         mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
             du/gruppen har utfört uppdraget.";
 
@@ -86,6 +134,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                 return false;
             }
         };
+        
+        mv.checkUserVsUser = function(userId){
+            if(mv.userId === userId ){
+                return true;
+            }
+            else return false;
+        }
         
         /**
          * jsonParse - parses a string to JSON
@@ -127,7 +182,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         mv.assignments = {
             "tasks": $localStorage.tasks
         }
-        
+        //console.log($localStorage.tasks)
+
         /*mv.assignments = {
             "numberOfAssignments": 40,
             "numberOfTasksAnswered": 7,

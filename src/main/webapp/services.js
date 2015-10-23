@@ -7,7 +7,8 @@ var httpService = angular.module('httpService', []);
 httpService.factory('httpServ', ['$http',
     function($http) {
         var urlBase = 'http://localhost:8080';
-       
+        //var urlBase2 = 'http://10.87.16.152:3306/dlapp';
+        
         return {
                 /********* User Services **********/
 
@@ -57,19 +58,24 @@ httpService.factory('httpServ', ['$http',
                 /********* Task Services **********/
                 
                 //////// Add Task http GET services here ///////
-                getTasks: function() {
-                    return $http.get(urlBase + '/Tasks');
-                },
+//                getTasks: function() {
+//                    return $http.get(urlBase + '/Tasks');
+//                },
                 
                 getTasksAndPoints: function(data){
                     return $http.get(urlBase + '/TasksAndPoints/' + data);
                 },
-              
                 
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
-                    // TODO: Must decide how to pass 3 parameters.
-                    return $http.post(urlBase + '/answers', data);
+                    return $http.post(urlBase + '/TasksAnswer', data);
+                },
+                    
+                cancelTaskAnswer: function(data) {
+                    /* TODO: Check with Khaled and Evelina if we should use a 
+                     * POST or DELETE when removing rows in the score table.
+                     */
+                    return $http.post(urlBase + '/DeleteAnswer', data);
                 },
               
                 
