@@ -429,14 +429,12 @@ section h3.section-subheading {
   background-color: #fff6d2;
 }
 
-
 .glyphicon-group:before {
     content: "\e044";
 }
 
 #welcome {
     background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
-
 }
 
 #welcome span, #welcome i {
