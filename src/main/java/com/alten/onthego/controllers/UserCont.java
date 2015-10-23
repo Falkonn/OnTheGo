@@ -95,17 +95,18 @@ public class UserCont {
         UserInfo usersByTeamId = new UserInfo();
         List<Team> teamList;
         List<User> userList;
+        //ArrayList<ArrayList<Object>> teamAndMembers = new ArrayList<ArrayList<Object>>();
         // Find the team by the User id
-       // teamList = teamByTeamId.findTeamByUserId(id);
-        //Team team = teamList.get(0);
+        teamList = teamByTeamId.findTeamByUserId(id);
+        Team team = teamList.get(0);
         // Find the users by the team id
-       // userList = usersByTeamId.findAllMembersByTeamId(team.getTeamId());
+        userList = usersByTeamId.findAllMembersByTeamId(team.getTeamId());
         
-       // List<Object> teamAndMembers = new ArrayList<Object>();
-       // teamAndMembers.add(team.getTeamId());
-       // teamAndMembers.add(team.getTeamName());
-       // teamAndMembers.add(userList.size());
-        //teamAndMembers.add(userList);
+        List<Object> teamAndMembers = new ArrayList<Object>();
+        teamAndMembers.add(team.getTeamId());
+        teamAndMembers.add(team.getTeamName());
+        teamAndMembers.add(userList.size());
+        teamAndMembers.add(userList);
         
 
         return teamAndMembers;
@@ -195,7 +196,7 @@ public class UserCont {
         }
         return verifyuser;
     }
-
+   
     @RequestMapping(
             value = "/upload",
             method = RequestMethod.POST,

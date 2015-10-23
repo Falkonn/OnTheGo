@@ -36,9 +36,9 @@ public class ScoreInfo {
         return (List<Score>) scoresquery.getResultList();
     }
 
-    public List<Score> getScoresbyUserId(int userId) {
+    public List getScoresbyUserId(int userId) {
         Query scoresbyUserquery = em.createQuery("SELECT s.point FROM Score s where s.user.userId =" + userId);
-        return (List<Score>) scoresbyUserquery.getResultList();
+        return  scoresbyUserquery.getResultList();
     }
 
     public List<Score> getScoresbyScoreId(int scoreid) {
@@ -89,7 +89,7 @@ public class ScoreInfo {
         return (List<Score>) taskDoneQuery.getResultList();
     }
 
-    public boolean addSocre(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid) {
+    public boolean addScore(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid) {
         boolean socreAdded = false;
         try {
 
