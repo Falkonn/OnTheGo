@@ -11,7 +11,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             // If no tasks in the localStorage when loading assignments
 
             //$localStorage.tasks = null
-            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()=='/assignments')
+            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()==='/assignments')
             {        
                 // Load tasks from DB and save them in localStorage
                 httpServ.getTasks().then(function(response){
@@ -39,7 +39,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             //if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
             //{        
                 // Load tasks them from DB and save them in localStorage
-                if($location.url()=='/assignments'){
+                if($location.url()==='/assignments'){
 //                    httpServ.getTasks().success(function(response){
 //                        // Success - Save tasks in localStorage
 //                        $localStorage.tasks = response;
@@ -64,7 +64,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                         t.badresult = "" + response.status;
                     });
                 }
-                else if($location.url()=='/team'){
+                else if($location.url()==='/team'){
                     // Load the team and members of the user's team
                     httpServ.getTeamByUserId($localStorage.user.id).success(function(response){
                         // Success - Save team and members in localStorage
@@ -91,7 +91,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          */
         mv.submitAnswer = function(t){
             
-            var data = {"taskId": t.id, "userId": mv.userId, "teamId": mv.teamId, "answer": t.answer, "submitted": true };
+            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer, "taskDone": true };
             // Sending Answer Data 
             //console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
@@ -107,7 +107,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         };
         
         mv.cancelAnswer = function(t){
-            var data = {"taskId": t.id, "userId": mv.userId, "teamId": mv.teamId, "answer": t.answer, "submitted": false };
+            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer, "submitted": false };
             // Sending Answer Data 
             //console.log(data);
             httpServ.cancelTaskAnswer(data).then(function(response){
