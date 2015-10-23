@@ -69,15 +69,15 @@ public class ScoreInfo {
         return scores;
     }
     
-    public List<Object> getScoresByTaskIdAndUserId(long taskId, int userId){
-        Query scoresbyTaskIdAndUserIdquery = em.createQuery("SELECT s.user.userId, s.taskDone, s.userAnswer FROM Score s where s.task.taskId=" + taskId + " AND s.user.userId=" + userId );
-        List<Object> results = scoresbyTaskIdAndUserIdquery.getResultList();
+    public List<Score> getScoresByTaskIdAndUserId(long taskId, int userId){
+        Query scoresbyTaskIdAndUserIdquery = em.createQuery("SELECT s FROM Score s where s.task.taskId=" + taskId + " AND s.user.userId=" + userId );
+        List<Score> results = scoresbyTaskIdAndUserIdquery.getResultList();
         return results;
     }
     
-    public List<Object> getScoresByTaskIdAndTeamId(long taskId, int teamId){
-        Query scoresbyTaskIdAndTeamIdquery = em.createQuery("SELECT s.user.userId, s.taskDone, s.userAnswer FROM Score s where s.task.taskId=" + taskId + " AND s.teamId=" + teamId);
-        List<Object> results = scoresbyTaskIdAndTeamIdquery.getResultList();
+    public List<Score> getScoresByTaskIdAndTeamId(long taskId, int teamId){
+        Query scoresbyTaskIdAndTeamIdquery = em.createQuery("SELECT s FROM Score s where s.task.taskId=" + taskId + " AND s.teamId=" + teamId);
+        List<Score> results = scoresbyTaskIdAndTeamIdquery.getResultList();
         return results;
     }
     

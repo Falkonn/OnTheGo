@@ -95,7 +95,6 @@ public class UserCont {
         UserInfo usersByTeamId = new UserInfo();
         List<Team> teamList;
         List<User> userList;
-        //ArrayList<ArrayList<Object>> teamAndMembers = new ArrayList<ArrayList<Object>>();
         // Find the team by the User id
         teamList = teamByTeamId.findTeamByUserId(id);
         Team team = teamList.get(0);

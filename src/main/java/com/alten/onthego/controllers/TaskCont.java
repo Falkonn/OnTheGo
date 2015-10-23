@@ -9,10 +9,14 @@ import com.alten.onthego.entity.Score;
 import com.alten.onthego.entity.Task;
 import com.alten.onthego.model.ScoreInfo;
 import com.alten.onthego.model.TaskInfo;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +44,7 @@ public class TaskCont {
             value = "/TasksAndPoints/{data}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Object> getTasksAndPoints(@PathVariable("data") String data) {
+    public List<String> getTasksAndPoints(@PathVariable("data") String data) {
 
         JsonParser jsonParser = new JsonParser();
         JsonElement jsonElement = jsonParser.parse(data);
@@ -48,27 +52,39 @@ public class TaskCont {
 
         int userId = jsonObject.get("userId").getAsInt();
         int teamId = jsonObject.get("teamId").getAsInt();
-        
-        System.out.print("userId"+ userId + "teamId" + teamId);
-        
-        List<Task> taskList;
-        TaskInfo task = new TaskInfo();
-        List<Object> taskAndScore = new ArrayList<Object>();
+
+        Collection<Task> taskList;
+        TaskInfo taskInfo = new TaskInfo();
         ScoreInfo scores = new ScoreInfo();
-        taskList = (List<Task>) task.findAllTasks();
-        List<Object> tasks =  new ArrayList<Object>(taskList);
-        for(int i=0; i< taskList.size(); i++)
-        {
-            taskAndScore.add(tasks.get(i));
-            if(taskList.get(i).getIsPersonal()){
-                List scoreData = scores.getScoresByTaskIdAndUserId(taskList.get(i).getTaskId(), userId);
-                taskAndScore.add(scoreData);
+        taskList = taskInfo.findAllTasks();
+        
+        Iterator taskIter = taskList.iterator();
+        String taskSerialized;
+        String scoreSerialized;
+        String taskAndScoreSerialized;
+        List<Score> scoreData = new ArrayList<Score>();
+        List<String> taskAndScore = new ArrayList<String>();
+        Gson gson = new Gson();
+        while(taskIter.hasNext())
+        {   
+            Task task = (Task)taskIter.next();
+            if(task.getIsPersonal()){
+                scoreData = scores.getScoresByTaskIdAndUserId(task.getTaskId(), userId);
             }
             else{
-                List<Object> scoreData = scores.getScoresByTaskIdAndTeamId(taskList.get(i).getTaskId(), teamId);
-                taskAndScore.add(scoreData);
+                scoreData = scores.getScoresByTaskIdAndTeamId(task.getTaskId(), teamId);
             }
+            if(!scoreData.isEmpty())
+                scoreSerialized = gson.toJson(scoreData.get(0));
+            else
+                scoreSerialized = gson.toJson(new Score());
+  
+            taskSerialized = gson.toJson(task);
+  
+            taskAndScoreSerialized = "[" + taskSerialized + ", " + scoreSerialized + "]";
+            taskAndScore.add(taskAndScoreSerialized);
         }
+        
         return taskAndScore;
     }
     
