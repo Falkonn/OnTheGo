@@ -58,9 +58,9 @@ httpService.factory('httpServ', ['$http',
                 /********* Task Services **********/
                 
                 //////// Add Task http GET services here ///////
-//                getTasks: function() {
-//                    return $http.get(urlBase + '/Tasks');
-//                },
+                getTasks: function() {
+                    return $http.get(urlBase + '/Tasks');
+                },
                 
                 getTasksAndPoints: function(data){
                     return $http.get(urlBase + '/TasksAndPoints/' + data);
@@ -68,7 +68,7 @@ httpService.factory('httpServ', ['$http',
                 
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
-                    return $http.post(urlBase + '/TasksAnswer', data);
+                    return $http.post(urlBase + '/answers', data);
                 },
                 
                 cancelTaskAnswer: function(data) {

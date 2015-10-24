@@ -1,67 +1,28 @@
 
 var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'ngStorage' ])
 
-.controller('mainController',['$scope','httpServ', '$localStorage', '$location',
-    function ($scope, httpServ, $localStorage, $location) {
+.controller('mainController',['$scope','httpServ', '$localStorage', '$location', '$route',
+    function ($scope, httpServ, $localStorage, $location, $route) {
         var mv = $scope;
         var tasks;
-        // Check if tasks are already stored in the local storage
-        // If not load them from DB
+        
+        // Load data from database (assignments/tasks)
         mv.init = function() {
-            // If no tasks in the localStorage when loading assignments
-
-            //$localStorage.tasks = null
-            if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null) && $location.url()==='/assignments')
-            {        
-                // Load tasks from DB and save them in localStorage
-                httpServ.getTasks().then(function(response){
-                    // Success - Save tasks in localStorage
-                    
-//                    response.data.forEach(function(entry) {
-//                        console.log(entry);
-//                        if(entry.taskDone === null || entry.taskDone === 'undefined'){
-//                            entry.taskDone = false;
-//                        }
-//                        //console.log(entry);
-//                    });
-                    
-                    $localStorage.tasks = response.data;
-                    //t.badresult = "";
-                    //t.done = true;
-                }, function(response){
-                    // Failed
-                    //t.done = false;
-                    //t.badresult = "" + response.status;
-                });
-            }
-
-            // This ONLY FOR PERSISTENT DATA 
-            //if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
-            //{        
+                 mv.userId = $localStorage.user.id;
                 // Load tasks them from DB and save them in localStorage
                 if($location.url()==='/assignments'){
-//                    httpServ.getTasks().success(function(response){
-//                        // Success - Save tasks in localStorage
-//                        $localStorage.tasks = response;
-//                        t.badresult = "";
-//                        // Check for this team id, user id if the tasks are done or not
-//                        // post(team-id, user-id)
-//                    }, function(response){
-//                        // Failed to load tasks from db
-//                        t.badresult = "" + response.status;
-//                    });=  
                     var data = { "userId": $localStorage.user.id, "teamId": $localStorage.user.teamId}
                     console.log(JSON.stringify(data)); 
                      httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
                         // Success - Save tasks in localStorage
-                        $localStorage.tasks = response;
-                        console.log(response);
-                        t.badresult = "";
+                        for (var i=0 ; i < response.length ; i++){
+                            $localStorage.tasks[i] = JSON.parse(response[i]);
+                        }
+                        //console.log($localStorage.tasks);
                         // Check for this team id, user id if the tasks are done or not
                         // post(team-id, user-id)
                     }, function(response){
-                        // Failed to load tasks from db
-                        t.badresult = "" + response.status;
+                        console.log(response);
                     });
                 }
                 else if($location.url()==='/team'){
@@ -81,6 +42,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
+       
         
         /////////////////////// TASKS
         /**
@@ -91,34 +53,36 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          */
         mv.submitAnswer = function(t){
             
-            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer, "taskDone": true };
+            var data = {"taskId": t.taskId, "userId": mv.userId, "answer": t.answer, "taskDone": true };
             // Sending Answer Data 
-            //console.log(data);
+            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
                 // Success
                 t.badresult = "";
-                t.done = true; // Used to show/hide information in the Front End.
+                t.taskDone = true; // Used to show/hide information in the Front End.
+                $route.reload();
             },
             function(response){
                 // Failed
-                t.done = false;
+                t.taskDone = false;
                 t.badresult = "" + response.status;
             });
         };
         
         mv.cancelAnswer = function(t){
-            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer, "submitted": false };
+            var data = {"taskId": t.taskId, "userId": mv.userId, "answer": t.userAnswer, "taskDone": false };
             // Sending Answer Data 
-            //console.log(data);
-            httpServ.cancelTaskAnswer(data).then(function(response){
+            console.log(data);
+            httpServ.postTaskAnswer(data).then(function(response){
                 // Success
                 t.badresult = "";
-                t.done = true; // Used to show/hide information in the Front End.
+                t.taskDone = true; // Used to show/hide information in the Front End.
             },
             function(response){
                 // Failed
                 //t.done = false;
                 //t.badresult = "" + response.status;
+                $route.reload();
             });
         };
         
@@ -140,7 +104,27 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                 return true;
             }
             else return false;
-        }
+        };
+        
+        mv.parseTaskType = function(taskType){
+            switch(taskType)
+            {
+                case "1": return 1;
+                case "2": return 2;
+                default:  return 0;
+            }
+        };
+        
+        mv.parseTaskTheme = function(taskTheme){
+            switch(taskTheme)
+            {
+                case "1": return 1;
+                case "2": return 2;
+                case "3": return 3;
+                case "4": return 4;
+                default:  return 0;
+            }
+        };
         
         /**
          * jsonParse - parses a string to JSON
@@ -179,94 +163,23 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          *      what data to show.
          * 
          */
-        mv.assignments = {
-            "tasks": $localStorage.tasks
-        }
-        //console.log($localStorage.tasks)
-
-        /*mv.assignments = {
-            "numberOfAssignments": 40,
-            "numberOfTasksAnswered": 7,
-            "tasks": [
-                {
-                    "id": 1,
-                    "name": "Forum att kommunicera via",
-                    "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
-                    "personal": false,
-                    "taskType": 2,
-                    "theme": 1,
-                    "estimation": "2 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 2,
-                    "name": "Gilla Alten Sweden på LinkedIn",
-                    "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
-                    "personal": true,
-                    "taskType": 2,
-                    "theme": 1,
-                    "estimation": "1 minut",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 3,
-                    "name": "Skicka en selfie",
-                    "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
-                    "personal": true,
-                    "taskType": 1,
-                    "theme": 2,
-                    "estimation": "1-5 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 4,
-                    "name": "Bli vänner på LindedIn",
-                    "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
-                    "personal": true,
-                    "taskType": 2,
-                    "theme": 3,
-                    "estimation": "1-10 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 5,
-                    "name": "Designa en Alten-drink",
-                    "description": "Vad tycker du vore en god och passande drink för Alten?",
-                    "personal": true,
-                    "taskType": 2,
-                    "theme": 4,
-                    "estimation": "1-10 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                }
-            ]
-        };*/
-
+        mv.assignments = { "tasks": $localStorage.tasks };
+        console.log(mv.assignments);
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.team = {
-                "teamNumber": $localStorage.team[0],
-                "teamName":   $localStorage.team[1],
-                "numberOfMembers": $localStorage.team[2],
-                "members": $localStorage.team[3]
+                "teamNumber":       $localStorage.team[0],
+                "teamName":         $localStorage.team[1],
+                "numberOfMembers":  $localStorage.team[2],
+                "members":          $localStorage.team[3]
         };
       
-        mv.checkImage = function(memberId){
-            if($localStorage.user.id == memberId)
+        mv.checkUserId = function(userId){
+            if($localStorage.user.id == userId)
                 return true;
             else
                 return false;           
         };
-
-
+        
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.lindholmen = {
             "floors": [

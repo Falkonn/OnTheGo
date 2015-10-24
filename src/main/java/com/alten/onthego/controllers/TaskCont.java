@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class TaskCont {
     }
 
     @RequestMapping(
-            value = "/TasksAndPoints/{taskid}",
+            value = "/TasksAndPoints/{data}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getTasksAndPoints(@PathVariable("data") String data) {
@@ -79,11 +80,27 @@ public class TaskCont {
                 scoreSerialized = gson.toJson(new Score());
   
             taskSerialized = gson.toJson(task);
-  
-            taskAndScoreSerialized = "[" + taskSerialized + ", " + scoreSerialized + "]";
-            taskAndScore.add(taskAndScoreSerialized);
+            
+            JSONObject taskJson = new JSONObject(taskSerialized);
+            JSONObject scoreJson = new JSONObject(scoreSerialized);
+            JSONObject taskAndScoreJson = new JSONObject();
+   
+            if (taskJson.length()>0){
+                       taskAndScoreJson = new JSONObject(taskJson, JSONObject.getNames(taskJson));
+            }
+            if (scoreJson.length()>0){
+                for(String key : JSONObject.getNames(scoreJson))
+                {
+                    if(key.equals("taskDone") || key.equals("userAnswer") || key.equals("user"))
+                        taskAndScoreJson.put(key, scoreJson.get(key));
+                }
+            }
+            
+            //taskAndScoreSerialized = "[" + taskSerialized + ", " + scoreSerialized + "]";
+            taskAndScore.add(taskAndScoreJson.toString());
         }
         
         return taskAndScore;
     }
+    
 }
