@@ -52,7 +52,7 @@ httpService.factory('httpServ', ['$http',
                 //////// Add TeamView http Post services here ///////
                 
                 postImage: function(image) {
-                    return $http.post(urlBase + '/upload');
+                    return $http.post(urlBase + '/upload', image);
                 },
                 
                 /********* Task Services **********/
@@ -93,3 +93,24 @@ httpService.factory('httpServ', ['$http',
      
     }]);
 
+/* Camera Service */
+var cameraService = angular.module('cameraService', []);
+
+cameraService.factory('cameraServ', function($window) {
+  var hasUserMedia = function() {
+    return !!getUserMedia();
+  };
+
+  var getUserMedia = function() {
+    navigator.getUserMedia = ($window.navigator.getUserMedia || 
+                              $window.navigator.webkitGetUserMedia ||
+                              $window.navigator.mozGetUserMedia || 
+                              $window.navigator.msGetUserMedia);
+    return navigator.getUserMedia;
+  };
+
+  return {
+    hasUserMedia: hasUserMedia(),
+    getUserMedia: getUserMedia
+  };
+});

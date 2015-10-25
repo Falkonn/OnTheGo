@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute', 'registerModule', 'mainModule'
+    'ngRoute', 'registerModule', 'mainModule', 'cameraModule'
 ]);
 
 OnTheGo.config(['$routeProvider', '$locationProvider',

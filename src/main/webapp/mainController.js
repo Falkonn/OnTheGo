@@ -1,8 +1,8 @@
 
-var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'ngStorage' ])
+var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage' ])
 
-.controller('mainController',['$scope','httpServ', '$localStorage', '$location', '$route',
-    function ($scope, httpServ, $localStorage, $location, $route) {
+.controller('mainController',['$scope','httpServ', 'cameraServ', '$localStorage', '$location', '$route',
+    function ($scope, httpServ, cameraServ, $localStorage, $location, $route) {
         var mv = $scope;
         
         // Init values
@@ -15,6 +15,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
+        mv.hasUserMedia = cameraServ.hasUserMedia;
         
         /////////////////////// UPPGIFTER
         /**
@@ -37,8 +38,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          *      what data to show.
          * 
          */
+        console.log($location.url())
         if($location.url()==='/assignments'){
-            console.log("hi");
             var data = { "userId": mv.userId, "teamId": mv.teamId};
                 console.log(JSON.stringify(data)); 
                  httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
@@ -47,31 +48,29 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     for (var i=0 ; i < response.length ; i++){
                         $localStorage.tasks[i] = JSON.parse(response[i]);
                     }
-
+                    mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
                     console.log(response);
             });
-            mv.assignments = { "tasks": $localStorage.tasks };
-            console.log(mv.assignments);
+          
         }
         else if($location.url()==='/team'){
              // Load the team and members of the user's team
             httpServ.getTeamByUserId(mv.userId).success(function(response){
                 // Success - Save team and members in localStorage
                 $localStorage.team = response;
-                console.log($localStorage.team);
-               // t.badresult = "";
+                /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+                mv.team = {
+                        "teamNumber":       $localStorage.team[0],
+                        "teamName":         $localStorage.team[1],
+                        "numberOfMembers":  $localStorage.team[2],
+                        "members":          $localStorage.team[3]
+                };
             }, function(response){
                 // Failed to load teams from db
               //  t.badresult = "" + response.status;
             });
-            /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-            mv.team = {
-                    "teamNumber":       $localStorage.team[0],
-                    "teamName":         $localStorage.team[1],
-                    "numberOfMembers":  $localStorage.team[2],
-                    "members":          $localStorage.team[3]
-            };
+           
         }
        
         
@@ -95,7 +94,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     t.taskDone = true;
                     t.userAnswer = answer;
                     t.user = $localStorage.user;
-                    console.log("Added Score by " + t.user.id + "!");
+                    console.log("Added Score by " + t.user.firstName + "!");
                 }
                 // Score Deleted successfully
                 else{
