@@ -9,7 +9,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.teamId;
-               
         };
         // Run Init 
         mv.init();
@@ -38,10 +37,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          *      what data to show.
          * 
          */
-        console.log($location.url())
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
-                console.log(JSON.stringify(data)); 
                  httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
                     $localStorage.tasks = response;
                     // Success - Save tasks in localStorage
