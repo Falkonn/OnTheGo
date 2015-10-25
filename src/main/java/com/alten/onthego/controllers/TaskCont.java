@@ -46,6 +46,7 @@ public class TaskCont {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getTasksAndPoints(@PathVariable("data") String data) {
 
+        // Parsing userId and teamId
         JsonParser jsonParser = new JsonParser();
         JsonElement jsonElement = jsonParser.parse(data);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -53,53 +54,65 @@ public class TaskCont {
         int userId = jsonObject.get("userId").getAsInt();
         int teamId = jsonObject.get("teamId").getAsInt();
 
-        Collection<Task> taskList;
+        // TasksList and Scores 
         TaskInfo taskInfo = new TaskInfo();
         ScoreInfo scores = new ScoreInfo();
-        taskList = taskInfo.findAllTasks();
-        
-        Iterator taskIter = taskList.iterator();
+        // Tasks and Scores Serialized 
         String taskSerialized;
         String scoreSerialized;
-        String taskAndScoreSerialized;
+        // List of all the tasks. 
+        Collection<Task> taskList;
+        taskList = taskInfo.findAllTasks();
+        Iterator taskIter = taskList.iterator();
+        // List of Scores
         List<Score> scoreData = new ArrayList<Score>();
+        // List of json strings with tasks and scores
         List<String> taskAndScore = new ArrayList<String>();
         Gson gson = new Gson();
+        // Iterate through all the tasks and fetch and concatenate
+        // the scores for the specific team or user
         while(taskIter.hasNext())
         {   
             Task task = (Task)taskIter.next();
+            // If the task is personal fetch the score by the user Id
             if(task.getIsPersonal()){
                 scoreData = scores.getScoresByTaskIdAndUserId(task.getTaskId(), userId);
             }
+            // If the task is not personal fetch the score by the team Id
             else{
                 scoreData = scores.getScoresByTaskIdAndTeamId(task.getTaskId(), teamId);
             }
+            // Create a Json String of the score object
             if(!scoreData.isEmpty())
                 scoreSerialized = gson.toJson(scoreData.get(0));
             else
                 scoreSerialized = gson.toJson(new Score());
-  
+            // Json string of task object
             taskSerialized = gson.toJson(task);
             
+            // Create Json objects to merge the task and Score
             JSONObject taskJson = new JSONObject(taskSerialized);
             JSONObject scoreJson = new JSONObject(scoreSerialized);
             JSONObject taskAndScoreJson = new JSONObject();
    
+            // Merge Json Objects (Task and Score)
             if (taskJson.length()>0){
                        taskAndScoreJson = new JSONObject(taskJson, JSONObject.getNames(taskJson));
             }
             if (scoreJson.length()>0){
+                // Here the merging takes place
                 for(String key : JSONObject.getNames(scoreJson))
                 {
+                    // Merge only the fields that matter
                     if(key.equals("taskDone") || key.equals("userAnswer") || key.equals("user"))
                         taskAndScoreJson.put(key, scoreJson.get(key));
                 }
             }
             
-            //taskAndScoreSerialized = "[" + taskSerialized + ", " + scoreSerialized + "]";
+            // Convert the result to string and add it to the json string list
             taskAndScore.add(taskAndScoreJson.toString());
         }
-        
+        // Return the List of Json Lists (tasks, score)
         return taskAndScore;
     }
     

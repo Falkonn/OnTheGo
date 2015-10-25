@@ -35,7 +35,7 @@
     </tr>
     <tr ng-show="!t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t)">   
+            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, true )">   
             <input class="btn btn-primary" type="submit" value="Skicka in" />
             </form>
         </td>
@@ -52,7 +52,7 @@
     </tr>
     <tr ng-show="t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="cancelAnswer(t)">   
+            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer(t,t.userAnswer,false)">   
                 <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Cancel" />
             </form>
         </td>

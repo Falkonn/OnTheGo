@@ -51,41 +51,49 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          * @param {type} t
          * @returns {undefined}
          */
-        mv.submitAnswer = function(t){
+        mv.submitAnswer = function(t, answer, done){
             
-            var data = {"taskId": t.taskId, "userId": mv.userId, "answer": t.answer, "taskDone": true };
+            var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
             console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
-                // Success
-                t.badresult = "";
+                // Score Added successfully
+                if(done){
+                    t.result = "Sent successfully!";
+                    t.taskDone = true;
+                    console.log("Added Score!");
+                }
+                // Score Deleted successfully
+                else{
+                    t.result = "Deleted successfully!";
+                    t.taskDone = false;
+                    console.log("Deleted Score!");
+                }
                 t.taskDone = true; // Used to show/hide information in the Front End.
-                $route.reload();
+                //$route.reload();
             },
             function(response){
-                // Failed
-                t.taskDone = false;
-                t.badresult = "" + response.status;
+                console.log(response.status);
+                // Failure Code received from backend
+                if(response.status === 404)
+                {
+                    // Failed to add score (somebody else has already answered it)
+                    if(done){
+                        t.result = "Failed to Add Score. It is already answered by " + t.user.userId;
+                         console.log("Failed to add Score! It is answered by" + t.user.userId);
+                    }
+                    // Failed to delete score (task is already cancelled)
+                    else{
+                        t.result = "Failed to cancel task. It is already cancelled!";
+                        console.log("Failed to cancel task! Task already cancelled");
+                    }
+                }
+                // Unknown Server Error
+                else
+                    t.result = "Server Error: " + response.status;
             });
         };
-        
-        mv.cancelAnswer = function(t){
-            var data = {"taskId": t.taskId, "userId": mv.userId, "answer": t.userAnswer, "taskDone": false };
-            // Sending Answer Data 
-            console.log(data);
-            httpServ.postTaskAnswer(data).then(function(response){
-                // Success
-                t.badresult = "";
-                t.taskDone = true; // Used to show/hide information in the Front End.
-            },
-            function(response){
-                // Failed
-                //t.done = false;
-                //t.badresult = "" + response.status;
-                $route.reload();
-            });
-        };
-        
+               
         mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
             du/gruppen har utfört uppdraget.";
 
