@@ -69,7 +69,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     t.taskDone = false;
                     console.log("Deleted Score!");
                 }
-                t.taskDone = true; // Used to show/hide information in the Front End.
                 //$route.reload();
             },
             function(response){
