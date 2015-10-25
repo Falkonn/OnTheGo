@@ -11,7 +11,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         //$localStorage.$reset();
   
         // Dummy object (for debugging)
-        $localStorage.user = {  id: "2",
+        $localStorage.user = {  userId: "2",
                                 firstName: "Vasileios",
                                 lastName:  "Golematis",
                                 email:     "vasileios.golematis@alten.se",

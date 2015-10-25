@@ -4,44 +4,75 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
 .controller('mainController',['$scope','httpServ', '$localStorage', '$location', '$route',
     function ($scope, httpServ, $localStorage, $location, $route) {
         var mv = $scope;
-        var tasks;
         
-        // Load data from database (assignments/tasks)
+        // Init values
         mv.init = function() {
-                 mv.userId = $localStorage.user.id;
-                // Load tasks them from DB and save them in localStorage
-                if($location.url()==='/assignments'){
-                    var data = { "userId": $localStorage.user.id, "teamId": $localStorage.user.teamId}
-                    console.log(JSON.stringify(data)); 
-                     httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
-                        // Success - Save tasks in localStorage
-                        for (var i=0 ; i < response.length ; i++){
-                            $localStorage.tasks[i] = JSON.parse(response[i]);
-                        }
-                        //console.log($localStorage.tasks);
-                        // Check for this team id, user id if the tasks are done or not
-                        // post(team-id, user-id)
-                    }, function(response){
-                        console.log(response);
-                    });
-                }
-                else if($location.url()==='/team'){
-                    // Load the team and members of the user's team
-                    httpServ.getTeamByUserId($localStorage.user.id).success(function(response){
-                        // Success - Save team and members in localStorage
-                        $localStorage.team = response;
-                       // t.badresult = "";
-                    }, function(response){
-                        // Failed to load teams from db
-                      //  t.badresult = "" + response.status;
-                    });
-                }
-            //}
+            mv.userId = $localStorage.user.userId;
+            mv.teamId = $localStorage.user.teamId;
+               
         };
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
+        
+        /////////////////////// UPPGIFTER
+        /**
+         * From TASK table:
+         * ----------------
+         * name = heading
+         * description = information/details regarding the task
+         * personal = Boolean - True (do it yourself) or False (do it with the team)
+         * taskType = [1|2] where 1=String, 2=Checkbox
+         * theme = [1|2|3|4] where 
+         *      1=Gör Själv, 2=Lär känna varandra, 3=Kluringar, 4=På festen
+         * estimation = time estimation for the task to be completed
+         * 
+         * From SCORE table:
+         * -----------------
+         * answer = will be empty from start and then posting answers to the database,
+         *      and mainly retrieved to be able to show other members of a group 
+         *      that a group question has already been answered.
+         * done = to see if the tasks has been done or not in order to control 
+         *      what data to show.
+         * 
+         */
+        if($location.url()==='/assignments'){
+            console.log("hi");
+            var data = { "userId": mv.userId, "teamId": mv.teamId};
+                console.log(JSON.stringify(data)); 
+                 httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
+                    $localStorage.tasks = response;
+                    // Success - Save tasks in localStorage
+                    for (var i=0 ; i < response.length ; i++){
+                        $localStorage.tasks[i] = JSON.parse(response[i]);
+                    }
+
+                }, function(response){
+                    console.log(response);
+            });
+            mv.assignments = { "tasks": $localStorage.tasks };
+            console.log(mv.assignments);
+        }
+        else if($location.url()==='/team'){
+             // Load the team and members of the user's team
+            httpServ.getTeamByUserId(mv.userId).success(function(response){
+                // Success - Save team and members in localStorage
+                $localStorage.team = response;
+                console.log($localStorage.team);
+               // t.badresult = "";
+            }, function(response){
+                // Failed to load teams from db
+              //  t.badresult = "" + response.status;
+            });
+            /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+            mv.team = {
+                    "teamNumber":       $localStorage.team[0],
+                    "teamName":         $localStorage.team[1],
+                    "numberOfMembers":  $localStorage.team[2],
+                    "members":          $localStorage.team[3]
+            };
+        }
        
         
         /////////////////////// TASKS
@@ -60,8 +91,11 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                 // Score Added successfully
                 if(done){
                     t.result = "Sent successfully!";
+                    // Set task values to update frontend (or route reload, to be decided)
                     t.taskDone = true;
-                    console.log("Added Score!");
+                    t.userAnswer = answer;
+                    t.user = $localStorage.user;
+                    console.log("Added Score by " + t.user.id + "!");
                 }
                 // Score Deleted successfully
                 else{
@@ -69,6 +103,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
                     t.taskDone = false;
                     console.log("Deleted Score!");
                 }
+                // By reloading everything is updated
                 //$route.reload();
             },
             function(response){
@@ -106,11 +141,11 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             }
         };
         
-        mv.checkUserVsUser = function(userId){
-            if(mv.userId === userId ){
+        mv.checkUserId = function(userId){
+            if(mv.userId == userId )
                 return true;
-            }
-            else return false;
+            else 
+                return false;
         };
         
         mv.parseTaskType = function(taskType){
@@ -145,46 +180,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
             else{
                 return str;
             }
-        };
-
-//////////// JSON DUMMY CODE BELOW!
-
-        /////////////////////// UPPGIFTER
-        /**
-         * From TASK table:
-         * ----------------
-         * name = heading
-         * description = information/details regarding the task
-         * personal = Boolean - True (do it yourself) or False (do it with the team)
-         * taskType = [1|2] where 1=String, 2=Checkbox
-         * theme = [1|2|3|4] where 
-         *      1=Gör Själv, 2=Lär känna varandra, 3=Kluringar, 4=På festen
-         * estimation = time estimation for the task to be completed
-         * 
-         * From SCORE table:
-         * -----------------
-         * answer = will be empty from start and then posting answers to the database,
-         *      and mainly retrieved to be able to show other members of a group 
-         *      that a group question has already been answered.
-         * done = to see if the tasks has been done or not in order to control 
-         *      what data to show.
-         * 
-         */
-        mv.assignments = { "tasks": $localStorage.tasks };
-        console.log(mv.assignments);
-        /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-        mv.team = {
-                "teamNumber":       $localStorage.team[0],
-                "teamName":         $localStorage.team[1],
-                "numberOfMembers":  $localStorage.team[2],
-                "members":          $localStorage.team[3]
-        };
-      
-        mv.checkUserId = function(userId){
-            if($localStorage.user.id == userId)
-                return true;
-            else
-                return false;           
         };
         
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
