@@ -15,7 +15,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
-        
+       
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -63,6 +63,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                         "numberOfMembers":  $localStorage.team[2],
                         "members":          $localStorage.team[3]
                 };
+                console.log(mv.team);
             }, function(response){
                 // Failed to load teams from db
               //  t.badresult = "" + response.status;
