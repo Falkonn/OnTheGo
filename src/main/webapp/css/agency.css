@@ -7,8 +7,7 @@
 body {
     overflow-x: hidden;
     font-family: "brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #ffea00;
-
+   background-color: #ffea00;
    /*Trying gradient with background*/
    /*background: -webkit-linear-gradient(left top, #ffec82 , #ffea00); /* For Safari 5.1 to 6.0 */
    /*background: -o-linear-gradient(bottom right, #ffec82, #ffea00); /* For Opera 11.1 to 12.0 */
@@ -52,6 +51,7 @@ body {
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
+  }
 }
 
 .text-muted {
@@ -221,9 +221,8 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default .navbar-brand {
-    font-family: Montserrat,"brandon_grotesque_regularRg","Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
-    text-transform: uppercase;
-    color: #fed136;
+    font-family: "brandon_grotesque_regularRg","Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
+    color: #83CFF3;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -430,6 +429,7 @@ section h3.section-subheading {
   background-color: #fff6d2;
 }
 
+
 .glyphicon-group:before {
     content: "\e044";
 }
@@ -510,6 +510,7 @@ section h3.section-subheading {
 }
     
     */
+
 
 #welcome .jumbotron {
       /*background-color: rgba(0, 147, 208, 0.4);*/
