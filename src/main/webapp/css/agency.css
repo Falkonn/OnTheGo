@@ -479,40 +479,6 @@ section h3.section-subheading {
     content: "\e044";
 }
 
-#welcome {
-    background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
-    margin-top: 0;
-    padding-top: 0;
-}
-
-#welcome .welcomeheader {
- background-image: url("../img/Alten_nya_huset.png");
-  width: 100%;
-  height: 10em;
-  padding-bottom: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  overflow: hidden;
-  position: relative;
-    
-}
- #welcome .bakgrund {
-    margin: 0;
-    width: 100%;
-    color: white;
-    text-align: center;    
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%)  
- } 
- 
- #welcome .bakgrund h1 {
-     color: white;
- }
-     
 #welcome .container {
         position: relative;
 }   
@@ -541,6 +507,46 @@ section h3.section-subheading {
 #welcome .toppadding {
     margin-top: 5em;
 }
+
+#welcome, #register {
+    background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.welcomeheader { /*used in welcome.html and register.html*/
+  background-image: url("../img/Alten_nya_huset.png");
+  /*width: 100%;*/
+  height: 2em;
+  padding-bottom: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow: hidden;
+  position: relative;
+    
+}
+.bakgrund { /*used in welcome.html and register.html*/
+    margin: 0;
+    width: 100%;
+    color: white;
+    text-align: center;    
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%)  
+ } 
+ 
+ .bakgrund h1 { /*used in welcome.html and register.html*/
+     color: white;
+ }
+     
+ #register .center-block {
+     margin-top: 1em;
+     
+ }
+ 
 .service-heading {
     margin: 15px 0;
     text-transform: none;
