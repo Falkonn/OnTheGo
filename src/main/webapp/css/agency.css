@@ -17,6 +17,11 @@ body {
   /* background: linear-gradient(to bottom right, #ffec82 , #ffea00); /* Standard syntax */
 }
 
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
 @media (min-width: 320px) {
   .container {
     width: 298px;
@@ -223,8 +228,15 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default .navbar-brand {
-    font-family: "brandon_grotesque_regularRg","Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
-    color: #83CFF3;
+    font-family: Futura,"Helvetica Neue",Helvetica,Arial,cursive;
+    color: #0093D0;
+}
+
+.navbar-brand {
+    float: none;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -239,8 +251,8 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default .navbar-toggle {
-    border-color: #83CFF3;
-    background-color: #83CFF3;
+    border-color: #0093d0;
+    background-color: #0093d0;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -249,7 +261,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-toggle.navbar-left {
   float: left;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .navbar-default .navbar-toggle:hover,
