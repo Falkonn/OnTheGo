@@ -28,6 +28,12 @@ body {
   }
 }
 
+@media (min-width: 358px) {
+  .container {
+    width: 340px;
+  }
+}
+
 @media (min-width: 420px) {
   .container {
     width: 400px;
@@ -67,6 +73,10 @@ body {
 
 .text-primary {
     color: #0093d0;
+}
+
+text-weighted {
+    font-weight: bold;
 }
 
 p {
