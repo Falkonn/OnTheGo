@@ -5,6 +5,7 @@
  */
 package com.alten.onthego.controllers;
 
+import com.alten.onthego.common.GmailEmailSender;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -19,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.alten.onthego.common.EmailSending;
+import com.alten.onthego.common.AltenEmailSender;
 import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.crud.updatePic;
 import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -85,7 +90,7 @@ public class UserCont {
         UserInfo userpinbyemail = new UserInfo();
         return (Collection<User>) userpinbyemail.findPinCodebyEmail(email);
     }
-    
+
     @RequestMapping(
             value = "/teambyuserid/{id}",
             method = RequestMethod.GET,
@@ -101,13 +106,12 @@ public class UserCont {
         Team team = teamList.get(0);
         // Find the users by the team id
         userList = usersByTeamId.findAllMembersByTeamId(team.getTeamId());
-        
+
         List<Object> teamAndMembers = new ArrayList<Object>();
         teamAndMembers.add(team.getTeamId());
         teamAndMembers.add(team.getTeamName());
         teamAndMembers.add(userList.size());
         teamAndMembers.add(userList);
-        
 
         return teamAndMembers;
     }
@@ -123,7 +127,8 @@ public class UserCont {
         String serializedUsers = gson.toJson(foundUsers);
         if (foundUsers != null && !foundUsers.isEmpty()) {
             user.verfyEmail(true);
-            EmailSending es = new EmailSending();
+            AltenEmailSender es = new AltenEmailSender();
+            GmailEmailSender gmailes = new GmailEmailSender();
             System.out.println("There is an email");
             res.setStatus(HttpServletResponse.SC_OK);
             Collection<User> name = user.findUserFirstNamebyEmail(emailAddress);
@@ -137,13 +142,22 @@ public class UserCont {
             Object userpincode = ite.next();
             PassEncryption pe = new PassEncryption();
             String PIN_CODE = pe.DecryptText((String) userpincode);
-            es.sendEmail("smtp.gmail.com", "587", "noreply-destinationlindholmen@alten.se", emailAddress,
-                    "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
-                    + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
-                    + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
-                    + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
-            //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
-            System.out.println("The email is sent!");
+
+            if (emailAddress.contains("alten")) {
+                es.sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen@alten.se", emailAddress,
+                        "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
+                        + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
+                        + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
+                        + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
+                //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
+                System.out.println("The email is sent!");
+            } else {
+                gmailes.sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen@alten.se", "Lindholmen2015", emailAddress,
+                        "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
+                        + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
+                        + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
+                        + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
+            }
         } else {
             user.verfyEmail(false);
             System.out.println("There is no email");
@@ -152,7 +166,7 @@ public class UserCont {
         emailstring = "{\"email\" : \"" + emailAddress + "\"}";
         System.out.println("the found users are " + serializedUsers);
         emaillists.add(emailstring);
-        return serializedUsers.toString();
+        return serializedUsers;
     }
 
     @RequestMapping(
@@ -196,23 +210,44 @@ public class UserCont {
         }
         return verifyuser;
     }
-   
+
     @RequestMapping(
             value = "/upload",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void getImage(@RequestBody String imagedata, HttpServletResponse ress) {
+    public void getImage(@RequestBody String imagedata, HttpServletResponse response) {
         try {
-            // remove data:image/png;base64, and then take rest sting
-            byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imagedata);
-            BufferedImage bfi = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+
+            JsonParser jsonParser = new JsonParser();
+            JsonElement jsonElement = jsonParser.parse(imagedata);
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            String imageData = jsonObject.get("imageData").getAsString();
+            int userId = jsonObject.get("userId").getAsInt();
+            // remove data:image/png;base64, and then take rest string
+            byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imageData);
+            ByteArrayInputStream baisData = new ByteArrayInputStream(decodedBytes);
+            File outputfile = new File("src\\main\\webapp\\img\\selfie\\" + userId + ".png");
+            
+            System.out.println("file name is: " + outputfile);
+            System.out.println("image datais  " + imageData);
+            BufferedImage bfi = ImageIO.read(baisData);
             //we might need to save it in the data base later on
-            File outputfile = new File("saved.png");
+            // File outputfilew = new File("saved.png");
+            if (bfi == null) {
+                System.out.println("imag is empty");
+            }
             ImageIO.write(bfi, "png", outputfile);
+            System.out.println("Image file written successfully");
+            updatePic up = new updatePic();
+            up.addPic(userId+".png", userId);
+
+            // ImageIO.write(bfi, "png", outputfile);
             System.out.println("Image saved");
             bfi.flush();
+            response.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

@@ -54,6 +54,8 @@ public class TaskCont {
         int userId = jsonObject.get("userId").getAsInt();
         int teamId = jsonObject.get("teamId").getAsInt();
 
+        System.out.print("userId" + userId + "teamId" + teamId);
+
         // TasksList and Scores 
         TaskInfo taskInfo = new TaskInfo();
         ScoreInfo scores = new ScoreInfo();
@@ -115,5 +117,4 @@ public class TaskCont {
         // Return the List of Json Lists (tasks, score)
         return taskAndScore;
     }
-    
 }
