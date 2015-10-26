@@ -21,14 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alten.onthego.common.EmailSending;
 import com.alten.onthego.common.PassEncryption;
-import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
@@ -85,32 +83,6 @@ public class UserCont {
         UserInfo userpinbyemail = new UserInfo();
         return (Collection<User>) userpinbyemail.findPinCodebyEmail(email);
     }
-    
-    @RequestMapping(
-            value = "/teambyuserid/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Object> getUsersByTeamId(@PathVariable("id") int id) {
-        UserInfo teamByTeamId = new UserInfo();
-        UserInfo usersByTeamId = new UserInfo();
-        List<Team> teamList;
-        List<User> userList;
-        //ArrayList<ArrayList<Object>> teamAndMembers = new ArrayList<ArrayList<Object>>();
-        // Find the team by the User id
-        teamList = teamByTeamId.findTeamByUserId(id);
-        Team team = teamList.get(0);
-        // Find the users by the team id
-        userList = usersByTeamId.findAllMembersByTeamId(team.getTeamId());
-        
-        List<Object> teamAndMembers = new ArrayList<Object>();
-        teamAndMembers.add(team.getTeamId());
-        teamAndMembers.add(team.getTeamName());
-        teamAndMembers.add(userList.size());
-        teamAndMembers.add(userList);
-        
-
-        return teamAndMembers;
-    }
 
     @RequestMapping(
             value = "/emailpath",
@@ -137,7 +109,7 @@ public class UserCont {
             Object userpincode = ite.next();
             PassEncryption pe = new PassEncryption();
             String PIN_CODE = pe.DecryptText((String) userpincode);
-            es.sendEmail("smtp.gmail.com", "587", "noreply-destinationlindholmen@alten.se", emailAddress,
+            es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", emailAddress,
                     "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
                     + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
                     + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
@@ -196,7 +168,7 @@ public class UserCont {
         }
         return verifyuser;
     }
-   
+
     @RequestMapping(
             value = "/upload",
             method = RequestMethod.POST,

@@ -26,8 +26,8 @@ public class addScore {
         try {
             Task task = em.find(Task.class, 1L);
             User user = em.find(User.class, 1L);
-//(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid)
-            Score score = new Score(1, 22, true, "dsas", task, user);
+
+            Score score = new Score(1, 21, true, "dsas", task, user);
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(score);
