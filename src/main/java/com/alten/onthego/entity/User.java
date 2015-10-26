@@ -18,6 +18,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,9 +38,8 @@ public class User implements Serializable {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Score> users;
-
+   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+   // private List<Score> users;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -53,10 +54,11 @@ public class User implements Serializable {
     private String department;
     @Column(name = "pincode")
     private String pin_code;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Team> teams;
-    @Column(name = "team_id")
-    private Integer teamId;
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    //private List<Team> teams;
+    @JoinColumn(name = "team_id")
+    @ManyToOne(targetEntity = Team.class)
+    private Team team;
     @Column(name = "pic_id")
     private String picId;
 
@@ -64,7 +66,7 @@ public class User implements Serializable {
     }
 
     public User(int userId, String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code, int teamId, String picId) {
+            String telefon, String city, String department, String pin_code, Team team, String picId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,9 +75,8 @@ public class User implements Serializable {
         this.city = city;
         this.department = department;
         this.pin_code = pin_code;
-        this.teamId = teamId;
+        this.team = team;
         this.picId = picId;
-
     }
 
     public int getUserId() {
@@ -114,8 +115,12 @@ public class User implements Serializable {
         return pin_code;
     }
 
-    public int getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
+    }
+    
+    public void setTeam(Team team) {
+         this.team = team;
     }
 
     public void setFirstName(String firstName) {
@@ -145,7 +150,7 @@ public class User implements Serializable {
     public void setPinCode(String pin_code) {
         this.pin_code = pin_code;
     }
-
+    
     public String getPicId() {
         return picId;
     }
@@ -158,7 +163,7 @@ public class User implements Serializable {
     public String toString() {
         return "User data are [ userid= " + userId + " " + "First name= " + firstName + " " + "Last name= " + lastName
                 + " " + "email= " + email + " " + " " + "department= " + department
-                + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "pic_id" + picId + " " + "]";
+                + " " + "telefon" + telefon + " " + "city" + city + " " + "pin_code" + pin_code + " " + "]";
 
     }
 

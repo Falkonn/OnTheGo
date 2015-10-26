@@ -11,12 +11,12 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         //$localStorage.$reset();
   
         // Dummy object (for debugging)
-        $localStorage.user = {  id: "28",
+        $localStorage.user = {  userId: "2",
                                 firstName: "Vasileios",
                                 lastName:  "Golematis",
                                 email:     "vasileios.golematis@alten.se",
                                 telefon:   "0767649596",
-                                city: "Gothenburg",
+                                city:       "Gothenburg",
                                 department: "Embedded Systems",
                                 teamId:     "1",
                                 picId:      "1",
@@ -33,8 +33,8 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         else if($location.url()!=='/register' && $location.url()!=='/confirm')
             $location.path('/');
         // If pin is undefined redirect to register screen
-       //  else if($location.url()=='/confirm' && !$localStorage.userPin)
-       //      $location.path('/register');
+         else if($location.url()=='/confirm' && !$localStorage.userPin)
+             $location.path('/register');
         
         // In confirm Screen -> Set values from localStorage
         if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()==='/confirm' ){

@@ -16,7 +16,7 @@
         <h3>Gör själv</h3>
         <div>
             <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 1} " is-open="t.open">
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 1} " is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 
@@ -27,7 +27,7 @@
         <h3>Lär känna ditt team</h3>
         <div>
             <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 2} " is-open="t.open">
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 2} " is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 
@@ -38,7 +38,7 @@
         <h3>Kluringar</h3>
         <div>
             <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 3} " is-open="t.open">
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: '3'}" is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 
@@ -49,7 +49,7 @@
         <h3>På festen</h3>
         <div>
             <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 4} " is-open="t.open">
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 4} " is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 
