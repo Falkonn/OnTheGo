@@ -118,14 +118,7 @@ public class ScoreFunctionality {
             } else {
                 System.out.println("The User is not allowed to delete this entry");
             }
-        }
-        if (scoreAdded) {
-            System.out.println("Score has been added");
-        } else {
-            System.out.println("Error in adding/updating the score");
-        }
-        return (scoreAdded);
-            
+             
             if (scoreDeleted) {
                 System.out.println("Score has been deleted");
             }else{
@@ -135,11 +128,11 @@ public class ScoreFunctionality {
             return scoreDeleted;
         }
     }
-
-    public int scoreSum(long teamId) {
+            
+       public int scoreSum(long teamId) {
         int finalSum = 0;
         ScoreInfo scoreCounter = new ScoreInfo();
         finalSum = scoreCounter.getScoreSumbyTeamId(teamId);
         return finalSum;
-    }
+    } 
 }
