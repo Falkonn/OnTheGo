@@ -5,14 +5,10 @@
  */
 package com.alten.onthego.model;
 
-import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.entity.Team;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

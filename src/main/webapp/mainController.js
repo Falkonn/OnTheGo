@@ -1,108 +1,21 @@
 
-var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'ngStorage' ])
+var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage' ])
 
-.controller('mainController',['$scope','httpServ', '$localStorage', '$location',
-    function ($scope, httpServ, $localStorage, $location) {
+.controller('mainController',['$scope','httpServ', 'cameraServ', '$localStorage', '$location', '$route',
+    function ($scope, httpServ, cameraServ, $localStorage, $location, $route) {
         var mv = $scope;
-        var tasks;
-        // Check if tasks are already stored in the local storage
-        // If not load them from DB
+        
+        // Init values
         mv.init = function() {
-            // If no tasks in the localStorage when loading assignments
-            // This ONLY FOR PERSISTENT DATA 
-            //if((typeof $localStorage.tasks !== 'undefined' || $localStorage.tasks !== null))
-            //{        
-                // Load tasks them from DB and save them in localStorage
-                if($location.url()=='/assignments'){
-//                    httpServ.getTasks().success(function(response){
-//                        // Success - Save tasks in localStorage
-//                        $localStorage.tasks = response;
-//                        t.badresult = "";
-//                        // Check for this team id, user id if the tasks are done or not
-//                        // post(team-id, user-id)
-//                    }, function(response){
-//                        // Failed to load tasks from db
-//                        t.badresult = "" + response.status;
-//                    });=  
-                    var data = { "userId": $localStorage.user.id, "teamId": $localStorage.user.teamId}
-                    console.log(JSON.stringify(data)); 
-                     httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
-                        // Success - Save tasks in localStorage
-                        $localStorage.tasks = response;
-                        console.log(response);
-                        t.badresult = "";
-                        // Check for this team id, user id if the tasks are done or not
-                        // post(team-id, user-id)
-                    }, function(response){
-                        // Failed to load tasks from db
-                        t.badresult = "" + response.status;
-                    });
-                }
-                else if($location.url()=='/team'){
-                    // Load the team and members of the user's team
-                    httpServ.getTeamByUserId($localStorage.user.id).success(function(response){
-                        // Success - Save team and members in localStorage
-                        $localStorage.team = response;
-                       // t.badresult = "";
-                    }, function(response){
-                        // Failed to load teams from db
-                      //  t.badresult = "" + response.status;
-                    });
-                }
-            //}
+            mv.userId = $localStorage.user.userId;
+            mv.teamId = $localStorage.user.teamId;
         };
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
-        /////////////////////// TASKS - Elnaz http.post function - To be included in the Service.
-        mv.submitAnswer = function(t){
-            
-            var data = {"taskId": t.id, "userId": mv.userId, "answer": t.answer};
-            // Sending Answer Data 
-            console.log(9 + ' ' + 19 + ' ' + t.answer)
-            httpServ.postTaskAnswer(9 + ' ' + 19 + ' ' + t.answer).then(function(response){
-                // Success
-                //t.badresult = "";
-                //t.done = true;
-            },
-            function(response){
-                // Failed
-                //t.done = false;
-                //t.badresult = "" + response.status;
-            });
-        };
+        mv.hasUserMedia = cameraServ.hasUserMedia;
         
-
-        mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
-            du/gruppen har utfört uppdraget.";
-
-//////////// HELP FUNCTIONS
-        mv.checkTaskType = function(taskType, expected){
-            if(taskType === expected){
-                return true;
-            }
-            else{
-                return false;
-            }
-        };
-        
-        /**
-         * jsonParse - parses a string to JSON
-         * @param {type} str
-         * @returns {Array|Object}
-         */
-        mv.jsonParse = function(str){
-            if(typeof str === "String"){
-                return JSON.parse(str);
-            }
-            else{
-                return str;
-            }
-        };
-
-//////////// JSON DUMMY CODE BELOW!
-
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -124,93 +37,147 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'n
          *      what data to show.
          * 
          */
-        mv.assignments = {
-            "tasks": $localStorage.tasks
+        if($location.url()==='/assignments'){
+            var data = { "userId": mv.userId, "teamId": mv.teamId};
+                 httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
+                    $localStorage.tasks = response;
+                    // Success - Save tasks in localStorage
+                    for (var i=0 ; i < response.length ; i++){
+                        $localStorage.tasks[i] = JSON.parse(response[i]);
+                    }
+                    mv.assignments = { "tasks": $localStorage.tasks };
+                }, function(response){
+                    console.log(response);
+            });
+          
         }
+        else if($location.url()==='/team'){
+             // Load the team and members of the user's team
+            httpServ.getTeamByUserId(mv.userId).success(function(response){
+                // Success - Save team and members in localStorage
+                $localStorage.team = response;
+                /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+                mv.team = {
+                        "teamNumber":       $localStorage.team[0],
+                        "teamName":         $localStorage.team[1],
+                        "numberOfMembers":  $localStorage.team[2],
+                        "members":          $localStorage.team[3]
+                };
+            }, function(response){
+                // Failed to load teams from db
+              //  t.badresult = "" + response.status;
+            });
+           
+        }
+       
         
-        /*mv.assignments = {
-            "numberOfAssignments": 40,
-            "numberOfTasksAnswered": 7,
-            "tasks": [
-                {
-                    "id": 1,
-                    "name": "Forum att kommunicera via",
-                    "description": "För att gruppen ska kunna kommunicera och lära känna varandra, behöver ni hitta ett gemensamt forum för kommunikation.",
-                    "personal": false,
-                    "taskType": 2,
-                    "theme": 1,
-                    "estimation": "2 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 2,
-                    "name": "Gilla Alten Sweden på LinkedIn",
-                    "description": "Logga in på LinkedIn, sök på Alten Sweden och gilla. Om du redan har gillat Alten Sweden kan du också bocka för uppgiften.",
-                    "personal": true,
-                    "taskType": 2,
-                    "theme": 1,
-                    "estimation": "1 minut",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 3,
-                    "name": "Skicka en selfie",
-                    "description": "Ta en selfie och ladda upp. När du ser att bilden finns i gruppvyn kan du bocka för uppgiften.",
-                    "personal": true,
-                    "taskType": 1,
-                    "theme": 2,
-                    "estimation": "1-5 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 4,
-                    "name": "Bli vänner på LindedIn",
-                    "description": "I gruppvyn kan du se vilka personer som är medlemmar i din grupp (om du vill göra detta innan ni har upprättat kontakt). Sök upp de på LinkedIn och bli vänner med de. När du blivit vänner med alla som har LinkedIn i din grupp kan du bocka för uppgiften.",
-                    "personal": true,
-                    "taskType": 2,
-                    "theme": 3,
-                    "estimation": "1-10 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
-                },
-                {
-                    "id": 5,
-                    "name": "Designa en Alten-drink",
-                    "description": "Vad tycker du vore en god och passande drink för Alten?",
-                    "personal": true,
-                    "taskType": 2,
-                    "theme": 4,
-                    "estimation": "1-10 minuter",
-                    "points": 10,
-                    "answer": "",
-                    "done": false
+        /////////////////////// TASKS
+        /**
+         * Submitting a task answer to the backend.
+         * Handles all types of answers (isPersonal: true/false and taskType: String/Checkbox) 
+         * @param {type} t
+         * @returns {undefined}
+         */
+        mv.submitAnswer = function(t, answer, done){
+            
+            var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
+            // Sending Answer Data 
+            console.log(data);
+            httpServ.postTaskAnswer(data).then(function(response){
+                // Score Added successfully
+                if(done){
+                    t.result = "Sent successfully!";
+                    // Set task values to update frontend (or route reload, to be decided)
+                    t.taskDone = true;
+                    t.userAnswer = answer;
+                    t.user = $localStorage.user;
+                    console.log("Added Score by " + t.user.firstName + "!");
                 }
-            ]
-        };*/
-
-        /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-        mv.team = {
-                "teamNumber": $localStorage.team[0],
-                "teamName":   $localStorage.team[1],
-                "numberOfMembers": $localStorage.team[2],
-                "members": $localStorage.team[3]
+                // Score Deleted successfully
+                else{
+                    t.result = "Deleted successfully!";
+                    t.taskDone = false;
+                    console.log("Deleted Score!");
+                }
+                // By reloading everything is updated
+                //$route.reload();
+            },
+            function(response){
+                console.log(response.status);
+                // Failure Code received from backend
+                if(response.status === 404)
+                {
+                    // Failed to add score (somebody else has already answered it)
+                    if(done){
+                        t.result = "Failed to Add Score. It is already answered by " + t.user.userId;
+                         console.log("Failed to add Score! It is answered by" + t.user.userId);
+                    }
+                    // Failed to delete score (task is already cancelled)
+                    else{
+                        t.result = "Failed to cancel task. It is already cancelled!";
+                        console.log("Failed to cancel task! Task already cancelled");
+                    }
+                }
+                // Unknown Server Error
+                else
+                    t.result = "Server Error: " + response.status;
+            });
         };
-      
-        mv.checkImage = function(memberId){
-            if($localStorage.user.id == memberId)
+               
+        mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
+            du/gruppen har utfört uppdraget.";
+
+//////////// HELP FUNCTIONS
+        mv.checkTaskType = function(taskType, expected){
+            if(taskType === expected){
                 return true;
-            else
-                return false;           
+            }
+            else{
+                return false;
+            }
         };
-
-
+        
+        mv.checkUserId = function(userId){
+            if(mv.userId == userId )
+                return true;
+            else 
+                return false;
+        };
+        
+        mv.parseTaskType = function(taskType){
+            switch(taskType)
+            {
+                case "1": return 1;
+                case "2": return 2;
+                default:  return 0;
+            }
+        };
+        
+        mv.parseTaskTheme = function(taskTheme){
+            switch(taskTheme)
+            {
+                case "1": return 1;
+                case "2": return 2;
+                case "3": return 3;
+                case "4": return 4;
+                default:  return 0;
+            }
+        };
+        
+        /**
+         * jsonParse - parses a string to JSON
+         * @param {type} str
+         * @returns {Array|Object}
+         */
+        mv.jsonParse = function(str){
+            if(typeof str === "String"){
+                return JSON.parse(str);
+            }
+            else{
+                return str;
+            }
+        };
+        
         /////////////////////// GRUPPER OCH DESS MEDLEMMAR
         mv.lindholmen = {
             "floors": [

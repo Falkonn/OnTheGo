@@ -56,11 +56,10 @@ public class ScoreCont {
         boolean result = sf.scoreFunction(taskId, userId, answer, isDone);
         if (result == true) {
             response.setStatus(HttpServletResponse.SC_OK);
-            System.out.println("Score Has been added");
+            //System.out.println("Score Has been added");
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.addIntHeader(answer, userId);
-            System.out.println("Error in adding the score");
         }
         return result;
     }

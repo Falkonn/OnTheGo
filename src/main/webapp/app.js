@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute', 'registerModule', 'mainModule'
+    'ngRoute', 'registerModule', 'mainModule', 'cameraModule'
 ]);
 
 OnTheGo.config(['$routeProvider', '$locationProvider',
@@ -67,7 +67,7 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'mainCtrl'
             }).
             when('/about', {
-                templateUrl: 'partials/about.html',
+                templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
             }).

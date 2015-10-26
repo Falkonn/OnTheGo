@@ -24,7 +24,7 @@ import javax.persistence.Persistence;
  */
 public class ScoreFunctionality {
 
-    public boolean scoreAdded, taskstatus1 = false;
+    public boolean scoreAdded, scoreDeleted, taskstatus1 = false;
     public boolean taskDone = false;
     public List<Task> pointList, allTasks;
     public List<Integer> teamList, scoreList;
@@ -67,7 +67,6 @@ public class ScoreFunctionality {
         System.out.println("taskid  " + taskID + "userid   " + userID + "answers   " + answer
                 + "teamid   " + teamList + "points   " + pointList);
         if (add) {
-
             if (isPersonal) {
                 // get the current score by userid and add the new one by taskid 
                 scoreList = scoreCounter.getScoresbyUserId(userId);
@@ -91,6 +90,15 @@ public class ScoreFunctionality {
                     System.out.println("The entry already exists");
                 }
             }
+            
+            if (scoreAdded) {
+                System.out.println("Score has been added");
+            }else{
+                System.out.println("Error in adding/updating the score");
+            }
+             
+            return scoreAdded;
+            
         } else {
             if ((!possibleUser.isEmpty()) && (userId == possibleUser.get(0))) {
 
@@ -100,22 +108,26 @@ public class ScoreFunctionality {
                     scoreList = scoreCounter.getScorIdByUserId(userId);
                     deleteScore ds = new deleteScore();
                     ds.execute(scoreList.get(0));
+                    scoreDeleted = true;
                 } else {
                     //get the scoreid from the userId 
                     scoreList = scoreCounter.getScorIdByUserId(userId);
                     deleteScore ds = new deleteScore();
                     ds.execute(scoreList.get(0));
+                    scoreDeleted = true;
                 }
             } else {
                 System.out.println("The User is not allowed to delete this entry");
             }
+            
+            if (scoreDeleted) {
+                System.out.println("Score has been deleted");
+            }else{
+                System.out.println("Error in deleting the score");
+            }
+             
+            return scoreDeleted;
         }
-        if (scoreAdded) {
-            System.out.println("Score has been added");
-        } else {
-            System.out.println("Error in adding/updating the score");
-        }
-        return (scoreAdded);
     }
 
     public int scoreSum(long teamId) {

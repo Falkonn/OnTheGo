@@ -6,7 +6,9 @@
 package com.alten.onthego.crud;
 
 import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -22,10 +24,11 @@ public class addUser {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
         EntityManager em = emf.createEntityManager();
         try {
-            //User user = new User(19,"name", "firstname", "dasdas.com", "3232", "goteborg", "IT", "WFNbUN7gIoU=", 32,"picurl");
+            Team team = em.find(Team.class, 1L);
+            User user = new User(19,"Vasileios", "Golematis", "vasileios.golematis@alten.com", "0767649596", "Goteborg", "IT", "WFNbUN7gIoU=", team, "0");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
-           // em.persist(user);
+            em.persist(user);
             entityTx.commit();
             System.out.println("The row has be successfully added");
         } catch (Exception e) {

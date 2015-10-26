@@ -91,11 +91,6 @@ public class UserInfo {
         Query findTeamByUserId = em.createQuery("select e.team from User e where e.userId  =" + userId);
         return (List<Team>) findTeamByUserId.getResultList();
     }
-    
-    public Collection<User> findAllUsersByTeamId(int teamid) {
-        Query findUsersByteamIdQ = em.createQuery("select e from User e where e.teamId  =" + teamid);
-        return (Collection<User>) findUsersByteamIdQ.getResultList();
-    }
 
     public User findUserById(long id) {
         return em.find(User.class, id);
@@ -123,7 +118,7 @@ public class UserInfo {
     }
 
     public List<Integer> getTeamIdbyUserId(int userId) {
-        Query scoresquery = em.createQuery("SELECT u.teamId FROM User u where u.userId=" + userId);
+        Query scoresquery = em.createQuery("SELECT u.team.teamId FROM User u where u.userId=" + userId);
         return (List<Integer>) scoresquery.getResultList();
     }
 

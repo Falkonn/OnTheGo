@@ -11,64 +11,51 @@
                 </button>
             </p>
         </div>
+        
 
-        <uib-accordion>
-            <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheam: 2} " is-open="t.open">
-                
-                <uib-accordion-heading>
-                    <span ng-show="t.done" class="glyphicon glyphicon-check">&nbsp;</span>
-                    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
-                </uib-accordion-heading>
-                <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t)">    
-                <table>
-                    <tr>
-                        <td class="top top-left">Personlig</td>
-                        <td class="top top-left">
-                            <span ng-if="t.isPersonal">Ja</span>
-                            <span ng-if="!t.isPersonal">Nej (Grupp)</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="top top-left">Tidest.</td>
-                        <td class="top top-left">{{t.taskTime}}</td>
-                    </tr>
-                    <tr>
-                        <td class="top top-left">Poäng</td>
-                        <td class="top top-left">{{t.taskPoint}}</td>
-                    </tr>
-                    <tr>
-                        <td class="top top-left">Beskrivning</td>
-                        <td class="top top-left">{{t.taskInfo}}</td>
-                    </tr>
-                    <tr ng-show="!t.done">
-                        <td colspan="2">
-                            <div ng-if="checkTaskType(t.taskType,1)" ng-include="'partials/task_string.html'"></div>
-                            <div ng-if="checkTaskType(t.taskType,2)" ng-include="'partials/task_check.html'"></div>
-                        </td>
-                    </tr>
-                    <tr ng-show="!t.done">
-                        <td colspan="2">
-                            <input class="btn btn-primary" type="submit" value="Skicka in" />
-                        </td>
-                    </tr>
-                    <tr ng-show="t.done">
-                        <td class="top top-left" colspan="2">
-                            <!-- Here we need to include a possible get for Group tasks. -->
-                            <span ng-if="checkTaskType(t.taskType,1)">
-                                <p>
-                                    Du/Gruppen svarade:<br/>
-                                    {{t.answers}}
-                                </p>
+        <h3>Gör själv</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 1} " is-open="t.open">
 
-                            </span>
-                            <span ng-if="checkTaskType(t.taskType,2)">Utförd</span>
-                        </td>
-                    </tr>
-                </table>
-                </form>
-                
-            </uib-accordion-group>
-        </uib-accordion>
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        
+        <h3>Lär känna ditt team</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 2} " is-open="t.open">
+
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        
+        <h3>Kluringar</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: '3'}" is-open="t.open">
+
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        
+        <h3>På festen</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 4} " is-open="t.open">
+
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
         
     </div>
 </section>
