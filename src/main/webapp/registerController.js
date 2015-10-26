@@ -11,16 +11,16 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         //$localStorage.$reset();
   
         // Dummy object (for debugging)
-        $localStorage.user = {  userId: "2",
+        $localStorage.user = {  userId: "26",
                                 firstName: "Vasileios",
                                 lastName:  "Golematis",
                                 email:     "vasileios.golematis@alten.se",
                                 telefon:   "0767649596",
                                 city:       "Gothenburg",
                                 department: "Embedded Systems",
-                                teamId:     "1",
+                                teamId:     "83",
                                 picId:      "1",
-                                pinCode: "fMLHyHjBOkI="
+                                pinCode: "8L+M9O/AYX0="
         };
         // LoggedIn variable
         $scope.loggedIn = $localStorage.loggedIn = true;
