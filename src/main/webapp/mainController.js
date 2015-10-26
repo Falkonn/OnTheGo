@@ -80,7 +80,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          * @returns {undefined}
          */
         mv.submitAnswer = function(t, answer, done){
-            
+            if(t.check)
+                answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
             console.log(data);
