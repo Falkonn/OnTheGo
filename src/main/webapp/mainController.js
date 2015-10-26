@@ -35,7 +35,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          *      that a group question has already been answered.
          * done = to see if the tasks has been done or not in order to control 
          *      what data to show.
-         * 
          */
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
