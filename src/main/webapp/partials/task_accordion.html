@@ -5,10 +5,9 @@
  
 <table>
     <tr>
-        <td class="top top-left text-weighted">Utförs själv</td>
-        <td class="top top-left">
-            <span ng-if="t.isPersonal">Ja</span>
-            <span ng-if="!t.isPersonal">Nej (Grupp)</span>
+        <td class="top top-left text-weighted" colspan="2">
+            <span ng-if="t.isPersonal">Utförs själv</span>
+            <span ng-if="!t.isPersonal">Teamuppgift</span>
         </td>
     </tr>
     <tr>
