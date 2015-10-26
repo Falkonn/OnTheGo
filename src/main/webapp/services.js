@@ -51,8 +51,8 @@ httpService.factory('httpServ', ['$http',
                 
                 //////// Add TeamView http Post services here ///////
                 
-                postImage: function(image) {
-                    return $http.post(urlBase + '/upload', image);
+                postImage: function(userIdAndImage) {
+                    return $http.post(urlBase + '/upload', userIdAndImage);
                 },
                 
                 /********* Task Services **********/

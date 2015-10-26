@@ -5,8 +5,7 @@
  */
 package com.alten.onthego.crud;
 
-import com.alten.onthego.entity.Score;
-import com.alten.onthego.entity.Task;
+import com.alten.onthego.entity.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,30 +15,33 @@ import javax.persistence.Persistence;
  *
  * @author ka3146
  */
-public class deleteScore {
+public class updatePic {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
     EntityManager em = emf.createEntityManager();
-    boolean result = false;
-    public boolean execute(int scoreId) {
+    boolean picAdded = false;
+
+    public boolean addPic(String path, int userId) {
         try {
-            Score score = em.find(Score.class, scoreId);
-            if (score != null) {
+            User user = em.find(User.class, userId);
+            if (user != null) {
+                user.setPicId(path);
                 EntityTransaction entityTx = em.getTransaction();
                 entityTx.begin();
-                em.remove(score);
+                em.merge(user);
                 entityTx.commit();
                 System.out.println();
-                System.out.println("The deletion has been done!");
-                result =true;
+                System.out.println("The pic has been added!");
+                picAdded = true;
             } else {
-                System.out.println("Tasks table is empty!");
+                System.out.println("Error in adding the pic!");
             }
+
         } catch (Exception e) {
             System.err.println(e.toString());
         } finally {
             em.close();
         }
-        return result;
+        return picAdded;
     }
 }

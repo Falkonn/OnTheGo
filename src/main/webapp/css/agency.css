@@ -7,7 +7,9 @@
 body {
     overflow-x: hidden;
     font-family: "brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
-   background-color: #ffea00;
+    background-color: #ffea00;
+    webkit-tap-highlight-color: #fed136;
+
    /*Trying gradient with background*/
    /*background: -webkit-linear-gradient(left top, #ffec82 , #ffea00); /* For Safari 5.1 to 6.0 */
    /*background: -o-linear-gradient(bottom right, #ffec82, #ffea00); /* For Opera 11.1 to 12.0 */
@@ -217,7 +219,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default {
     border-color: transparent;
-    background-color: #222;
+    background-color: #222222;
 }
 
 .navbar-default .navbar-brand {
@@ -1042,8 +1044,4 @@ img::selection {
 
 img::-moz-selection {
     background: 0 0;
-}
-
-body {
-    webkit-tap-highlight-color: #fed136;
 }
