@@ -38,7 +38,7 @@
         <h3>Kluringar</h3>
         <div>
             <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: '3'}" is-open="t.open">
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 3}" is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 

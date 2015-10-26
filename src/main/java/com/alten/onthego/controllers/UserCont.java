@@ -22,10 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alten.onthego.common.AltenEmailSender;
 import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.crud.updatePic;
 import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -213,34 +217,37 @@ public class UserCont {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void getImage(@RequestBody String imagedata, HttpServletResponse response) {
         try {
-            File outputfile = new File("C:\\Users\\ka3146\\Desktop\\saveimage");
-            System.out.println("file name is: " + outputfile);
-            System.out.println("image datais  " + imagedata);
+
+            JsonParser jsonParser = new JsonParser();
+            JsonElement jsonElement = jsonParser.parse(imagedata);
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            String imageData = jsonObject.get("imageData").getAsString();
+            int userId = jsonObject.get("userId").getAsInt();
             // remove data:image/png;base64, and then take rest string
-            byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imagedata);
+            byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imageData);
             ByteArrayInputStream baisData = new ByteArrayInputStream(decodedBytes);
-           
+            File outputfile = new File("src\\main\\webapp\\img\\selfie\\" + userId + ".png");
+            
+            System.out.println("file name is: " + outputfile);
+            System.out.println("image datais  " + imageData);
             BufferedImage bfi = ImageIO.read(baisData);
             //we might need to save it in the data base later on
             // File outputfilew = new File("saved.png");
-          
             if (bfi == null) {
                 System.out.println("imag is empty");
             }
             ImageIO.write(bfi, "png", outputfile);
             System.out.println("Image file written successfully");
-        
-       // ImageIO.write(bfi, "png", outputfile);
-        System.out.println("Image saved");
-        bfi.flush();
-        response.setStatus(HttpServletResponse.SC_OK);
-    }
-    catch (Exception e
+            updatePic up = new updatePic();
+            up.addPic(userId+".png", userId);
 
-    
-        ) {
+            // ImageIO.write(bfi, "png", outputfile);
+            System.out.println("Image saved");
+            bfi.flush();
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
             e.printStackTrace();
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
-}
 }
