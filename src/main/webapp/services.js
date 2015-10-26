@@ -52,15 +52,15 @@ httpService.factory('httpServ', ['$http',
                 //////// Add TeamView http Post services here ///////
                 
                 postImage: function(image) {
-                    return $http.post(urlBase + '/upload');
+                    return $http.post(urlBase + '/upload', image);
                 },
                 
                 /********* Task Services **********/
                 
                 //////// Add Task http GET services here ///////
-//                getTasks: function() {
-//                    return $http.get(urlBase + '/Tasks');
-//                },
+                getTasks: function() {
+                    return $http.get(urlBase + '/Tasks');
+                },
                 
                 getTasksAndPoints: function(data){
                     return $http.get(urlBase + '/TasksAndPoints/' + data);
@@ -68,16 +68,16 @@ httpService.factory('httpServ', ['$http',
                 
                 //////// Add Task http POST services here ///////
                 postTaskAnswer: function(data) {
-                    return $http.post(urlBase + '/TasksAnswer', data);
+                    return $http.post(urlBase + '/answers', data);
                 },
-                    
+                
                 cancelTaskAnswer: function(data) {
                     /* TODO: Check with Khaled and Evelina if we should use a 
                      * POST or DELETE when removing rows in the score table.
                      */
                     return $http.post(urlBase + '/DeleteAnswer', data);
                 },
-              
+
                 
                 
                 /********* Score Services **********/
@@ -93,3 +93,24 @@ httpService.factory('httpServ', ['$http',
      
     }]);
 
+/* Camera Service */
+var cameraService = angular.module('cameraService', []);
+
+cameraService.factory('cameraServ', function($window) {
+  var hasUserMedia = function() {
+    return !!getUserMedia();
+  };
+
+  var getUserMedia = function() {
+    navigator.getUserMedia = ($window.navigator.getUserMedia || 
+                              $window.navigator.webkitGetUserMedia ||
+                              $window.navigator.mozGetUserMedia || 
+                              $window.navigator.msGetUserMedia);
+    return navigator.getUserMedia;
+  };
+
+  return {
+    hasUserMedia: hasUserMedia(),
+    getUserMedia: getUserMedia
+  };
+});

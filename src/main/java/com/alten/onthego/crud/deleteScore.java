@@ -20,7 +20,7 @@ public class deleteScore {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
     EntityManager em = emf.createEntityManager();
-    boolean result =false;
+    boolean result = false;
     public boolean execute(int scoreId) {
         try {
             Score score = em.find(Score.class, scoreId);
@@ -35,11 +35,11 @@ public class deleteScore {
             } else {
                 System.out.println("Tasks table is empty!");
             }
-
         } catch (Exception e) {
             System.err.println(e.toString());
         } finally {
             em.close();
-        }return result;
-    } 
+        }
+        return result;
+    }
 }

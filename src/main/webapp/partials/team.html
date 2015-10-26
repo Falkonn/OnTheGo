@@ -4,11 +4,8 @@
         <div class="row">
             <table>
                 <tr>
-                    <td>
-                        <h2>Team {{team.teamNumber}}</h2>
-                    </td>
-                    <td class="bottom">
-                        <h5> - {{team.numberOfMembers}} members</h5>
+                    <td class="bottom text-center">
+                        <h2>{{team.teamName}} ({{team.numberOfMembers}})</h2>
                     </td>
                 </tr>
             </table>
@@ -26,7 +23,14 @@
                             <div ng-if="member.selfie.length !== 0">
                                 <a href="img/team/{{member.selfie}}"><img src="img/team/{{member.selfie}}" class="col img-responsive img-circle" /></a>
                             </div>
-                            <a href="#">Ändra bild</a>
+                            <div ng-show="checkUserId(member.userId)">
+                                <a ng-click="enabled=!enabled">Ändra bild</a>
+                                <camera ng-if="enabled">
+                                    <canvas style="display: block"> </canvas>
+                                    <camera-control-snapshot>
+                                    </camera-control-snapshot>
+                                </camera>
+                            </div>
                         </td>
                         <td class="col-xs-9">
                             <table>
@@ -38,7 +42,8 @@
                             </tr>
                             <tr>
                                 <td class="col-xs-6 text-left">
-                                    <span class="fa-phone">{{member.phone}}</span>
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    {{member.telefon}}
                                 </td>
                             </tr>
                             <tr>

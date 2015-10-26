@@ -8,6 +8,7 @@ package com.alten.onthego.model;
 import com.alten.onthego.entity.Score;
 import com.alten.onthego.entity.Task;
 import com.alten.onthego.entity.User;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -29,15 +30,22 @@ public class ScoreInfo {
         Query scoresquery = em.createQuery("SELECT s FROM Score s");
         return (Collection<Score>) scoresquery.getResultList();
     }
+    
 
     public List<Score> getScoresbyTeamId(int teamId) {
         Query scoresquery = em.createQuery("SELECT s FROM Score s where s.teamId =" + teamId);
         return (List<Score>) scoresquery.getResultList();
     }
+    
+    
+    public int getScoreSumbyTeamId(long teamId) {
+        Query getScoreSumbyTeamIdquery = em.createQuery("SELECT SUM(s.point) FROM Score s where s.teamId =" + teamId);
+        return (int)(long) getScoreSumbyTeamIdquery.getResultList().get(0);
+    }
 
-    public List<Score> getScoresbyUserId(int userId) {
-        Query scoresbyUserquery = em.createQuery("SELECT s.point FROM Score s where s.user.userId =" + userId);
-        return (List<Score>) scoresbyUserquery.getResultList();
+    public List<Integer> getScoresbyUserId(int userId) {
+        Query scoresbyUserquery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId);
+        return (List<Integer>) scoresbyUserquery.getResultList();
     }
 
     public List<Score> getScoresbyScoreId(int scoreid) {
@@ -47,8 +55,32 @@ public class ScoreInfo {
 
     public List<Score> getScoresbyTaskId(int taskId) {
         Query scoresbyTaskquery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.task.taskId =" + taskId);
-        return (List<Score>) scoresbyTaskquery.getResultList();
+        List untypedScores = scoresbyTaskquery.getResultList();
+        List<Score> scores = new ArrayList<>();
+        for(Object untypedScoreObject: untypedScores) {
+            Object[] untypedScoreData = (Object[]) untypedScoreObject;
+            Score score = new Score();
+            int points = (int) untypedScoreData[0];
+            boolean isTaskDone = (boolean) untypedScoreData[1];  
+            score.setPoint(points);
+            score.setTaskDone(isTaskDone);
+            scores.add(score);
+        }
+        return scores;
     }
+    
+    public List<Score> getScoresByTaskIdAndUserId(long taskId, int userId){
+        Query scoresbyTaskIdAndUserIdquery = em.createQuery("SELECT s FROM Score s where s.task.taskId=" + taskId + " AND s.user.userId=" + userId );
+        List<Score> results = scoresbyTaskIdAndUserIdquery.getResultList();
+        return results;
+    }
+    
+    public List<Score> getScoresByTaskIdAndTeamId(long taskId, int teamId){
+        Query scoresbyTaskIdAndTeamIdquery = em.createQuery("SELECT s FROM Score s where s.task.taskId=" + taskId + " AND s.teamId=" + teamId);
+        List<Score> results = scoresbyTaskIdAndTeamIdquery.getResultList();
+        return results;
+    }
+    
 
     public List<Score> getTaskByScoreId(int scoreId) {
         Query scoresbyTaskquery = em.createQuery("SELECT s.task.taskId FROM Score s where s.scoreId =" + scoreId);
@@ -60,9 +92,21 @@ public class ScoreInfo {
         return scoreIdbyUseridQuery.getResultList();
     }
 
-    public List<Score> checkTaskDone(long taskId) {
-        Query taskDoneQuery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.task.taskId =" + taskId);
-        return (List<Score>) taskDoneQuery.getResultList();
+    public List<Score> checkTaskDone(long userId) {
+        Query taskDoneQuery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.user.userId =" + userId);
+        
+        List untypedstatus = taskDoneQuery.getResultList();
+        List<Score> scores = new ArrayList<>();
+        for(Object untypedStatusObject: untypedstatus) {
+            Object[] untypedStatusData = (Object[]) untypedStatusObject;
+            Score score = new Score();
+            int points = (int) untypedStatusData[0];
+            boolean isTaskDone = (boolean) untypedStatusData[1];  
+            score.setPoint(points);
+            score.setTaskDone(isTaskDone);
+            scores.add(score);
+        }
+        return scores;
     }
 
     public boolean addSocre(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid) {
