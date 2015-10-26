@@ -44,7 +44,7 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'mainCtrl'
             }).
             when('/scoreboard', {
-                title: 'Pöangtavla',
+                title: 'Poängtavla',
                 templateUrl: 'partials/scoreboard.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'

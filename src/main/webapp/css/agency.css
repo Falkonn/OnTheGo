@@ -232,12 +232,19 @@ fieldset[disabled] .btn-xl.active {
     color: #0093D0;
 }
 
+.header-center {
+    float: none;
+    text-align: center;
+}
+
 .navbar-brand {
     float: none;
     text-transform: uppercase;
     display: inline-block;
     text-align: center;
 }
+
+
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus,
@@ -260,8 +267,14 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-toggle.navbar-left {
-  float: left;
-  margin-left: 15px;
+    float: left;
+    margin-left: 15px;
+    margin-right: 0px;
+}
+
+.navbar-toggle.navbar-right {
+    float: right;
+    margin-right: 15px;
 }
 
 .navbar-default .navbar-toggle:hover,
