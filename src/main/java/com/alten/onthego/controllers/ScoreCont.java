@@ -14,6 +14,7 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,8 +59,18 @@ public class ScoreCont {
             System.out.println("Score Has been added");
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addIntHeader(answer, userId);
             System.out.println("Error in adding the score");
         }
         return result;
+    }
+
+    @RequestMapping(
+            value = "/scoreboard/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public int getScoreSum(@PathVariable("id") long teamId) {
+        ScoreFunctionality scoreboardsum = new ScoreFunctionality();
+        return scoreboardsum.scoreSum(teamId);
     }
 }

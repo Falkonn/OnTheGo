@@ -6,7 +6,6 @@
 package com.alten.onthego.crud;
 
 import com.alten.onthego.entity.Score;
-import com.alten.onthego.entity.Task;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,7 +19,8 @@ public class deleteScore {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
     EntityManager em = emf.createEntityManager();
-    boolean result =false;
+    boolean result = false;
+
     public boolean execute(int scoreId) {
         try {
             Score score = em.find(Score.class, scoreId);
@@ -31,15 +31,15 @@ public class deleteScore {
                 entityTx.commit();
                 System.out.println();
                 System.out.println("The deletion has been done!");
-                result =true;
+                result = true;
             } else {
                 System.out.println("Tasks table is empty!");
             }
-
         } catch (Exception e) {
             System.err.println(e.toString());
         } finally {
             em.close();
-        }return result;
-    } 
+        }
+        return result;
+    }
 }

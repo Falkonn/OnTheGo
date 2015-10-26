@@ -5,7 +5,6 @@
  */
 package com.alten.onthego.controllers;
 
-import com.alten.onthego.entity.Score;
 import com.alten.onthego.entity.Task;
 import com.alten.onthego.model.ScoreInfo;
 import com.alten.onthego.model.TaskInfo;
@@ -48,37 +47,27 @@ public class TaskCont {
 
         int userId = jsonObject.get("userId").getAsInt();
         int teamId = jsonObject.get("teamId").getAsInt();
-        
-        System.out.print("userId"+ userId + "teamId" + teamId);
-        
+
+        System.out.print("userId" + userId + "teamId" + teamId);
+
         List<Task> taskList;
         TaskInfo task = new TaskInfo();
         List<Object> taskAndScore = new ArrayList<Object>();
         ScoreInfo scores = new ScoreInfo();
-<<<<<<< HEAD
-        taskList = task.getTasksbyTaskId(taskid);
-        scoreList = scores.getScoresbyTaskId(taskid);
-        List finalList = new ArrayList(taskList);
-        finalList.add(scoreList);
-        return finalList;
-=======
+        // we should make merege here and then push
         taskList = (List<Task>) task.findAllTasks();
-        List<Object> tasks =  new ArrayList<Object>(taskList);
-        for(int i=0; i< taskList.size(); i++)
-        {
+        List<Object> tasks = new ArrayList<Object>(taskList);
+        for (int i = 0; i < taskList.size(); i++) {
             taskAndScore.add(tasks.get(i));
-            if(taskList.get(i).getIsPersonal()){
+            if (taskList.get(i).getIsPersonal()) {
                 List scoreData = scores.getScoresByTaskIdAndUserId(taskList.get(i).getTaskId(), userId);
                 taskAndScore.add(scoreData);
-            }
-            else{
+            } else {
                 List<Object> scoreData = scores.getScoresByTaskIdAndTeamId(taskList.get(i).getTaskId(), teamId);
                 taskAndScore.add(scoreData);
             }
         }
         return taskAndScore;
->>>>>>> 7819b9db893bf798c777cfba88838a3ee27fee2c
     }
-    
- 
+
 }
