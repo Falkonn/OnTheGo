@@ -24,7 +24,6 @@ import javax.persistence.Persistence;
  */
 public class ScoreFunctionality {
 
-    public boolean scoreAdded, taskstatus1 = false;
     public boolean scoreAdded, scoreDeleted, taskstatus1 = false;
     public boolean taskDone = false;
     public List<Task> pointList, allTasks;
