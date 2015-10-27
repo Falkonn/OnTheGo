@@ -10,17 +10,17 @@
         <form class="form-inline text-center" name="confirmForm" ng-submit="regCtrl.sendConfirmData()">
             <!-- Name -->
             <div class="form-group">
-                <label for="name">Name:</label>
+                <label for="name">Namn:</label>
                 <input type="text" class="form-control" ng-model="userName" name="name" required>
                 <span style="color:red" ng-show="confirmForm.name.$dirty">
-              <span ng-show="confirmForm.name.$error.required">Du måste skriva in en Namn.</span>
+              <span ng-show="confirmForm.name.$error.required">Du måste skriva in ett namn.</span>
             </div>
             <!-- Phone -->
             <div class="form-group">
                 <label for="phone">Phone:</label>
                 <input type="text" class="form-control" ng-model="userPhone" name="phone" required>
                 <span style="color:red" ng-show="confirmForm.phone.$dirty">
-                <span ng-show="confirmForm.phone.$error.required">Du måste skriva in en Telefon nummer.</span>
+                <span ng-show="confirmForm.phone.$error.required">Du måste skriva in ett telefonnummer.</span>
             </div>
             <!-- Email -->
             <div class="form-group">
