@@ -43,7 +43,7 @@
             <form class="form-group" name="pinForm" ng-submit="regCtrl.sendPin()">
                 <div class="form-group">
                     <input class="center-block form" type="password" ng-model="userPin" name="pin" ng-pattern="/^[0-9]{4,4}$/" required>
-                    <span style="color:red" ng-show="pinForm.pin.$dirty">
+                    <span style="color:ed1c24" ng-show="pinForm.pin.$dirty">
                       <span ng-show="pinForm.pin.$error.required">Du måste skriva in din PIN-kod.</span>
                       <span ng-show="pinForm.pin.$error.pattern">Ogiltig PIN-kod.</span>
                     </span>
