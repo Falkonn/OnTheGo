@@ -26,13 +26,13 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'regCtrl'
             }).
             when('/info', {
-                title: 'App Info',
+                title: 'Appinfo',
                 templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
             }).
             when('/team', {
-                title: 'MITT TEAM',
+                title: 'Mitt Team',
                 templateUrl: 'partials/team.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
