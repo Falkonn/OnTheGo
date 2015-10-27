@@ -1,13 +1,17 @@
 <!-- Main Section -->
 <section id="services">
-	<div class="container">
-		<h3 class="section-subheading text-muted">Använd menyn ovan för
-			att navigera.</h3>
-		<p>För att bläddra mellan olika vyer, som Grupp, Poängtavla osv.</p>
-		<h3 class="section-subheading text-muted">Grupper.</h3>
-		<p>Du har blivit matchad en grupp baserat på din stad och din
-			avdelning. Ert uppdrag är att samla så många poäng som möjligt.
-			Grupperna är öppna från onsdag och kulminerar under dagen när ni får
-			chans att träffas.</p>
-	</div>
+    <div class="container">
+        <h3 class="section-subheading text-muted">
+            Använd menyn ovan för att navigera.
+        </h3>
+        <p>För att bläddra mellan olika vyer, som Grupp, Poängtavla osv.</p>
+        <h3 class="section-subheading text-muted">Grupper.</h3>
+        <p>
+            Du har blivit matchad en grupp baserat på din stad och din
+            avdelning. Ert uppdrag är att samla så många poäng som möjligt.
+            Grupperna är öppna från onsdag och kulminerar under dagen när ni får
+            chans att träffas.
+        </p>
+    </div>
+    <div ng-hide="mv.loggedIn" ng-include="'partials/footer_team.html'"></div>
 </section>

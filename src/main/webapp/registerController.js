@@ -28,7 +28,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             $scope.hidePin = true;
                 
         if($scope.loggedIn)
-            $location.path('/info');
+            $location.path('/team');
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
         else if($location.url()!=='/register' && $location.url()!=='/confirm')
             $location.path('/');
@@ -54,10 +54,9 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
 
     this.sendEmail = function() {
         $scope.result = "Verifierar e-postadress...";
-        httpServ.postUserMail($scope.userEmail)
-        .then(function() {
+        httpServ.postUserMail($scope.userEmail).then(function(response) {
             // Getting User Info to show to the user
-            httpServ.getUserByMail($scope.userEmail).success(function(response){
+            httpServ.getUserByMail($scope.userEmail).then(function(response){
                     console.log(response);
                     $scope.names = response;
                     // Saving User info to localStorage
@@ -70,7 +69,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     $scope.hideMail = true;
                     // Show next steps
                     $scope.hidePin = false;
-                }).error(function(){console.log(response.status);});          
+                },
+                function(response){
+                    console.log(response.status);
+                });          
     
         }, function (response) {
             console.error($scope.userEmail);
