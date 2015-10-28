@@ -180,7 +180,6 @@ public class UserCont {
         JsonElement jsonElement = jsonParser.parse(confirmedUser);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         User confirmedUserObject = gson.fromJson(jsonObject, User.class);
-        
         UserInfo user = new UserInfo();
         User updatedUser = user.updateUser(confirmedUserObject);
         
