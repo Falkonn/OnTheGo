@@ -19,7 +19,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         if(mv.hasUserMedia){
             var video = cameraServ.getLocalVideo();
             var stream = cameraServ.getLocalStream();
-            if((video!==null || typeof video!== 'undefined') && (stream!==null || typeof stream!== 'undefined'))
+            if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
             {
                 video.pause();
                 stream.stop();
