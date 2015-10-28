@@ -1,11 +1,11 @@
 var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService'])
-        .directive('camera', ['cameraServ', function (cameraServ) {
+        .directive('camera', ['cameraServ', '$window', function (cameraServ, $window) {
                 var self = this;
                 return {
                     restrict: 'EA',
                     replace: true,
                     transclude: true,
-                    //scope: {},
+                   // scope: {},
                     controller: function ($scope, $q, $timeout) {
                         this.takeSnapshot = function () {
                             var canvas = document.querySelector('canvas'),
@@ -22,9 +22,16 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                                 d.resolve(canvas.toDataURL());
 
                             }, 0);
-                            videoElement.pause();
-                            self.localStream.stop();
+                      
                             return d.promise;
+                        },
+                        this.pauseCamera = function(){                    
+                            self.videoElement.pause();                       
+                        };
+                        this.closeCamera = function(){                    
+                            self.localStream.stop(); 
+                            $window.location.reload();
+                            $window.$location.path('/team');
                         };
                     },
                     template: '<div class="camera"><video class="camera" autoplay="" /><div ng-transclude></div></div>',
@@ -35,21 +42,21 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                             return;
                         var userMedia = cameraServ.getUserMedia(),
                                 videoElement = document.querySelector('video');
-
+                                self.videoElement = videoElement;
                         // If the stream works
                         var onSuccess = function (stream) {
                             var video = document.getElementById('webcam');
                             if (navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
-                                videoElement.src = window.URL.createObjectURL(stream);
+                                self.videoElement.src = window.URL.createObjectURL(stream);
                             }
                             else if (navigator.msGetUserMedia) {
                                 //future implementation over internet explorer
                             }
                             else {
-                                videoElement.src = stream;
+                                self.videoElement.src = stream;
                             }
                             self.localStream = stream;
-                            videoElement.play();
+                            self.videoElement.play();
                         };
                         // If there is an error
                         var onFailure = function (err) {
@@ -76,24 +83,37 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                     restrict: 'EA',
                     require: '^camera',
                     scope: true,
-                    template: '<a class="btn btn-info" ng-click="takeSnapshot()">Take snapshot</a>',
+                    template: '<a class="btn btn-primary" ng-click="takeSnapshot()" ng-show="!photoTaken">Ta Bild</a>\n\
+                               <form class="form-inline text-center" name="" ng-show="photoTaken" ng-submit="sendImage(saveImage)">\n\
+                                <input class="btn btn-primary" type="submit" value="Spara" ng-click="saveImage = true" />\n\
+                                <input class="btn btn-primary" type="submit" value="Avbryta" ng-click="saveImage = false" />\n\
+                               </form>',
                     link: function (scope, ele, attrs, cameraCtrl) {
                         scope.takeSnapshot = function () {
                             cameraCtrl.takeSnapshot()
                                     .then(function (image) {
-
+                                        scope.photoTaken = true;                                      
                                         // Strip "data:image/png;base64, "  
                                         var imageData = image.split(',')[1];
                                         var data = {"userId": scope.userId, "imageData": imageData};
-
-                                        // Post image data
-                                        httpServ.postImage(data).success(function (response) {
-                                            // Image sent successfully
-                                            console.log("Selfie Image posted!");
-                                        }, function (response) {
-                                            console.log(response);
-                                        });
-                                    });
+                                        scope.data= data;
+                                        // Pause the camera
+                                        cameraCtrl.pauseCamera();
+                                    });                        
+                        };
+                        scope.sendImage = function (saveImage){
+                            // Post image data
+                            if(saveImage){
+                                httpServ.postImage(scope.data).success(function (response) {
+                                    // Image sent successfully
+                                    console.log("Selfie Image posted!");
+                                }, function (response) {
+                                    console.log(response);
+                                });
+                            }
+                            // Close the camera
+                            cameraCtrl.closeCamera();
+                            
                         };
                     }
                 };
