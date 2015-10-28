@@ -8,27 +8,24 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
         // Clean localstorage (for debugging)
-        //$localStorage.$reset();
-  
-        // Dummy object (for debugging)
-        $localStorage.user = {  userId: "26",
-                                firstName: "Vasileios",
-                                lastName:  "Golematis",
-                                email:     "vasileios.golematis@alten.se",
-                                telefon:   "0767649596",
-                                city:       "Gothenburg",
-                                department: "Embedded Systems",
-                                teamId:     "83",
-                                picId:      "1",
-                                pinCode: "8L+M9O/AYX0="
-        };
+       // $localStorage.$reset();
+ 
         // LoggedIn variable
-        $scope.loggedIn = $localStorage.loggedIn = true;
+        $scope.loggedIn = $localStorage.loggedIn;
         if(typeof $localStorage.user === 'undefined' || $localStorage.user === null)
             $scope.hidePin = true;
                 
         if($scope.loggedIn)
-            $location.path('/info');
+        {
+            switch($location.url())
+            {
+                case '/team':         $location.path('/team'); break;
+                case '/assignments':  $location.path('/assignments'); break;
+                case '/scoreboard' :  $location.path('/scoreboard'); break;
+                case '/party' :  $location.path('/about'); break;
+                default:              $location.path('/info');     
+            }
+        }
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
         else if($location.url()!=='/register' && $location.url()!=='/confirm')
             $location.path('/');
@@ -57,8 +54,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         httpServ.postUserMail($scope.userEmail)
         .then(function() {
             // Getting User Info to show to the user
-            httpServ.getUserByMail($scope.userEmail).success(function(response){
-                    console.log(response);
+            httpServ.getUserByMail($scope.userEmail + "/").success(function(response){
                     $scope.names = response;
                     // Saving User info to localStorage
                     $localStorage.user = $scope.names[0];
@@ -79,7 +75,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                 $scope.result = "Denna e-post finns inte i databasen. Är du säker på att du använde den till att registrera dig på eventet?";
             // Unknown server error
             else
-                $scope.result = "Servererror";
+                $scope.result = "Server error";
         });
     };
    
