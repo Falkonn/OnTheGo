@@ -8,7 +8,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
         // Clean localstorage (for debugging)
-       // $localStorage.$reset();
+        //$localStorage.$reset();
  
         // LoggedIn variable
         $scope.loggedIn = $localStorage.loggedIn;
@@ -51,13 +51,11 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
 
     this.sendEmail = function() {
         $scope.result = "Verifierar e-postadress...";
-        httpServ.postUserMail($scope.userEmail)
-        .then(function() {
+        httpServ.postUserMail($scope.userEmail).then(function(response) {
             // Getting User Info to show to the user
-            httpServ.getUserByMail($scope.userEmail + "/").success(function(response){
-                    $scope.names = response;
+            httpServ.getUserByMail($scope.userEmail + "/").then(function(response){
                     // Saving User info to localStorage
-                    $localStorage.user = $scope.names[0];
+                    $localStorage.user = response;
                     // Showing User Info
                     $scope.result = "Hej " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                      // Confirmation that the mail was sent successfully from the backend
@@ -66,7 +64,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     $scope.hideMail = true;
                     // Show next steps
                     $scope.hidePin = false;
-                }).error(function(){console.log(response.status);});          
+                },
+                function(response){
+                    console.log(response.status);
+                });          
     
         }, function (response) {
             console.error($scope.userEmail);
