@@ -46,7 +46,7 @@ public class ScoreCont {
         JsonElement jsonElement = jsonParser.parse(useranswers);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         //JsonObject jsonArgs = jsonObject.getAsJsonObject("args");
-        int taskId = jsonObject.get("taskId").getAsInt();
+        long taskId = jsonObject.get("taskId").getAsLong();
         int userId = jsonObject.get("userId").getAsInt();
         String answer = jsonObject.get("answer").getAsString();
         boolean isDone = jsonObject.get("taskDone").getAsBoolean();

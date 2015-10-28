@@ -23,7 +23,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                 case '/assignments':  $location.path('/assignments'); break;
                 case '/scoreboard' :  $location.path('/scoreboard'); break;
                 case '/about' :       $location.path('/about'); break;
-                default:              $location.path('/about');     
+                default:              $location.path('/team');     
             }
         }
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
@@ -51,6 +51,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
 
     this.sendEmail = function() {
         $scope.result = "Verifierar e-postadress...";
+        console.log("Sending " + $scope.userEmail);
         httpServ.postUserMail($scope.userEmail).then(function(response) {
             // Getting User Info to show to the user
             httpServ.getUserByMail($scope.userEmail + "/").then(function(response){

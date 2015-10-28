@@ -42,7 +42,7 @@ public class ScoreFunctionality {
         Iterator pintesIterator = pointList.iterator();
         Object point = pintesIterator.next();
         int points = Integer.parseInt(point.toString());
-        taskStatus = scoreCounter.checkTaskDone(userId);
+        taskStatus = scoreCounter.checkTaskDone(taskId);
         teamList = userinfo.getTeamIdbyUserId(userId);
 
         possibleUser = userinfo.getUserByTeamIdAndTaskId(teamList.get(0), taskId);
@@ -104,13 +104,13 @@ public class ScoreFunctionality {
                 if (isPersonal) {
                     //get the scoreid from the userId 
                     System.out.println("Testtt");
-                    scoreList = scoreCounter.getScorIdByUserId(userId);
+                    scoreList = scoreCounter.getScorIdByUserIdAndTaskId(userId, taskId);
                     deleteScore ds = new deleteScore();
                     ds.execute(scoreList.get(0));
                     scoreDeleted = true;
                 } else {
                     //get the scoreid from the userId 
-                    scoreList = scoreCounter.getScorIdByUserId(userId);
+                    scoreList = scoreCounter.getScorIdByUserIdAndTaskId(userId, taskId);
                     deleteScore ds = new deleteScore();
                     ds.execute(scoreList.get(0));
                     scoreDeleted = true;

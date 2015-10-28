@@ -25,7 +25,7 @@
                             </tr>
                             <tr>
                             <td ng-show="checkUserId(member.userId)">
-                                <a ng-click="enabled=!enabled" ng-show="!enabled">Ändra bild</a>
+                                <a ng-click="enabled=true" ng-show="!enabled" ng-model="enabled">Ändra bild</a>
                                 <camera ng-if="enabled">
                                     <camera-control-snapshot> </camera-control-snapshot>
                                 </camera>                          
