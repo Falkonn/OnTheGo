@@ -263,8 +263,12 @@ fieldset[disabled] .btn-xl.active {
 #team .team-name {
     margin-left: 15px;
     margin-right: 15px;
+    width:100%;
 }
 
+#team .team-name table {
+    width:100%;
+}
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:active,
