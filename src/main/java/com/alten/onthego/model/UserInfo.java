@@ -92,7 +92,7 @@ public class UserInfo {
         return (List<Team>) findTeamByUserId.getResultList();
     }
 
-    public User findUserById(long id) {
+    public User findUserById(int id) {
         return em.find(User.class, id);
     }
 
@@ -110,7 +110,7 @@ public class UserInfo {
         return valid;
     }
 
-    public void removeUser(long id) {
+    public void removeUser(int id) {
         User removeuser = findUserById(id);
         if (removeuser != null) {
             em.remove(removeuser);
