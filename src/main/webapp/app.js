@@ -11,28 +11,25 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
         //console.log("In the routeProvider");
         $routeProvider.
             when('/', {
+                title: 'Welcome',
                 templateUrl: 'partials/welcome.html',
                 controller: 'registerController',
                 controllerAs: 'regCtrl',
             }).
             when('/register', {
+                title: 'Register',
                 templateUrl: 'partials/register.html',
                 controller: 'registerController',
                 controllerAs: 'regCtrl'
             }).
             when('/confirm', {
+                title: 'Confirmation',
                 templateUrl: 'partials/confirm.html',
                 controller: 'registerController',
                 controllerAs: 'regCtrl'
             }).
-            when('/info', {
-                title: 'App Info',
-                templateUrl: 'partials/appinfo.html',
-                controller: 'mainController',
-                controllerAs: 'mainCtrl'
-            }).
             when('/team', {
-                title: 'MITT TEAM',
+                title: 'Mitt Team',
                 templateUrl: 'partials/team.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
@@ -50,12 +47,13 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'mainCtrl'
             }).
             when('/party', {
+                title: 'Festen',
                 templateUrl: 'partials/party.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
             }).
             when('/schedule', {
-                title: 'Konferensinfo',
+                title: 'Konferensen',
                 templateUrl: 'partials/schedule.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
@@ -67,6 +65,7 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'mainCtrl'
             }).
             when('/about', {
+                title: 'Appinfo',
                 templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'

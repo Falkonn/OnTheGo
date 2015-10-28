@@ -5,8 +5,7 @@
             <table>
                 <tr>
                     <td class="section-heading bottom">
-                        <!--<h4>{{team.teamName}} ({{team.numberOfMembers}})</h4>-->
-                        <h5>There will be blood oranges</h5>
+                        <h5>{{team.teamName}} ({{team.numberOfMembers}})</h5>
                     </td>
                 </tr>
             </table>
@@ -20,23 +19,22 @@
                         <td class="col-xs-3 break-image">
                             <table>
                             <tr>
-                            <td>
+                            <td ng-show="!enabled">
                                 <a href="../img/selfie/{{member.picId}}"><img src="../img/selfie/{{member.picId}}" class="img-responsive img-circle" /></a>
                             </td>
                             </tr>
                             <tr>
                             <td ng-show="checkUserId(member.userId)">
-                                <a ng-click="enabled=!enabled">Ändra bild</a>
+                                <a ng-click="enabled=!enabled" ng-show="!enabled">Ändra bild</a>
                                 <camera ng-if="enabled">
-                                    <canvas style="display: block"> </canvas>
-                                    <camera-control-snapshot>
-                                    </camera-control-snapshot>
-                                </camera>
+                                    <camera-control-snapshot> </camera-control-snapshot>
+                                </camera>                          
+                                <canvas style="display: none"> </canvas>
                             </td>
                             </tr>
                             </table>
                         </td>
-                        <td class="col-xs-9">
+                        <td class="col-xs-9"ng-show="!checkUserId(member.userId) || !enabled">
                             <table>
                             <tr>
                                 <td class="text-left">
@@ -77,4 +75,5 @@
             </div>
         </div>
     </div>
+    <div ng-hide="mv.loggedIn" ng-include="'partials/footer_team.html'"></div>
 </section>

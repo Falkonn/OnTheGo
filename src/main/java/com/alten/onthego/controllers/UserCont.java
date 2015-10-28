@@ -77,7 +77,7 @@ public class UserCont {
             value = "/userbyid/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public User findUserById(@PathVariable("id") long id) {
+    public User findUserById(@PathVariable("id") int id) {
         UserInfo userbyid = new UserInfo();
         return userbyid.findUserById(id);
     }
@@ -173,11 +173,16 @@ public class UserCont {
             value = "/confirmpath",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getUserConfirmData(@RequestBody User confirmedUser, HttpServletResponse res) throws MessagingException {
+    public String getUserConfirmData(@RequestBody String confirmedUser, HttpServletResponse res) throws MessagingException {
+
+        Gson gson = new Gson();  
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(confirmedUser);
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+        User confirmedUserObject = gson.fromJson(jsonObject, User.class);
         UserInfo user = new UserInfo();
-        User updatedUser = user.updateUser(confirmedUser);
-        JSONSerializer serializer = new JSONSerializer();
-        Gson gson = new Gson();
+        User updatedUser = user.updateUser(confirmedUserObject);
+        
         String serializedUser = gson.toJson(updatedUser);
         if (updatedUser != null) {
             System.out.println("Found User with this id");
@@ -187,7 +192,7 @@ public class UserCont {
             res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         System.out.println("The confirmed user is " + serializedUser);
-        return serializedUser.toString();
+        return serializedUser;
     }
 
     @RequestMapping(

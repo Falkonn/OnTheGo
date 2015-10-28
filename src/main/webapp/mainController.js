@@ -8,14 +8,15 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         // Init values
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
-            mv.teamId = $localStorage.user.teamId;
+            mv.teamId = $localStorage.user.team.teamId;
+            mv.enabled = false;
         };
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
-       
+        
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -35,7 +36,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          *      that a group question has already been answered.
          * done = to see if the tasks has been done or not in order to control 
          *      what data to show.
-         * 
          */
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
