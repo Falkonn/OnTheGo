@@ -11,16 +11,19 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
         //console.log("In the routeProvider");
         $routeProvider.
             when('/', {
+                title: 'Welcome',
                 templateUrl: 'partials/welcome.html',
                 controller: 'registerController',
                 controllerAs: 'regCtrl',
             }).
             when('/register', {
+                title: 'Register',
                 templateUrl: 'partials/register.html',
                 controller: 'registerController',
                 controllerAs: 'regCtrl'
             }).
             when('/confirm', {
+                title: 'Confirmation',
                 templateUrl: 'partials/confirm.html',
                 controller: 'registerController',
                 controllerAs: 'regCtrl'
