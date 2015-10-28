@@ -22,8 +22,8 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                 case '/team':         $location.path('/team'); break;
                 case '/assignments':  $location.path('/assignments'); break;
                 case '/scoreboard' :  $location.path('/scoreboard'); break;
-                case '/party' :  $location.path('/about'); break;
-                default:              $location.path('/info');     
+                case '/about' :       $location.path('/about'); break;
+                default:              $location.path('/about');     
             }
         }
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
@@ -55,7 +55,8 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             // Getting User Info to show to the user
             httpServ.getUserByMail($scope.userEmail + "/").then(function(response){
                     // Saving User info to localStorage
-                    $localStorage.user = response;
+                    $localStorage.user = response.data[0];
+                    console.log($localStorage.user);
                     // Showing User Info
                     $scope.result = "Hej " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                      // Confirmation that the mail was sent successfully from the backend
@@ -116,7 +117,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             $localStorage.loggedIn = true;
             $scope.loggedIn = true;
             // Redirect to main page
-            $location.path('/');
+            $location.path('/team');
             console.log("registered complete");
         }, function (response) {
             console.error(response.status);
