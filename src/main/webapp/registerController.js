@@ -23,7 +23,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                                 pinCode: "8L+M9O/AYX0="
         };
         // LoggedIn variable
-        $scope.loggedIn = $localStorage.loggedIn = false;
+        $scope.loggedIn = $localStorage.loggedIn = true;
         if(typeof $localStorage.user === 'undefined' || $localStorage.user === null)
             $scope.hidePin = true;
                 

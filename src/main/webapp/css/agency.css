@@ -6,7 +6,7 @@
 
 body {
     overflow-x: hidden;
-    font-family: "brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Raleway","brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: #ffea00;
     webkit-tap-highlight-color: #fed136;
     
@@ -114,7 +114,7 @@ h3,
 h4,
 h5 {
     text-transform: uppercase;
-    font-family: Futura, Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #0093d0;
 }
@@ -139,11 +139,10 @@ h6 {
 
 .btn-primary {
     border-color: #00ABE8;
-    text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
+    font-family: "Raleway", "Montserrat", "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
     color: #fff;
-    background-color: #00ABE8;
+    background-color: #0093D0;
 }
 
 .btn-primary:hover,
@@ -190,10 +189,9 @@ fieldset[disabled] .btn-primary.active {
     padding: 20px 40px;
     border-color: #0093D0;
     border-radius: 3px;
-    text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
     background-color: #0093D0;
 }
@@ -530,10 +528,23 @@ section h3.section-subheading {
     color: #FFFFFF;
 }
 
+#register .section-subheading {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
 #register .row {
     margin-top: 50px;
 }
 
+#register .center-block {
+    margin-top: 1em;
+}
+
+#register .text-field {
+    
+}
+ 
 .banner {
     max-height: 360px;
     overflow: hidden;
@@ -563,11 +574,6 @@ section h3.section-subheading {
     width: 100%;
     height: auto;
 }
-     
- #register .center-block {
-     margin-top: 1em;
-     
- }
  
 .service-heading {
     margin: 15px 0;
