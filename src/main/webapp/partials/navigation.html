@@ -1,21 +1,30 @@
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header header-center page-scroll">
+        <div class="navbar-header pull-left">
             <button type="button" class="navbar-toggle navbar-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top" ng-bind="title">onTheGo</a>
-            
-            <button class="navbar-toggle navbar-right btn btn-primary" style="padding: 5px 10px 3px; vertical-align: middle;" type="button" ng-click="refreshPage()">
-                <i class="glyphicon glyphicon-refresh" style="font-size: 1.4em"></i>
-            </button>
+            <div class="navbar-brand refreshButton">
+                <span class="title">{{title}}</span>
+            </div>
         </div>
-
+            
+        
+        <div class="navbar-header pull-right">
+            <ul class="navbar-nav">
+                <li>
+                    <button class="btn btn-sm btn-primary" style="padding: 5px 10px 3px; vertical-align: middle;" type="button" ng-click="refreshPage()">
+                        <i class="glyphicon glyphicon-refresh" style="font-size: 1.2em"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -23,22 +32,22 @@
                     <a href="#page-top"></a>
                 </li>
                 <li>
-                    <a class="page-scroll" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#team">Team</a>
+                    <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#team">Team</a>
                 </li>
                 <li>
-                    <a class="page-scroll" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#assignments">Uppgifter</a>
+                    <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#assignments">Uppgifter</a>
                 </li>
                 <li>
-                    <a class="page-scroll" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#scoreboard">Poängtavla</a>
+                    <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#scoreboard">Poängtavla</a>
                 </li>
                 <li>
-                    <a class="page-scroll" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  href="#schedule">Konferensen</a>
+                    <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  href="#schedule">Konferensen</a>
                 </li>
                 <li>
-                    <a class="page-scroll" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  href="#party">Festen</a>
+                    <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  href="#party">Festen</a>
                 </li>
                 <li>
-                    <a class="page-scroll" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  href="#about">Om</a>
+                    <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"  href="#about">Om</a>
                 </li>
             </ul>
         </div>
