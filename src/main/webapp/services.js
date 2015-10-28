@@ -6,7 +6,8 @@ var httpService = angular.module('httpService', []);
 // User Data Service
 httpService.factory('httpServ', ['$http',
     function($http) {
-        var urlBase = 'http://10.87.16.152:8080/otg';
+          var urlBase = 'http://localhost:8080/otg'
+        //var urlBase = 'http://10.87.16.152:8080/';
         //var urlBase2 = 'http://10.87.16.152:3306/dlapp';
         
         return {
@@ -97,6 +98,8 @@ httpService.factory('httpServ', ['$http',
 var cameraService = angular.module('cameraService', []);
 
 cameraService.factory('cameraServ', function($window) {
+  var localStream = null;
+  var videoElement = null;
   var hasUserMedia = function() {
     return !!getUserMedia();
   };
@@ -108,9 +111,23 @@ cameraService.factory('cameraServ', function($window) {
                               $window.navigator.msGetUserMedia);
     return navigator.getUserMedia;
   };
+  
+  var getLocalStream = function(){
+     return localStream;  
+  };
+  
+  var getLocalVideo= function(){
+     return videoElement;  
+  };
 
   return {
     hasUserMedia: hasUserMedia(),
-    getUserMedia: getUserMedia
+    getUserMedia: getUserMedia,
+    setLocalStreamAndVideo: function(stream, video){
+     localStream = stream;  
+     videoElement = video;
+    },
+    getLocalStream: getLocalStream, 
+    getLocalVideo: getLocalVideo 
   };
 });

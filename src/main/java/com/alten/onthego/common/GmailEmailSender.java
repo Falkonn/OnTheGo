@@ -19,7 +19,7 @@ import javax.mail.internet.MimeMultipart;
 
 public class GmailEmailSender {
 
-    public static void sendEmail(String host, String port,
+    public void sendEmail(String host, String port,
             final String userName, final String password, String toAddress,
             String subject, String message, String[] attachments)
             throws AddressException, MessagingException {
@@ -79,10 +79,5 @@ public class GmailEmailSender {
 
         // sends the e-mail
         Transport.send(sessionmessage);
-    }
-
-    public static void main(String[] args) throws MessagingException {
-        sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen", "Lindholmen2015", "khaled.nawasreh@gmail.com", "subject", "here is the messages", null);
-        System.out.println("Email sent done!");
     }
 }
