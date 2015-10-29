@@ -363,6 +363,35 @@ fieldset[disabled] .btn-xl.active {
     }
 }
 
+.black-border {
+    border-color: #333;
+}
+
+.constrain-width {
+    width: 600px;
+}
+
+#dl_navigation .blue-header {
+    color: #0093D0;
+}
+
+#dl_navigation .pull-left {
+    margin-left: 0px;
+}
+
+#dl_navigation .pull-right {
+    margin-right: 0px;
+}
+
+#dl_navigation .blue-header {
+    color: #0093D0;
+}
+
+#dl_navigation .heading {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 header {
     text-align: center;
     color: #fff;
