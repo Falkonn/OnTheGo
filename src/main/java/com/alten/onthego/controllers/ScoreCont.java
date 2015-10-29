@@ -68,8 +68,10 @@ public class ScoreCont {
             value = "/scoreboard/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public int getScoreSum(@PathVariable("id") long teamId) {
+    public  int getScoreSum(@PathVariable("id") int teamId) {
         ScoreFunctionality scoreboardsum = new ScoreFunctionality();
-        return scoreboardsum.scoreSum(teamId);
+        int scoreSum = scoreboardsum.scoreSum(teamId);
+        
+        return scoreSum;
     }
 }

@@ -9,7 +9,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
+         
         };
+        
         // Run Init 
         mv.init();
         mv.loggedIn = true;
@@ -79,7 +81,32 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             });
            
         }
-       
+        else if($location.url()==='/scoreboard'){
+             // Load all the teams
+            httpServ.getAllTeams().then(function(response){
+                // Success - Save team and members in localStorage
+                mv.allTeams = response.data;
+                var getScoreByTeamId = function(t){
+                    httpServ.getTeamScoreByTeamId(mv.allTeams[t].teamId).then(function(response){
+                        // Success - Save team and members in localStorage
+                        mv.allTeams[t].teamScore = response.data;                       
+                    }, function(response){
+                        // Failed to load score of a team                   
+                        console.log(response);
+                    });
+                };
+                // Load the Scores of all teams
+                for(var t=0 ; t< mv.allTeams.length ; t++){                  
+                    getScoreByTeamId(t);
+                    
+                }
+            }, function(response){
+                // Failed to load teams 
+                console.log(response);
+            });
+            
+        }
+      
         
         /////////////////////// TASKS
         /**

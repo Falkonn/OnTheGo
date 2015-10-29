@@ -84,5 +84,3 @@ OnTheGo.run(['$rootScope', function($rootScope) {
     }]);
 
 
-
-
