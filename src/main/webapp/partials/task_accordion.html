@@ -47,16 +47,20 @@ true )">
             <span ng-if="checkTaskType(parseTaskType(t.taskType),1)" class="text-weighted">
                 &nbsp;<br/>
                 {{t.user.firstName}} har svarat:<br/>
-                {{t.userAnswer}}
+                <span class="text-italics text-normal">
+                    {{t.userAnswer}}
+                </span>
             </span>
-            <span ng-if="checkTaskType(parseTaskType(t.taskType),2)">{{t.user.firstName}} Utförd</span>
+            <span ng-if="checkTaskType(parseTaskType(t.taskType),2)" class="text-weighted">
+                &nbsp;<br/>
+                <span class="glyphicon glyphicon-check"></span> Utförd av {{t.user.firstName}}</span>
         </td>
     </tr>
     <tr ng-show="t.taskDone">
         <td colspan="2">
             <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer
 (t,t.userAnswer,false)">   
-                <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Cancel" />
+                <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Ta bort" />
             </form>
         </td>
     </tr>

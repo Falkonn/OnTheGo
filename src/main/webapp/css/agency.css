@@ -80,6 +80,13 @@ body {
     font-weight: bold;
 }
 
+.text-italics {
+    font-style: italic;
+}
+.text-normal {
+    font-weight: normal;
+}
+
 p {
     font-size: 14px;
     line-height: 1.75;
