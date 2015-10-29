@@ -77,4 +77,12 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
         //$locationProvider.html5Mode(true);
     }]);
 
+OnTheGo.run(['$rootScope', function($rootScope) {
+    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+        $rootScope.title = current.$$route.title;
+        });
+    }]);
+
+
+
 
