@@ -3,7 +3,6 @@ package com.alten.onthego.common;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,19 +18,20 @@ import javax.mail.internet.MimeMultipart;
 
 public class GmailEmailSender {
 
-    public static void sendEmail(String host, String port,
+    public void sendEmail(String host, String port,
             final String userName, final String password, String toAddress,
             String subject, String message, String[] attachments)
             throws AddressException, MessagingException {
+        
         // sets SMTP server properties
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
-        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.auth.plain.disable", true);
+        properties.put("mail.smtp.ehlo", "false");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.user", userName);
         properties.put("mail.password", password);
-        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.debug", "true");
 
         // creates a new session with an authenticator
@@ -79,10 +79,5 @@ public class GmailEmailSender {
 
         // sends the e-mail
         Transport.send(sessionmessage);
-    }
-
-    public static void main(String[] args) throws MessagingException {
-        sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen", "Lindholmen2015", "khaled.nawasreh@gmail.com", "subject", "here is the messages", null);
-        System.out.println("Email sent done!");
     }
 }

@@ -20,7 +20,7 @@ public class Team implements Serializable {
     @Id
     @Column(name = "team_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int teamId;
+    private long teamId;
 
     @Column(name = "team_name")
     private String teamName;
@@ -42,7 +42,7 @@ public class Team implements Serializable {
         this.teamName = teamName;
     }
 
-    public int getTeamId() {
+    public long getTeamId() {
         return teamId;
     }
 }

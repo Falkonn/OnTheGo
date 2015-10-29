@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,7 +40,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-   // private List<Score> users;
+    // private List<Score> users;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -62,11 +63,15 @@ public class User implements Serializable {
     @Column(name = "pic_id")
     private String picId;
 
+    @JoinColumn(name = "role_name")
+    @OneToOne(targetEntity = UserRoles.class)
+    private UserRoles userRole;
+
     public User() {
     }
 
     public User(int userId, String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code, Team team, String picId) {
+            String telefon, String city, String department, String pin_code, Team team, String picId, UserRoles userRole) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,6 +82,7 @@ public class User implements Serializable {
         this.pin_code = pin_code;
         this.team = team;
         this.picId = picId;
+        this.userRole = userRole;
     }
 
     public int getUserId() {
@@ -118,9 +124,9 @@ public class User implements Serializable {
     public Team getTeam() {
         return team;
     }
-    
+
     public void setTeam(Team team) {
-         this.team = team;
+        this.team = team;
     }
 
     public void setFirstName(String firstName) {
@@ -150,13 +156,21 @@ public class User implements Serializable {
     public void setPinCode(String pin_code) {
         this.pin_code = pin_code;
     }
-    
+
     public String getPicId() {
         return picId;
     }
 
     public void setPicId(String picId) {
         this.picId = picId;
+    }
+
+    public void setUserRole(UserRoles userRole) {
+        this.userRole = userRole;
+    }
+
+    public UserRoles getUserRole() {
+        return userRole;
     }
 
     @Override

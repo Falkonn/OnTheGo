@@ -23,7 +23,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                 case '/assignments':  $location.path('/assignments'); break;
                 case '/scoreboard' :  $location.path('/scoreboard'); break;
                 case '/about' :       $location.path('/about'); break;
-                default:              $location.path('/about');     
+                default:              $location.path('/team');     
             }
         }
         // Redirect to welcome screen if not logged in (Except if in register or confirm screen)
