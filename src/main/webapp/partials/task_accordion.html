@@ -1,6 +1,7 @@
 <uib-accordion-heading>
     <span ng-show="t.taskDone" class="glyphicon glyphicon-check">&nbsp;</span>
-    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
+    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': 
+!t.open}"></i>
 </uib-accordion-heading>
  
 <table>
@@ -34,7 +35,8 @@
     </tr>
     <tr ng-show="!t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, true )">   
+            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, 
+true )">   
             <input class="btn btn-primary" type="submit" value="Skicka in" />
             </form>
         </td>
@@ -52,7 +54,8 @@
     </tr>
     <tr ng-show="t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer(t,t.userAnswer,false)">   
+            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer
+(t,t.userAnswer,false)">   
                 <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Cancel" />
             </form>
         </td>

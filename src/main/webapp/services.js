@@ -81,15 +81,23 @@ httpService.factory('httpServ', ['$http',
 
                 
                 
-                /********* Score Services **********/
+                /********* ScoreBoard Services **********/
                 
                 //////// Add Score http get services here ///////
                 getScore: function() {
                     return $http.get(urlBase + '/Scores');
+                },
+                
+                getAllTeams: function() {
+                    return $http.get(urlBase + '/allteams');
+                },
+                
+                getTeamScoreByTeamId: function(teamId) {
+                    return $http.get(urlBase + '/scoreboard/' + teamId);
                 }
                 
                 //////// Add Score http post services here ///////
-                
+              
         };
      
     }]);

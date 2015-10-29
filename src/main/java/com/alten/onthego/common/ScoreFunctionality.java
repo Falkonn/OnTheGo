@@ -42,7 +42,7 @@ public class ScoreFunctionality {
         Iterator pintesIterator = pointList.iterator();
         Object point = pintesIterator.next();
         int points = Integer.parseInt(point.toString());
-        taskStatus = scoreCounter.checkTaskDone(taskId);
+        taskStatus = scoreCounter.checkTaskDone(taskId, userId);
         teamList = userinfo.getTeamIdbyUserId(userId);
 
         possibleUser = userinfo.getUserByTeamIdAndTaskId(teamList.get(0), taskId);
@@ -70,10 +70,10 @@ public class ScoreFunctionality {
 
             if (isPersonal) {
                 // get the current score by userid and add the new one by taskid 
-                scoreList = scoreCounter.getScoresbyUserId(userId);
-                socoreIdList = scoreCounter.getScorIdByUserId(userId);
+                scoreList = scoreCounter.getScorIdByUserIdAndTaskId(userId, taskId);
+                //socoreIdList = scoreCounter.getScorIdByUserId(userId);
                 if (!taskstatus1 || (taskStatus.isEmpty())) {
-                    scoreCounter.addSocre(teamId, points, true, answer, taskID, userID);
+                    scoreCounter.addScore(teamId, points, true, answer, taskID, userID);
                     scoreAdded = true;
                 }
             } else {
@@ -84,7 +84,7 @@ public class ScoreFunctionality {
                     if (!taskstatus1 || (taskStatus.isEmpty())) {
                         //check in the db if there is an entry with the team id and task id 
 
-                        scoreCounter.addSocre(teamId, points, true, answer, taskID, UserId);
+                        scoreCounter.addScore(teamId, points, true, answer, taskID, UserId);
                         scoreAdded = true;
                     }
                 } else {
@@ -103,7 +103,6 @@ public class ScoreFunctionality {
 
                 if (isPersonal) {
                     //get the scoreid from the userId 
-                    System.out.println("Testtt");
                     scoreList = scoreCounter.getScorIdByUserIdAndTaskId(userId, taskId);
                     deleteScore ds = new deleteScore();
                     ds.execute(scoreList.get(0));
@@ -129,7 +128,7 @@ public class ScoreFunctionality {
         }
     }
             
-       public int scoreSum(long teamId) {
+       public int scoreSum(int teamId) {
         int finalSum = 0;
         ScoreInfo scoreCounter = new ScoreInfo();
         finalSum = scoreCounter.getScoreSumbyTeamId(teamId);
