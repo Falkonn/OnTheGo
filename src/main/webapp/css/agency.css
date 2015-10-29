@@ -76,7 +76,7 @@ body {
     color: #0093d0;
 }
 
-text-weighted {
+.text-weighted {
     font-weight: bold;
 }
 
@@ -135,6 +135,9 @@ h6 {
 
 .bg-darkest-gray {
     background-color: #222;
+}
+.bg-white {
+    background-color: white;
 }
 
 .btn-primary {
@@ -261,8 +264,12 @@ fieldset[disabled] .btn-xl.active {
 #team .team-name {
     margin-left: 15px;
     margin-right: 15px;
+    width:100%;
 }
 
+#team .team-name table {
+    width:100%;
+}
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:active,
@@ -445,7 +452,7 @@ section h3.section-subheading {
 #schedule .break {
     
 }
-
+/*
 #schedule table, .table-responsive {
     width: 100%;
 
@@ -473,7 +480,7 @@ section h3.section-subheading {
 #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
 }
-
+*/
 
 .glyphicon-group:before {
     content: "\e044";
@@ -646,7 +653,7 @@ section h3.section-subheading {
     text-transform: none;
 }
 
-#scoreboard table, .table-responsive {
+#scoreboard table, #scoreboard .table-responsive, #schedule table, #schedule .table-responsive {
     width: 100%;
     border-color: #fff6d2;
 }
@@ -655,13 +662,13 @@ section h3.section-subheading {
     padding: 8px 0 8px 0;
 }
 
-#scoreboard td {
+#scoreboard td, #schedule td {
     color: #4c4d4f;
     font-size: 0.8em;
     border-top: 1px solid #ffd105;
     border-bottom: 2px solid #ffd105;
 }
-#scoreboard th {
+#scoreboard th, #schedule th {
     text-transform: uppercase;
     font-size: 1em;
     color: #4c4d4f;
@@ -669,10 +676,10 @@ section h3.section-subheading {
     border: none;
 }
 
-#scoreboard tr:nth-of-type(odd) {
+#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
   background-color: #ffec82;
  }
-#scoreboard tr:nth-of-type(even) {
+#scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
 }
 

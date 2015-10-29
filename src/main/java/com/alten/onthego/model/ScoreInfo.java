@@ -91,9 +91,14 @@ public class ScoreInfo {
         Query scoreIdbyUseridQuery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId);
         return scoreIdbyUseridQuery.getResultList();
     }
+    
+    public List getScorIdByUserIdAndTaskId(int userId, long taskId) {
+        Query scoreIdbyUseridQuery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId + " AND s.task.taskId =" + taskId);
+        return scoreIdbyUseridQuery.getResultList();
+    }
 
-    public List<Score> checkTaskDone(long userId) {
-        Query taskDoneQuery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.user.userId =" + userId);
+    public List<Score> checkTaskDone(long taskId) {
+        Query taskDoneQuery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.task.taskId =" + taskId);
         
         List untypedstatus = taskDoneQuery.getResultList();
         List<Score> scores = new ArrayList<>();

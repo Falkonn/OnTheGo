@@ -122,6 +122,7 @@ public class UserCont {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String getEmailAddress(@RequestBody String emailAddress, HttpServletResponse res) throws MessagingException, IllegalBlockSizeException, BadPaddingException {
         UserInfo user = new UserInfo();
+        System.out.print(emailAddress);
         Collection<User> foundUsers = user.findUserByEmail(emailAddress);
         Gson gson = new Gson();
         String serializedUsers = gson.toJson(foundUsers);
@@ -231,8 +232,7 @@ public class UserCont {
             // remove data:image/png;base64, and then take rest string
             byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imageData);
             ByteArrayInputStream baisData = new ByteArrayInputStream(decodedBytes);
-            File outputfile = new File("src\\main\\webapp\\img\\selfie\\" + userId + ".png");
-            
+            File outputfile = new File("C:\\Users\\vg3164\\Documents\\OnTheGo\\src\\main\\webapp\\img\\selfie\\" + userId + ".png");
             System.out.println("file name is: " + outputfile);
             System.out.println("image datais  " + imageData);
             BufferedImage bfi = ImageIO.read(baisData);

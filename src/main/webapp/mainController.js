@@ -9,13 +9,23 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
-            mv.enabled = false;
         };
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
+        // Close Camera if open
+        if(mv.hasUserMedia){
+            var video = cameraServ.getLocalVideo();
+            var stream = cameraServ.getLocalStream();
+            if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
+            {
+                video.pause();
+                stream.stop();
+            }
+        }
+        
         
         /////////////////////// UPPGIFTER
         /**
@@ -63,7 +73,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                         "numberOfMembers":  $localStorage.team[2],
                         "members":          $localStorage.team[3]
                 };
-                console.log(mv.team);
             }, function(response){
                 // Failed to load teams from db
               //  t.badresult = "" + response.status;

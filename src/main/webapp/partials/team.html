@@ -1,14 +1,22 @@
 <!-- Main Section -->
 <section id="team">
     <div class="container">
-        <div class="row team-name">
+        <div class="row team-name text-center">
             <table>
                 <tr>
-                    <td class="section-heading bottom">
-                        <h5>{{team.teamName}} ({{team.numberOfMembers}})</h5>
+                    <td>
+                        <h3 class="text-center">Team {{team.teamNumber}}: {{team.teamName}}</h3>
+                        <!--<h4>There will be blood oranges</h4>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Detta är ditt team för dagen! Klicka på uppgifter i menyn för att se era uppdrag.</p>
                     </td>
                 </tr>
             </table>
+            <!-- <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #4c4d4f; margin: 1em 0; padding: 0; "> -->
+
         </div>
         <div class="row" ng-repeat="member in team.members">
             <div>
@@ -25,7 +33,7 @@
                             </tr>
                             <tr>
                             <td ng-show="checkUserId(member.userId)">
-                                <a ng-click="enabled=!enabled" ng-show="!enabled">Ändra bild</a>
+                                <a ng-click="enabled=true" ng-show="!enabled" ng-model="enabled">Ändra bild</a>
                                 <camera ng-if="enabled">
                                     <camera-control-snapshot> </camera-control-snapshot>
                                 </camera>                          
@@ -37,7 +45,7 @@
                         <td class="col-xs-9"ng-show="!checkUserId(member.userId) || !enabled">
                             <table>
                             <tr>
-                                <td class="text-left">
+                                <td class="text-left text-weighted">
                                     <span class="glyphicon glyphicon-user"></span>
                                     {{member.firstName}} {{member.lastName}}
                                 </td>
@@ -70,7 +78,8 @@
                         </td>
                     </tr>
                     </table>
-                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0; ">
+                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #818285; margin: 1em 0; padding: 0; ">
+                <!--<hr style="display: block; height: 1px; border: 0; border-top: 1px solid #818285; margin: 0 0 1em 0; padding: 0; ">-->
                 </div>
             </div>
         </div>
