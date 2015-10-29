@@ -40,7 +40,7 @@
             </uib-accordion>
         </div>
         
-        <h3>Kluringar</h3>
+        <h3>CrowdCam</h3>
         <div>
             <uib-accordion>
                 <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 3}" is-open="t.open">
@@ -51,10 +51,21 @@
             </uib-accordion>
         </div>
         
+        <h3>Kluringar</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 4}" is-open="t.open">
+
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        
         <h3>På festen</h3>
         <div>
             <uib-accordion>
-                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 4} " is-open="t.open">
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 5} " is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 
