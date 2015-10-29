@@ -21,7 +21,7 @@
     <tr>
         <td class="top top-left text-weighted" colspan="2">
             <br>
-            <div class="text-justify">{{t.taskInfo}}</div>
+            <div class="text-justify" ng-bind-html="checkStringForURLS(t.taskInfo)"></div>
         </td>
     </tr>
     <tr ng-show="!t.taskDone">

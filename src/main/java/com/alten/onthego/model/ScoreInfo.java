@@ -40,6 +40,9 @@ public class ScoreInfo {
     
     public int getScoreSumbyTeamId(long teamId) {
         Query getScoreSumbyTeamIdquery = em.createQuery("SELECT SUM(s.point) FROM Score s where s.teamId =" + teamId);
+       if (getScoreSumbyTeamIdquery.getResultList().get(0) ==null){
+           return 0;
+       }
         return (int)(long) getScoreSumbyTeamIdquery.getResultList().get(0);
     }
 

@@ -1149,3 +1149,32 @@ img::-moz-selection {
     /*clear: left;*/
     width: 98%;
 }
+
+.memberMe {
+    background-color: #f5f5f5;
+    border-radius: 0.5em;
+    border: 1px solid #ccc;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.member {
+    background-color: #ffec82;
+    border-radius: 0.5em;
+    border: 1px solid #ffd105;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+
+.img-circle {
+    border: 1px solid #aaa;
+}
+
+/* Doesn't work - Changing accordion header background color */
+.panel-default .panel-heading .accordionHeader {
+    background-color: #0000ff;
+}
+

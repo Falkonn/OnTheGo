@@ -6,7 +6,7 @@ var httpService = angular.module('httpService', []);
 // User Data Service
 httpService.factory('httpServ', ['$http',
     function($http) {
-        var urlBase = 'http://10.87.16.152:8080/otg';
+        var urlBase = 'http://localhost:8080/otg';
         //var urlBase2 = 'http://10.87.16.152:3306/dlapp';
         
         return {
@@ -85,6 +85,10 @@ httpService.factory('httpServ', ['$http',
                 //////// Add Score http get services here ///////
                 getScore: function() {
                     return $http.get(urlBase + '/Scores');
+                },
+                
+                getScoreByTeamId: function(teamId) {
+                    return $http.get(urlBase + '/scoreboard/' + teamId, teamId);
                 }
                 
                 //////// Add Score http post services here ///////
