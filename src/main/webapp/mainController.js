@@ -10,13 +10,24 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
-            mv.enabled = false;
+            // mv.enabled = false; // DID I (MATTIAS) REMOVE THIS LINE OR ANYBODY ELSE????
         };
+        
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
+        // Close Camera if open
+        if(mv.hasUserMedia){
+            var video = cameraServ.getLocalVideo();
+            var stream = cameraServ.getLocalStream();
+            if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
+            {
+                video.pause();
+                stream.stop();
+            }
+        }
         
         
         /**
@@ -67,9 +78,35 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 }, function(response){
                     console.log(response);
             });
+        }
+        else if($location.url()==='/scoreboard'){
+             // Load all the teams
+            httpServ.getAllTeams().then(function(response){
+                // Success - Save team and members in localStorage
+                mv.allTeams = response.data;
+                var getScoreByTeamId = function(t){
+                    httpServ.getTeamScoreByTeamId(mv.allTeams[t].teamId).then(function(response){
+                        // Success - Save team and members in localStorage
+                        mv.allTeams[t].teamScore = response.data;                       
+                    }, function(response){
+                        // Failed to load score of a team                   
+                        console.log(response);
+                    });
+                };
+                // Load the Scores of all teams
+                for(var t=0 ; t< mv.allTeams.length ; t++){                  
+                    getScoreByTeamId(t);
+                    
+                }
+            }, function(response){
+                // Failed to load teams 
+                console.log(response);
+            });
         };
-//        else { // if($location.url()==='/team')
-             // Load the team and members of the user's team
+        
+        
+        
+        // Load the team and members of the user's team
         mv.getTeam = function() {
             httpServ.getTeamByUserId(mv.userId).success(function(response){
                 // Success - Save team and members in localStorage
@@ -82,7 +119,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                         "members":          $localStorage.team[3]
                 };
                 mv.team.score = mv.getTeamScore();
-                console.log(mv.team);
             }, function(response){
                 // Failed to load teams from db
               //  t.badresult = "" + response.status;
@@ -90,7 +126,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.getTeam();
-        
+           
         /////////////////////// TASKS
         /**
          * Submitting a task answer to the backend.
@@ -220,23 +256,23 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
 ])
 
 .filter('isUser', function() {
-  return function(input, userId) {
-    var out = [];
-      for (var i = 0; i < input.length; i++){
-          if(input[i].userId === userId)
-              out.push(input[i]);
-      }      
-    return out;
-  };
+    return function(input, userId) {
+        var out = [];
+            for (var i = 0; i < input.length; i++){
+                if(input[i].userId === userId)
+                    out.push(input[i]);
+            }      
+        return out;
+    };
 })
 
 .filter('isNotUser', function() {
-  return function(input, userId) {
-    var out = [];
-      for (var i = 0; i < input.length; i++){
-          if(input[i].userId !== userId)
-              out.push(input[i]);
-      }      
-    return out;
-  };
+    return function(input, userId) {
+        var out = [];
+            for (var i = 0; i < input.length; i++){
+                if(input[i].userId !== userId)
+                    out.push(input[i]);
+            }      
+        return out;
+    };
 });

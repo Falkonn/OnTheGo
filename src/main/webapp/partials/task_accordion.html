@@ -1,38 +1,42 @@
 <uib-accordion-heading>
     <span ng-show="t.taskDone" class="glyphicon glyphicon-check">&nbsp;</span>
-    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': !t.open}"></i>
+    {{t.taskName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': t.open, 'glyphicon-chevron-right': 
+!t.open}"></i>
 </uib-accordion-heading>
  
 <table>
     <tr>
         <td class="top top-left text-weighted" colspan="2">
-            <span ng-if="t.isPersonal">Utförs själv</span>
-            <span ng-if="!t.isPersonal">Teamuppgift</span>
+            <span ng-if="t.isPersonal"><i class="fa fa-user"></i> Utförs själv</span>
+            <span ng-if="!t.isPersonal"><i class="fa fa-users"></i> Teamuppgift</span>
         </td>
     </tr>
     <tr>
-        <td class="top top-left text-weighted">Tid</td>
+        <td class="top top-left text-weighted"><i class="fa fa-clock-o"></i> Tidsåtgång</td>
         <td class="top top-left">{{t.taskTime}}</td>
     </tr>
     <tr>
-        <td class="top top-left text-weighted">Poäng</td>
+        <td class="top top-left text-weighted"><i class="fa fa-bar-chart"></i> Poäng</td>
         <td class="top top-left">{{t.taskPoint}}</td>
     </tr>
     <tr>
-        <td class="top top-left text-weighted" colspan="2">
+        <td class="top top-left" colspan="2">
             <br>
             <div class="text-justify" ng-bind-html="checkStringForURLS(t.taskInfo)"></div>
         </td>
     </tr>
+    
     <tr ng-show="!t.taskDone">
         <td colspan="2">
+            &nbsp;<br/>
             <div ng-if="checkTaskType(parseTaskType(t.taskType),1)" ng-include="'partials/task_string.html'"></div>
             <div ng-if="checkTaskType(parseTaskType(t.taskType),2)" ng-include="'partials/task_check.html'"></div>
         </td>
     </tr>
     <tr ng-show="!t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, true )">   
+            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, 
+true )">   
             <input class="btn btn-primary" type="submit" value="Skicka in" />
             </form>
         </td>
@@ -40,17 +44,23 @@
     <tr ng-show="t.taskDone">
         <td class="top top-left" colspan="2">
             <!-- Here we need to include a possible get for Group tasks. -->
-            <span ng-if="checkTaskType(parseTaskType(t.taskType),1)">
-                {{t.user.firstName}} svarade:<br/>
-                {{t.userAnswer}}
+            <span ng-if="checkTaskType(parseTaskType(t.taskType),1)" class="text-weighted">
+                &nbsp;<br/>
+                {{t.user.firstName}} har svarat:<br/>
+                <span class="text-italics text-normal">
+                    {{t.userAnswer}}
+                </span>
             </span>
-            <span ng-if="checkTaskType(parseTaskType(t.taskType),2)">{{t.user.firstName}} Utförd</span>
+            <span ng-if="checkTaskType(parseTaskType(t.taskType),2)" class="text-weighted">
+                &nbsp;<br/>
+                <span class="glyphicon glyphicon-check"></span> Utförd av {{t.user.firstName}}</span>
         </td>
     </tr>
     <tr ng-show="t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer(t,t.userAnswer,false)">   
-                <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Cancel" />
+            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer
+(t,t.userAnswer,false)">   
+                <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Ta bort" />
             </form>
         </td>
     </tr>

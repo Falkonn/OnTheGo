@@ -1,32 +1,28 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav id="dl_navigation" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header pull-left">
-            <button type="button" class="navbar-toggle navbar-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-right refreshButton black-border" style="padding: 5px 10px 3px; vertical-align: middle;" ng-click="refreshPage()">
+                <i class="glyphicon glyphicon-refresh" style="font-size: 1.2em"></i>
+            </button>
+            <!--<button class="btn btn-sm black-border" style="padding: 5px 10px 3px; vertical-align: middle;" type="button" ng-click="refreshPage()">
+                <i class="glyphicon glyphicon-refresh" style="font-size: 1.2em"></i>-->
+        </div>
+        <div class="navbar-brand heading">
+            <span class="title blue-header">{{title}}</span>
+        </div>
+        <div class="navbar-header pull-right">
+            <button type="button" class="navbar-toggle navbar-left black-border" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="navbar-brand">
-                <span class="title">{{title}}</span>
-            </div>
-        </div>
-            
-        
-        <div class="navbar-header pull-right">
-            <ul class="navbar-nav">
-                <li>
-                    <button class="btn btn-sm btn-primary" style="padding: 5px 10px 3px; vertical-align: middle;" type="button" ng-click="refreshPage()">
-                        <i class="glyphicon glyphicon-refresh" style="font-size: 1.2em"></i>
-                    </button>
-                </li>
-            </ul>
         </div>
         
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse constrain-width" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden">
                     <a href="#page-top"></a>
