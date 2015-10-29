@@ -38,10 +38,14 @@ public class ScoreInfo {
     }
     
     
-    public int getScoreSumbyTeamId(long teamId) {
+   public int getScoreSumbyTeamId(int teamId) {
         Query getScoreSumbyTeamIdquery = em.createQuery("SELECT SUM(s.point) FROM Score s where s.teamId =" + teamId);
-        return (int)(long) getScoreSumbyTeamIdquery.getResultList().get(0);
-    }
+        if (getScoreSumbyTeamIdquery.getResultList().get(0)== null){
+            return 0;
+        } else {
+            return (int) (long) getScoreSumbyTeamIdquery.getResultList().get(0);
+        }
+   }
 
     public List<Integer> getScoresbyUserId(int userId) {
         Query scoresbyUserquery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId);
@@ -91,10 +95,14 @@ public class ScoreInfo {
         Query scoreIdbyUseridQuery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId);
         return scoreIdbyUseridQuery.getResultList();
     }
+    
+    public List getScorIdByUserIdAndTaskId(int userId, long taskId) {
+        Query scoreIdbyUseridQuery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId + " AND s.task.taskId =" + taskId);
+        return scoreIdbyUseridQuery.getResultList();
+    }
 
-    public List<Score> checkTaskDone(long userId) {
-        Query taskDoneQuery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.user.userId =" + userId);
-        
+    public List<Score> checkTaskDone(long taskId, int userId) {
+        Query taskDoneQuery = em.createQuery("SELECT s.point, s.taskDone FROM Score s where s.user.userId =" + userId + " AND s.task.taskId =" + taskId);       
         List untypedstatus = taskDoneQuery.getResultList();
         List<Score> scores = new ArrayList<>();
         for(Object untypedStatusObject: untypedstatus) {
@@ -109,7 +117,7 @@ public class ScoreInfo {
         return scores;
     }
 
-    public boolean addSocre(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid) {
+    public boolean addScore(int teamId, int point, boolean taskDone, String userAnswer, Task taskid, User userid) {
         boolean socreAdded = false;
         try {
 
