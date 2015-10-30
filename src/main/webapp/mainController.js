@@ -45,9 +45,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             var result = $sce.trustAsHtml(text.replace(re, subst));
             return result;
         };
-        
-        
-        
+             
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -107,7 +105,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         }
         
         mv.teamPlacement = function(score, index){
-            console.log(score);
             if(score<mv.prevScore){
                 console.log(index + " " + mv.prevIndex);
                 mv.prevScore = score;
@@ -200,8 +197,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                
         mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
             du/gruppen har utfört uppdraget.";
-        
-        
+                
         mv.getTeamScore = function(){
             console.log(mv.teamId);
             httpServ.getScoreByTeamId(mv.teamId).success(function(response){
@@ -212,10 +208,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
-        };
-        
-        
-        
+        };   
 
 //////////// HELP FUNCTIONS
         mv.checkTaskType = function(taskType, expected){
