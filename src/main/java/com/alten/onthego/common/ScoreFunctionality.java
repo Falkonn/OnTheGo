@@ -83,10 +83,12 @@ public class ScoreFunctionality {
                 if (possibleUser.isEmpty()) {
                     if (!taskstatus1 || (taskStatus.isEmpty())) {
                         //check in the db if there is an entry with the team id and task id 
-
+                        System.out.println("Here 1");
                         scoreCounter.addScore(teamId, points, true, answer, taskID, UserId);
                         scoreAdded = true;
                     }
+                    else
+                        System.out.println("Here 2");
                 } else {
                     System.out.println("The entry already exists");
                 }

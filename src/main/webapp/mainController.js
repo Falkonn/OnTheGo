@@ -8,8 +8,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         // Init values
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
-            mv.teamId = $localStorage.user.team.teamId;
-         
+            mv.teamId = 10;//$localStorage.user.team.teamId;
+            console.log(mv.teamId);
         };
         
         // Run Init 
