@@ -10,6 +10,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
+                 
+            mv.prevScore = 0;
+            mv.prevIndex = 1;
         };
         
         // Run Init 
@@ -42,9 +45,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             var result = $sce.trustAsHtml(text.replace(re, subst));
             return result;
         };
-        
-        
-        
+             
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -100,11 +101,22 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             }, function(response){
                 // Failed to load teams 
                 console.log(response);
-            });
+            });           
+        }
+        
+        mv.teamPlacement = function(score, index){
+            if(score<mv.prevScore){
+                console.log(index + " " + mv.prevIndex);
+                mv.prevScore = score;
+                mv.prevIndex++;
+                return mv.prevIndex;
+            }
+            else{
+                return mv.prevIndex;
+            }
+                
         };
- 
-        
-        
+      
         // Load the team and members of the user's team
         mv.getTeam = function() {
             httpServ.getTeamByUserId(mv.userId).success(function(response){
@@ -169,7 +181,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     // Failed to add score (somebody else has already answered it)
                     if(done){
                         t.result = "Failed to Add Score. It is already answered by " + t.user.userId;
-                         console.log("Failed to add Score! It is answered by" + t.user.userId);
+                        console.log("Failed to add Score! It is answered by" + t.user.userId);
                     }
                     // Failed to delete score (task is already cancelled)
                     else{
@@ -185,8 +197,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                
         mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
             du/gruppen har utfört uppdraget.";
-        
-        
+                
         mv.getTeamScore = function(){
 //            console.log(mv.teamId);
             httpServ.getScoreByTeamId(mv.teamId).success(function(response){
@@ -197,10 +208,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
-        };
-        
-        
-        
+        };   
 
 //////////// HELP FUNCTIONS
         mv.checkTaskType = function(taskType, expected){
