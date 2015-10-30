@@ -6,7 +6,7 @@ var httpService = angular.module('httpService', []);
 // User Data Service
 httpService.factory('httpServ', ['$http',
     function($http) {
-          var urlBase = 'http://localhost:8080/otg'
+        var urlBase = 'http://localhost:8080/otg';
         //var urlBase = 'http://10.87.16.152:8080/';
         //var urlBase2 = 'http://10.87.16.152:3306/dlapp';
         
@@ -88,6 +88,11 @@ httpService.factory('httpServ', ['$http',
                     return $http.get(urlBase + '/Scores');
                 },
                 
+
+                getScoreByTeamId: function(teamId) {
+                    return $http.get(urlBase + '/scoreboard/' + teamId, teamId);
+                },
+                
                 getAllTeams: function() {
                     return $http.get(urlBase + '/allteams');
                 },
@@ -97,7 +102,6 @@ httpService.factory('httpServ', ['$http',
                 }
                 
                 //////// Add Score http post services here ///////
-              
         };
      
     }]);

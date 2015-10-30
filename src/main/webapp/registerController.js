@@ -11,7 +11,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         //$localStorage.$reset();
  
         // LoggedIn variable
-        $scope.loggedIn = $localStorage.loggedIn;
+        $scope.loggedIn = $localStorage.loggedIn = true;
         if(typeof $localStorage.user === 'undefined' || $localStorage.user === null)
             $scope.hidePin = true;
                 

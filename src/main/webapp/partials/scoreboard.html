@@ -14,10 +14,10 @@ and open the template in the editor.
                     <th class="break-padding">Team</th>
                     <th class="text-right">Poäng</th>
                 </thead>
-                <tr>
-                    <td>94.</td>
-                    <td class="break-padding">There will be blood oranges</td>
-                    <td class="text-right">3055p</td>
+                <tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'">
+                    <td>{{$index + 1}}</td>
+                    <td class="break-padding">{{teamAndScore.teamName}} ({{teamAndScore.teamId}})</td>
+                    <td class="text-right">{{teamAndScore.teamScore + "p"}}</td>
                 </tr>
             </table>
         </div>

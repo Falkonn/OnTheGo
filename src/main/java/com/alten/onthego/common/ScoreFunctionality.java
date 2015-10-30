@@ -27,7 +27,8 @@ public class ScoreFunctionality {
     public boolean scoreAdded, scoreDeleted, taskstatus1 = false;
     public boolean taskDone = false;
     public List<Task> pointList, allTasks;
-    public List<Integer> teamList, scoreList;
+    public List<Long> teamList;
+    public List<Integer> scoreList;
     public List<Integer> usersList, socoreIds, possibleUser;
     public List<Score> teamSocreList, personSocreList, socoreIdList, taskStatus;
     public EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");

@@ -63,15 +63,13 @@ public class User implements Serializable {
     @Column(name = "pic_id")
     private String picId;
 
-    @JoinColumn(name = "role_name")
-    @OneToOne(targetEntity = UserRoles.class)
-    private UserRoles userRole;
+  
 
     public User() {
     }
 
     public User(int userId, String firstName, String lastName, String email,
-            String telefon, String city, String department, String pin_code, Team team, String picId, UserRoles userRole) {
+            String telefon, String city, String department, String pin_code, Team team, String picId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -82,7 +80,6 @@ public class User implements Serializable {
         this.pin_code = pin_code;
         this.team = team;
         this.picId = picId;
-        this.userRole = userRole;
     }
 
     public int getUserId() {
@@ -165,13 +162,7 @@ public class User implements Serializable {
         this.picId = picId;
     }
 
-    public void setUserRole(UserRoles userRole) {
-        this.userRole = userRole;
-    }
-
-    public UserRoles getUserRole() {
-        return userRole;
-    }
+    
 
     @Override
     public String toString() {
