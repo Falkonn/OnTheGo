@@ -1,44 +1,72 @@
 <!-- Main Section -->
 <section id="schedule">
     <div class="container">
-            <table class="table table-responsive">
-                <thead>
-                    <th>TID</th>
-                    <th>AKTIVITET</th>
-                </thead>
-                <tr>
-                    <td>11:30</td>
-                    <td>Virtuell Interaktion och Lunch</td>
-                </tr>
-                <tr>
-                    <td>13:00</td>
-                    <td>David på Scenen</td>
-                </tr>
-                <tr>
-                    <td>13:30</td>
-                    <td>Virtuell Interaktion och Fikapaus</td>
-                </tr>
-                <tr>
-                    <td>15:15</td>
-                    <td>Branschpanelen</td>
-                </tr>
-                <tr>
-                    <td>16:15</td>
-                    <td>Virtuell Interaktion och Fikapaus</td>
-                </tr>
-                <tr>
-                    <td>17:00</td>
-                    <td>Inspirationsföreläsning</td>
-                </tr>
-                <tr>
-                    <td>18:00</td>
-                    <td>Ombyte och Drink i Baren</td>
-                </tr>
-                <tr>
-                    <td>19:00</td>
-                    <td>Buss till Festen</td>
-                </tr>
-            </table>
+            <table class="table table-responsive orangeborder">
+
+                        <tr>
+                            <td class="tid">
+                                11:30: Dagen startar på Clarion Post
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rast">
+                                <span class="text-weighted">Lunch och Altens Webapp</span>
+                                <br>
+                                <p class="rastinfo">Ät lunch och lär känna ditt team, lös kluringar, ta foton och tävla om finfina priser genom att lösa uppgifter här i webapp.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="event">
+                                <span class="text-weighted">David Ljungström välkomnar</span>
+                                <p class="eventinfo">Vår egen VD startar dagen med ett välkomsttal från scenen.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="event">
+                                <span class="text-weighted">Alten Case</span>
+                                <br>
+                                <p class="eventinfo">Ta del av lyckade projekt i presentationer från några av våra medarbetare.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rast">
+                                <span class="text-weighted">Fikapaus</span>
+                                <p class="rastinfo">Ta en paus och lär känna ditt team, lös kluringar, ta foton och tävla om finfina priser genom att lösa uppgifter här i webappen.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="event">
+                                <span class="text-weighted">Branschpanelen</span>
+                               <br>
+                               <p class="eventinfo">Vi har bjudit in några av våra största kunder för att ta pulsen på konsultbranschen och samtala kring deras branscher. </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="event">
+                                <span class="text-weighted">Inspirationsföreläsning</span>
+                                <br>
+                                <p class="eventinfo"> Lyssna till en inspirerande talare som genom mod och ett 
+                                    ”djävlar anamma” skapat extraordinära produkter som omgivningen från början aldrig kunnat tro vara möjliga.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tid tid2">18:00: Dagen avslutas </td>
+                        </tr>
+                        <tr>
+                            <td class="rast rast2">
+                                <span class="text-weighted"> Ombyte och AW i Baren</span>
+                                <p class="rastinfo">Svida om till partystassen och starta kvällen med en drink i baren.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tid tid3">
+                               19:00: Buss till Festen
+                            </td>
+                        </tr>
+                
+
+            </table> 
     </div>
     <div ng-hide="mv.loggedIn" ng-include="'partials/footer_team.html'"></div>
 </section>
