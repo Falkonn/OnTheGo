@@ -13,16 +13,61 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     
-        <!-- SERVLET MAPPING -->
-    <servlet-mapping>
+    <!-- SERVLET MAPPING -->
+   <servlet-mapping>
         <servlet-name>spring</servlet-name>
         <url-pattern>/otg/*</url-pattern>
     </servlet-mapping>
+    
+ <!-- apply constraint to a URL pattern -->
+<!--    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name></web-resource-name>
+            <url-pattern>/otg/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>OTGUser</role-name>
+        </auth-constraint>
+    </security-constraint>-->
 
-    <!--<error-page>
+<!--       public resource URL pattern  
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>public</web-resource-name>
+            <url-pattern>/otg/emailpath/*</url-pattern>
+            <url-pattern>/otg/userbyemail/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    
+        <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>public</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <url-pattern>/otg/confirmpath/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+    </security-constraint>-->
+
+     <!--  Method of authentication -->
+<!--    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/confirm.html</form-login-page>
+            <form-error-page>/register.html</form-error-page>
+        </form-login-config>
+        <realm-name>OTGRealm</realm-name>
+    </login-config>-->
+
+     <!--  Define your roles -->
+<!--    <security-role>
+        <role-name>OTGUser</role-name>
+    </security-role>-->
+
+
+    <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/jsp/errorpages/jsperror.jsp</location>
-    </error-page>-->
+    </error-page>
 
 </web-app>
 

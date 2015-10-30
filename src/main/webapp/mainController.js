@@ -10,25 +10,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
-            // mv.enabled = false; // DID I (MATTIAS) REMOVE THIS LINE OR ANYBODY ELSE????
+            mv.enabled = false; // NOT SURE IF THIS LINE SHOULD BE HERE (MATTIAS)
         };
-        
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
-        // Close Camera if open
-        if(mv.hasUserMedia){
-            var video = cameraServ.getLocalVideo();
-            var stream = cameraServ.getLocalStream();
-            if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
-            {
-                video.pause();
-                stream.stop();
-            }
-        }
-        
         
         /**
          * Function to find one/many URLs within a String and format them as 

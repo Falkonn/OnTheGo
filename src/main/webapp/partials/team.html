@@ -1,22 +1,14 @@
 <!-- Main Section -->
 <section id="team">
     <div class="container">
-        <div class="row team-name text-center">
+        <div class="row team-name">
             <table>
                 <tr>
-                    <td>
-                        <h3 class="text-center">Team {{team.teamNumber}}: {{team.teamName}}</h3>
-                        <!--<h4>There will be blood oranges</h4>-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Detta är ditt team för dagen! Klicka på uppgifter i menyn för att se era uppdrag.</p>
+                    <td class="section-heading bottom">
+                        <h5>{{team.teamName}} ({{team.numberOfMembers}})</h5>
                     </td>
                 </tr>
             </table>
-            <!-- <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #4c4d4f; margin: 1em 0; padding: 0; "> -->
-
         </div>
         <div class="row" ng-repeat="member in team.members | isUser : userId ">
             <div class="memberMe">

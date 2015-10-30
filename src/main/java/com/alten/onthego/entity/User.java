@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,7 +40,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-   // private List<Score> users;
+    // private List<Score> users;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -61,6 +62,8 @@ public class User implements Serializable {
     private Team team;
     @Column(name = "pic_id")
     private String picId;
+
+  
 
     public User() {
     }
@@ -118,9 +121,9 @@ public class User implements Serializable {
     public Team getTeam() {
         return team;
     }
-    
+
     public void setTeam(Team team) {
-         this.team = team;
+        this.team = team;
     }
 
     public void setFirstName(String firstName) {
@@ -150,7 +153,7 @@ public class User implements Serializable {
     public void setPinCode(String pin_code) {
         this.pin_code = pin_code;
     }
-    
+
     public String getPicId() {
         return picId;
     }
@@ -158,6 +161,8 @@ public class User implements Serializable {
     public void setPicId(String picId) {
         this.picId = picId;
     }
+
+    
 
     @Override
     public String toString() {
