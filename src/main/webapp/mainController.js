@@ -135,6 +135,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 else{
                     t.result = "Deleted successfully!";
                     t.taskDone = false;
+                    t.check = false;
                     console.log("Deleted Score!");
                 }
                 // By reloading everything is updated
