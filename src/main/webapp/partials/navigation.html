@@ -3,13 +3,13 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header pull-left">
-                    <button type="button" class="navbar-right refreshButton black-border" style="padding: 5px 10px 3px; vertical-align: middle;" ng-click="refreshPage()">
+                    <button type="button" class="navbar-right refreshButton" style="padding: 5px 10px 3px; vertical-align: middle;" ng-click="refreshPage()">
                         <i class="glyphicon glyphicon-refresh" style="font-size: 1.2em"></i>
                     <!--<button class="btn btn-sm black-border" style="padding: 5px 10px 3px; vertical-align: middle;" type="button" ng-click="refreshPage()">
                         <i class="glyphicon glyphicon-refresh" style="font-size: 1.2em"></i>
                     </button>-->
         </div>
-        <div class="navbar-brand heading">
+        <div class="navbar-title">
             <span class="title blue-header">{{title}}</span>
         </div>
         <div class="navbar-header pull-right">
@@ -22,11 +22,12 @@
         </div>
         
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse constrain-width" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="hidden">
+        <div class="collapse navbar-collapse menu-list" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav dl-ul">
+                <!--<li class="hidden">-->
+                <!--<li>
                     <a href="#page-top"></a>
-                </li>
+                </li>-->
                 <li>
                     <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#team">Team</a>
                 </li>

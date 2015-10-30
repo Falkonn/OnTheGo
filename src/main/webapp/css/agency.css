@@ -371,13 +371,23 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .black-border {
-    border-color: #333;
+    border-color: #222 !important;
 }
 
-.constrain-width {
-    width: 600px;
+#dl_navigation li {
+    height: 45px;
+    font-size: 16px;
 }
 
+.dl-ul {
+    margin-top: 50px;
+}
+
+@media(min-width:768px){
+    .dl-ul {
+        margin-top: 0px;
+    }
+}
 #dl_navigation .blue-header {
     color: #0093D0;
 }
@@ -397,6 +407,12 @@ fieldset[disabled] .btn-xl.active {
 #dl_navigation .heading {
     margin-left: 15px;
     margin-right: 15px;
+}
+
+#dl_navigation button {
+    color: #FFF;
+    background-color: #222;
+    border: none;
 }
 
 header {
@@ -1245,7 +1261,8 @@ img::-moz-selection {
 
 .navbar-brand {
     white-space: nowrap;
-    box-sizing: border-box ;
+    box-sizing: border-box;
+    font-weight: 500;
 }
 
 .refreshButton {
@@ -1256,5 +1273,27 @@ img::-moz-selection {
 .navbar-collapse.collapsing,
 .collapse {
     /*clear: left;*/
-    width: 98%;
+}
+
+.menu-list {
+    float: left;
+}
+
+@media (min-width: 768px) {
+  .menu-list {
+    float: right;
+  }
+}
+
+.first-list-element {
+    height: 50px;
+}
+
+.navbar-title {
+    position: absolute;
+    top: 15px;
+    left: 70px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
 }
