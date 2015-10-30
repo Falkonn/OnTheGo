@@ -10,68 +10,15 @@
                 </tr>
             </table>
         </div>
-        <div class="row" ng-repeat="member in team.members">
-            <div>
-                
-                <div class="col-lg-12 text-center">
-                    <table>
-                    <tr>
-                        <td class="col-xs-3 break-image">
-                            <table>
-                            <tr>
-                            <td ng-show="!enabled">
-                                <a href="../img/selfie/{{member.picId}}"><img src="../img/selfie/{{member.picId}}" class="img-responsive img-circle" /></a>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td ng-show="checkUserId(member.userId)">
-                                <a ng-click="enabled=!enabled" ng-show="!enabled">Ändra bild</a>
-                                <camera ng-if="enabled">
-                                    <camera-control-snapshot> </camera-control-snapshot>
-                                </camera>                          
-                                <canvas style="display: none"> </canvas>
-                            </td>
-                            </tr>
-                            </table>
-                        </td>
-                        <td class="col-xs-9"ng-show="!checkUserId(member.userId) || !enabled">
-                            <table>
-                            <tr>
-                                <td class="text-left">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    {{member.firstName}} {{member.lastName}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    {{member.telefon}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <i class="fa fa-at"></i>
-                                    <a href="mailto:{{member.email}}?subject=Alten, grupp {{team.teamNumber}}">{{member.email}}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <i class="fa fa-home"></i>
-                                     {{member.department}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <i class="fa fa-globe"></i> 
-                                    {{member.city}}
-                                </td>
-                            </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    </table>
-                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #000; margin: 1em 0; padding: 0; ">
-                </div>
+        <div class="row" ng-repeat="member in team.members | isUser : userId ">
+            <div class="memberMe">
+                <div ng-include="'partials/team_member.html'"></div>
+            </div>
+        </div>
+        
+        <div class="row" ng-repeat="member in team.members | isNotUser : userId ">
+            <div class="member">
+                <div ng-include="'partials/team_member.html'"></div>
             </div>
         </div>
     </div>

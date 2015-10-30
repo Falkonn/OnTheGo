@@ -38,14 +38,16 @@ public class ScoreInfo {
     }
     
     
-   public int getScoreSumbyTeamId(int teamId) {
+    public int getScoreSumbyTeamId(int teamId) {
         Query getScoreSumbyTeamIdquery = em.createQuery("SELECT SUM(s.point) FROM Score s where s.teamId =" + teamId);
-        if (getScoreSumbyTeamIdquery.getResultList().get(0)== null){
+
+        if (getScoreSumbyTeamIdquery.getResultList().get(0) == null){
             return 0;
-        } else {
-            return (int) (long) getScoreSumbyTeamIdquery.getResultList().get(0);
         }
-   }
+        else{
+            return (int)(long) getScoreSumbyTeamIdquery.getResultList().get(0);
+        }
+    }
 
     public List<Integer> getScoresbyUserId(int userId) {
         Query scoresbyUserquery = em.createQuery("SELECT s.scoreId FROM Score s where s.user.userId =" + userId);

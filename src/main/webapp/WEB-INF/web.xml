@@ -14,13 +14,13 @@
     </servlet>
     
     <!-- SERVLET MAPPING -->
-    <servlet-mapping>
+   <servlet-mapping>
         <servlet-name>spring</servlet-name>
         <url-pattern>/otg/*</url-pattern>
     </servlet-mapping>
     
- <!-- apply constraint to a URL pattern -->OTGUser
-    <security-constraint>
+ <!-- apply constraint to a URL pattern -->
+<!--    <security-constraint>
         <web-resource-collection>
             <web-resource-name></web-resource-name>
             <url-pattern>/otg/*</url-pattern>
@@ -28,7 +28,7 @@
         <auth-constraint>
             <role-name>OTGUser</role-name>
         </auth-constraint>
-    </security-constraint>
+    </security-constraint>-->
 
 <!--       public resource URL pattern  
     <security-constraint>
@@ -49,25 +49,25 @@
     </security-constraint>-->
 
      <!--  Method of authentication -->
-    <login-config>
+<!--    <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/confirm.html</form-login-page>
             <form-error-page>/register.html</form-error-page>
         </form-login-config>
         <realm-name>OTGRealm</realm-name>
-    </login-config>
+    </login-config>-->
 
      <!--  Define your roles -->
-    <security-role>
+<!--    <security-role>
         <role-name>OTGUser</role-name>
-    </security-role>
+    </security-role>-->
 
 
-    <!--<error-page>
+    <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/jsp/errorpages/jsperror.jsp</location>
-    </error-page>-->
+    </error-page>
 
 </web-app>
 

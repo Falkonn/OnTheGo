@@ -22,7 +22,7 @@
     <tr>
         <td class="top top-left" colspan="2">
             <br>
-            <div class="text-justify">{{t.taskInfo}}</div>
+            <div class="text-justify" ng-bind-html="checkStringForURLS(t.taskInfo)"></div>
         </td>
     </tr>
     
@@ -37,7 +37,7 @@
         <td colspan="2">
             <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, 
 true )">   
-            <input class="btn btn-primary" type="submit" value="Skicka in" ng-disabled="!t.check && !t.answer"/>
+            <input class="btn btn-primary" type="submit" value="Skicka in" ng-disabled="!t.check && !t.answer" />
             </form>
         </td>
     </tr>
@@ -58,8 +58,7 @@ true )">
     </tr>
     <tr ng-show="t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer
-(t,t.userAnswer,false)">   
+            <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer(t,t.userAnswer,false)">   
                 <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Ta bort" />
             </form>
         </td>

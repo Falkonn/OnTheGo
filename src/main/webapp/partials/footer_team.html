@@ -1,12 +1,17 @@
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                    <a class="navbar-brand page-scroll" href="#">Team {{userTeam}}:
-                            {{userTeamScore}}</a>
-            </div>
-
+<!-- Footer -->
+<nav class="nav navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <ul class="nav navbar-brand navbar-left">
+                <li>{{team.teamName}}</li>
+            </ul>
+        </div>
+        
+        <div class="navbar-header pull-right">
+            <ul class="nav navbar-brand navbar-right">
+                <li><b>{{team.score}}p</b></li>
+            </ul>
+        </div>
     </div>
     <!-- /.container-fluid -->
 </nav>

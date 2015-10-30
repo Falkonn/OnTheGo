@@ -8,7 +8,6 @@ package com.alten.onthego.crud;
 import com.alten.onthego.common.PassEncryption;
 import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
-import com.alten.onthego.entity.UserRoles;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,8 +25,7 @@ public class addUser {
         EntityManager em = emf.createEntityManager();
         try {
             Team team = em.find(Team.class, 1L);
-            UserRoles userRole = em.find(UserRoles.class, 24L);
-            User user = new User(19,"Vasileios", "Golematis", "vasileios.golematis@alten.com", "0767649596", "Goteborg", "IT", "WFNbUN7gIoU=", team, "0",userRole);
+            User user = new User(19,"Vasileios", "Golematis", "vasileios.golematis@alten.com", "0767649596", "Goteborg", "IT", "WFNbUN7gIoU=", team, "0");
             EntityTransaction entityTx = em.getTransaction();
             entityTx.begin();
             em.persist(user);

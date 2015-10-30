@@ -1116,3 +1116,58 @@ img::selection {
 img::-moz-selection {
     background: 0 0;
 }
+
+.navbar-fixed-bottom {
+/*    margin-bottom: -1em;*/
+    height: 1.2em;
+}
+
+.navbar-header > .navbar-right {
+    float: right;
+    clear: left;
+    margin-top: 0.7em;
+}
+
+.navbar-brand {
+    white-space: nowrap;
+    box-sizing: border-box ;
+}
+
+.refreshButton {
+    clear: left;
+}
+
+.navbar-collapse.in,
+.navbar-collapse.collapsing,
+.collapse {
+    /*clear: left;*/
+    width: 98%;
+}
+
+.memberMe {
+    background-color: #f5f5f5;
+    border-radius: 0.5em;
+    border: 1px solid #ccc;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.member {
+    background-color: #ffec82;
+    border-radius: 0.5em;
+    border: 1px solid #ffd105;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+
+.img-circle {
+    border: 1px solid #aaa;
+}
+
+/* Doesn't work - Changing accordion header background color */
+.panel-default .panel-heading .accordionHeader {
+    background-color: #0000ff;
+}
