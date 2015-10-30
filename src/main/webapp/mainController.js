@@ -9,7 +9,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
-         
+                  
+            mv.prevScore = 0;
+            mv.prevIndex = 1;
         };
         
         // Run Init 
@@ -103,11 +105,22 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             }, function(response){
                 // Failed to load teams 
                 console.log(response);
-            });
-            
+            });           
         }
-      
         
+        mv.teamPlacement = function(score, index){
+            console.log(score);
+            if(score<mv.prevScore){
+                console.log(index + " " + mv.prevIndex);
+                mv.prevScore = score;
+                mv.prevIndex++;
+                return mv.prevIndex;
+            }
+            else{
+                return mv.prevIndex;
+            }
+                
+        };
         /////////////////////// TASKS
         /**
          * Submitting a task answer to the backend.

@@ -15,7 +15,7 @@ and open the template in the editor.
                     <th class="text-right">Poäng</th>
                 </thead>
                 <tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'">
-                    <td>{{$index+1}}</td>
+                    <td>{{$index + 1}}</td>
                     <td class="break-padding">{{teamAndScore.teamName}} ({{teamAndScore.teamId}})</td>
                     <td class="text-right">{{teamAndScore.teamScore + "p"}}</td>
                 </tr>
