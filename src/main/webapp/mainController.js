@@ -10,13 +10,24 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
-            mv.enabled = false; // NOT SURE IF THIS LINE SHOULD BE HERE (MATTIAS)
         };
+        
         // Run Init 
         mv.init();
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
+        // Close Camera if open
+        if(mv.hasUserMedia){
+            var video = cameraServ.getLocalVideo();
+            var stream = cameraServ.getLocalStream();
+            if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
+            {
+                video.pause();
+                stream.stop();
+            }
+        }
+        
         
         /**
          * Function to find one/many URLs within a String and format them as 
@@ -91,7 +102,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 console.log(response);
             });
         };
-        
+ 
         
         
         // Load the team and members of the user's team
@@ -144,6 +155,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 else{
                     t.result = "Deleted successfully!";
                     t.taskDone = false;
+                    t.check = false;
                     console.log("Deleted Score!");
                 }
                 // By reloading everything is updated
@@ -241,6 +253,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             }
         };
     }
+
 ])
 
 .filter('isUser', function() {
