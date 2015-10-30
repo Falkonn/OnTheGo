@@ -232,7 +232,9 @@ public class UserCont {
             // remove data:image/png;base64, and then take rest string
             byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imageData);
             ByteArrayInputStream baisData = new ByteArrayInputStream(decodedBytes);
-            File outputfile = new File("C:\\Users\\vg3164\\Documents\\OnTheGo\\src\\main\\webapp\\img\\selfie\\" + userId + ".png");
+
+            File outputfile = new File("C:\\Tomcat\\apache-tomcat-8.0.28\\work\\Catalina\\localhost\\onthego\\img\\" + userId + ".png");
+
             System.out.println("file name is: " + outputfile);
             System.out.println("image datais  " + imageData);
             BufferedImage bfi = ImageIO.read(baisData);

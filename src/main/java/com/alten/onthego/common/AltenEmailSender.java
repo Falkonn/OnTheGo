@@ -26,7 +26,7 @@ import javax.mail.internet.MimeMultipart;
  */
 public class AltenEmailSender {
 
-    public static void sendEmail(String host, String port,
+    public void sendEmail(String host, String port,
             final String userName, String toAddress,
             String subject, String message, String[] attachments)
             throws AddressException, MessagingException {
@@ -79,10 +79,5 @@ public class AltenEmailSender {
 
         // sends the e-mail
         Transport.send(sessionmessage);
-    }
-
-    public static void main(String[] args) throws MessagingException {
-        sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen@alten.se", "Khaled.Alnawasreh@alten.se", "subject", "here is the messages", null);
-        System.out.println("Email have been sent!");
     }
 }

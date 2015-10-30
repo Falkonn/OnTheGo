@@ -1,86 +1,24 @@
 <!-- Main Section -->
 <section id="team">
     <div class="container">
-        <div class="row team-name text-center">
+        <div class="row team-name">
             <table>
                 <tr>
-                    <td>
-                        <h3 class="text-center">Team {{team.teamNumber}}: {{team.teamName}}</h3>
-                        <!--<h4>There will be blood oranges</h4>-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Detta är ditt team för dagen! Klicka på uppgifter i menyn för att se era uppdrag.</p>
+                    <td class="section-heading bottom">
+                        <h5>{{team.teamName}} ({{team.numberOfMembers}})</h5>
                     </td>
                 </tr>
             </table>
-            <!-- <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #4c4d4f; margin: 1em 0; padding: 0; "> -->
-
         </div>
-        <div class="row" ng-repeat="member in team.members">
-            <div>
-                
-                <div class="col-lg-12 text-center">
-                    <table>
-                    <tr>
-                        <td class="col-xs-3 break-image">
-                            <table>
-                            <tr>
-                            <td ng-show="!enabled">
-                                <a href="../img/selfie/{{member.picId}}"><img ng-src="../img/selfie/{{member.picId}}" class="img-responsive img-circle" /></a>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td ng-show="checkUserId(member.userId)">
-                                <a ng-click="enabled=true" ng-show="!enabled" ng-model="enabled">Ändra bild</a>
-                                <camera ng-if="enabled">
-                                    <camera-control-snapshot> </camera-control-snapshot>
-                                </camera>                          
-                                <canvas style="display: none"> </canvas>
-                            </td>
-                            </tr>
-                            </table>
-                        </td>
-                        <td class="col-xs-9"ng-show="!checkUserId(member.userId) || !enabled">
-                            <table>
-                            <tr>
-                                <td class="text-left text-weighted">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    {{member.firstName}} {{member.lastName}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    {{member.telefon}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <i class="fa fa-at"></i>
-                                    <a href="mailto:{{member.email}}?subject=Alten, grupp {{team.teamNumber}}">{{member.email}}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <i class="fa fa-home"></i>
-                                     {{member.department}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">
-                                    <i class="fa fa-globe"></i> 
-                                    {{member.city}}
-                                </td>
-                            </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    </table>
-                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #818285; margin: 1em 0; padding: 0; ">
-                <!--<hr style="display: block; height: 1px; border: 0; border-top: 1px solid #818285; margin: 0 0 1em 0; padding: 0; ">-->
-                </div>
+        <div class="row" ng-repeat="member in team.members | isUser:userId">
+            <div class="memberMe">
+                <div ng-include="'partials/team_member.html'"></div>
+            </div>
+        </div>
+        
+        <div class="row" ng-repeat="member in team.members | isNotUser:userId">
+            <div class="member">
+                <div ng-include="'partials/team_member.html'"></div>
             </div>
         </div>
     </div>

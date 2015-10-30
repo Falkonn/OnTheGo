@@ -82,7 +82,7 @@ public class UserInfo {
         return (List<Integer>) findUsersByteamIdQ.getResultList();
     }
     
-    public List<User> findAllMembersByTeamId(int teamid) {
+    public List<User> findAllMembersByTeamId(long teamid) {
         Query findAllMembersByTeamIdQ = em.createQuery("select e from User e where e.team.teamId  =" + teamid);
         return (List<User>) findAllMembersByTeamIdQ.getResultList();
     }
@@ -117,12 +117,12 @@ public class UserInfo {
         }
     }
 
-    public List<Integer> getTeamIdbyUserId(int userId) {
+    public List<Long> getTeamIdbyUserId(int userId) {
         Query scoresquery = em.createQuery("SELECT u.team.teamId FROM User u where u.userId=" + userId);
-        return (List<Integer>) scoresquery.getResultList();
+        return (List<Long>) scoresquery.getResultList();
     }
 
-    public List<Integer> getUserByTeamIdAndTaskId(int teamId, long taskId) {
+    public List<Integer> getUserByTeamIdAndTaskId(long teamId, long taskId) {
         Query userbyteamandtaskidquery = em.createQuery("SELECT u.user.userId FROM Score u where u.teamId =" + teamId + " AND u.task.taskId =" + taskId);
         return (List<Integer>) userbyteamandtaskidquery.getResultList();
     }

@@ -11,7 +11,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         //$localStorage.$reset();
  
         // LoggedIn variable
-        $scope.loggedIn = $localStorage.loggedIn;
+        $scope.loggedIn = $localStorage.loggedIn = true;
         if(typeof $localStorage.user === 'undefined' || $localStorage.user === null)
             $scope.hidePin = true;
                 
@@ -51,7 +51,6 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
 
     this.sendEmail = function() {
         $scope.result = "Verifierar e-postadress...";
-        console.log("Sending " + $scope.userEmail);
         httpServ.postUserMail($scope.userEmail).then(function(response) {
             // Getting User Info to show to the user
             httpServ.getUserByMail($scope.userEmail + "/").then(function(response){

@@ -1,15 +1,18 @@
 
-var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage' ])
+var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage', 'ngSanitize' ])
 
-.controller('mainController',['$scope','httpServ', 'cameraServ', '$localStorage', '$location', '$route',
-    function ($scope, httpServ, cameraServ, $localStorage, $location, $route) {
+.controller('mainController',['$scope', '$sce', 'httpServ', 'cameraServ', '$localStorage', '$location', '$route', 
+    function ($scope, $sce, httpServ, cameraServ, $localStorage, $location, $route) {
+        
         var mv = $scope;
         
         // Init values
         mv.init = function() {
             mv.userId = $localStorage.user.userId;
             mv.teamId = $localStorage.user.team.teamId;
-         
+                 
+            mv.prevScore = 0;
+            mv.prevIndex = 1;
         };
         
         // Run Init 
@@ -29,6 +32,20 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         }
         
         
+        /**
+         * Function to find one/many URLs within a String and format them as 
+         * HTML including allow the HTML-format.
+         * @param {String} text
+         * @returns {trustAsHTML} result Text as Trusted HTML format.
+         */
+        mv.checkStringForURLS = function(text) {
+            var re = /(http|ftp|https)(:\/\/)([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g; 
+            var str = 'Någon text som inte är en länk och sedan en http://www.alten.se för att sedan ha lite mer text https://www.google.com, asd.';
+            var subst = '<a href="$1$2$3" target=_blank>$3</a>'; 
+            var result = $sce.trustAsHtml(text.replace(re, subst));
+            return result;
+        };
+             
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -61,25 +78,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 }, function(response){
                     console.log(response);
             });
-          
-        }
-        else if($location.url()==='/team'){
-             // Load the team and members of the user's team
-            httpServ.getTeamByUserId(mv.userId).success(function(response){
-                // Success - Save team and members in localStorage
-                $localStorage.team = response;
-                /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-                mv.team = {
-                        "teamNumber":       $localStorage.team[0],
-                        "teamName":         $localStorage.team[1],
-                        "numberOfMembers":  $localStorage.team[2],
-                        "members":          $localStorage.team[3]
-                };
-            }, function(response){
-                // Failed to load teams from db
-              //  t.badresult = "" + response.status;
-            });
-           
         }
         else if($location.url()==='/scoreboard'){
              // Load all the teams
@@ -103,16 +101,50 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             }, function(response){
                 // Failed to load teams 
                 console.log(response);
-            });
-            
+            });           
         }
-      
         
+        mv.teamPlacement = function(score, index){
+            if(score<mv.prevScore){
+                console.log(index + " " + mv.prevIndex);
+                mv.prevScore = score;
+                mv.prevIndex++;
+                return mv.prevIndex;
+            }
+            else{
+                return mv.prevIndex;
+            }
+                
+        };
+      
+        // Load the team and members of the user's team
+        mv.getTeam = function() {
+            httpServ.getTeamByUserId(mv.userId).success(function(response){
+                // Success - Save team and members in localStorage
+                $localStorage.team = response;
+                /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+                mv.team = {
+                        "teamNumber":       $localStorage.team[0],
+                        "teamName":         $localStorage.team[1],
+                        "numberOfMembers":  $localStorage.team[2],
+                        "members":          $localStorage.team[3]
+                };
+                mv.team.score = mv.getTeamScore();
+            }, function(response){
+                // Failed to load teams from db
+              //  t.badresult = "" + response.status;
+            });
+        };
+        
+        mv.getTeam();
+           
         /////////////////////// TASKS
         /**
          * Submitting a task answer to the backend.
          * Handles all types of answers (isPersonal: true/false and taskType: String/Checkbox) 
-         * @param {type} t
+         * @param {taskType} t
+         * @param {string} answer String with either a answer text or empty string for checkboxes.
+         * @param {boolean} done If true, answering task, if false, cancelling task.
          * @returns {undefined}
          */
         mv.submitAnswer = function(t, answer, done){
@@ -120,7 +152,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
-            console.log(data);
+//            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
                 // Score Added successfully
                 if(done){
@@ -135,6 +167,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 else{
                     t.result = "Deleted successfully!";
                     t.taskDone = false;
+                    t.check = false;
                     console.log("Deleted Score!");
                 }
                 // By reloading everything is updated
@@ -148,7 +181,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     // Failed to add score (somebody else has already answered it)
                     if(done){
                         t.result = "Failed to Add Score. It is already answered by " + t.user.userId;
-                         console.log("Failed to add Score! It is answered by" + t.user.userId);
+                        console.log("Failed to add Score! It is answered by" + t.user.userId);
                     }
                     // Failed to delete score (task is already cancelled)
                     else{
@@ -164,6 +197,18 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                
         mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
             du/gruppen har utfört uppdraget.";
+                
+        mv.getTeamScore = function(){
+//            console.log(mv.teamId);
+            httpServ.getScoreByTeamId(mv.teamId).success(function(response){
+                $localStorage.team.score = response;
+                mv.team.score = response;
+                console.log("mv.team.score:" + mv.team.score);
+            }, function(response){
+                console.log("Failed to load score from db");
+              //  t.badresult = "" + response.status;
+            });
+        };   
 
 //////////// HELP FUNCTIONS
         mv.checkTaskType = function(taskType, expected){
@@ -176,7 +221,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.checkUserId = function(userId){
-            if(mv.userId == userId )
+            if( mv.userId == userId )
                 return true;
             else 
                 return false;
@@ -215,88 +260,28 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 return str;
             }
         };
-        
-        /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-        mv.lindholmen = {
-            "floors": [
-                {
-                    "id": 1,
-                    "floor": "Vån 6",
-                    "image": "img/logos/wordpress.jpg",
-                    "activities": [
-                        {
-                            "startTime": "19:00", 
-                            "endTime": "20:00",
-                            "heading": "Heading 6.1",
-                            "information": "info 6.1"
-                        },
-                        {
-                            "startTime": "20:00", 
-                            "endTime": "20:30",
-                            "heading": "Heading 6.2",
-                            "information": "info 6.2"
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "floor": "Vån 5",
-                    "image": "img/logos/wordpress.jpg",
-                    "activities": [
-                        {
-                            "startTime": "20:00", 
-                            "endTime": "21:00",
-                            "heading": "Heading 5.1",
-                            "information": "info 5.1"
-                        },
-                        {
-                            "startTime": "21:00", 
-                            "endTime": "21:30",
-                            "heading": "Heading 5.2",
-                            "information": "info 5.2"
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "floor": "Vån 4",
-                    "image": "img/logos/wordpress.jpg",
-                    "activities": [
-                        {
-                            "startTime": "20:00", 
-                            "endTime": "21:00",
-                            "heading": "Heading 5.1",
-                            "information": "info 5.1"
-                        },
-                        {
-                            "startTime": "21:00", 
-                            "endTime": "21:30",
-                            "heading": "Heading 5.2",
-                            "information": "info 5.2"
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "floor": "Vån 1",
-                    "image": "img/logos/wordpress.jpg",
-                    "activities": [
-                        {
-                            "startTime": "19:00", 
-                            "endTime": "19:30",
-                            "heading": "Heading 1.1",
-                            "information": "info 1.1"
-                        },
-                        {
-                            "startTime": "02:00", 
-                            "endTime": "03:00",
-                            "heading": "Heading 1.2",
-                            "information": "info 1.2"
-                        }
-                    ]
-                }
-            ]
-        };
-    
     }
-]);
+
+])
+
+.filter('isUser', function() {
+    return function(input, userId) {
+        var out = [];
+            for (var i = 0; i < input.length; i++){
+                if(input[i].userId === userId)
+                    out.push(input[i]);
+            }      
+        return out;
+    };
+})
+
+.filter('isNotUser', function() {
+    return function(input, userId) {
+        var out = [];
+            for (var i = 0; i < input.length; i++){
+                if(input[i].userId !== userId)
+                    out.push(input[i]);
+            }      
+        return out;
+    };
+});
