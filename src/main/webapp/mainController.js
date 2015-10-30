@@ -140,7 +140,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
-            console.log(data);
+//            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
                 // Score Added successfully
                 if(done){
@@ -188,7 +188,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         
         
         mv.getTeamScore = function(){
-            console.log(mv.teamId);
+//            console.log(mv.teamId);
             httpServ.getScoreByTeamId(mv.teamId).success(function(response){
                 $localStorage.team.score = response;
                 mv.team.score = response;
