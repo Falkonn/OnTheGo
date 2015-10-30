@@ -5,7 +5,7 @@
             <table>
             <tr>
             <td ng-show="!enabled">
-                <a href="../img/selfie/{{member.picId}}"><img src="../img/selfie/{{member.picId}}" class="img-responsive img-circle" /></a>
+                <a href="{{getImageUrl(member)}}"><img ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" /></a>
             </td>
             </tr>
             <tr>

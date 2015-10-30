@@ -13,6 +13,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                  
             mv.prevScore = 0;
             mv.prevIndex = 1;
+            mv.refreshImage = true;
+            mv.random = Math.random();
         };
         
         // Run Init 
@@ -22,10 +24,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.hasUserMedia = cameraServ.hasUserMedia;
         // Close Camera if open
         if(mv.hasUserMedia){
+            
             var video = cameraServ.getLocalVideo();
             var stream = cameraServ.getLocalStream();
+            console.log("video " + video + "stream" + stream);
             if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
             {
+                console.log("aaa");
                 video.pause();
                 stream.stop();
             }
@@ -45,9 +50,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             var result = $sce.trustAsHtml(text.replace(re, subst));
             return result;
         };
-        
-        
-        
+             
         /////////////////////// UPPGIFTER
         /**
          * From TASK table:
@@ -107,7 +110,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         }
         
         mv.teamPlacement = function(score, index){
-            console.log(score);
             if(score<mv.prevScore){
                 console.log(index + " " + mv.prevIndex);
                 mv.prevScore = score;
@@ -140,7 +142,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.getTeam();
-           
+        
+         mv.getImageUrl = function(member){ 
+            var urlBase = "../img/selfie/";
+            var imageUrl = urlBase + member.picId + "?cb=" +  mv.random;  
+            return imageUrl;
+        };
+      
         /////////////////////// TASKS
         /**
          * Submitting a task answer to the backend.
@@ -155,7 +163,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
-            console.log(data);
+//            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
                 // Score Added successfully
                 if(done){
@@ -200,10 +208,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                
         mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
             du/gruppen har utfört uppdraget.";
-        
-        
+                
         mv.getTeamScore = function(){
-            console.log(mv.teamId);
+//            console.log(mv.teamId);
             httpServ.getScoreByTeamId(mv.teamId).success(function(response){
                 $localStorage.team.score = response;
                 mv.team.score = response;
@@ -212,10 +219,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
-        };
-        
-        
-        
+        };   
 
 //////////// HELP FUNCTIONS
         mv.checkTaskType = function(taskType, expected){
