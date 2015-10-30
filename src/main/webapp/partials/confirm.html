@@ -1,43 +1,38 @@
 <!-- Confirm Section -->
-<section id="confirm">
-    <div class="banner">
-        <img class="banner-image" src="img/alten_nya_huset.png">
-        <div class="banner-overlay">
-            <h1>Din info</h1>
-            <h6>Är det här du?</h6>
-        </div>
-    </div>
+<section id="services">
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Is This Correct?</h2>
+            </div>
+        </div>
         <!-- Confirmation Form -->
-        <form class="form-inline" name="confirmForm" ng-submit="regCtrl.sendConfirmData()">
-            <div class="form-width">
+        <form class="form-inline text-center" name="confirmForm" ng-submit="regCtrl.sendConfirmData()">
             <!-- Name -->
             <div class="form-group">
-                <label class="label-style" for="name">Namn:</label>
-                <!--<input type="text" class="form-control" ng-model="userName" name="name" required>-->
-                <input type="text" class="center-block email-field form text-field text-center" ng-model="userName" name="name" required>
+                <label for="name">Namn:</label>
+                <input type="text" class="form-control" ng-model="userName" name="name" required>
                 <span style="color:red" ng-show="confirmForm.name.$dirty">
               <span ng-show="confirmForm.name.$error.required">Du måste skriva in ett namn.</span>
             </div>
             <!-- Phone -->
             <div class="form-group">
-                <label class="label-style" for="phone">Phone:</label>
-                <input type="text" class="center-block email-field form text-field text-center" ng-model="userPhone" name="phone" required>
+                <label for="phone">Phone:</label>
+                <input type="text" class="form-control" ng-model="userPhone" name="phone" required>
                 <span style="color:red" ng-show="confirmForm.phone.$dirty">
                 <span ng-show="confirmForm.phone.$error.required">Du måste skriva in ett telefonnummer.</span>
             </div>
             <!-- Email -->
             <div class="form-group">
-                <label class="label-style" for="email">Email:</label>
-                <input type="email" class="center-block email-field form text-field text-center" ng-model="userEmail" name="email" required>
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" ng-model="userEmail" name="email" required>
                 <span style="color:red" ng-show="confirmForm.email.$dirty && confirmForm.email.$invalid">
               <span ng-show="confirmForm.email.$error.required">Du måste skriva in en e-postadress.</span>
               <span ng-show="confirmForm.email.$error.email">Ogiltig e-postadress.</span>
             </div>
-            </div>
         <!-- Button Form -->
         <p class="col-lg-12 text-center">
-                <input class="btn btn-lg btn-primary center-block" type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
+                <input class="btn btn-primary" type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
                        confirmForm.name.$dirty && confirmForm.phone.$dirty">
         </p>
         </form>

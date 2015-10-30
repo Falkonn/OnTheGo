@@ -82,7 +82,7 @@ public class UserInfo {
         return (List<Integer>) findUsersByteamIdQ.getResultList();
     }
     
-    public List<User> findAllMembersByTeamId(int teamid) {
+    public List<User> findAllMembersByTeamId(long teamid) {
         Query findAllMembersByTeamIdQ = em.createQuery("select e from User e where e.team.teamId  =" + teamid);
         return (List<User>) findAllMembersByTeamIdQ.getResultList();
     }

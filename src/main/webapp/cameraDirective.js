@@ -31,6 +31,7 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                         this.closeCamera = function(){                    
                             self.localStream.stop(); 
                             $window.location.reload();
+                            $window.$location.path('/team');
                         };
                     },
                     template: '<div class="camera"><video class="camera" autoplay="" /><div ng-transclude></div></div>',
@@ -55,7 +56,6 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                                 self.videoElement.src = stream;
                             }
                             self.localStream = stream;
-                            cameraServ.setLocalStreamAndVideo(stream, videoElement);
                             self.videoElement.play();
                         };
                         // If there is an error
@@ -104,7 +104,7 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                         scope.sendImage = function (saveImage){
                             // Post image data
                             if(saveImage){
-                                httpServ.postImage(scope.data).then(function (response) {
+                                httpServ.postImage(scope.data).success(function (response) {
                                     // Image sent successfully
                                     console.log("Selfie Image posted!");
                                 }, function (response) {
