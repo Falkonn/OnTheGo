@@ -15,6 +15,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             mv.prevIndex = 1;
             mv.refreshImage = true;
             mv.random = Math.random();
+            mv.loading = true;
         };
         
         // Run Init 
@@ -74,14 +75,15 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
                  httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
+                    mv.loading = false;
                     $localStorage.tasks = response;
                     // Success - Save tasks in localStorage
                     for (var i=0 ; i < response.length ; i++){
                         $localStorage.tasks[i] = JSON.parse(response[i]);
-                        console.log($localStorage.tasks[i]);
                     }
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
+                    mv.loading = false;
                     console.log(response);
             });
         }
@@ -92,9 +94,11 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 mv.allTeams = response.data;
                 var getScoreByTeamId = function(t){
                     httpServ.getTeamScoreByTeamId(mv.allTeams[t].teamId).then(function(response){
+                        mv.loading = false;
                         // Success - Save team and members in localStorage
                         mv.allTeams[t].teamScore = response.data;                       
                     }, function(response){
+                        mv.loading = false;
                         // Failed to load score of a team                   
                         console.log(response);
                     });
@@ -126,6 +130,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         // Load the team and members of the user's team
         mv.getTeam = function() {
             httpServ.getTeamByUserId(mv.userId).success(function(response){
+                mv.loading = false;
                 // Success - Save team and members in localStorage
                 $localStorage.team = response;
                 /////////////////////// GRUPPER OCH DESS MEDLEMMAR

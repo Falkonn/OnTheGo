@@ -13,21 +13,28 @@
         <form class="form-inline" name="confirmForm" ng-submit="regCtrl.sendConfirmData()">
             <div class="form-width">
             <!-- Name -->
-            <div class="form-group">
+            <div class="form-groupp">
                 <label class="label-style" for="name">Förnamn:</label>
-                <input type="text" class="center-block email-field form text-field text-center" ng-model="userName" name="name" required>
+                <input type="text" class="center-block form email-field text-field text-center" ng-model="userName" name="name" required>
                 <span style="color:red" ng-show="confirmForm.name.$dirty">
               <span ng-show="confirmForm.name.$error.required">Du måste skriva in ett namn.</span>
             </div>
+            <!-- Surname -->
+            <div class="form-groupp">
+                <label class="label-style" for="surname">Efternamn:</label>
+                <input type="text" class="center-block form email-field  text-field text-center" ng-model="userSurname" name="surname" required>
+                <span style="color:red" ng-show="confirmForm.surname.$dirty">
+              <span ng-show="confirmForm.surname.$error.required">Du måste skriva in ett efternamn.</span>
+            </div>
             <!-- Phone -->
-            <div class="form-group">
+            <div class="form-groupp">
                 <label class="label-style" for="phone">Telefon:</label>
-                <input type="text" class="center-block email-field form text-field text-center" ng-model="userPhone" name="phone" required>
+                <input type="text" class="center-block form email-field text-field text-center" ng-model="userPhone" name="phone" required>
                 <span style="color:red" ng-show="confirmForm.phone.$dirty">
                 <span ng-show="confirmForm.phone.$error.required">Du måste skriva in ett telefonnummer.</span>
             </div>
             <!-- Email -->
-            <div class="form-group">
+            <div class="form-groupp">
                 <label class="label-style" for="email">E-post:</label>
                 <input type="email" class="center-block email-field form text-field text-center" ng-model="userEmail" name="email" required>
                 <span style="color:red" ng-show="confirmForm.email.$dirty && confirmForm.email.$invalid">
@@ -38,7 +45,7 @@
         <!-- Button Form -->
         <p class="col-lg-12 text-center">
             <input class="btn btn-lg btn-primary center-block" value="Skicka" type="submit" ng-disabled="confirmForm.email.$dirty && confirmForm.email.$invalid &&
-                       confirmForm.name.$dirty && confirmForm.phone.$dirty">
+                       confirmForm.name.$dirty && confirmForm.phone.$dirty && confirmForm.surname.$dirty">
         </p>
         </form>
     </div>

@@ -30,13 +30,14 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         else if($location.url()!=='/register' && $location.url()!=='/confirm')
             $location.path('/');
         // If pin is undefined redirect to register screen
-         else if($location.url()==='/confirm' && !$localStorage.userPin)
+         else if($location.url()==='/confirm' && !$localStorage.userPin){
              $location.path('/register');
-        
+         }
         // In confirm Screen -> Set values from localStorage
-        if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null && $location.url()==='/confirm' ){
+        if(typeof $localStorage.user !== 'undefined' && $localStorage.user !== null){
             $scope.userEmail = $localStorage.user.email;
             $scope.userName =  $localStorage.user.firstName; 
+            $scope.userSurname =  $localStorage.user.lastName;
             $scope.userPhone = $localStorage.user.telefon;
         }
     };
@@ -88,7 +89,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     // Sends mail and Pin to the backend
     this.sendPin = function() {
         
-        httpServ.postUserPin($scope.userEmail + ' ' + $scope.userPin)
+        httpServ.postUserPin($localStorage.user.email + ' ' + $scope.userPin)
             .then(function(response)  {
                 // Pin Verified
                 $scope.resultPin = "Korrekt PIN-kod!";
@@ -99,8 +100,9 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             }, function (response) {
                 console.error($scope.userPin);
                 // Not Found in the Database
-                if(response.status === 404)
-                    $scope.resultPin = "Denna PIN-kod matchar inte den som sändes till din e-post. Prova igen!";
+                if(response.status === 404){
+                        $scope.resultPin = "Denna PIN-kod matchar inte den som sändes till din e-post. Prova igen.";
+                }
                 // Unknown server error
                 else
                     $scope.resultPin = "Misslyckades att skicka e-post. Vänligen försök igen.";
