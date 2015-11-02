@@ -19,8 +19,8 @@ body {
    /* background: linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* Standard syntax */
 }
 .container {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 @media (min-width: 320px) {
@@ -491,6 +491,10 @@ section h3.section-subheading {
     font-weight: 400;
 }
 
+section {
+    padding: 80px 0;
+}
+
 @media(min-width:768px) {
     section {
         padding: 150px 0;
@@ -504,18 +508,22 @@ section h3.section-subheading {
 #schedule .break {
     
 }
-/*
+
+#schedule .orangeborder {
+}
+
 #schedule table, .table-responsive {
     width: 100%;
-
+    border:  1px solid #ffd105; 
 }
 
 #schedule td {
     padding: 0 1em 1em 1em;
     color: #4c4d4f;
     font-size: 0.8em;
-    border-top: 1px solid #ffd105;
-    border-bottom: 2px solid #ffd105;
+    border-top: 2px solid #fff6d2;
+    border-bottom: 4px solid #fff6d2;
+    text-transform: uppercase;
 }
 #schedule th {
     text-align: left;
@@ -532,8 +540,45 @@ section h3.section-subheading {
 #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
 }
-*/
 
+#schedule .tid {
+      background-color: #ffea50;
+      padding: 1em;
+      font-size: 1.5em;
+      /*if we want blue text*/
+      /*color: #0093d0;  */                                   
+}
+
+#schedule .tid2 {
+    background-color: #ffea50;
+}
+
+#schedule .event {
+      background-color: #ffec82;
+      padding: 0.7em;
+
+      font-size: 1.2em;
+}
+
+ #schedule .eventinfo {
+     text-transform: none;
+ }
+
+
+#schedule .rast {
+      background-color: #fff1ab;
+      padding: 0.6em;
+
+      font-size: 1.2em;
+}
+
+#schedule .rast2 {
+    background-color: #fff1ab;
+}
+ #schedule .rastinfo {
+     text-transform: none;
+ }
+ 
 .glyphicon-group:before {
     content: "\e044";
 }
@@ -572,7 +617,7 @@ section h3.section-subheading {
     margin-top: 5em;
 }
 
-#welcome, #register {
+#welcome, #register, #confirm {
     background-image: radial-gradient(center center, circle cover, #ffeda3, #ffc800);
     margin-top: 0;
     padding-top: 0;
