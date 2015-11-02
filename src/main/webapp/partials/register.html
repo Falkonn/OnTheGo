@@ -1,10 +1,11 @@
 <!-- Main Section -->
 <section id="register">
     <div class="banner">
-        <img class="banner-image" src="img/alten_nya_huset.png">
-        <div class="banner-overlay">
-            <h1>Logga in</h1>
-            <h6>Tre snabba steg så är du inne!</h6>
+        <div class="banner-background">
+            <div class="banner-overlay">
+                <img class="banner-label" src="img/logga_in.png">
+                <h6>Två snabba steg och du är inne!</h6>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -13,39 +14,36 @@
         <div class="row" ng-hide="hideMail">
             <h3 class="section-subheading text-primary text-center">1. Skriv in din e-postadress för att få dina inloggningsuppgifter.</h3>
             <div class="col-lg-12 text-center">{{ result }}</div>
-            <form class="form-group text-center" name="mailForm"  ng-submit="regCtrl.sendEmail()">
+            <form class="form-group" name="mailForm"  ng-submit="regCtrl.sendEmail()">
                 <div class="form-group">
-                    <input class="center-block form" type="email" name="email" ng-model="userEmail" required> 
+                    <input class="center-block email-field form text-center" type="email" name="email" ng-model="userEmail" required>
                     <span style="color: #ed1c24" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">
                         <span ng-show="mailForm.email.$error.required">Skriv in din e-postadress.</span> 
                         <span ng-show="mailForm.email.$error.email">Ogiltig e-postadress.</span>
                     </span>        
                 </div>
-                <input class="btn btn-lg btn-primary center-block" type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
+                <input class="btn btn-lg btn-primary center-block" value="Skicka e-post " type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
             </form>
         </div>
         <div class="row" ng-hide="hidePin">
-            <h3 class="section-subheading text-primary text-center">2. Hämta PIN-kod från din e-post.</h3>
+            <h3 class="section-subheading text-primary text-center">2. Skriv in din 4-siffriga PIN-kod.</h3>
             <div class="container">
-                    <p class="text-center"> 
-                        Ett e-post har skickats i din e-postadress med din PIN-kod. <br>Ta fram PIN-koden och fortsätt till steg 3. <br>
-                    Om du inte har fått någon e-post, tryck på knappen nedan att gå tillbaka till steg 1. 
-            </p>
+                <p class="text-center"> 
+                    E-post har skickats till angiven e-postadress med din PIN-kod.
+                    Skriv in PIN-koden i fältet under.<br>
+                </p>
+                <div class="col-lg-12 text-center" ng-model="resultPin">{{resultPin}}</div>
+                <form class="form-group" name="pinForm" ng-submit="regCtrl.sendPin()">
+                    <div class="form-group">
+                        <input class="center-block pin-field form text-center" type="password" ng-model="userPin" name="pin" ng-pattern="/^[0-9]{4,4}$/" required>
+                        <span class="text-center" style="color:#ed1c24" ng-show="pinForm.pin.$dirty">
+                            <span ng-show="pinForm.pin.$error.required">Du måste skriva in din PIN-kod.</span>
+                            <span ng-show="pinForm.pin.$error.pattern">Ogiltig PIN-kod.</span>
+                        </span>
+                    </div>
+                    <input class="btn btn-lg btn-primary center-block" value="Logga in" type="submit" ng-disabled="pinForm.pin.$dirty && pinForm.pin.$invalid || (mailForm.email.$dirty && mailForm.email.$invalid) ">
+                </form>
             </div>
-        </div>   
-        <div class="row" ng-hide="hidePin">
-            <h3 class="section-subheading text-primary text-center">3. Skriv in din 4-siffriga PIN-kod.</h3>
-            <div class="col-lg-12 text-center" ng-model="resultPin">{{resultPin}}</div>
-            <form class="form-group" name="pinForm" ng-submit="regCtrl.sendPin()">
-                <div class="form-group">
-                    <input class="center-block form" type="password" ng-model="userPin" name="pin" ng-pattern="/^[0-9]{4,4}$/" required>
-                    <span style="color:ed1c24" ng-show="pinForm.pin.$dirty">
-                      <span ng-show="pinForm.pin.$error.required">Du måste skriva in din PIN-kod.</span>
-                      <span ng-show="pinForm.pin.$error.pattern">Ogiltig PIN-kod.</span>
-                    </span>
-                </div>
-                <input class="btn btn-lg btn-primary center-block" type="submit" ng-disabled="pinForm.pin.$dirty && pinForm.pin.$invalid || (mailForm.email.$dirty && mailForm.email.$invalid) ">
-            </form>
         </div>
     </div>
 </section>
