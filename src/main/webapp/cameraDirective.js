@@ -28,10 +28,9 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                         this.pauseCamera = function(){                    
                             self.videoElement.pause();                       
                         };
-                        this.closeCamera = function(){                    
-                            self.localStream.stop(); 
-                            $window.location.reload();
-                            $window.$location.path('/team');
+                        this.closeCamera = function(){
+                            self.localStream.stop();
+                            $window.location.reload(true);
                         };
                     },
                     template: '<div class="camera"><video class="camera" autoplay="" /><div ng-transclude></div></div>',
@@ -56,6 +55,7 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                                 self.videoElement.src = stream;
                             }
                             self.localStream = stream;
+                            cameraServ.setLocalStreamAndVideo(stream, videoElement);
                             self.videoElement.play();
                         };
                         // If there is an error

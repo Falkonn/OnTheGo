@@ -13,6 +13,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                  
             mv.prevScore = 0;
             mv.prevIndex = 1;
+            mv.refreshImage = true;
+            mv.random = Math.random();
         };
         
         // Run Init 
@@ -22,10 +24,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.hasUserMedia = cameraServ.hasUserMedia;
         // Close Camera if open
         if(mv.hasUserMedia){
+            
             var video = cameraServ.getLocalVideo();
             var stream = cameraServ.getLocalStream();
+            console.log("video " + video + "stream" + stream);
             if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
             {
+                console.log("aaa");
                 video.pause();
                 stream.stop();
             }
@@ -137,7 +142,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.getTeam();
-           
+        
+         mv.getImageUrl = function(member){ 
+            var urlBase = "../img/selfie/";
+            var imageUrl = urlBase + member.picId + "?cb=" +  mv.random;  
+            return imageUrl;
+        };
+      
         /////////////////////// TASKS
         /**
          * Submitting a task answer to the backend.
