@@ -4,12 +4,12 @@
         
         <div class="jumbotron" ng-show="rules">
             <h3>Regler</h3>
-            Under dagen har ni ett antal uppgifter att lösa tillsammans i teamet, alla med varierande svårighetsgrad och form. 
-            De flesta kan ni göra när ni vill, men vissa passar bättre vid kvällens festligheter. 
+            Låt tävlingen börja! Under dagen har ni ett antal uppgifter att lösa tillsammans i teamet, 
+            alla med varierande svårighetsgrad och form. De flesta kan ni göra när ni vill, men vissa passar bättre vid kvällens festligheter. 
             Lös så många ni vill, på vilket sätt ni vill! Varje uppgift ni utför ger poäng baserat på hur komplex uppgiften är. 
-            De flesta uppgifterna kräver samarbete, så när någon i laget skickat in uppgiften från sin enhet får hela teamet poäng 
-            och uppgiften markeras som klar för samtliga. Jämför hur långt ni kommit jämfört med andra lag i Poängtavlan! 
-            När dagen är slut kommer svaren att låsas och rättas och vinnarna har ett härligt pris att se fram emot.
+            De flesta uppgifterna kräver samarbete, så när någon i laget skickat in uppgiften från sin enhet får hela teamet poäng och 
+            uppgiften markeras som klar för samtliga. Jämför hur långt ni kommit jämfört med andra lag i Poängtavlan! 
+            När eventet är över kommer era svar rättas och vinnarna har finfina priser att se fram emot. Nu kör vi!
             <p>
                 <button type="button" class="btn btn-primary" ng-model="rules" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                 Stäng
@@ -40,7 +40,7 @@
             </uib-accordion>
         </div>
         
-        <h3>Kluringar</h3>
+        <h3>CrowdCam</h3>
         <div>
             <uib-accordion>
                 <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 3}" is-open="t.open">
@@ -51,10 +51,32 @@
             </uib-accordion>
         </div>
         
-        <h3>På festen</h3>
+        <h3>Kluringar</h3>
         <div>
             <uib-accordion>
                 <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 4} " is-open="t.open">
+
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        
+        <h3>CrowdCam på festen</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 5} " is-open="t.open">
+
+                    <div ng-include="'partials/task_accordion.html'"></div>
+
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        
+        <h3>På festen</h3>
+        <div>
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="t in assignments.tasks | filter : {taskTheme: 6} " is-open="t.open">
 
                     <div ng-include="'partials/task_accordion.html'"></div>
 
