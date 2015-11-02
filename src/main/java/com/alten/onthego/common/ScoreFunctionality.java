@@ -100,7 +100,7 @@ public class ScoreFunctionality {
              
             return scoreAdded;
         } else {
-            if ((!possibleUser.isEmpty()) && (userId == possibleUser.get(0))) {
+            if ((!possibleUser.isEmpty())) {
 
                 if (isPersonal) {
                     //get the scoreid from the userId 
@@ -108,7 +108,7 @@ public class ScoreFunctionality {
                     deleteScore ds = new deleteScore();
                     ds.execute(scoreList.get(0));
                     scoreDeleted = true;
-                } else {
+                } else if(userId == possibleUser.get(0)) {
                     //get the scoreid from the userId 
                     scoreList = scoreCounter.getScorIdByUserIdAndTaskId(userId, taskId);
                     deleteScore ds = new deleteScore();

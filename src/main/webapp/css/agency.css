@@ -285,6 +285,10 @@ fieldset[disabled] .btn-xl.active {
     width:100%;
 }
 
+#team body {
+    font-size: 12px;
+}
+
 #team .team-name table {
     width:100%;
 }
@@ -371,12 +375,12 @@ fieldset[disabled] .btn-xl.active {
         border-radius: 3px;
     }
 
-    .navbar-default.navbar-shrink {
+    .navbar-shrink {
         padding: 10px 0;
         background-color: #222;
     }
 
-    .navbar-default.navbar-shrink .navbar-brand {
+    .navbar-shrink .navbar-brand {
         font-size: 1.5em;
     }
 }
@@ -560,9 +564,6 @@ section {
       /*color: #0093d0;  */                                   
 }
 
-#schedule .tid2 {
-    background-color: #ffea50;
-}
 
 #schedule .event {
       background-color: #ffec82;
@@ -583,9 +584,6 @@ section {
       font-size: 1.2em;
 }
 
-#schedule .rast2 {
-    background-color: #fff1ab;
-}
  #schedule .rastinfo {
      text-transform: none;
  }

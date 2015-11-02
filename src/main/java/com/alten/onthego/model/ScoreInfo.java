@@ -81,7 +81,7 @@ public class ScoreInfo {
         return results;
     }
     
-    public List<Score> getScoresByTaskIdAndTeamId(long taskId, int teamId){
+    public List<Score> getScoresByTaskIdAndTeamId(long taskId, long teamId){
         Query scoresbyTaskIdAndTeamIdquery = em.createQuery("SELECT s FROM Score s where s.task.taskId=" + taskId + " AND s.teamId=" + teamId);
         List<Score> results = scoresbyTaskIdAndTeamIdquery.getResultList();
         return results;

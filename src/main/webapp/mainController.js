@@ -78,6 +78,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     // Success - Save tasks in localStorage
                     for (var i=0 ; i < response.length ; i++){
                         $localStorage.tasks[i] = JSON.parse(response[i]);
+                        console.log($localStorage.tasks[i]);
                     }
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
@@ -143,7 +144,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         
         mv.getTeam();
         
-         mv.getImageUrl = function(member){ 
+        mv.getImageUrl = function(member){ 
             var urlBase = "../img/selfie/";
             var imageUrl = urlBase + member.picId + "?cb=" +  mv.random;  
             return imageUrl;
@@ -163,8 +164,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
-//            console.log(data);
+            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
+                console.log(response);
                 // Score Added successfully
                 if(done){
                     t.result = "Sent successfully!";
@@ -172,6 +174,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     t.taskDone = true;
                     t.userAnswer = answer;
                     t.user = $localStorage.user;
+                    t.badresult = false;
                     console.log("Added Score by " + t.user.firstName + "!");
                 }
                 // Score Deleted successfully
@@ -179,26 +182,30 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     t.result = "Deleted successfully!";
                     t.taskDone = false;
                     t.check = false;
+                    t.badresult = false;
                     console.log("Deleted Score!");
                 }
                 // By reloading everything is updated
                 //$route.reload();
             },
             function(response){
-                console.log(response.status);
+                console.log(response);
                 // Failure Code received from backend
                 if(response.status === 404)
                 {
+                    mv.score = JSON.parse(JSON.stringify(response.data));
                     // Failed to add score (somebody else has already answered it)
-                    if(done){
-                        t.result = "Failed to Add Score. It is already answered by " + t.user.userId;
-                        console.log("Failed to add Score! It is answered by" + t.user.userId);
-                    }
+                    if(done)
+                        t.result = "Hoppsan! " + mv.score.user.firstName + " har redan svarat på denna fråga. Tryck på \"OK\" så ser du svaret.  ";
                     // Failed to delete score (task is already cancelled)
-                    else{
-                        t.result = "Failed to cancel task. It is already cancelled!";
-                        console.log("Failed to cancel task! Task already cancelled");
-                    }
+                    else
+                        t.result = "Failed to cancel task. It is already cancelled by" + mv.score.user.firstName;
+                    
+                    t.badresult = true;
+                    t.taskDone = true;
+                    t.user = {"firstName": mv.score.user.firstName};
+                    t.user.firstName = mv.score.user.firstName;
+                    t.userAnswer = mv.score.userAnswer;
                 }
                 // Unknown Server Error
                 else
