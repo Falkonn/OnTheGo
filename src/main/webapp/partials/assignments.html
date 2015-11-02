@@ -1,8 +1,10 @@
 <!-- Main Section -->
 <section id="tasks">
-    <div class="container">
+    <div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="text-center" /></div>
+    <div ng-show="!loading && failDb"><span class="text-center">{{failDbMessage}}</span></div>
+    <div ng-show="!loading && !failDb"class="container">
         
-        <div class="jumbotron" ng-show="rules">
+        <div class="jumbotron" ng-show="rules ">
             <h3>Regler</h3>
             Låt tävlingen börja! Under dagen har ni ett antal uppgifter att lösa tillsammans i teamet, 
             alla med varierande svårighetsgrad och form. De flesta kan ni göra när ni vill, men vissa passar bättre vid kvällens festligheter. 
@@ -17,7 +19,6 @@
             </p>
         </div>
         
-
         <h3>Gör själv</h3>
         <div>
             <uib-accordion>
