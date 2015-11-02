@@ -8,7 +8,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
         // Clean localstorage (for debugging)
-        //$localStorage.$reset();
+        // $localStorage.$reset();
  
         // LoggedIn variable
         $scope.loggedIn = $localStorage.loggedIn;
