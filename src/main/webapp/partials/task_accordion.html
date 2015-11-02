@@ -29,37 +29,40 @@
     <tr ng-show="!t.taskDone">
         <td colspan="2">
             &nbsp;<br/>
-            <div ng-if="checkTaskType(parseTaskType(t.taskType),1)" ng-include="'partials/task_string.html'"></div>
-            <div ng-if="checkTaskType(parseTaskType(t.taskType),2)" ng-include="'partials/task_check.html'"></div>
+            <div ng-if="checkTaskType(parseTaskType(t.taskType),1) && !t.badresult" ng-include="'partials/task_string.html'"></div>
+            <div ng-if="checkTaskType(parseTaskType(t.taskType),2) && !t.badresult" ng-include="'partials/task_check.html'"></div>
         </td>
     </tr>
     <tr ng-show="!t.taskDone">
         <td colspan="2">
-            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, 
-true )">   
-            <input class="btn btn-primary" type="submit" value="Skicka in" ng-disabled="!t.check && !t.answer" />
+            <form class="form-inline text-center" name="{{'answerform' + t.taskId}}" ng-submit="submitAnswer(t, t.answer, true )">   
+                <input class="btn btn-primary" type="submit" value="Skicka in" ng-disabled="!t.check && !t.answer" ng-show="!t.badresult" />
             </form>
         </td>
     </tr>
     <tr ng-show="t.taskDone">
         <td class="top top-left" colspan="2">
             <!-- Here we need to include a possible get for Group tasks. -->
-            <span ng-if="checkTaskType(parseTaskType(t.taskType),1)" class="text-weighted">
+            <span ng-if="checkTaskType(parseTaskType(t.taskType),1) && !t.badresult" class="text-weighted">
                 &nbsp;<br/>
                 {{t.user.firstName}} har svarat:<br/>
                 <span class="text-italics text-normal">
                     {{t.userAnswer}}
                 </span>
             </span>
-            <span ng-if="checkTaskType(parseTaskType(t.taskType),2)" class="text-weighted">
+            <span ng-if="checkTaskType(parseTaskType(t.taskType),2) && !t.badresult" class="text-weighted">
                 &nbsp;<br/>
                 <span class="glyphicon glyphicon-check"></span> Utförd av {{t.user.firstName}}</span>
+            <span ng-if="t.badresult" style="color: #ed1c24" class="text-center">{{t.result}}</span>
         </td>
     </tr>
     <tr ng-show="t.taskDone">
         <td colspan="2">
             <form class="form-inline text-center" name="{{'cancelform' + t.taskId}}" ng-submit="submitAnswer(t,t.userAnswer,false)">   
                 <input ng-show="checkUserId(t.user.userId)" class="btn btn-primary" type="submit" value="Ta bort" />
+            </form>
+            <form class="form-inline text-center" name="taskError" ng-submit="t.badresult=!t.badresult">
+                <input ng-show="t.badresult" class="btn btn-primary" value="OK" type="submit"/>
             </form>
         </td>
     </tr>

@@ -8,10 +8,13 @@ package com.alten.onthego.controllers;
 import com.alten.onthego.common.ScoreFunctionality;
 import com.alten.onthego.entity.Score;
 import com.alten.onthego.model.ScoreInfo;
+import com.alten.onthego.model.UserInfo;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +43,7 @@ public class ScoreCont {
             value = "/answers",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean addScores(@RequestBody String useranswers, HttpServletResponse response) {
+    public String addScores(@RequestBody String useranswers, HttpServletResponse response) {
 
         JsonParser jsonParser = new JsonParser();
         JsonElement jsonElement = jsonParser.parse(useranswers);
@@ -57,11 +60,27 @@ public class ScoreCont {
         if (result == true) {
             response.setStatus(HttpServletResponse.SC_OK);
             //System.out.println("Score Has been added");
+            return null;
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.addIntHeader(answer, userId);
+            ScoreInfo scoreInfo = new ScoreInfo();
+            UserInfo userInfo = new UserInfo();
+            List<Score> scoreList;
+            List<Long> teamIdList;
+            long teamId;
+            if((teamIdList=userInfo.getTeamIdbyUserId(userId))!=null){
+                teamId = teamIdList.get(0);
+                if((scoreList=scoreInfo.getScoresByTaskIdAndTeamId(taskId, teamId))!=null){
+                    Gson gson = new Gson();
+                    String score = gson.toJson(scoreList.get(0));
+                    return score;
+                }
+                else
+                    return null;
+            }
+            return null;
         }
-        return result;
     }
 
     @RequestMapping(
