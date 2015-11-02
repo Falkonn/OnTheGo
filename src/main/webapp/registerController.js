@@ -30,7 +30,7 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         else if($location.url()!=='/register' && $location.url()!=='/confirm')
             $location.path('/');
         // If pin is undefined redirect to register screen
-         else if($location.url()=='/confirm' && !$localStorage.userPin)
+         else if($location.url()==='/confirm' && !$localStorage.userPin)
              $location.path('/register');
         
         // In confirm Screen -> Set values from localStorage
@@ -42,6 +42,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     };
     // Run Init 
     $scope.init();
+    
+    this.goToRegister = function(){
+        $location.path('/register');
+    };
     
     this.isRegistered = function() {
         return $localStorage.loggedIn;
