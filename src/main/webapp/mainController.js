@@ -45,10 +45,18 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          * @param {String} text
          * @returns {trustAsHTML} result Text as Trusted HTML format.
          */
+//        mv.checkStringForURLS = function(text) {
+//            var re = /(http|ftp|https)(:\/\/)([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g; 
+//            var str = 'Någon text som inte är en länk och sedan en http://www.alten.se för att sedan ha lite mer text https://www.google.com, asd.';
+//            var subst = '<a href="$1$2$3" target=_blank>$3</a>'; 
+//            var result = $sce.trustAsHtml(text.replace(re, subst));
+//            return result;
+//        };
+
         mv.checkStringForURLS = function(text) {
-            var re = /(http|ftp|https)(:\/\/)([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g; 
+            var re = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/g; 
             var str = 'Någon text som inte är en länk och sedan en http://www.alten.se för att sedan ha lite mer text https://www.google.com, asd.';
-            var subst = '<a href="$1$2$3" target=_blank>$3</a>'; 
+            var subst = '<a href="http://$3" target=_blank>$3</a>';
             var result = $sce.trustAsHtml(text.replace(re, subst));
             return result;
         };
@@ -86,6 +94,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     $localStorage.tasks = tasks;
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
+                    console.log("here");
                     mv.loading = false;
                     mv.failDb = true;
             });
@@ -117,29 +126,28 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 mv.failDb = true;
             });           
         }
-        else if($location.url()==='/team'){
-            // Load the team and members of the user's team
-            mv.getTeam = function() {
-                httpServ.getTeamByUserId(mv.userId).then(function(response){
-                    mv.loading = false;
-                    // Success - Save team and members in localStorage
-                    $localStorage.team = response.data;
-                    /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-                    mv.team = {
-                            "teamNumber":       $localStorage.team[0],
-                            "teamName":         $localStorage.team[1],
-                            "numberOfMembers":  $localStorage.team[2],
-                            "members":          $localStorage.team[3]
-                    };
-                    mv.team.score = mv.getTeamScore();
-                }, function(response){
-                    console.log(response);
-                    mv.loading = false;
-                    mv.failDb = true;
-                });
-            };
-            mv.getTeam();
-        }
+
+        // Load the team and members of the user's team
+        mv.getTeam = function() {
+            httpServ.getTeamByUserId(mv.userId).then(function(response){
+                mv.loading = false;
+                // Success - Save team and members in localStorage
+                $localStorage.team = response.data;
+                /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+                mv.team = {
+                        "teamNumber":       $localStorage.team[0],
+                        "teamName":         $localStorage.team[1],
+                        "numberOfMembers":  $localStorage.team[2],
+                        "members":          $localStorage.team[3]
+                };
+                mv.team.score = mv.getTeamScore();
+            }, function(response){
+                console.log(response);
+                mv.loading = false;
+                mv.failDb = true;
+            });
+        };
+        mv.getTeam();
         
         mv.teamPlacement = function(score, index){
             if(score<mv.prevScore){
@@ -152,6 +160,15 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 return mv.prevIndex;
             }
                 
+        };
+     
+        mv.isThisMyTeam = function(team){
+            var teamId = $localStorage.team[0];
+           
+            if(team.teamId === teamId)             
+                return "my-team";   
+            else
+                return "other-teams";
         };
       
         mv.getImageUrl = function(member){ 

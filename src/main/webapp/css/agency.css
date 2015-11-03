@@ -813,12 +813,16 @@ section {
     border: none;
 }
 
-/*#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
+#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
   background-color: #ffec82;
  }
 #scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
-}*/
+}
+
+#scoreboard tr > .my-team {
+     border: 1px solid #fed136;
+ }
 
 #portfolio .portfolio-item {
     right: 0;

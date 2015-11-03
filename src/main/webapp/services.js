@@ -6,7 +6,7 @@ var httpService = angular.module('httpService', []);
 // User Data Service
 httpService.factory('httpServ', ['$http',
     function($http) {
-        var urlBase = 'http://localhost:8080/otg';
+        var urlBase = 'http://localhost:80/otg';
         //var urlBase = 'http://10.87.16.152:8080/';
         //var urlBase2 = 'http://10.87.16.152:3306/dlapp';
         
@@ -20,6 +20,10 @@ httpService.factory('httpServ', ['$http',
                 
                 getAllUsers: function() {
                     return $http.get(urlBase + '/allusers');
+                },
+                
+                getServerTime: function() {
+                    return $http.get(urlBase + '/servertime');
                 },
                 
                 getUserByMail: function(userEmail) {

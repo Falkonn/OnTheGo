@@ -13,7 +13,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
-import org.eclipse.persistence.sessions.serializers.JSONSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +32,7 @@ import com.google.gson.JsonParser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
@@ -52,6 +52,22 @@ public class UserCont {
     public ArrayList<User> getUsers() {
         UserInfo user = new UserInfo();
         return new ArrayList<User>(user.getUsers());
+    }
+
+    @RequestMapping(
+            value = "/servertime",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public long getServerTimeDiff() {
+        long timeNow = System.currentTimeMillis();
+        System.out.println("Time now " + timeNow);
+        //time in Date formate
+        Date date = new Date(timeNow);
+        //the event time is 
+        long eventTime = 1446832800000L;
+
+        long timeDiff = timeNow - eventTime;
+        return timeDiff;
     }
 
     @RequestMapping(
@@ -176,14 +192,14 @@ public class UserCont {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String getUserConfirmData(@RequestBody String confirmedUser, HttpServletResponse res) throws MessagingException {
 
-        Gson gson = new Gson();  
+        Gson gson = new Gson();
         JsonParser jsonParser = new JsonParser();
         JsonElement jsonElement = jsonParser.parse(confirmedUser);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         User confirmedUserObject = gson.fromJson(jsonObject, User.class);
         UserInfo user = new UserInfo();
         User updatedUser = user.updateUser(confirmedUserObject);
-        
+
         String serializedUser = gson.toJson(updatedUser);
         if (updatedUser != null) {
             System.out.println("Found User with this id");
@@ -246,7 +262,7 @@ public class UserCont {
             ImageIO.write(bfi, "png", outputfile);
             System.out.println("Image file written successfully");
             updatePic up = new updatePic();
-            up.addPic(userId+".png", userId);
+            up.addPic(userId + ".png", userId);
 
             // ImageIO.write(bfi, "png", outputfile);
             System.out.println("Image saved");
@@ -257,4 +273,5 @@ public class UserCont {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
+
 }
