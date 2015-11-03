@@ -757,7 +757,7 @@ section {
 }
 
 #schedule .event {
-    background-color: rgba(199,234,251,1.0);
+    background-color: rgba(132,206,242,1.0);
     padding: 0.7em;
     font-size: 1.2em;
     text-transform: uppercase;
@@ -834,15 +834,15 @@ section {
 .myTeam {
     background: rgba(0,170,231,1.0) !important; 
     border-radius: 1px !important; 
-    border: 5px solid rgba(0,147,208,1.0) !important;
+    border: 2px solid rgba(0,147,208,1.0) !important;
 }
 
 #scoreboard tr:nth-of-type(odd) {
-  background-color: rgba(255,244,253,1.0);
+  background-color: rgba(132,206,242,1.0);
  }
- 
+
 #scoreboard tr:nth-of-type(even) {
-  background-color: rgba(199,234,251,1.0);
+  background-color: rgba(140,210,251,1.0);
 }
 
 #portfolio .portfolio-item {
