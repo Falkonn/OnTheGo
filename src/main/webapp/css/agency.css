@@ -7,7 +7,7 @@
 body {
     overflow-x: hidden;
     font-family: "Raleway","brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #ffea00;
+    background: -webkit-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed;
     webkit-tap-highlight-color: #fed136;
     
    
@@ -519,74 +519,6 @@ section {
 .break-image {
     padding: 0px 1px 0px 1px;
 }
-
-#schedule .break {
-    
-}
-
-#schedule .orangeborder {
-}
-
-#schedule table, .table-responsive {
-    width: 100%;
-    border:  1px solid #ffd105; 
-}
-
-#schedule td {
-    padding: 0 1em 1em 1em;
-    color: #4c4d4f;
-    font-size: 0.8em;
-    border-top: 2px solid #fff6d2;
-    border-bottom: 4px solid #fff6d2;
-    text-transform: uppercase;
-}
-#schedule th {
-    text-align: left;
-    text-transform: uppercase;
-    font-size: 1em;
-    color: #4c4d4f;
-    background-color: #ffea00;
-    border: none;
-}
-
-#schedule tr:nth-of-type(odd) {
-  background-color: #ffec82;
- }
-#schedule tr:nth-of-type(even) {
-  background-color: #fff6d2;
-}
-
-#schedule .tid {
-      background-color: #ffea50;
-      padding: 1em;
-      font-size: 1.5em;
-      /*if we want blue text*/
-      /*color: #0093d0;  */                                   
-}
-
-
-#schedule .event {
-      background-color: #ffec82;
-      padding: 0.7em;
-
-      font-size: 1.2em;
-}
-
- #schedule .eventinfo {
-     text-transform: none;
- }
-
-
-#schedule .rast {
-      background-color: #fff1ab;
-      padding: 0.6em;
-
-      font-size: 1.2em;
-}
-
- #schedule .rastinfo {
-     text-transform: none;
- }
  
 .glyphicon-group:before {
     content: "\e044";
@@ -759,6 +691,12 @@ section {
     text-transform: none;
 }
 
+#party .cover {
+    top: 40%;
+    width: 100%;
+    text-align: center;
+}
+
 #party .party-map {
     width: 100%;
 }
@@ -786,21 +724,78 @@ section {
     margin-top: 80px;
 }
 
+/*#schedule tr:nth-of-type(odd) {
+  background-color: #ffec82;
+ }
+#schedule tr:nth-of-type(even) {
+  background-color: #fff6d2;
+}*/
+
+#schedule .tid {
+    background-color: rgba(0,170,231,1.0);
+    padding: 1em;
+    font-size: 1em;
+}
+
+.tid > .element-heading {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.tid > element-text {
+    font-size: 1em;
+}
+
+#schedule .event {
+    background-color: rgba(132,206,242,1.0);
+    /*background-color: #ffec82;*/
+    padding: 0.7em;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+ #schedule .eventinfo {
+     text-transform: none;
+ }
+
+
+#schedule .rast {
+      background-color: transparent;
+      padding: 0.6em;
+      font-size: 1.2em;
+}
+
+#schedule .rastinfo {
+     text-transform: none;
+ }
+
 #scoreboard table, #scoreboard .table-responsive, #schedule table, #schedule .table-responsive {
     width: 100%;
-    border-color: #fff6d2;
+    border-collapse:collapse;
+    border-color: transparent;
+}
+
+#schedule td, #scoreboard td {
+    padding: 0 1em 1em 1em;
+    color: #000;
+    font-size: 0.8em;
+    border: none;
+}
+
+#schedule th {
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 1em;
+    color: #4c4d4f;
+    border: none;
 }
 
 #scoreboard .break-padding {
     padding: 8px 0 8px 0;
 }
 
-#scoreboard td, #schedule td {
-    color: #4c4d4f;
-    font-size: 0.8em;
-    border-top: 1px solid #ffd105;
-    border-bottom: 2px solid #ffd105;
-}
 #scoreboard th, #schedule th {
     text-transform: uppercase;
     font-size: 1em;
@@ -809,12 +804,12 @@ section {
     border: none;
 }
 
-#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
+/*#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
   background-color: #ffec82;
  }
 #scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
-}
+}*/
 
 #portfolio .portfolio-item {
     right: 0;
