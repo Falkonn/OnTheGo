@@ -79,11 +79,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             var data = { "userId": mv.userId, "teamId": mv.teamId};
             console.log(data);
                  httpServ.getTasksAndPoints(JSON.stringify(data)).then(function(response){ 
-                    mv.loading = false;                    
+                    mv.loading = false;                   
+                    var tasks = [];
                     // Success - Save tasks in localStorage
-                    for (var i=0 ; i < response.data.length ; i++){
-                        $localStorage.tasks[i] = JSON.parse(response.data[i]);
+                    for (var i=0 ; i < response.data.length ; i++){                        
+                        tasks[i] = JSON.parse(response.data[i]);
                     }
+                    $localStorage.tasks = tasks;
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
                     mv.loading = false;
@@ -91,6 +93,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             });
         }
         else if($location.url()==='/scoreboard'){
+            console.log("asdsd");
              // Load all the teams
             httpServ.getAllTeams().then(function(response){
                 // Success - Save team and members in localStorage
