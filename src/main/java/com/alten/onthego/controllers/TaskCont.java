@@ -52,7 +52,7 @@ public class TaskCont {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
         int userId = jsonObject.get("userId").getAsInt();
-        int teamId = jsonObject.get("teamId").getAsInt();
+        long teamId = jsonObject.get("teamId").getAsLong();
 
         System.out.print("userId" + userId + "teamId" + teamId);
 

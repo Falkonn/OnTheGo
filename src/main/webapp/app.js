@@ -20,55 +20,61 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 title: 'Register',
                 templateUrl: 'partials/register.html',
                 controller: 'registerController',
-                controllerAs: 'regCtrl'
+                controllerAs: 'regCtrl',
             }).
             when('/confirm', {
                 title: 'Confirmation',
                 templateUrl: 'partials/confirm.html',
                 controller: 'registerController',
-                controllerAs: 'regCtrl'
+                controllerAs: 'regCtrl',
             }).
             when('/team', {
                 title: 'Mitt Team',
                 templateUrl: 'partials/team.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
             }).
             when('/assignments', {
                 title: 'Uppgifter',
                 templateUrl: 'partials/assignments.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
             }).
             when('/scoreboard', {
                 title: 'Poängtavla',
                 templateUrl: 'partials/scoreboard.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
             }).
             when('/party', {
                 title: 'Festen',
                 templateUrl: 'partials/party.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
             }).
             when('/schedule', {
                 title: 'Konferensen',
                 templateUrl: 'partials/schedule.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
             }).
             when('/map', {
                 title: 'Festinfo',
                 templateUrl: 'partials/map.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
             }).
             when('/about', {
                 title: 'Appinfo',
                 templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
-                controllerAs: 'mainCtrl'
+                controllerAs: 'mainCtrl',
+            }).
+            when('/logout', {
+                title: 'Logga ut',
+                templateUrl: 'partials/logout.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl',
             }).
             otherwise({
                 redirectTo: 'index.html'
