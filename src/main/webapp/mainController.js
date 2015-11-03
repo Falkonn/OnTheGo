@@ -1,5 +1,5 @@
 
-var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage', 'ngSanitize' ])
+var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'cacheService', 'ngStorage', 'ngSanitize' ])
 
 .controller('mainController',['$scope', '$sce', 'httpServ', 'cameraServ', '$localStorage', '$location', '$route', 
     function ($scope, $sce, httpServ, cameraServ, $localStorage, $location, $route) {
@@ -91,7 +91,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             });
         }
         else if($location.url()==='/scoreboard'){
-            console.log("asdsd");
              // Load all the teams
             httpServ.getAllTeams().then(function(response){
                 // Success - Save team and members in localStorage
@@ -240,10 +239,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.logOut = function(){
-            var user = $localStorage.user;
-            // Reset but keep user data in localStorage
-            $localStorage.$reset();
-            $localStorage.user = user;
+            $localStorage.loggedIn = false;
             $location.path('/');
         };
         

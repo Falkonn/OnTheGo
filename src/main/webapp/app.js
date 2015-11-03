@@ -14,7 +14,7 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 title: 'Welcome',
                 templateUrl: 'partials/welcome.html',
                 controller: 'registerController',
-                controllerAs: 'regCtrl',
+                controllerAs: 'regCtrl'
             }).
             when('/register', {
                 title: 'Register',
