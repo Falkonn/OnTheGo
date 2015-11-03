@@ -1,5 +1,5 @@
 
-var registerModule = angular.module('registerModule', ['httpService',  'cacheService', 'ngStorage', 'ngRoute']);
+var registerModule = angular.module('registerModule', ['httpService', 'ngStorage', 'ngRoute']);
 
 
 registerModule.controller('registerController',['$scope','httpServ', '$localStorage', '$location', '$route', 

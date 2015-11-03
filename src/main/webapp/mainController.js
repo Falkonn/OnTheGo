@@ -1,5 +1,5 @@
 
-var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'cacheService', 'ngStorage', 'ngSanitize' ])
+var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage', 'ngSanitize' ])
 
 .controller('mainController',['$scope', '$sce', 'httpServ', 'cameraServ', '$localStorage', '$location', '$route', 
     function ($scope, $sce, httpServ, cameraServ, $localStorage, $location, $route) {
