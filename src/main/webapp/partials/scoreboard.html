@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <section id="scoreboard">
     
     <!--<div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="spinningwheel" /></div>-->
@@ -13,12 +7,28 @@ and open the template in the editor.
         <!-- Score descriptions -->
         <div>
             <table class="table table-responsive">
-                <thead class="">
+                <thead class="tid">
                     <th>Nr.</th>
                     <th class="break-padding">Team</th>
                     <th class="text-right">Poäng</th>
                 </thead>
-                <tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'" ng-class="'my-team'">
+                <!--<tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'" ng-class="'my-team'">-->
+                    <td>
+                        <p>94</p>
+                    </td>
+                    <td class="break-padding">There will be blood oranges</td>
+                    <td class="text-right">666</td>
+                <!--</tr>-->
+            </table>
+        </div>
+        <div>
+            <table class="table table-responsive">
+                <thead class="tid">
+                    <th>Nr.</th>
+                    <th class="break-padding">Team</th>
+                    <th class="text-right">Poäng</th>
+                </thead>
+                <tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'" ng-class="{myTeam: isThisMyTeam(teamAndScore)}">
                     <td>{{$index + 1}}</td>
                     <td class="break-padding">{{teamAndScore.teamName}} ({{teamAndScore.teamId}})</td>
                     <td class="text-right">{{teamAndScore.teamScore + "p"}}</td>

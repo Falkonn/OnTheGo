@@ -27,6 +27,12 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
+        console.log("hasUserMedia is " + mv.hasUserMedia);
+        mv.getHasUserMedia = function(){
+            console.log("asdas");
+            return mv.hasUserMedia;
+        };
+        
         // Close Camera if open
         if(mv.hasUserMedia){         
             var video = cameraServ.getLocalVideo();
@@ -166,9 +172,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             var teamId = $localStorage.team[0];
            
             if(team.teamId === teamId)             
-                return "my-team";   
+                return true;   
             else
-                return "other-teams";
+                return false;
         };
       
         mv.getImageUrl = function(member){ 
