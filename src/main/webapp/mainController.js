@@ -1,8 +1,8 @@
 
 var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'cameraService', 'ngStorage', 'ngSanitize' ])
 
-.controller('mainController',['$scope', '$sce', 'httpServ', 'cameraServ', '$localStorage', '$location', '$route', 
-    function ($scope, $sce, httpServ, cameraServ, $localStorage, $location, $route) {
+.controller('mainController',['$scope', '$sce', 'httpServ', 'cameraServ', '$localStorage', '$location', '$route', '$timeout',
+    function ($scope, $sce, httpServ, cameraServ, $localStorage, $location, $route, $timeout) {
         
         var mv = $scope;
         
@@ -176,6 +176,68 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             else
                 return false;
         };
+        
+        mv.getServerTime = function(){
+            httpServ.getServerTime().then(function(response){
+                
+                mv.countDownHours = ((((response.data/1000)/60)/60));
+                mv.countDownMinutes = (mv.countDownHours - parseInt(mv.countDownHours))*60;
+                mv.countDownSeconds = (mv.countDownMinutes - parseInt(mv.countDownMinutes))*60;
+                 
+                mv.hours = parseInt(mv.countDownHours);
+                mv.minutes = parseInt(mv.countDownMinutes);
+                mv.seconds = parseInt(mv.countDownSeconds);
+                mv.hou = mv.hours;
+                mv.min = mv.minutes;
+                mv.sec = mv.seconds;
+                
+                mv.onTimeout = function(){
+                    if (mv.seconds > 0) {
+                        mv.sec = --mv.seconds;
+                        mytimeout = $timeout(mv.onTimeout,1000);
+                    }
+                    else if(mv.minutes > 0) {
+                        mv.seconds=59;
+                        mv.sec = 59;
+                        mv.min = --mv.minutes;
+                        mytimeout = $timeout(mv.onTimeout,1000);
+                    }
+                    else if(mv.hours > 0){
+                        mv.minutes = 59;
+                        mv.seconds = 59;
+                        mv.min = 59;
+                        mv.sec = 59;
+                        mv.hour = --mv.hours; 
+                        mytimeout = $timeout(mv.onTimeout,1000);
+                    }
+                    
+                    if (mv.seconds<=9)
+                        mv.sec = "0" + mv.seconds;
+                    if(mv.minutes<=9)
+                        mv.min = "0" + mv.minutes;
+                    if(mv.hours<=9)
+                        mv.hou = "0" + mv.hours;
+                    
+                    if(mv.hours<=0 && mv.minutes<=0 && mv.seconds<=0){
+                        mv.countDownTimer = "Refresh!";
+                        mv.partyStarted = true;
+                    }
+                    else{
+                        mv.countDownTimer = mv.hou+":"+mv.min+":"+mv.sec;
+                    }
+                };
+                var mytimeout = $timeout(mv.onTimeout,1000);
+                
+                if(response.data <= 0)
+                    mv.partyStarted = true;
+
+            }, function(response){
+                    mv.partyStarted = false;
+            });
+        };
+         
+        mv.getServerTime();
+               
       
         mv.getImageUrl = function(member){ 
             var urlBase = "../img/selfie/";

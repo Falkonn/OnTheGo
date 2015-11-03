@@ -85,8 +85,8 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                     scope: true,
                     template: '<a class="btn btn-primary" ng-click="takeSnapshot()" ng-show="!photoTaken">Ta Bild</a>\n\
                                <form class="form-inline text-center" name="" ng-show="photoTaken" ng-submit="sendImage(saveImage)">\n\
-                                <input class="btn btn-primary" type="submit" value="Spara" ng-click="saveImage = true" />\n\
-                                <input class="btn btn-primary" type="submit" value="Avbryta" ng-click="saveImage = false" />\n\
+                                <input class="btn btn-primary" type="submit" value="Spara" ng-show="showButtons" ng-click="saveImage = true" />\n\
+                                <input class="btn btn-primary" type="submit" value="Avbryta" ng-show="showButtons" ng-click="saveImage = false" />\n\
                                </form>',
                     link: function (scope, ele, attrs, cameraCtrl) {
                         scope.takeSnapshot = function () {
@@ -97,6 +97,7 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                                         var imageData = image.split(',')[1];
                                         var data = {"userId": scope.userId, "imageData": imageData};
                                         scope.data= data;
+                                        scope.showButtons = true;
                                         // Pause the camera
                                         cameraCtrl.pauseCamera();
                                     });                        
@@ -107,6 +108,7 @@ var cameraModule = angular.module('cameraModule', ['cameraService', 'httpService
                                 httpServ.postImage(scope.data).success(function (response) {
                                     // Image sent successfully
                                     console.log("Selfie Image posted!");
+                                    scope.showButtons = false;
                                 }, function (response) {
                                     console.log(response);
                                 });
