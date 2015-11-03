@@ -8,15 +8,15 @@ body {
     overflow-x: hidden;
     font-family: "Raleway","brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     background: #ffea00;
+    background: -o-linear-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed; /* For Opera 11.1 to 12.0 */
+    background: -moz-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed; /* For Firefox 3.6 to 15 */
     background: -webkit-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed;
     webkit-tap-highlight-color: #fed136;
     
    
 
    /*Trying gradient with background*/
-   /* background: -webkit-linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* For Safari 5.1 to 6.0 */
-   /* background: -o-linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* For Opera 11.1 to 12.0 */
-   /* background: -moz-linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* For Firefox 3.6 to 15 */
+   
    /* background: linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* Standard syntax */
 }
 .container {
@@ -401,6 +401,8 @@ fieldset[disabled] .btn-xl.active {
 
 #dl_navigation li > a {
     color: #fff;
+    padding-left: 11px;
+    padding-right: 11px;
 }
 
 .dl-ul {
@@ -531,6 +533,12 @@ section {
  
 .glyphicon-group:before {
     content: "\e044";
+}
+.spinningwheel {
+   position: absolute;
+   top: 50%;
+   width: 100%;
+   text-align: center; 
 }
 
 #welcome h1 {
@@ -733,14 +741,7 @@ section {
     margin-top: 80px;
 }
 
-/*#schedule tr:nth-of-type(odd) {
-  background-color: #ffec82;
- }
-#schedule tr:nth-of-type(even) {
-  background-color: #fff6d2;
-}*/
-
-#schedule .tid {
+#schedule .tid, #scoreboard .tid {
     background-color: rgba(0,170,231,1.0);
     padding: 1em;
     font-size: 1em;
@@ -759,10 +760,15 @@ section {
 
 #schedule .event {
     background-color: rgba(132,206,242,1.0);
-    /*background-color: #ffec82;*/
     padding: 0.7em;
     font-size: 1.2em;
     text-transform: uppercase;
+}
+
+#scoreboard .event {
+    padding: 0.7em;
+    font-size: 1.0em;
+    text-transform: uppercase;    
 }
 
  #schedule .eventinfo {
@@ -804,33 +810,41 @@ section {
     text-align: left;
     text-transform: uppercase;
     font-size: 1em;
+    background-color: #0093d0;
     color: #4c4d4f;
     border: none;
 }
 
 #scoreboard .break-padding {
-    padding: 8px 0 8px 0;
+    padding: 1em 0 1em 0;
 }
 
-#scoreboard th, #schedule th {
+#scoreboard th {
     text-transform: uppercase;
     font-size: 1em;
-    color: #4c4d4f;
-    background-color: #ffea00;
+    color: #fff;
+    background-color: #0093d0;
     border: none;
 }
 
-.myTeam {
-         background: #ff0000 !important; 
-         border-radius: 1px !important; 
-         border: 5px solid #000 !important;
+#scoreboard p {
+    line-height: 1.25;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
 }
 
-#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
-  background-color: #ffec82;
+.myTeam {
+    background: rgba(0,170,231,1.0) !important; 
+    border-radius: 1px !important; 
+    border: 2px solid rgba(0,147,208,1.0) !important;
+}
+
+#scoreboard tr:nth-of-type(odd) {
+  background-color: rgba(132,206,242,1.0);
  }
-#scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
-  background-color: #fff6d2;
+
+#scoreboard tr:nth-of-type(even) {
+  background-color: rgba(140,210,251,1.0);
 }
 
 #portfolio .portfolio-item {
@@ -1357,6 +1371,11 @@ img::-moz-selection {
     margin-top: 0.7em;
 }
 
+.navbar-footer > navbar-right {
+    float: right;
+    clear: left;
+}
+
 .navbar-brand {
     white-space: nowrap;
     box-sizing: border-box;
@@ -1380,6 +1399,7 @@ img::-moz-selection {
 @media (min-width: 768px) {
   .menu-list {
     float: right;
+    
   }
 }
 

@@ -1,7 +1,12 @@
 <!-- Main Section -->
 <section id="team">
-    <div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="text-center" /></div>
-    <div ng-show="!loading && failDb"><span class="text-center" ng-model="failDbMessage">{{failDbMessage}}</span></div>
+    <!--<div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="spinningwheel" /></div>-->
+    <div class="spinningwheel">
+        <div ng-show="loading && !failDb" class="spinner-loader"></div>
+    </div>
+    <div ng-show="!loading && failDb">
+        <span class="text-center" ng-model="failDbMessage">{{failDbMessage}}</span>
+    </div>
     <div class="container" ng-show="!loading && !failDb">
         <div class="row team-name">
             <table>
