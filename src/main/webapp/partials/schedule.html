@@ -1,11 +1,11 @@
 <!-- Main Section -->
 <section id="schedule">
     <div class="container">
-            <table class="table table-responsive orangeborder">
-
+            <table class="table table-responsive">
                         <tr>
                             <td class="tid">
-                                11:30: Dagen startar på Clarion Post
+                                <div class="element-heading">11:30 Clarion Post</div>
+                                <div class="element-text"></div>
                             </td>
                         </tr>
                         <tr>
@@ -34,6 +34,12 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="tid">
+                                <div class="element-heading">Andra passet</div>
+                                <div class="element-text"></div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="event">
                                 <span class="text-weighted">Branschpanelen</span>
                                <br>
@@ -55,22 +61,23 @@
                                 <span class="text-weighted">Power break</span>
                             </td>
                         </tr>
-                        
                         <tr>
-                            <td class="tid">18:00: Dagen avslutas </td>
+                            <td class="tid">
+                                <div class="element-heading">18:00 Dagen avslutas</div>
+                                <div class="element-text"></div>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="rast">
+                            <td class="event">
                                 <span class="text-weighted"> Ombyte och AW i Baren</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="tid">
-                               19:00: Buss till Festen
+                                <div class="element-heading">19:00 Buss till Festen</div>
+                                <div class="element-text"></div>
                             </td>
                         </tr>
-                
-
             </table> 
     </div>
     <div ng-hide="mv.loggedIn" ng-include="'partials/footer_team.html'"></div>
