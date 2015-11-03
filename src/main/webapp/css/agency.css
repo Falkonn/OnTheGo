@@ -786,7 +786,7 @@ section {
     margin-top: 80px;
 }
 
-#scoreboard table, #scoreboard .table-responsive, #schedule table, #schedule .table-responsive {
+#scoreboard table, #scoreboard .table-responsive, #scoreboard .other-teams, #schedule table, #schedule .table-responsive {
     width: 100%;
     border-color: #fff6d2;
 }
@@ -815,6 +815,10 @@ section {
 #scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
 }
+
+#scoreboard tr > .my-team {
+     border: 1px solid #fed136;
+ }
 
 #portfolio .portfolio-item {
     right: 0;

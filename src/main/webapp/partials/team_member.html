@@ -13,8 +13,9 @@
                 <a ng-click="enabled=!enabled" ng-show="!enabled">Ändra bild</a>
                 <camera ng-if="enabled">
                     <camera-control-snapshot> </camera-control-snapshot>
-                </camera>                          
+                </camera>
                 <canvas style="display: none"> </canvas>
+                <input type="file" accept="image/*" capture="camera"/>​
             </td>
             </tr>
             </table>
