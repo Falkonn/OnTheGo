@@ -70,6 +70,12 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl'
             }).
+            when('/logout', {
+                title: 'Logga ut',
+                templateUrl: 'partials/logout.html',
+                controller: 'mainController',
+                controllerAs: 'mainCtrl'
+            }).
             otherwise({
                 redirectTo: 'index.html'
             });

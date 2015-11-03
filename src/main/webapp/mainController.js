@@ -28,11 +28,9 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
         // Close Camera if open
-        if(mv.hasUserMedia){
-            
+        if(mv.hasUserMedia){         
             var video = cameraServ.getLocalVideo();
             var stream = cameraServ.getLocalStream();
-            console.log("video " + video + "stream" + stream);
             if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
             {
                 video.pause();
@@ -239,8 +237,16 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
-        };   
-
+        };
+        
+        mv.logOut = function(){
+            var user = $localStorage.user;
+            // Reset but keep user data in localStorage
+            $localStorage.$reset();
+            $localStorage.user = user;
+            $location.path('/');
+        };
+        
 //////////// HELP FUNCTIONS
         mv.checkTaskType = function(taskType, expected){
             if(taskType === expected){
