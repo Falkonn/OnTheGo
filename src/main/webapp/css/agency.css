@@ -733,13 +733,6 @@ section {
     margin-top: 80px;
 }
 
-/*#schedule tr:nth-of-type(odd) {
-  background-color: #ffec82;
- }
-#schedule tr:nth-of-type(even) {
-  background-color: #fff6d2;
-}*/
-
 #schedule .tid, #scoreboard .tid {
     background-color: rgba(0,170,231,1.0);
     padding: 1em;
@@ -759,10 +752,15 @@ section {
 
 #schedule .event {
     background-color: rgba(132,206,242,1.0);
-    /*background-color: #ffec82;*/
     padding: 0.7em;
     font-size: 1.2em;
     text-transform: uppercase;
+}
+
+#scoreboard .event {
+    padding: 0.7em;
+    font-size: 1.0em;
+    text-transform: uppercase;    
 }
 
  #schedule .eventinfo {
@@ -804,20 +802,27 @@ section {
     text-align: left;
     text-transform: uppercase;
     font-size: 1em;
+    background-color: #0093d0;
     color: #4c4d4f;
     border: none;
 }
 
 #scoreboard .break-padding {
-    padding: 8px 0 8px 0;
+    padding: 1em 0 1em 0;
 }
 
-#scoreboard th, #schedule th {
+#scoreboard th {
     text-transform: uppercase;
     font-size: 1em;
     color: #fff;
     background-color: #0093d0;
     border: none;
+}
+
+#scoreboard p {
+    line-height: 1.25;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
 }
 
 .myTeam {
@@ -826,12 +831,12 @@ section {
          border: 5px solid #000 !important;
 }
 
-#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
+#scoreboard tr:nth-of-type(odd) {
   background-color: rgba(132,206,242,1.0);
  }
  
-#scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
-  background-color: #fff6d2;
+#scoreboard tr:nth-of-type(even) {
+  background-color: rgba(199,234,251,1.0);
 }
 
 #portfolio .portfolio-item {

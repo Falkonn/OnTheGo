@@ -7,23 +7,39 @@
             <table class="table table-responsive">
                 <thead class="tid">
                     <th>Nr.</th>
-                    <th class="break-padding">Team</th>
+                    <th>Team</th>
                     <th class="text-right">Poäng</th>
                 </thead>
                 <!--<tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'" ng-class="'my-team'">-->
-                    <td>
+                <tr>
+                    <td class="event">
                         <p>94</p>
                     </td>
-                    <td class="break-padding">There will be blood oranges</td>
-                    <td class="text-right">666</td>
-                <!--</tr>-->
+                    <td class="event break-padding">
+                        <p>There will be blood</p>
+                    </td>
+                    <td class="event text-right">
+                        <p>666</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="event">
+                        <p>94</p>
+                    </td>
+                    <td class="event break-padding">
+                        <p>There will be blood oranges</p>
+                    </td>
+                    <td class="event text-right">
+                        <p>666</p>
+                    </td>
+                </tr>
             </table>
         </div>
         <div>
             <table class="table table-responsive">
                 <thead class="tid">
                     <th>Nr.</th>
-                    <th class="break-padding">Team</th>
+                    <th>Team</th>
                     <th class="text-right">Poäng</th>
                 </thead>
                 <tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'" ng-class="{myTeam: isThisMyTeam(teamAndScore)}">
