@@ -8,15 +8,15 @@ body {
     overflow-x: hidden;
     font-family: "Raleway","brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     background: #ffea00;
+    background: -o-linear-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed; /* For Opera 11.1 to 12.0 */
+    background: -moz-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed; /* For Firefox 3.6 to 15 */
     background: -webkit-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed;
     webkit-tap-highlight-color: #fed136;
     
    
 
    /*Trying gradient with background*/
-   /* background: -webkit-linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* For Safari 5.1 to 6.0 */
-   /* background: -o-linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* For Opera 11.1 to 12.0 */
-   /* background: -moz-linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* For Firefox 3.6 to 15 */
+   
    /* background: linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* Standard syntax */
 }
 .container {
@@ -401,6 +401,8 @@ fieldset[disabled] .btn-xl.active {
 
 #dl_navigation li > a {
     color: #fff;
+    padding-left: 11px;
+    padding-right: 11px;
 }
 
 .dl-ul {
@@ -1369,6 +1371,11 @@ img::-moz-selection {
     margin-top: 0.7em;
 }
 
+.navbar-footer > navbar-right {
+    float: right;
+    clear: left;
+}
+
 .navbar-brand {
     white-space: nowrap;
     box-sizing: border-box;
@@ -1392,6 +1399,7 @@ img::-moz-selection {
 @media (min-width: 768px) {
   .menu-list {
     float: right;
+    
   }
 }
 
