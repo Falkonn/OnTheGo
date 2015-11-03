@@ -844,7 +844,7 @@ section {
  }
 
 #scoreboard tr:nth-of-type(even) {
-  background-color: rgba(140,210,251,1.0);
+  background-color: rgba(145,219,251,1.0);
 }
 
 #portfolio .portfolio-item {
