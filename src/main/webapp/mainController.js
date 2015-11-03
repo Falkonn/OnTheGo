@@ -15,6 +15,11 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             mv.prevIndex = 1;
             mv.refreshImage = true;
             mv.random = Math.random();
+            // Loading from Db
+            mv.loading = true;
+            // Failed to load from Db
+            mv.failDb = false;
+            mv.failDbMessage = "Kunde inte ladda information från databas. Prova att uppdatera sidan.";
         };
         
         // Run Init 
@@ -23,14 +28,11 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
         // Close Camera if open
-        if(mv.hasUserMedia){
-            
+        if(mv.hasUserMedia){         
             var video = cameraServ.getLocalVideo();
             var stream = cameraServ.getLocalStream();
-            console.log("video " + video + "stream" + stream);
             if((video!==null && typeof video!== 'undefined') && (stream!==null && typeof stream!== 'undefined'))
             {
-                console.log("aaa");
                 video.pause();
                 stream.stop();
             }
@@ -73,16 +75,19 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          */
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
-                 httpServ.getTasksAndPoints(JSON.stringify(data)).success(function(response){
-                    $localStorage.tasks = response;
+            console.log(data);
+                 httpServ.getTasksAndPoints(JSON.stringify(data)).then(function(response){ 
+                    mv.loading = false;                   
+                    var tasks = [];
                     // Success - Save tasks in localStorage
-                    for (var i=0 ; i < response.length ; i++){
-                        $localStorage.tasks[i] = JSON.parse(response[i]);
-                        console.log($localStorage.tasks[i]);
+                    for (var i=0 ; i < response.data.length ; i++){                        
+                        tasks[i] = JSON.parse(response.data[i]);
                     }
+                    $localStorage.tasks = tasks;
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
-                    console.log(response);
+                    mv.loading = false;
+                    mv.failDb = true;
             });
         }
         else if($location.url()==='/scoreboard'){
@@ -92,11 +97,12 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 mv.allTeams = response.data;
                 var getScoreByTeamId = function(t){
                     httpServ.getTeamScoreByTeamId(mv.allTeams[t].teamId).then(function(response){
+                        mv.loading = false;
                         // Success - Save team and members in localStorage
                         mv.allTeams[t].teamScore = response.data;                       
                     }, function(response){
-                        // Failed to load score of a team                   
-                        console.log(response);
+                        mv.loading = false;
+                        mv.failDb = true;
                     });
                 };
                 // Load the Scores of all teams
@@ -107,7 +113,32 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             }, function(response){
                 // Failed to load teams 
                 console.log(response);
+                mv.loading = false;
+                mv.failDb = true;
             });           
+        }
+        else if($location.url()==='/team'){
+            // Load the team and members of the user's team
+            mv.getTeam = function() {
+                httpServ.getTeamByUserId(mv.userId).then(function(response){
+                    mv.loading = false;
+                    // Success - Save team and members in localStorage
+                    $localStorage.team = response.data;
+                    /////////////////////// GRUPPER OCH DESS MEDLEMMAR
+                    mv.team = {
+                            "teamNumber":       $localStorage.team[0],
+                            "teamName":         $localStorage.team[1],
+                            "numberOfMembers":  $localStorage.team[2],
+                            "members":          $localStorage.team[3]
+                    };
+                    mv.team.score = mv.getTeamScore();
+                }, function(response){
+                    console.log(response);
+                    mv.loading = false;
+                    mv.failDb = true;
+                });
+            };
+            mv.getTeam();
         }
         
         mv.teamPlacement = function(score, index){
@@ -123,27 +154,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 
         };
       
-        // Load the team and members of the user's team
-        mv.getTeam = function() {
-            httpServ.getTeamByUserId(mv.userId).success(function(response){
-                // Success - Save team and members in localStorage
-                $localStorage.team = response;
-                /////////////////////// GRUPPER OCH DESS MEDLEMMAR
-                mv.team = {
-                        "teamNumber":       $localStorage.team[0],
-                        "teamName":         $localStorage.team[1],
-                        "numberOfMembers":  $localStorage.team[2],
-                        "members":          $localStorage.team[3]
-                };
-                mv.team.score = mv.getTeamScore();
-            }, function(response){
-                // Failed to load teams from db
-              //  t.badresult = "" + response.status;
-            });
-        };
-        
-        mv.getTeam();
-        
         mv.getImageUrl = function(member){ 
             var urlBase = "../img/selfie/";
             var imageUrl = urlBase + member.picId + "?cb=" +  mv.random;  
@@ -226,8 +236,13 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
-        };   
-
+        };
+        
+        mv.logOut = function(){
+            $localStorage.loggedIn = false;
+            $location.path('/');
+        };
+        
 //////////// HELP FUNCTIONS
         mv.checkTaskType = function(taskType, expected){
             if(taskType === expected){
