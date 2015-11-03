@@ -56,7 +56,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.checkStringForURLS = function(text) {
             var re = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/g; 
             var str = 'Någon text som inte är en länk och sedan en http://www.alten.se för att sedan ha lite mer text https://www.google.com, asd.';
-            var subst = '<a href="$1$2$3" target=_blank>$3</a>'; 
+            var subst = '<a href="http://$3" target=_blank>$3</a>';
             var result = $sce.trustAsHtml(text.replace(re, subst));
             return result;
         };
