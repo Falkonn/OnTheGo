@@ -7,6 +7,7 @@
 body {
     overflow-x: hidden;
     font-family: "Raleway","brandon_grotesque_regularRg","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background: #ffea00;
     background: -webkit-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed;
     webkit-tap-highlight-color: #fed136;
     
@@ -389,9 +390,17 @@ fieldset[disabled] .btn-xl.active {
     border-color: #222 !important;
 }
 
+.navbar-inverse{
+    background-color: rgba(0,0,0,0.8);
+}
+
 #dl_navigation li {
-    height: 45px;
-    font-size: 16px;
+    height: 40px;
+    font-size: 15px;
+}
+
+#dl_navigation li > a {
+    color: #fff;
 }
 
 .dl-ul {
@@ -426,7 +435,7 @@ fieldset[disabled] .btn-xl.active {
 
 #dl_navigation button {
     color: #FFF;
-    background-color: #222;
+    background-color: transparent;
     border: none;
 }
 
@@ -745,7 +754,7 @@ section {
 
 .tid > .element-heading {
     font-size: 1.4em;
-    font-weight: bold;
+    /*font-weight: bold;*/
     color: #fff;
     text-transform: uppercase;
 }
@@ -810,12 +819,16 @@ section {
     border: none;
 }
 
-/*#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
+#scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
   background-color: #ffec82;
  }
 #scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
-}*/
+}
+
+#scoreboard tr > .my-team {
+     border: 1px solid #fed136;
+ }
 
 #portfolio .portfolio-item {
     right: 0;
@@ -1328,7 +1341,7 @@ img::selection {
 
 img::-moz-selection {
     background: 0 0;
-}
+} 
 
 .navbar-fixed-bottom {
 /*    margin-bottom: -1em;*/
