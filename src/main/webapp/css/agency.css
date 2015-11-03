@@ -740,7 +740,7 @@ section {
   background-color: #fff6d2;
 }*/
 
-#schedule .tid {
+#schedule .tid, #scoreboard .tid {
     background-color: rgba(0,170,231,1.0);
     padding: 1em;
     font-size: 1em;
@@ -793,14 +793,6 @@ section {
     border: none;
 }
 
-#schedule th {
-    text-align: left;
-    text-transform: uppercase;
-    font-size: 1em;
-    color: #4c4d4f;
-    border: none;
-}
-
 #scoreboard .break-padding {
     padding: 8px 0 8px 0;
 }
@@ -808,14 +800,15 @@ section {
 #scoreboard th, #schedule th {
     text-transform: uppercase;
     font-size: 1em;
-    color: #4c4d4f;
-    background-color: #ffea00;
+    color: #fff;
+    background-color: #0093d0;
     border: none;
 }
 
 #scoreboard tr:nth-of-type(odd), #schedule tr:nth-of-type(odd) {
-  background-color: #ffec82;
+  background-color: rgba(132,206,242,1.0);
  }
+ 
 #scoreboard tr:nth-of-type(even), #schedule tr:nth-of-type(even) {
   background-color: #fff6d2;
 }
