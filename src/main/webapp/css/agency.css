@@ -523,6 +523,12 @@ section {
 .glyphicon-group:before {
     content: "\e044";
 }
+.spinningwheel {
+   position: absolute;
+   top: 20%;
+   width: 100%;
+   text-align: center; 
+}
 
 #welcome h1 {
     font-size: 2em;

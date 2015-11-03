@@ -5,7 +5,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <section id="scoreboard">
-    <div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="text-center" /></div>
+    
+    <!--<div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="spinningwheel" /></div>-->
+    <div ng-show="loading && !failDb"><div class="spinner-loader spinningwheel"></div></div>
     <div ng-show="!loading && failDb"><span class="text-center">{{failDbMessage}}</span></div>
     <div class="container" ng-show="!loading && !failDb">
         <!-- Score descriptions -->
