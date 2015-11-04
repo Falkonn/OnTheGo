@@ -115,9 +115,9 @@ a.active {
     outline: 0;
 }
 
-a {
+/*a {
     color: #0093D0;
-}
+}*/
 
 a:hover,
 a:focus,
@@ -288,6 +288,13 @@ fieldset[disabled] .btn-xl.active {
 
 #team body {
     font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  body {
+    line-height: 1.75;
+    font-size: 1.6em;
+  }
 }
 
 #team .team-name table {
@@ -741,7 +748,7 @@ section {
     margin-top: 80px;
 }
 
-#schedule .tid, #scoreboard .tid {
+#schedule .tid, #scoreboard .tid, #team .tid {
     background-color: rgba(0,170,231,1.0);
     padding: 1em;
     font-size: 1em;
@@ -749,7 +756,7 @@ section {
 
 .tid > .element-heading {
     font-size: 1.4em;
-    /*font-weight: bold;*/
+    line-height: 1.5;
     color: #fff;
     text-transform: uppercase;
 }
@@ -1417,26 +1424,46 @@ img::-moz-selection {
 }
 
 .memberMe {
-    background-color: #f5f5f5;
-    border-radius: 0.5em;
-    border: 1px solid #ccc;
-    margin-top: 0.5em;
+    background-color: rgba(0,170,231,1.0);
+    color: rgba(0,0,0,1.0);
+    margin-bottom: 1.5em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+}
+
+@media (min-width: 1200px) {
+  .memberMe {
+    background-color: rgba(0,170,231,1.0);
+    color: rgba(0,0,0,1.0);
+    margin-bottom: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    height: 245px;
+  }
 }
 
 .member {
-    background-color: #ffec82;
-    border-radius: 0.5em;
-    border: 1px solid #ffd105;
-    margin-top: 0.5em;
+    background-color: rgba(132,206,242,1.0);
+    color: rgba(0,0,0,1.0);
+    margin-bottom: 1.5em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 }
 
+@media (min-width: 1200px) {
+  .member {
+    background-color: rgba(132,206,242,1.0);
+    color: rgba(0,0,0,1.0);
+    margin-bottom: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    height: 245px;
+  }
+}
 
 .img-circle {
     border: 1px solid #aaa;
+    max-height: 210px;
 }
 
 /* Doesn't work - Changing accordion header background color */
