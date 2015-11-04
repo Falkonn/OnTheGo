@@ -1424,18 +1424,18 @@ img::-moz-selection {
 }
 
 .memberMe {
-    background-color: rgba(0,170,231,1.0);
+    background-color: rgba(132,206,242,1.0);
     color: rgba(0,0,0,1.0);
-    margin-bottom: 1.5em;
+    /*margin-bottom: 1.5em;*/
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 }
 
 @media (min-width: 1200px) {
   .memberMe {
-    background-color: rgba(0,170,231,1.0);
+    background-color: rgba(132,206,242,1.0);
     color: rgba(0,0,0,1.0);
-    margin-bottom: 1.5em;
+    /*margin-bottom: 1.5em;*/
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     height: 245px;
@@ -1443,18 +1443,23 @@ img::-moz-selection {
 }
 
 .member {
-    background-color: rgba(132,206,242,1.0);
+    background-color: rgba(199,234,251,1.0);
     color: rgba(0,0,0,1.0);
-    margin-bottom: 1.5em;
+    /*margin-bottom: 1.5em;*/
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 }
 
+.membericon {
+   font-size: 1.5em;
+   margin: 0px auto; 
+}
+
 @media (min-width: 1200px) {
   .member {
-    background-color: rgba(132,206,242,1.0);
+    background-color: rgba(199,234,251,1.0);
     color: rgba(0,0,0,1.0);
-    margin-bottom: 1.5em;
+    /*margin-bottom: 1.5em;*/
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     height: 245px;
@@ -1463,7 +1468,7 @@ img::-moz-selection {
 
 .img-circle {
     border: 1px solid #aaa;
-    max-height: 210px;
+    /*max-height: 210px;*/
 }
 
 /* Doesn't work - Changing accordion header background color */
