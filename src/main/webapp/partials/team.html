@@ -1,18 +1,18 @@
 <!-- Main Section -->
 <section id="team">
     <!--<div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="spinningwheel" /></div>-->
-    <div class="spinningwheel">
+    <!--<div class="spinningwheel">
         <div ng-show="loading && !failDb" class="spinner-loader"></div>
-    </div>
-    <div ng-show="!loading && failDb">
-        <span class="text-center" ng-model="failDbMessage">{{failDbMessage}}</span>
-    </div>
+        <div ng-show="!loading && failDb">
+            <span class="text-center" ng-model="failDbMessage">{{failDbMessage}}</span>
+        </div>
+    </div>-->
     <div class="container" ng-show="!loading && !failDb">
         <div class="row team-name">
             <table>
                 <tr>
-                    <td class="section-heading bottom text-center">
-                        <h3>Team {{team.teamNumber}}: <br>{{team.teamName}}</h3>
+                    <td class="tid section-heading bottom text-center">
+                        <p class="element-heading">Team {{team.teamNumber}}: <br>{{team.teamName}}</p>
                     </td>
                 </tr>
             </table>
@@ -22,7 +22,6 @@
                 <div ng-include="'partials/team_member.html'"></div>
             </div>
         </div>
-        
         <div class="row" ng-repeat="member in team.members | isNotUser:userId">
             <div class="member">
                 <div ng-include="'partials/team_member.html'"></div>
