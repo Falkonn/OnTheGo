@@ -18,7 +18,7 @@
                 <tr ng-repeat="teamAndScore in allTeams | orderBy : '-teamScore'" ng-class="{myTeam: isThisMyTeam(teamAndScore)}">
                     <td class="event">{{$index + 1}}</td>
                     <td class="event break-padding">{{teamAndScore.teamName}} ({{teamAndScore.teamId}})</td>
-                    <td class="event text-right">{{teamAndScore.teamScore + "p"}}p</td>
+                    <td class="event text-right">{{teamAndScore.teamScore + "p"}}</td>
                 </tr>
             </table>
         </div>

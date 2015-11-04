@@ -1,21 +1,14 @@
 <!-- Main Section -->
 <section id="party">
     <!-- Take this div and put it on top of the screen before 19:00 -->
-    <div class="container">
+    <div class="container" ng-show="!partyStarted">
         <div class="cover">
             <h3>Festen öppnar 19:00...</h3>
+            <p> Besök denna sida efter 19:00 och du kommer att få en trevlig överraskning. </p>
+            <h2> {{countDownTimer}}</h2>
         </div>
     </div>
-    <div class="container">
-        <!--<div class="jumbotron" ng-show="rules">
-            <h3>Regler</h3>
-            Under dagen har ni ett antal uppgifter att lösa, alla med varierande svårighetsgrad och form. Vissa passar bra på resan till Göteborg, andra är lättare att göra på plats. Lös så många ni vill, på vilket sätt ni vill! Nyckelordet för samtliga uppgifter är ärlighet. Varje avklarad uppgift ger poäng. Är det just ditt lag som ska gå ut som segrare ur poängjakten krävs mer än att bara bocka för uppgifterna, ni måste självklart också kunna visa att ni utfört dem. Hur ni väljer att dokumentera är upp till er, men domarna kräver bevis.  Inget fusk, med andra ord!
-            <p>
-                <button type="button" class="btn btn-primary" ng-model="rules" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                Stäng
-                </button>
-            </p>
-        </div>-->
+    <div class="container"  ng-show="partyStarted">
         <div class="row team-name">
             <table>
                 <tr class="small-margin">
