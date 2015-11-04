@@ -7,13 +7,19 @@ package com.alten.onthego.controllers;
 
 import com.alten.onthego.common.ScoreFunctionality;
 import com.alten.onthego.entity.Score;
+import com.alten.onthego.entity.Team;
 import com.alten.onthego.model.ScoreInfo;
+import com.alten.onthego.model.TeamInfo;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
@@ -92,5 +98,58 @@ public class ScoreCont {
         int scoreSum = scoreboardsum.scoreSum(teamId);
         
         return scoreSum;
+    }
+    
+    @RequestMapping(
+            value = "/teamsAndScores",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getTeamsAndScores() {
+        TeamInfo teamInfo = new TeamInfo();
+        Collection<Team> allTeams = teamInfo.findAllTeams();
+        Iterator teamIter = allTeams.iterator();
+        ScoreFunctionality scoreFunc = new ScoreFunctionality();
+
+        class TeamAndScore{
+            public TeamAndScore(Team team, int scoreSum) {
+                this.team = team;
+                this.scoreSum = scoreSum;
+            }
+            Team team;
+
+            public Team getTeam() {
+                return team;
+            }
+
+            public void setTeam(Team team) {
+                this.team = team;
+            }
+            int scoreSum;
+
+            public int getScoreSum() {
+                return scoreSum;
+            }
+
+            public void setScoreSum(int scoreSum) {
+                this.scoreSum = scoreSum;
+            }
+        }
+        
+        List<TeamAndScore> teamAndScores = new ArrayList<TeamAndScore>();
+        
+        while(teamIter.hasNext()){
+            Team team = (Team)teamIter.next();
+            int scoreSum = scoreFunc.scoreSum((int)team.getTeamId());
+            teamAndScores.add(new TeamAndScore(team,scoreSum));
+           
+        }
+        
+//        Collections.sort(teamAndScores, (TeamAndScore o1, TeamAndScore o2) -> o1.getScoreSum()<o2.getScoreSum()?-1
+//                :o1.getScoreSum()>o2.getScoreSum()?1
+//                        :0);
+        System.out.print("akhsd" + teamAndScores.get(0).getScoreSum());
+        Gson gson = new Gson();
+        String serializedTeamAndScores = gson.toJson(teamAndScores);
+        return serializedTeamAndScores;
     }
 }

@@ -7,6 +7,7 @@ var httpService = angular.module('httpService', []);
 httpService.factory('httpServ', ['$http',
     function($http) {
         var urlBase = 'http://localhost:8080/otg';
+        //var urlBase = 'http://127.0.0.1:80/otg';
         //var urlBase = 'http://10.87.16.152:8080/';
         //var urlBase2 = 'http://10.87.16.152:3306/dlapp';
         
@@ -103,6 +104,10 @@ httpService.factory('httpServ', ['$http',
                 
                 getTeamScoreByTeamId: function(teamId) {
                     return $http.get(urlBase + '/scoreboard/' + teamId);
+                },
+                
+                getTeamsAndScores: function() {
+                    return $http.get(urlBase + '/teamsAndScores/');
                 }
                 
                 //////// Add Score http post services here ///////
