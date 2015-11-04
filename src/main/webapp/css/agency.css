@@ -1450,6 +1450,11 @@ img::-moz-selection {
     padding-bottom: 0.5em;
 }
 
+.membericon {
+   font-size: 1.5em;
+   margin: 0px auto; 
+}
+
 @media (min-width: 1200px) {
   .member {
     background-color: rgba(199,234,251,1.0);
