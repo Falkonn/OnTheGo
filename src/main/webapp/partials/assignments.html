@@ -3,9 +3,9 @@
     <!--<div ng-show="loading && !failDb"><img ng-src="../img/loading_spinner.gif" class="spinningwheel" /></div>-->
     <div class="spinningwheel">
         <div ng-show="loading && !failDb" class="spinner-loader"></div>
-    </div>
-    <div ng-show="!loading && failDb">
-        <span class="text-center">{{failDbMessage}}</span>
+        <div ng-show="!loading && failDb">
+            <span class="text-center">{{failDbMessage}}</span>
+        </div>
     </div>
     <div ng-show="!loading && !failDb"class="container">
         <!--
