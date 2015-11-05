@@ -1,71 +1,74 @@
 <!-- Main Section -->
 <section id="party">
     <!-- Take this div and put it on top of the screen before 19:00 -->
-    <div class="container" ng-show="!partyStarted">
+    <!--<div class="container" ng-show="!partyStarted">
         <div class="cover">
             <h3>Festen öppnar 19:00...</h3>
             <p> Besök denna sida efter 19:00 och du kommer att få en trevlig överraskning. </p>
             <h2> {{countDownTimer}}</h2>
         </div>
-    </div>
+    </div>-->
     <div class="container"  ng-show="partyStarted">
         <div class="row team-name">
             <table>
                 <tr class="small-margin">
-                    <td class="section-heading bottom">
-                        <h5>Tider</h5>
+                    <!--<td class="tid section-heading bottom">-->
+                    <td class="tid section-heading">
+                        <p class="element-heading">Tider</p>
                     </td>
                 </tr>
+            </table>
+            <table class="table table-responsive">
                 <tr>
-                    <td>
+                    <td class="event">
                         <img class="icon-hard-size" src="img/food.png">
                     </td>
-                    <td>
+                    <td class="event">
                         <p  class="no-margin">20:30</p>
                         <p class="text-weighted small-margin">Mat</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="event">
                         <img class="icon-hard-size" src="img/dancefloor_bar.png">
                     </td>
-                    <td>
+                    <td class="event">
                         <p  class="no-margin">20:30 - 22:00 </p>
                         <p class="text-weighted small-margin">Alten DJ</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td  class="event">
                         <img class="icon-hard-size" src="img/floor4-11.png">
                     </td>
-                    <td>
+                    <td  class="event">
                         <p  class="no-margin">22:00</p>
                         <p class="text-weighted small-margin">Våning 4 stänger</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td  class="event">
                         <img class="icon-hard-size" src="img/dancefloor_bar.png">
                     </td>
-                    <td>
+                    <td  class="event">
                         <p  class="no-margin">22:00 - 02:00</p>
                         <p class="text-weighted small-margin">DJ Ronny Reked</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td  class="event">
                         <img class="icon-hard-size" src="img/food.png">
                     </td>
-                    <td>
+                    <td  class="event">
                         <p  class="no-margin">23:00 - 23:45</p>
                         <p class="text-weighted small-margin">Liveband Rock Circus</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td  class="event">
                         <img class="icon-hard-size" src="img/food.png">
                     </td>
-                    <td>
+                    <td  class="event">
                         <p  class="no-margin">00:15 - 01:00</p>
                         <p class="text-weighted small-margin">Liveband Rock Circus</p>
                     </td>
@@ -76,12 +79,11 @@
         <br>
         <br>
         <br>
-        <br>
-        <div class="row team-name">
+        <br><div class="row team-name">
             <table>
                 <tr>
-                    <td class="section-heading bottom">
-                        <h5>Våningsplan</h5>
+                    <td class="tid section-heading bottom">
+                        <p class="element-heading">Våningsplan</p>
                     </td>
                 </tr>
             </table>
@@ -93,35 +95,36 @@
             <div class="col-sm-6 toppadding">
                 <table>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/whisky_bar.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Whiskeybar & Lounge</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <!--<h6 class="text-weighted">&nbsp;&nbsp;Whiskeybar & Lounge</h6>-->
+                            <p class="text-weighted">&nbsp;&nbsp;Whiskeybar & Lounge</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/rnb_hiphop_dancefloor.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;RnB & Hiphop dansgolv</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;RnB & Hiphop dansgolv</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/ping_pong.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Pingis</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Pingis</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/outdoor_space.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Uteplats</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Uteplats</p>
                         </td>
                     </tr>
                 </table>
@@ -134,11 +137,11 @@
             <div class="col-sm-6 toppadding">
                 <table>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/silent_disco.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Silent Disco</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Silent Disco</p>
                         </td>
                     </tr>
                 </table>
@@ -151,19 +154,19 @@
             <div class="col-sm-6 toppadding">
                 <table>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/bar.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Bar</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Bar</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/circus_activities.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Cirkusaktiviteter</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Cirkusaktiviteter</p>
                         </td>
                     </tr>
                 </table>
@@ -176,27 +179,27 @@
             <div class="col-sm-6 toppadding">
                 <table>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/food.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Restaurang & Bar</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Restaurang & Bar</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td  class="event-vaning">
                             <img class="icon-hard-size" src="img/dancefloor_bar.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Dansgolv & Bar</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Dansgolv & Bar</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="event-vaning">
                             <img class="icon-hard-size" src="img/main_entrance.png">
                         </td>
-                        <td class="vertical-al-text">
-                            <h6 class="text-weighted">&nbsp;&nbsp;Huvudentré & Foajé</h6>
+                        <td class="event-vaning vertical-al-text">
+                            <p class="text-weighted">&nbsp;&nbsp;Huvudentré & Foajé</p>
                         </td>
                     </tr>
                 </table>
