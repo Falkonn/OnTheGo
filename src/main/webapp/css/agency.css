@@ -90,8 +90,7 @@ body {
 
 .small-margin {
     margin-bottom: 15px;
-    font-size: 18px;
-    color: #0093D0;
+    font-size: 1em;
 }
 
 .no-margin {
@@ -279,7 +278,7 @@ fieldset[disabled] .btn-xl.active {
     text-align: center;
 }
 
-#team, #party .team-name {
+#team .team-name, #party .team-name {
     margin-left: 0px;
     margin-right: 15px;
     margin-bottom: 15px;
@@ -577,7 +576,7 @@ section {
 }   
 
 #welcome span, #welcome i {
-    font-size: 10em;
+    font-size: 9em;
     display: block; 
     margin: 0px auto;
     text-align: center;
@@ -751,6 +750,7 @@ section {
 
 #party p {
     line-height: 1.25;
+    margin: 0;
 }
 
 #party .vertical-al-text {
@@ -767,7 +767,7 @@ section {
     margin-top: 80px;
 }
 
-#schedule .tid, #scoreboard .tid, #team .tid {
+#schedule .tid, #scoreboard .tid, #team .tid, #party .tid {
     background-color: rgba(0,170,231,1.0);
     padding: 1em;
     font-size: 1em;
@@ -785,6 +785,20 @@ section {
 }
 
 #schedule .event {
+    background-color: rgba(132,206,242,1.0);
+    padding: 0.7em;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+#party .event {
+    background-color: rgba(132,206,242,1.0);
+    /*padding: 0.7em;*/
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+#party .event-vaning {
     background-color: rgba(132,206,242,1.0);
     padding: 0.7em;
     font-size: 1.2em;
@@ -812,7 +826,7 @@ section {
      text-transform: none;
  }
 
-#scoreboard table, #scoreboard .table-responsive, #schedule table, #schedule .table-responsive {
+#scoreboard table, #scoreboard .table-responsive, #schedule table, #schedule .table-responsive, #party table, #party .table-responsive {
     width: 100%;
     border-collapse:collapse;
     border-color: transparent;
@@ -826,6 +840,13 @@ section {
 }
 
 #scoreboard td {
+    padding: 1em 1em 1em 1em;
+    color: #000;
+    font-size: 0.8em;
+    border: none;
+}
+
+#party td {
     padding: 1em 1em 1em 1em;
     color: #000;
     font-size: 0.8em;
@@ -1519,4 +1540,3 @@ img::-moz-selection {
     -moz-opacity: 0;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
-

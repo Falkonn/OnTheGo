@@ -65,7 +65,7 @@ OnTheGo.config(['$routeProvider', '$locationProvider',
                 controllerAs: 'mainCtrl',
             }).
             when('/about', {
-                title: 'Appinfo',
+                title: 'Om appen',
                 templateUrl: 'partials/appinfo.html',
                 controller: 'mainController',
                 controllerAs: 'mainCtrl',
