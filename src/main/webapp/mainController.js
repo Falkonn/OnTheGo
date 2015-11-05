@@ -18,7 +18,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             mv.loading = true;
             // Failed to load from Db
             mv.failDb = false;
-            mv.failDbMessage = "Kunde inte ladda information från databas. Prova att uppdatera sidan.";
+            mv.failDbMessage = "Kunde inte ladda information frÃ¥n databas. Prova att uppdatera sidan.";
             mv.localImage = false;
         };
         
@@ -27,9 +27,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
-        console.log("hasUserMedia is " + mv.hasUserMedia);
         mv.getHasUserMedia = function(){
-            console.log("asdas");
             return mv.hasUserMedia;
         };
         
@@ -53,7 +51,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          */
 //        mv.checkStringForURLS = function(text) {
 //            var re = /(http|ftp|https)(:\/\/)([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g; 
-//            var str = 'Någon text som inte är en länk och sedan en http://www.alten.se för att sedan ha lite mer text https://www.google.com, asd.';
+//            var str = 'NÃ¥gon text som inte Ã¤r en lÃ¤nk och sedan en http://www.alten.se fÃ¶r att sedan ha lite mer text https://www.google.com, asd.';
 //            var subst = '<a href="$1$2$3" target=_blank>$3</a>'; 
 //            var result = $sce.trustAsHtml(text.replace(re, subst));
 //            return result;
@@ -61,7 +59,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
 
         mv.checkStringForURLS = function(text) {
             var re = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/g; 
-            var str = 'Någon text som inte är en länk och sedan en http://www.alten.se för att sedan ha lite mer text https://www.google.com, asd.';
+            var str = 'NÃ¥gon text som inte Ã¤r en lÃ¤nk och sedan en http://www.alten.se fÃ¶r att sedan ha lite mer text https://www.google.com, asd.';
             var subst = '<a href="http://$3" target=_blank>$3</a>';
             var result = $sce.trustAsHtml(text.replace(re, subst));
             return result;
@@ -72,47 +70,67 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             mv.loadingImage = true;
             mv.$apply(function(scope) {
             var photofile = element.files[0];
-            console.log(photofile);
             var reader = new FileReader();
             reader.onload = function(e) {
                // handle onload
                mv.selfieImg = e.target.result;
-               //console.log(mv.selfieImg);
                mv.convertImgToBase64(mv.selfieImg);
                mv.finished = true;
             };
+            reader.onloadend = function() {
+                mv.canvas = document.getElementById("myCanvas");
+                mv.ctx = mv.canvas.getContext('2d');
+                var binaryImg = atob(mv.selfieImg.split(',')[1]);
+                var length = binaryImg.length;
+                var arrayBuffer = new ArrayBuffer(length);
+                var uintArray = new Uint8Array(arrayBuffer);
+                for (var i = 0; i < length; i++) {
+                    uintArray[i] = binaryImg.charCodeAt(i);         
+                }
 
-                reader.readAsDataURL(photofile);
-            //    mv.finished = false;
-            //   console.log(mv.selfieImg);
-            
-            
+                var exif = EXIF.readFromBinaryFile(uintArray);
+
+                switch(exif.Orientation){
+
+                   case 8:
+                       mv.ctx.rotate(90*Math.PI/180);
+                       break;
+                   case 3:
+                       mv.ctx.rotate(180*Math.PI/180);
+                       break;
+                   case 6:
+                       mv.ctx.rotate(-90*Math.PI/180);
+                       break;
+
+
+                }
+            };
+            reader.readAsDataURL(photofile);
+
             });
         };
         
         mv.convertImgToBase64 = function (imageData){
-            var canvas = document.getElementById("myCanvas");
             mv.img = new Image();
             mv.img.onload = function(){
-                canvas.width = 300;//parseInt((300*(mv.img.width))/mv.img.height);
-                canvas.height = 300;//parseInt((300*(mv.img.height))/mv.img.width);
+                mv.canvas.width = 300;//parseInt((300*(mv.img.width))/mv.img.height);
+                mv.canvas.height = 300;//parseInt((300*(mv.img.height))/mv.img.width);
                 mv.myImage = new Image();
                 mv.myImage.onload = function(){
                    
                 };
             };
             mv.img.src = imageData;
-            
-            
-            var ctx = canvas.getContext('2d');
+           
             // Start timer
             mv.onImageSaving = function(){
               if(mv.imageSaving<=0){
-                ctx.fillRect(0,0,300,300);             
-                ctx.drawImage(mv.img, 0, 0, 300, 300);
-                mv.myImage.src = canvas.toDataURL();
+                mv.ctx.fillRect(0,0,300,300);             
+                mv.ctx.drawImage(mv.img, 0, 0, 300, 300);
+                mv.myImage.src = mv.canvas.toDataURL("image/png");
                 mv.localImage = true;
                 mv.loadingImage = false;
+                mv.postImage(true);
               }
               else{
                    mv.imageSaving--;
@@ -125,6 +143,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             var mytimeout = $timeout(mv.onImageSaving,1000);
         };
         
+        
         mv.postImage = function(submitImage) {
                 mv.imageSaved = false;
                 mv.imagePosting = true;
@@ -132,10 +151,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     var data = {"userId": mv.userId, "imageData": mv.myImage.src.split(',')[1]};
                     httpServ.postImage(data).success(function (response) {
                             // Image sent successfully                      
-                            console.log("Selfie Image posted!");
                             mv.imagePosting = false;
                         }, function (response) {
-                            console.log(response);
                     });
                 }
                 else{
@@ -160,7 +177,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          * personal = Boolean - True (do it yourself) or False (do it with the team)
          * taskType = [1|2] where 1=String, 2=Checkbox
          * theme = [1|2|3|4] where 
-         *      1=Gör Själv, 2=Lär känna varandra, 3=Kluringar, 4=På festen
+         *      1=GÃ¶r SjÃ¤lv, 2=LÃ¤r kÃ¤nna varandra, 3=Kluringar, 4=PÃ¥ festen
          * estimation = time estimation for the task to be completed
          * 
          * From SCORE table:
@@ -173,7 +190,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          */
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
-            console.log(data);
                  httpServ.getTasksAndPoints(JSON.stringify(data)).then(function(response){ 
                     mv.loading = false;                   
                     var tasks = [];
@@ -184,7 +200,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     $localStorage.tasks = tasks;
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
-                    console.log("here");
                     mv.loading = false;
                     mv.failDb = true;
             });
@@ -211,7 +226,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 }
             }, function(response){
                 // Failed to load teams 
-                console.log(response);
                 mv.loading = false;
                 mv.failDb = true;
             });           
@@ -232,7 +246,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 };
                 mv.team.score = mv.getTeamScore();
             }, function(response){
-                console.log(response);
                 mv.loading = false;
                 mv.failDb = true;
             });
@@ -241,7 +254,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         
         mv.teamPlacement = function(score, index){
             if(score<mv.prevScore){
-                console.log(index + " " + mv.prevIndex);
                 mv.prevScore = score;
                 mv.prevIndex++;
                 return mv.prevIndex;
@@ -339,9 +351,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
-            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
-                console.log(response);
                 // Score Added successfully
                 if(done){
                     t.result = "Sent successfully!";
@@ -350,7 +360,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     t.userAnswer = answer;
                     t.user = $localStorage.user;
                     t.badresult = false;
-                    console.log("Added Score by " + t.user.firstName + "!");
                 }
                 // Score Deleted successfully
                 else{
@@ -358,20 +367,18 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     t.taskDone = false;
                     t.check = false;
                     t.badresult = false;
-                    console.log("Deleted Score!");
                 }
                 // By reloading everything is updated
                 //$route.reload();
             },
             function(response){
-                console.log(response);
                 // Failure Code received from backend
                 if(response.status === 404)
                 {
                     mv.score = JSON.parse(JSON.stringify(response.data));
                     // Failed to add score (somebody else has already answered it)
                     if(done)
-                        t.result = "Hoppsan! " + mv.score.user.firstName + " har redan svarat på denna fråga. Tryck på \"OK\" så ser du svaret.  ";
+                        t.result = "Hoppsan! " + mv.score.user.firstName + " har redan svarat pÃ¥ denna frÃ¥ga. Tryck pÃ¥ \"OK\" sÃ¥ ser du svaret.  ";
                     // Failed to delete score (task is already cancelled)
                     else
                         t.result = "Failed to cancel task. It is already cancelled by" + mv.score.user.firstName;
@@ -388,17 +395,14 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             });
         };
                
-        mv.assignmentConfirmation = "Glöm inte att du måste kunna bevisa att \n\
-            du/gruppen har utfört uppdraget.";
+        mv.assignmentConfirmation = "GlÃ¶m inte att du mÃ¥ste kunna bevisa att \n\
+            du/gruppen har utfÃ¶rt uppdraget.";
                 
         mv.getTeamScore = function(){
-//            console.log(mv.teamId);
             httpServ.getScoreByTeamId(mv.teamId).success(function(response){
                 $localStorage.team.score = response;
                 mv.team.score = response;
-                console.log("mv.team.score:" + mv.team.score);
             }, function(response){
-                console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
         };
