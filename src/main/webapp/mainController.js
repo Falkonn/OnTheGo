@@ -27,9 +27,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         mv.loggedIn = true;
         mv.rules = 1;
         mv.hasUserMedia = cameraServ.hasUserMedia;
-        console.log("hasUserMedia is " + mv.hasUserMedia);
         mv.getHasUserMedia = function(){
-            console.log("asdas");
             return mv.hasUserMedia;
         };
         
@@ -72,12 +70,10 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             mv.loadingImage = true;
             mv.$apply(function(scope) {
             var photofile = element.files[0];
-            console.log(photofile);
             var reader = new FileReader();
             reader.onload = function(e) {
                // handle onload
                mv.selfieImg = e.target.result;
-               //console.log(mv.selfieImg);
                mv.convertImgToBase64(mv.selfieImg);
                mv.finished = true;
             };
@@ -92,7 +88,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     uintArray[i] = binaryImg.charCodeAt(i);         
                 }
 
-                console.log(uintArray);
                 var exif = EXIF.readFromBinaryFile(uintArray);
 
                 switch(exif.Orientation){
@@ -111,10 +106,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 }
             };
             reader.readAsDataURL(photofile);
-            //    mv.finished = false;
-            //   console.log(mv.selfieImg);
-            
-            
+
             });
         };
         
@@ -159,10 +151,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     var data = {"userId": mv.userId, "imageData": mv.myImage.src.split(',')[1]};
                     httpServ.postImage(data).success(function (response) {
                             // Image sent successfully                      
-                            console.log("Selfie Image posted!");
                             mv.imagePosting = false;
                         }, function (response) {
-                            console.log(response);
                     });
                 }
                 else{
@@ -200,7 +190,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
          */
         if($location.url()==='/assignments'){
             var data = { "userId": mv.userId, "teamId": mv.teamId};
-            console.log(data);
                  httpServ.getTasksAndPoints(JSON.stringify(data)).then(function(response){ 
                     mv.loading = false;                   
                     var tasks = [];
@@ -211,7 +200,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     $localStorage.tasks = tasks;
                     mv.assignments = { "tasks": $localStorage.tasks };
                 }, function(response){
-                    console.log("here");
                     mv.loading = false;
                     mv.failDb = true;
             });
@@ -238,7 +226,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 }
             }, function(response){
                 // Failed to load teams 
-                console.log(response);
                 mv.loading = false;
                 mv.failDb = true;
             });           
@@ -259,7 +246,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 };
                 mv.team.score = mv.getTeamScore();
             }, function(response){
-                console.log(response);
                 mv.loading = false;
                 mv.failDb = true;
             });
@@ -268,7 +254,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         
         mv.teamPlacement = function(score, index){
             if(score<mv.prevScore){
-                console.log(index + " " + mv.prevIndex);
                 mv.prevScore = score;
                 mv.prevIndex++;
                 return mv.prevIndex;
@@ -366,9 +351,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                 answer = "" + t.check;
             var data = {"taskId": t.taskId, "userId": mv.userId, "answer": answer, "taskDone": done };
             // Sending Answer Data 
-            console.log(data);
             httpServ.postTaskAnswer(data).then(function(response){
-                console.log(response);
                 // Score Added successfully
                 if(done){
                     t.result = "Sent successfully!";
@@ -377,7 +360,6 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     t.userAnswer = answer;
                     t.user = $localStorage.user;
                     t.badresult = false;
-                    console.log("Added Score by " + t.user.firstName + "!");
                 }
                 // Score Deleted successfully
                 else{
@@ -385,13 +367,11 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     t.taskDone = false;
                     t.check = false;
                     t.badresult = false;
-                    console.log("Deleted Score!");
                 }
                 // By reloading everything is updated
                 //$route.reload();
             },
             function(response){
-                console.log(response);
                 // Failure Code received from backend
                 if(response.status === 404)
                 {
@@ -419,13 +399,10 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             du/gruppen har utfört uppdraget.";
                 
         mv.getTeamScore = function(){
-//            console.log(mv.teamId);
             httpServ.getScoreByTeamId(mv.teamId).success(function(response){
                 $localStorage.team.score = response;
                 mv.team.score = response;
-                console.log("mv.team.score:" + mv.team.score);
             }, function(response){
-                console.log("Failed to load score from db");
               //  t.badresult = "" + response.status;
             });
         };
