@@ -278,11 +278,19 @@ fieldset[disabled] .btn-xl.active {
     text-align: center;
 }
 
-#team .team-name, #party .team-name {
+#team .team-name {
+
+}
+
+#party .team-name {
     margin-left: 0px;
     margin-right: 15px;
     margin-bottom: 15px;
     width:100%;
+}
+
+#team wide {
+    width: 100%;
 }
 
 #team body {

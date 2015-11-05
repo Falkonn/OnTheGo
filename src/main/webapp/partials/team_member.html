@@ -7,9 +7,9 @@
                     <td ng-show="!enabled">
                         <a href="{{getImageUrl(member)}}">
                             <!-- Image from server shows by default (user) -->
-                            <img ng-show="!localImage && checkUserId(member.userId) "  ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" />
+                            <img ng-show="!localImage && checkUserId(member.userId) " img-fix-orientation="getImageUrl(member)"  ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" />
                             <!-- Local image shows only when fetching it from device -->
-                            <img ng-show="localImage && checkUserId(member.userId)" ng-src="{{myImage.src}}" class="img-responsive img-circle"/>
+                            <img ng-show="localImage && checkUserId(member.userId)" img-fix-orientation="myImage.src" ng-src="{{myImage.src}}" class="img-responsive img-circle"/>
                             <canvas id="myCanvas" width="300" height="300" style="display:none;"></canvas>
                             <!-- Image from server shows by default (other users) -->
                             <img ng-show="!checkUserId(member.userId)"  ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" />
