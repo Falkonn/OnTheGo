@@ -1,25 +1,33 @@
 <div class="col-lg-12 text-center  break-image">
     <table>
     <tr>
-        <td class="col-xs-3">
+        <td class="col-xs-3 break-image">
             <table>
                 <tr>
                     <td ng-show="!enabled">
                         <a href="{{getImageUrl(member)}}">
-                            <img ng-show="!localImage"  ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" />
-                            <div ng-show="imagePosting && checkUserId(member.userId)" class="spinner-loader"></div>
-                            <img ng-show="localImage && checkUserId(member.userId)" ng-src="{{img.src}}" class="img-responsive img-circle"/>
+                            <!-- Image from server shows by default (user) -->
+                            <img ng-show="!localImage && checkUserId(member.userId) "  ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" />
+                            <!-- Local image shows only when fetching it from device -->
+                            <img ng-show="localImage && checkUserId(member.userId)" ng-src="{{myImage.src}}" class="img-responsive img-circle"/>
+                            <canvas id="myCanvas" width="300" height="300" style="display:none;"></canvas>
+                            <!-- Image from server shows by default (other users) -->
+                            <img ng-show="!checkUserId(member.userId)"  ng-src="{{getImageUrl(member)}}" class="img-responsive img-circle" />
                         </a>
+                        <span ng-show="imagePosting && checkUserId(member.userId)" class="spinner-loader"></span>
                     </td>
                 </tr>
                 <tr>
                     <td ng-show="checkUserId(member.userId)">        
-                        <form ng-submit="postImage()">
-                            <input ng-hide="((imageSaving>0 && !imageSaved) || (!(imageSaving>0) && imageSaved)) || imagePosting" onchange="angular.element(this).scope().fileChanged(this)" type="file" accept="image/*" capture="camera" />
-                            <input ng-hide="!imageSaved || enab" ng-click="enab=!enab" type="submit">
-                            <span ng-show="imageSaving>0">Uploading...</span>
+                        <form ng-submit="postImage(submitImage)">
+                            <span class="inputWrapper glyphicon-picture" ng-hide="((imageSaving>0 && !imageSaved) || (!(imageSaving>0) && imageSaved)) || imagePosting">
+                                 Ändra Bild
+                                <input class="fileInput" onchange="angular.element(this).scope().fileChanged(this)" type="file" accept="image/*"/>
+                            </span>
+                            <input ng-hide="!imageSaved || loadingImage " ng-click="submitImage=true" class="btn btn-primary" type="submit" value="Spara" ng-show="showButtons" ng-click="saveImage = true" />
+                            <input ng-hide="!imageSaved || loadingImage" ng-click="submitImage=false" class="btn btn-primary" type="submit" value="Avbryt" ng-show="showButtons" ng-click="saveImage = false" />
+                            <span ng-show="loadingImage" class="spinner-loader"></span>
                         </form>
-                        <canvas style="display: none"> </canvas>
                     </td>
                 </tr>
             </table>
