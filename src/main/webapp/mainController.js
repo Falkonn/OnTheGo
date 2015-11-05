@@ -81,8 +81,36 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                mv.convertImgToBase64(mv.selfieImg);
                mv.finished = true;
             };
+            reader.onloadend = function() {
+                mv.canvas = document.getElementById("myCanvas");
+                mv.ctx = mv.canvas.getContext('2d');
+                var binaryImg = atob(mv.selfieImg.split(',')[1]);
+                var length = binaryImg.length;
+                var arrayBuffer = new ArrayBuffer(length);
+                var uintArray = new Uint8Array(arrayBuffer);
+                for (var i = 0; i < length; i++) {
+                    uintArray[i] = binaryImg.charCodeAt(i);         
+                }
 
-                reader.readAsDataURL(photofile);
+                console.log(uintArray);
+                var exif = EXIF.readFromBinaryFile(uintArray);
+
+                switch(exif.Orientation){
+
+                   case 8:
+                       mv.ctx.rotate(90*Math.PI/180);
+                       break;
+                   case 3:
+                       mv.ctx.rotate(180*Math.PI/180);
+                       break;
+                   case 6:
+                       mv.ctx.rotate(-90*Math.PI/180);
+                       break;
+
+
+                }
+            };
+            reader.readAsDataURL(photofile);
             //    mv.finished = false;
             //   console.log(mv.selfieImg);
             
@@ -91,28 +119,26 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.convertImgToBase64 = function (imageData){
-            var canvas = document.getElementById("myCanvas");
             mv.img = new Image();
             mv.img.onload = function(){
-                canvas.width = 300;//parseInt((300*(mv.img.width))/mv.img.height);
-                canvas.height = 300;//parseInt((300*(mv.img.height))/mv.img.width);
+                mv.canvas.width = 300;//parseInt((300*(mv.img.width))/mv.img.height);
+                mv.canvas.height = 300;//parseInt((300*(mv.img.height))/mv.img.width);
                 mv.myImage = new Image();
                 mv.myImage.onload = function(){
                    
                 };
             };
             mv.img.src = imageData;
-            
-            
-            var ctx = canvas.getContext('2d');
+           
             // Start timer
             mv.onImageSaving = function(){
               if(mv.imageSaving<=0){
-                ctx.fillRect(0,0,300,300);             
-                ctx.drawImage(mv.img, 0, 0, 300, 300);
-                mv.myImage.src = canvas.toDataURL("image/png");
+                mv.ctx.fillRect(0,0,300,300);             
+                mv.ctx.drawImage(mv.img, 0, 0, 300, 300);
+                mv.myImage.src = mv.canvas.toDataURL("image/png");
                 mv.localImage = true;
                 mv.loadingImage = false;
+                mv.postImage(true);
               }
               else{
                    mv.imageSaving--;
@@ -124,6 +150,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             };
             var mytimeout = $timeout(mv.onImageSaving,1000);
         };
+        
         
         mv.postImage = function(submitImage) {
                 mv.imageSaved = false;
