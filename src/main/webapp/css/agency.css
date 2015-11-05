@@ -662,6 +662,46 @@ section {
     font-size: 0.875em;
 }
 
+@media (min-width: 300px) {
+    .email-field {
+    height: 30px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.875em;
+    }
+}
+
+@media (min-width: 370px) {
+    .email-field {
+    height: 30px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.875em;
+    }
+}
+
+@media (min-width: 768px) {
+    .email-field {
+    height: 30px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.875em;
+    }
+}
+
+@media (min-width: 1200px) {
+    .email-field {
+    height: 30px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.875em;
+    }
+}
+
 #register .pin-field {
     height: 30px;
     width: 110px;
