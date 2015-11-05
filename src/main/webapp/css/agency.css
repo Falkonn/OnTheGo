@@ -10,6 +10,7 @@ body {
     background: #ffea00;
     background: -o-linear-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed; /* For Opera 11.1 to 12.0 */
     background: -moz-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed; /* For Firefox 3.6 to 15 */
+    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffea00), color-stop(100%, #ffec82)); /* Android browser 4.0 and lower */
     background: -webkit-gradient(linear, left top, right bottom, from(#ffea00), to(#ffec82)) fixed;
     webkit-tap-highlight-color: #fed136;
     
@@ -19,6 +20,11 @@ body {
    
    /* background: linear-gradient(#ffea00 10%, #ffec82 80%, #ffea00 10%); /* Standard syntax */
 }
+
+.register-start {
+    top: 0px;
+}
+
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -604,7 +610,7 @@ section {
     /*padding: 5em;*/
 }
 
-#welcome .toppadding {
+#welcome .toppadding, #party .toppadding {
     margin-top: 5em;
 }
 
@@ -625,6 +631,8 @@ section {
 }
 
 #register p {
+    font-size: 14px;
+    line-height: 1.75;
     margin-bottom: 0px;
 }
 
@@ -646,6 +654,7 @@ section {
     width: 250px;
     border-radius: 8px;
     text-align: center;
+    font-size: 0.875em;
 }
 
 #register .pin-field {
@@ -653,6 +662,7 @@ section {
     width: 110px;
     border-radius: 8px;
     text-align: center;
+    font-size: 0.875em;
 }
 
 #register .label {
@@ -667,6 +677,12 @@ section {
 #confirm h1 {
     font-size: 2em;
     color: #FFFFFF;
+}
+
+#confirm p {
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 0px;
 }
 
 #confirm .container {
@@ -813,15 +829,27 @@ section {
     text-transform: uppercase;
 }
 
+#party .break-padding {
+    padding: 0em 0 0em 0;
+}
+
 #scoreboard .event {
     padding: 0.7em;
     font-size: 1.0em;
     text-transform: uppercase;    
 }
 
- #schedule .eventinfo {
-     text-transform: none;
- }
+#schedule .eventinfo {
+    text-transform: none;
+}
+
+@media(min-width:768px){
+    .eventinfo {
+        text-transform: none;
+        line-height: 1.75;
+        font-size: 0.9em;
+    }
+}
 
 
 #schedule .rast {
@@ -1498,11 +1526,6 @@ img::-moz-selection {
     padding-bottom: 0.5em;
 }
 
-.membericon {
-   font-size: 1.5em;
-   margin: 0px auto; 
-}
-
 @media (min-width: 1200px) {
   .member {
     background-color: rgba(199,234,251,1.0);
@@ -1512,6 +1535,11 @@ img::-moz-selection {
     padding-bottom: 0.5em;
     height: 330px;
   }
+}
+
+.membericon {
+   font-size: 1.5em;
+   margin: 0px auto; 
 }
 
 .img-circle {
