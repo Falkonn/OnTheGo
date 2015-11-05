@@ -60,7 +60,6 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             httpServ.getUserByMail($scope.userEmail + "/").then(function(response){
                     // Saving User info to localStorage
                     $localStorage.user = response.data[0];
-                    console.log($localStorage.user);
                     // Showing User Info
                     $scope.result = "Hej " + $localStorage.user.firstName + ' ' + $localStorage.user.lastName;
                      // Confirmation that the mail was sent successfully from the backend
@@ -71,7 +70,6 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
                     $scope.hidePin = false;
                 },
                 function(response){
-                    console.log(response.status);
                 });          
     
         }, function (response) {
@@ -112,7 +110,6 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     // Send Confirmation Data and update Db from the backend
     this.sendConfirmData = function() {     
         // Update local values
-        console.log($localStorage.user);
         $localStorage.user.firstName = $scope.userName, 
         $localStorage.user.email = $scope.userEmail,
         $localStorage.user.telefon = $scope.userPhone,
@@ -123,7 +120,6 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
             $scope.loggedIn = true;
             // Redirect to main page
             $location.path('/team');
-            console.log("registered complete");
         }, function (response) {
             console.error(response.status);
         });

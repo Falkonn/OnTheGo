@@ -75,15 +75,15 @@ public class ScoreCont {
             List<Score> scoreList;
             List<Long> teamIdList;
             long teamId;
-            if((teamIdList=userInfo.getTeamIdbyUserId(userId))!=null){
+            if ((teamIdList = userInfo.getTeamIdbyUserId(userId)) != null) {
                 teamId = teamIdList.get(0);
-                if((scoreList=scoreInfo.getScoresByTaskIdAndTeamId(taskId, teamId))!=null){
+                if ((scoreList = scoreInfo.getScoresByTaskIdAndTeamId(taskId, teamId)) != null) {
                     Gson gson = new Gson();
                     String score = gson.toJson(scoreList.get(0));
                     return score;
-                }
-                else
+                } else {
                     return null;
+                }
             }
             return null;
         }
@@ -93,13 +93,13 @@ public class ScoreCont {
             value = "/scoreboard/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public  int getScoreSum(@PathVariable("id") int teamId) {
+    public int getScoreSum(@PathVariable("id") int teamId) {
         ScoreFunctionality scoreboardsum = new ScoreFunctionality();
         int scoreSum = scoreboardsum.scoreSum(teamId);
-        
+
         return scoreSum;
     }
-    
+
     @RequestMapping(
             value = "/teamsAndScores",
             method = RequestMethod.GET,
@@ -110,7 +110,8 @@ public class ScoreCont {
         Iterator teamIter = allTeams.iterator();
         ScoreFunctionality scoreFunc = new ScoreFunctionality();
 
-        class TeamAndScore{
+        class TeamAndScore {
+
             public TeamAndScore(Team team, int scoreSum) {
                 this.team = team;
                 this.scoreSum = scoreSum;
@@ -134,16 +135,16 @@ public class ScoreCont {
                 this.scoreSum = scoreSum;
             }
         }
-        
+
         List<TeamAndScore> teamAndScores = new ArrayList<TeamAndScore>();
-        
-        while(teamIter.hasNext()){
-            Team team = (Team)teamIter.next();
-            int scoreSum = scoreFunc.scoreSum((int)team.getTeamId());
-            teamAndScores.add(new TeamAndScore(team,scoreSum));
-           
+
+        while (teamIter.hasNext()) {
+            Team team = (Team) teamIter.next();
+            int scoreSum = scoreFunc.scoreSum((int) team.getTeamId());
+            teamAndScores.add(new TeamAndScore(team, scoreSum));
+
         }
-        
+
 //        Collections.sort(teamAndScores, (TeamAndScore o1, TeamAndScore o2) -> o1.getScoreSum()<o2.getScoreSum()?-1
 //                :o1.getScoreSum()>o2.getScoreSum()?1
 //                        :0);
@@ -152,4 +153,78 @@ public class ScoreCont {
         String serializedTeamAndScores = gson.toJson(teamAndScores);
         return serializedTeamAndScores;
     }
+//
+//    @RequestMapping(
+//            value = "/socreinorder",
+//            method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public static Collection<Integer> getScoreInOrder() {
+//        ScoreInfo scoreOrder = new ScoreInfo();
+//        Collection<Integer> scorelist;
+//       // scorelist = scoreOrder.getScoreInOrder();
+//        TeamInfo teamInfo = new TeamInfo();
+//        Collection<Team> allTeams = teamInfo.findAllTeams();
+//        Iterator teamIter = allTeams.iterator();
+//        
+//     //   Iterator it = scorelist.iterator();
+//        
+//        class TeamAndScore {
+//            private Team team;
+//            private int scoreSum;
+//            private int position;
+//
+//            public int getPosition() {
+//                return position;
+//            }
+//
+//            public void setPosition(int position) {
+//                this.position = position;
+//            }
+//            
+//            public TeamAndScore(Team team, int scoreSum) {
+//                this.team = team;
+//                this.scoreSum = scoreSum;
+//            }         
+//
+//            public Team getTeam() {
+//                return team;
+//            }
+//
+//            public void setTeam(Team team) {
+//                this.team = team;
+//            }
+//            
+//
+//            public int getScoreSum() {
+//                return scoreSum;
+//            }
+//
+//            public void setScoreSum(int scoreSum) {
+//                this.scoreSum = scoreSum;
+//            }
+//        }
+//        
+//        int pos = 0;
+//        int prevScore = 50000;
+//        
+//        while (it.hasNext()) {     
+//            int score = (int)it.next();
+//            if(prevScore > score){
+//                pos++;
+//                prevScore = score;
+//            }
+//            
+//            System.out.println("the score are " + pos + " "+ score );
+//        }
+//
+//      
+//      
+//        return scorelist;
+//    }
+//    
+//    public static void main(String[] args) {
+//        ScoreInfo s = new ScoreInfo();
+//        System.out.println("the order is" + s.getScoreInOrder());
+//    }
 }
+

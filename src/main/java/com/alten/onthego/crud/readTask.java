@@ -17,7 +17,7 @@ import javax.persistence.EntityManagerFactory;
 public class readTask {
 //the main class here just for testing purpose
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
         EntityManager em = emf.createEntityManager();
         try {
             Task task = em.find(Task.class, 1L);

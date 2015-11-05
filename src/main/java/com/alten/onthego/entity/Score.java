@@ -76,7 +76,7 @@ public class Score implements Serializable {
         this.teamId = teamId;
     }
 
-    public Integer getPoint() {
+    public int getPoint() {
         return point;
     }
 

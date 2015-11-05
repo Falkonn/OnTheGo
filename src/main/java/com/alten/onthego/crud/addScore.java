@@ -20,7 +20,7 @@ import javax.persistence.Persistence;
 public class addScore {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
         EntityManager em = emf.createEntityManager();
 
         try {

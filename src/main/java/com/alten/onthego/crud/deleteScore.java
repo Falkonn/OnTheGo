@@ -18,7 +18,7 @@ import javax.persistence.Persistence;
  */
 public class deleteScore {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     EntityManager em = emf.createEntityManager();
     boolean result = false;
     public boolean execute(int scoreId) {

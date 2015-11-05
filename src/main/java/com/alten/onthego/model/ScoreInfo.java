@@ -10,7 +10,9 @@ import com.alten.onthego.entity.Task;
 import com.alten.onthego.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -23,7 +25,7 @@ import javax.persistence.Query;
  */
 public class ScoreInfo {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     EntityManager em = emf.createEntityManager();
 
     public Collection<Score> getScores() {
@@ -85,6 +87,12 @@ public class ScoreInfo {
         Query scoresbyTaskIdAndTeamIdquery = em.createQuery("SELECT s FROM Score s where s.task.taskId=" + taskId + " AND s.teamId=" + teamId);
         List<Score> results = scoresbyTaskIdAndTeamIdquery.getResultList();
         return results;
+    }
+        
+       public List<Integer> getScoreInOrder() {
+           //"SELECT SUM(s.point) FROM Score s where s.teamId =" + teamId);
+        Query scoreorderquery = em.createQuery("SELECT * FROM Score s ORDER BY SUM(s.point) DESC");
+        return (List<Integer>)scoreorderquery.getResultList();
     }
     
 

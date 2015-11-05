@@ -17,7 +17,7 @@ import javax.persistence.Persistence;
  */
 public class updatePic {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     EntityManager em = emf.createEntityManager();
     boolean picAdded = false;
 

@@ -25,4 +25,5 @@ public class TeamCont {
         TeamInfo allTeams = new TeamInfo();
         return (Collection<Team>) allTeams.findAllTeams();
     }  
+    
 }
