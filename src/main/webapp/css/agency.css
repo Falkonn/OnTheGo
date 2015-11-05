@@ -285,27 +285,47 @@ fieldset[disabled] .btn-xl.active {
 }
 
 #team .team-name {
+
+}
+
+#party .team-name {
     margin-left: 0px;
     margin-right: 15px;
     margin-bottom: 15px;
     width:100%;
 }
 
-#party .team-name {
-    /*margin-left: 0px;*/
-    /*margin-right: 15px;*/
-    /*margin-bottom: 15px;*/
-    /*width:100%;*/
+#team wide {
+    width: 100%;
 }
 
 #team body {
     font-size: 12px;
 }
 
+@media (min-width: 300px) {
+  body {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 370px) {
+  body {
+    font-size: 12px;
+  }
+}
+
 @media (min-width: 768px) {
   body {
     line-height: 1.75;
-    font-size: 1.6em;
+    font-size: 2.0em;
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    line-height: 1.80;
+    font-size: 2.9em;
   }
 }
 
@@ -547,7 +567,7 @@ section {
 }
 
 .break-image {
-    padding: 0px 1px 0px 1px;
+    padding: 5px 5px 5px 5px;
 }
  
 .glyphicon-group:before {
@@ -570,7 +590,7 @@ section {
 }   
 
 #welcome span, #welcome i {
-    font-size: 10em;
+    font-size: 9em;
     display: block; 
     margin: 0px auto;
     text-align: center;
@@ -1494,7 +1514,7 @@ img::-moz-selection {
     /*margin-bottom: 1.5em;*/
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    height: 245px;
+    height: 350px;
   }
 }
 
@@ -1513,7 +1533,7 @@ img::-moz-selection {
     /*margin-bottom: 1.5em;*/
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    height: 245px;
+    height: 330px;
   }
 }
 
@@ -1530,4 +1550,29 @@ img::-moz-selection {
 /* Doesn't work - Changing accordion header background color */
 .panel-default .panel-heading .accordionHeader {
     background-color: #0000ff;
+}
+
+.inputWrapper {
+    height: 32px;
+    width: 64px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    /*Using a background color, but you can use a background image to represent a button*/
+    background-color: transparent;
+    color: #0093D0;
+}
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+    font-size:25px;
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }

@@ -168,16 +168,16 @@ public class UserCont {
                 es.sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen@alten.se", emailAddress,
                         "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
                         + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
-                        + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
-                        + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
+                        + "<br /> Du har samma PIN-kod varje gång du loggar in. Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
+                        + "Med vänliga hälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
                 //es.sendEmail("smtp.gmail.com", "587", "onthego.alten@gmail.com", "rootrootroot", "khaled.nawasreh@gmail.com","anysub", "hi here is email message", null);
                 System.out.println("The email is sent!");
             } else {
                 gmailes.sendEmail("smtp.alten.se", "25", "noreply-destinationlindholmen@alten.se", "Lindholmen2015", emailAddress,
                         "Din PIN-kod Destination Lindholmen", "Hej  " + username + "  " + lastName + ","
                         + "<html> <br /><br /> Välkommen till Destination Lindholmen! <br /> Din PIN-kod är: " + PIN_CODE
-                        + "<br /> Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
-                        + "Med vänliga partyhälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
+                        + "<br /> Du har samma PIN-kod varje gång du loggar in. Kopiera koden och snabba dig tillbaka till inloggningssidan för att aktivera din profil!<br /><br />"
+                        + "Med vänliga hälsningar,<br /> Eventteamet <br />Destination Lindholmen </html>", null);
             }
         } else {
             user.verfyEmail(false);
