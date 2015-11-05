@@ -69,6 +69,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         
         mv.fileChanged = function(element) {
             mv.imageSaving = 2;
+            mv.loadingImage = true;
             mv.$apply(function(scope) {
             var photofile = element.files[0];
             console.log(photofile);
@@ -90,11 +91,15 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         };
         
         mv.convertImgToBase64 = function (imageData){
-            var canvas = document.createElement('canvas');
+            var canvas = document.getElementById("myCanvas");
             mv.img = new Image();
             mv.img.onload = function(){
-                canvas.width = parseInt((300*(mv.img.width))/mv.img.height);
-                canvas.height = parseInt((300*(mv.img.height))/mv.img.width);
+                canvas.width = 300;//parseInt((300*(mv.img.width))/mv.img.height);
+                canvas.height = 300;//parseInt((300*(mv.img.height))/mv.img.width);
+                mv.myImage = new Image();
+                mv.myImage.onload = function(){
+                   
+                };
             };
             mv.img.src = imageData;
             
@@ -103,42 +108,46 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
             // Start timer
             mv.onImageSaving = function(){
               if(mv.imageSaving<=0){
-                ctx.drawImage(mv.img, 0, 0, canvas.width, canvas.height);
-                mv.myImage = new Image();
-                mv.myImage.onload = function(){
-                };
+                ctx.fillRect(0,0,300,300);             
+                ctx.drawImage(mv.img, 0, 0, 300, 300);
                 mv.myImage.src = canvas.toDataURL("image/png");
-                mv.myImage = mv.myImage.src.split(',')[1];
+                mv.localImage = true;
+                mv.loadingImage = false;
               }
               else{
                    mv.imageSaving--;
                    if(mv.imageSaving<=0)
                        mv.imageSaved = true;
-                   console.log(mv.imageSaving);
+
                    mytimeout = $timeout(mv.onImageSaving,1000);
               }
             };
             var mytimeout = $timeout(mv.onImageSaving,1000);
         };
         
-        mv.postImage = function() {
+        mv.postImage = function(submitImage) {
                 mv.imageSaved = false;
                 mv.imagePosting = true;
-                var data = {"userId": mv.userId, "imageData": mv.myImage};
-                httpServ.postImage(data).success(function (response) {
-                        // Image sent successfully                      
-                        console.log("Selfie Image posted!");
-                        mv.imagePosting = false;
-                        mv.localImage = true;
-                    }, function (response) {
-                        console.log(response);
-                });
+                if(submitImage){
+                    var data = {"userId": mv.userId, "imageData": mv.myImage.src.split(',')[1]};
+                    httpServ.postImage(data).success(function (response) {
+                            // Image sent successfully                      
+                            console.log("Selfie Image posted!");
+                            mv.imagePosting = false;
+                        }, function (response) {
+                            console.log(response);
+                    });
+                }
+                else{
+                    mv.localImage = false;
+                    mv.imagePosting = false;
+                }
         };
         
-        mv.getImageUrl = function(member){ 
-            var urlBase = "../img/selfie/"; //26.png
-            var imageUrl = urlBase + member.picId + "?cb=" +  mv.random; 
-            return imageUrl;
+        mv.getImageUrl = function(member){               
+                var urlBase = "../img/selfie/"; 
+                var imageUrl = urlBase + member.picId + "?cb=" +  mv.random;
+                return imageUrl;
         };
         
            

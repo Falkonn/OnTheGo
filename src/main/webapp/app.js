@@ -3,7 +3,7 @@
  *  The Shop App
  */
 var OnTheGo = angular.module('OnTheGo', [
-    'ngRoute', 'registerModule', 'mainModule', 'cameraModule'
+    'ngRoute', 'registerModule', 'mainModule', 'cameraModule', 'cp.ng.fix-image-orientation'
 ]);
 
 OnTheGo.config(['$routeProvider', '$locationProvider',
