@@ -7,7 +7,7 @@
     <class>com.alten.onthego.entity.Team</class>
     <class>com.alten.onthego.entity.User</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://172.18.129.62:3306/dlapp?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.87.16.152:3306/dlapp?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="dlapp-admin"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="AxtT12Fr"/>

@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alten.onthego.common.AltenEmailSender;
 import com.alten.onthego.common.PassEncryption;
+import com.alten.onthego.common.ScoreFunctionality;
 import com.alten.onthego.crud.updatePic;
 import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
+import com.alten.onthego.model.TeamInfo;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -32,6 +34,8 @@ import com.google.gson.JsonParser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -66,7 +70,7 @@ public class UserCont {
         //the event time is 
         long eventTime = 1446832800000L;
 
-        long timeDiff = timeNow - eventTime;
+        long timeDiff = eventTime - timeNow;
         return timeDiff;
     }
 
@@ -239,7 +243,7 @@ public class UserCont {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void getImage(@RequestBody String imagedata, HttpServletResponse response) {
         try {
-
+            System.out.print(imagedata);
             JsonParser jsonParser = new JsonParser();
             JsonElement jsonElement = jsonParser.parse(imagedata);
             JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -249,7 +253,7 @@ public class UserCont {
             byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imageData);
             ByteArrayInputStream baisData = new ByteArrayInputStream(decodedBytes);
 
-            File outputfile = new File("C:\\Tomcat\\apache-tomcat-8.0.28\\work\\Catalina\\localhost\\onthego\\img\\" + userId + ".png");
+            File outputfile = new File("C:\\Users\\vg3164\\Documents\\OnTheGo\\src\\main\\webapp\\img\\selfie\\" + userId + ".png");
 
             System.out.println("file name is: " + outputfile);
             System.out.println("image datais  " + imageData);
@@ -273,5 +277,5 @@ public class UserCont {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
-
+    
 }

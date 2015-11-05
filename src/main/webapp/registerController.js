@@ -7,10 +7,10 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
     
     // Checks if user is logged in and redirect to app-info screen in this case
     $scope.init = function() {
-         
+        // $localStorage.$reset();
         // LoggedIn variable
         $scope.loggedIn = $localStorage.loggedIn;
-        if(typeof $localStorage.user === 'undefined' && $localStorage.user === null){
+        if(typeof $localStorage.user === 'undefined' ||  $localStorage.user === null){
             $scope.hidePin = true;
         }
                 
@@ -133,5 +133,25 @@ registerModule.controller('registerController',['$scope','httpServ', '$localStor
         $route.reload();
     };
 }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
