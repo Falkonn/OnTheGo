@@ -19,6 +19,17 @@
         <url-pattern>/otg/*</url-pattern>
     </servlet-mapping>
     
+   <filter>
+        <filter-name>corsFilter</filter-name>
+        <filter-class>com.alten.onthego.controllers.SimpleCORSFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+    <filter-name>corsFilter</filter-name>
+    <servlet-name>/otg/*</servlet-name>
+    </filter-mapping>
+
+    
  <!-- apply constraint to a URL pattern -->
 <!--    <security-constraint>
         <web-resource-collection>
@@ -48,8 +59,8 @@
         </web-resource-collection>
     </security-constraint>-->
 
-     <!--  Method of authentication -->
-<!--    <login-config>
+    <!--  Method of authentication -->
+    <!--    <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/confirm.html</form-login-page>
@@ -58,8 +69,8 @@
         <realm-name>OTGRealm</realm-name>
     </login-config>-->
 
-     <!--  Define your roles -->
-<!--    <security-role>
+    <!--  Define your roles -->
+    <!--    <security-role>
         <role-name>OTGUser</role-name>
     </security-role>-->
 

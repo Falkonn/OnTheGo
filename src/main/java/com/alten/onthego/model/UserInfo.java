@@ -26,7 +26,7 @@ import javax.persistence.Query;
 public class UserInfo {
 
     private static List<User> userinfo = new ArrayList<User>();
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     EntityManager em = emf.createEntityManager();
 
     public List<User> getUsers() {

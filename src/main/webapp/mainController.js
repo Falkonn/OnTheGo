@@ -110,7 +110,7 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
               if(mv.imageSaving<=0){
                 ctx.fillRect(0,0,300,300);             
                 ctx.drawImage(mv.img, 0, 0, 300, 300);
-                mv.myImage.src = canvas.toDataURL("image/png");
+                mv.myImage.src = canvas.toDataURL();
                 mv.localImage = true;
                 mv.loadingImage = false;
               }

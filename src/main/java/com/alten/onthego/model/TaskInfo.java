@@ -19,7 +19,7 @@ import javax.persistence.Query;
  */
 public class TaskInfo {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     EntityManager em = emf.createEntityManager();
 
     public Collection<Task> findAllTasks() {

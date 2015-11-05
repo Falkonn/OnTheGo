@@ -31,7 +31,7 @@ public class ScoreFunctionality {
     public List<Integer> scoreList;
     public List<Integer> usersList, socoreIds, possibleUser;
     public List<Score> teamSocreList, personSocreList, socoreIdList, taskStatus;
-    public EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    public EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     public EntityManager em = emf.createEntityManager();
 
     public boolean scoreFunction(long taskId, int userId, String answer, boolean add) {

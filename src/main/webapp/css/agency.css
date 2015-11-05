@@ -579,6 +579,11 @@ section {
     color: #FFFFFF;
 }
 
+#register .error-label {
+    font-size: 14px;
+    color: #e74c3c;
+}
+
 #welcome .container {
         position: relative;
 }   

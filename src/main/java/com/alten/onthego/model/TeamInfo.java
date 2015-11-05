@@ -21,7 +21,7 @@ import javax.persistence.Query;
 public class TeamInfo {
 
     private static List<Team> teaminfo = new ArrayList<Team>();
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dlapp");
     EntityManager em = emf.createEntityManager();
 
     public Collection<Team> findAllTeams() {

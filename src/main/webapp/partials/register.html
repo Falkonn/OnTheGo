@@ -17,10 +17,11 @@
             <form class="form-group" name="mailForm"  ng-submit="regCtrl.sendEmail()">
                 <div class="form-group">
                     <input class="center-block email-field form text-center" type="email" name="email" ng-model="userEmail" required>
-                    <span style="color: #ed1c24" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">
+                    <span class="error-text" style="color: #ed1c24" ng-show="mailForm.email.$dirty && mailForm.email.$invalid">
                         <span ng-show="mailForm.email.$error.required">Skriv in din e-postadress.</span> 
                         <span ng-show="mailForm.email.$error.email">Ogiltig e-postadress.</span>
-                    </span>        
+                    </span>
+    
                 </div>
                 <input class="btn btn-lg btn-primary center-block" value="Skicka e-post " type="submit" ng-disabled="mailForm.email.$dirty && mailForm.email.$invalid">
             </form>
@@ -37,7 +38,7 @@
                     <div class="form-group">
                         <input class="center-block pin-field form text-center" type="password" ng-model="userPin" name="pin" ng-pattern="/^[0-9]{4,4}$/" required>
                         <span class="text-center" style="color:#ed1c24" ng-show="pinForm.pin.$dirty">
-                            <span ng-show="pinForm.pin.$error.required">Du måste skriva in din PIN-kod.</span>
+                            <span class="error-text" ng-show="pinForm.pin.$error.required">Du måste skriva in din PIN-kod.</span>
                             <span ng-show="pinForm.pin.$error.pattern">Ogiltig PIN-kod.</span>
                         </span>
                     </div>

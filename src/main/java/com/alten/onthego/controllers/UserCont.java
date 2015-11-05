@@ -31,6 +31,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -253,7 +257,7 @@ public class UserCont {
             byte[] decodedBytes = DatatypeConverter.parseBase64Binary(imageData);
             ByteArrayInputStream baisData = new ByteArrayInputStream(decodedBytes);
 
-            File outputfile = new File("C:\\Users\\vg3164\\Documents\\OnTheGo\\src\\main\\webapp\\img\\selfie\\" + userId + ".png");
+            File outputfile = new File("C:\\Tomcat\\apache-tomcat-8.0.28-windows-x64\\apache-tomcat-8.0.28\\webapps\\ROOT\\img\\selfie\\" + userId + ".png");
 
             System.out.println("file name is: " + outputfile);
             System.out.println("image datais  " + imageData);
@@ -271,11 +275,25 @@ public class UserCont {
             // ImageIO.write(bfi, "png", outputfile);
             System.out.println("Image saved");
             bfi.flush();
+            
+            
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
+    
+//    public BufferedImage transformImage(BufferedImage image, AffineTransform transform) throws Exception {
+//
+//    AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
+//
+//    BufferedImage destinationImage = op.createCompatibleDestImage(image,  (image.getType() == BufferedImage.TYPE_BYTE_GRAY)? image.getColorModel() : null );
+//    Graphics2D g = destinationImage.createGraphics();
+//    g.setBackground(Color.WHITE);
+//    g.clearRect(0, 0, destinationImage.getWidth(), destinationImage.getHeight());
+//    destinationImage = op.filter(image, destinationImage);;
+//    return destinationImage;
+//}
     
 }
