@@ -289,10 +289,10 @@ fieldset[disabled] .btn-xl.active {
 }
 
 #party .team-name {
-    margin-left: 0px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    width:100%;
+    /*margin-left: 0px;*/
+    /*margin-right: 15px;*/
+    /*margin-bottom: 15px;*/
+    /*width:100%;*/
 }
 
 #team wide {
@@ -304,26 +304,26 @@ fieldset[disabled] .btn-xl.active {
 }
 
 @media (min-width: 300px) {
-  body {
+  #team body {
     font-size: 11px;
   }
 }
 
 @media (min-width: 370px) {
-  body {
+  #team body {
     font-size: 12px;
   }
 }
 
 @media (min-width: 768px) {
-  body {
+  #team body {
     line-height: 1.75;
     font-size: 2.0em;
   }
 }
 
 @media (min-width: 1200px) {
-  body {
+  #team body {
     line-height: 1.80;
     font-size: 2.9em;
   }
@@ -611,7 +611,7 @@ section {
 }
 
 #welcome .toppadding, #party .toppadding {
-    margin-top: 5em;
+    margin-top: 3em;
 }
 
 #welcome, #register, #confirm {
@@ -761,6 +761,10 @@ section {
     top: 40%;
     width: 100%;
     text-align: center;
+}
+
+#party .party-back {
+    background-color: rgba(132,206,242,1.0);
 }
 
 #party .party-map {
