@@ -1,6 +1,6 @@
 'use strict';
 /* 
- *  The Shop App
+ *  On the Go Application
  */
 var OnTheGo = angular.module('OnTheGo', [
     'ngRoute', 'registerModule', 'mainModule', 'cameraModule',

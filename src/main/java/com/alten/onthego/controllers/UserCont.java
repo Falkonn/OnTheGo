@@ -21,30 +21,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alten.onthego.common.AltenEmailSender;
 import com.alten.onthego.common.PassEncryption;
-import com.alten.onthego.common.ScoreFunctionality;
 import com.alten.onthego.crud.updatePic;
 import com.alten.onthego.entity.Team;
 import com.alten.onthego.entity.User;
-import com.alten.onthego.model.TeamInfo;
 import com.alten.onthego.model.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
+// User Controller - POST AND GET concerning user information 
 @RestController
 public class UserCont {
 
@@ -53,14 +46,25 @@ public class UserCont {
     public static String idstring;
     public static ArrayList<String> idlists = new ArrayList<String>();
 
-    @RequestMapping(
-            value = "/users",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList<User> getUsers() {
-        UserInfo user = new UserInfo();
-        return new ArrayList<User>(user.getUsers());
-    }
+    /* GET all users information as JSON data - Use this only for debugging */  
+//    @RequestMapping(
+//            value = "/users",
+//            method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ArrayList<User> getUsers() {
+//        UserInfo user = new UserInfo();
+//        return new ArrayList<User>(user.getUsers());
+//    }
+    
+     /* GET all users information as JSON data - Use this only for debugging */
+//    @RequestMapping(
+//            value = "/allusers",
+//            method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public Collection<User> getAllUsers() {
+//        UserInfo allusers = new UserInfo();
+//        return (Collection<User>) allusers.findAllUsers();
+//    }
 
     @RequestMapping(
             value = "/servertime",
@@ -71,20 +75,11 @@ public class UserCont {
         System.out.println("Time now " + timeNow);
         //time in Date formate
         Date date = new Date(timeNow);
-        //the event time is 
+        //the event time is (2015-11-06, 19:00)
         long eventTime = 1446832800000L;
 
         long timeDiff = eventTime - timeNow;
         return timeDiff;
-    }
-
-    @RequestMapping(
-            value = "/allusers",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<User> getAllUsers() {
-        UserInfo allusers = new UserInfo();
-        return (Collection<User>) allusers.findAllUsers();
     }
 
     @RequestMapping(

@@ -41,7 +41,7 @@ public class Score implements Serializable {
     @Column(name = "point")
     private Integer point;
     @Column(name = "task_done")
-    private boolean taskDone;
+    private Boolean taskDone;
     @Column(name = "user_answer")
     private String userAnswer;
 

@@ -7,19 +7,24 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
         
         // Init values
         mv.init = function() {
-            mv.userId = $localStorage.user.userId;
-            mv.teamId = $localStorage.user.team.teamId;
-                 
-            mv.prevScore = 0;
-            mv.prevIndex = 1;
-            mv.refreshImage = true;
-            mv.random = Math.random();
-            // Loading from Db
-            mv.loading = true;
-            // Failed to load from Db
-            mv.failDb = false;
-            mv.failDbMessage = "Kunde inte ladda information frÃ¥n databas. Prova att uppdatera sidan.";
-            mv.localImage = false;
+            if($localStorage.loggedIn){
+                mv.userId = $localStorage.user.userId;
+                mv.teamId = $localStorage.user.team.teamId;
+
+                mv.prevScore = 0;
+                mv.prevIndex = 1;
+                mv.refreshImage = true;
+                mv.random = Math.random();
+                // Loading from Db
+                mv.loading = true;
+                // Failed to load from Db
+                mv.failDb = false;
+                mv.failDbMessage = "Kunde inte ladda information frÃ¥n databas. Prova att uppdatera sidan.";
+                mv.localImage = false;
+            }
+            else{
+                $location.path('/');
+            }
         };
         
         // Run Init 
@@ -197,8 +202,8 @@ var mainModule = angular.module('mainModule', ['ui.bootstrap', 'httpService', 'c
                     for (var i=0 ; i < response.data.length ; i++){                        
                         tasks[i] = JSON.parse(response.data[i]);
                     }
-                    $localStorage.tasks = tasks;
-                    mv.assignments = { "tasks": $localStorage.tasks };
+                    
+                    mv.assignments = { "tasks": tasks};
                 }, function(response){
                     mv.loading = false;
                     mv.failDb = true;
